@@ -218,7 +218,7 @@ input[id="saveId"]:checked + .checkbox_fake::after{
     color: white;
 }
 
-.right_content_login>input {
+.right_content_login>button {
 	display: inline-block;
 	width: 100%;
 }

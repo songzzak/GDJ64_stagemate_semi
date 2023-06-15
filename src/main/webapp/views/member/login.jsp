@@ -30,18 +30,17 @@
     				</div>
     			</div>
     		</div>
-    		<form action="<%= contextPath %>/" method="post" onsubmit="return validateAccount();"
-    				class="login-form-right centering-children">
+    		<form class="login-form-right centering-children" id="loginForm">
     			<div class="form-right_content">
     				<h3 class="fw-bold" style="letter-spacing :0.1rem;">LOGIN</h3>
-    				<div id="invalidAccount"></div>
+    				<div id="accessFailed"></div>
     				<div class="right_content_account">
     					<div>
-							<input id="userId" name="userId" placeholder="아이디" onfocus="this.placeholder = ''"
+							<input type="" id="userId" name="userId" placeholder="아이디" onfocus="this.placeholder = ''"
                     				onblur="this.placeholder = '아이디'">
 						</div>
 						<div>
-							<input type="password" id="userPw" name="비밀번호" placeholder="비밀번호" onfocus="this.placeholder = ''"
+							<input type="password" id="password" name="password" placeholder="비밀번호" onfocus="this.placeholder = ''"
                     onblur="this.placeholder = '비밀번호'">
 						</div>
     				</div>
@@ -57,7 +56,8 @@
 						</div>
     				</div>
     				<div class="right_content_login">
-    					<input type="submit" class="btn-layout btn-login" value="입장하기">
+    					<button type="button" class="btn-layout btn-login" 
+    							onclick="validateAccount();">입장하기</button>
     				</div>
     			</div>
     		</form>
@@ -70,30 +70,54 @@
 <!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 <script>
 const validateAccount = () => {
-	const userId = $('#userId');
-	const userPw = $('#userPw');
-	const invalidAccount = $("#invalidAccount");
+	const userId = $('#userId').val();
+	const password = $('#password').val();
+	const saveId = $('#saveId').is(":checked");
+	const accessFailed = $("#accessFailed");
 	const $p = $("<p>").addClass("font-color-yellow font-size-small");
 	
-	invalidAccount.html("");
-	if (userId.val().length == 0 || userPw.val().length == 0) {
-		invalidAccount.append(generatePTag("아이디 또는 비밀번호가"))
+	accessFailed.html("");
+	if (userId.length === 0 || password.length === 0) {
+		accessFailed.append(generatePTag("아이디 또는 비밀번호가"))
 					.append(generatePTag("입력되지 않았습니다."));
-		return false;
+		return;
 	}
 	
-	if (userId.val().length < 8 || userId.val().length > 15) {
-		invalidAccount.append(generatePTag("아이디는 8글자 이상,"))
+	if (userId.length < 8 || userId.length > 15) {
+		accessFailed.append(generatePTag("아이디는 8글자 이상,"))
 					.append(generatePTag("15자 이하로 입력해주세요."));
-		return false;
+		return;
 	}
 	
-	if (userPw.val().length < 8 || userPw.val().length > 15) {
-		invalidAccount.append(generatePTag("비밀번호는 8글자 이상,"))
+	if (password.length < 8 || password.length > 15) {
+		accessFailed.append(generatePTag("비밀번호는 8글자 이상,"))
 					.append(generatePTag("15자 이하로 입력해주세요."));
-		return false;
+		return;
 	}
-	return true;
+
+	$.ajax({
+		type: "post",
+		url: "<%= contextPath %>/loginEnd.do",
+		data: {
+			"userId": userId,
+			"password": password,
+			"saveId": saveId
+		},
+		dataType: "text",
+		success: (data) => {
+			if (data === "true") {
+				// 추후 원래 있던 페이지로 가는 코드로 수정
+				location.replace("<%= contextPath %>");
+			}
+			accessFailed.append(generatePTag("아이디 또는 비밀번호가"))
+						.append(generatePTag("일치하지 않습니다."));
+		},
+		error:(request, status, error) => {
+			console.log("request: " + request);
+			console.log("status: " + status);
+			console.log("error: " + error);
+		}
+	});
 }
 
 function generatePTag(msg) {
