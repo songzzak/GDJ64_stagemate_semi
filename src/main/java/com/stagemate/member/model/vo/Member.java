@@ -21,5 +21,5 @@ public class Member {
 	private String memberAddress;
 	private Date enrrolDate;
 	private Date wthdrDate;
-	private int proImgNo;
+//	private int proImgNo;
 }

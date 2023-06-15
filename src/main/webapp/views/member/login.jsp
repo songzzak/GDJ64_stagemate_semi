@@ -64,6 +64,23 @@
     	</div>
     </div>
 </section>
+<div class="popup-error-bg">
+	<div class="popup-error-container">
+		<div class="popup-error-content centering-children">
+			<div class="error-content_icon">
+				<img src="<%= contextPath %>/images/jaehun/login_page/warning.svg">
+			</div>
+			<div class="error-content_msg">
+				<h2 class="fw-bold">죄송합니다.</h2>
+				<p>로그인 실행 중에 오류가 발생했습니다.</p>
+				<p>나중에 다시 시도해주세요.</p>
+			</div>
+			<div>
+				<button type="button" class="btn-layout btn-brown" onclick="closePopupError();">확인</button>
+			</div>
+		</div>
+	</div>
+</div>
 <%@ include file="/views/common/footer.jsp" %>
 <script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>
 <script src="<%= contextPath %>/js/script_common.js"></script>
@@ -74,7 +91,6 @@ const validateAccount = () => {
 	const password = $('#password').val();
 	const saveId = $('#saveId').is(":checked");
 	const accessFailed = $("#accessFailed");
-	const $p = $("<p>").addClass("font-color-yellow font-size-small");
 	
 	accessFailed.html("");
 	if (userId.length === 0 || password.length === 0) {
@@ -108,14 +124,15 @@ const validateAccount = () => {
 			if (data === "true") {
 				// 추후 원래 있던 페이지로 가는 코드로 수정
 				location.replace("<%= contextPath %>");
+			} else {
+				accessFailed.append(generatePTag("아이디 또는 비밀번호가"))
+							.append(generatePTag("일치하지 않습니다."));
 			}
-			accessFailed.append(generatePTag("아이디 또는 비밀번호가"))
-						.append(generatePTag("일치하지 않습니다."));
 		},
 		error:(request, status, error) => {
-			console.log("request: " + request);
-			console.log("status: " + status);
-			console.log("error: " + error);
+			if (request.status === 500) {
+				showPopupError();
+			}
 		}
 	});
 }
@@ -123,6 +140,20 @@ const validateAccount = () => {
 function generatePTag(msg) {
 	return $("<p>").addClass("font-color-yellow font-size-small")
 				.text(msg);
+}
+
+function showPopupError() {
+	$(".popup-error-bg").css("transition", "all 0.8s")
+							.addClass("popup-error-show");
+	$(".popup-error-content").css("transition", "all 0.8s")
+							.addClass("popup-error-slide");
+}
+
+function closePopupError() {
+	$(".popup-error-bg").css("transition", "")
+						.removeClass("popup-error-show");
+	$(".popup-error-content").css("transition", "")
+							.removeClass("popup-error-slide");
 }
 </script>
 <!-------------------------------------------->

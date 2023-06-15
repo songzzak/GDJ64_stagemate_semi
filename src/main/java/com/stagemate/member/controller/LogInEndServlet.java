@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stagemate.member.model.vo.Member;
+import com.stagemate.member.service.MemberService;
 
 @WebServlet("/loginEnd.do")
 public class LogInEndServlet extends HttpServlet {
@@ -24,9 +25,6 @@ public class LogInEndServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userPw = request.getParameter("password");
 		String saveId = request.getParameter("saveId");
-		System.out.println(userId);
-		System.out.println(userPw);
-		System.out.println(saveId);
 		Boolean isIdentified = false;
 		
 		if (saveId.equals("true")) {
@@ -39,9 +37,7 @@ public class LogInEndServlet extends HttpServlet {
 			response.addCookie(cookie);
 		}
 
-//		Member member = new MemberService().selectByAccount(userId, userPw);
-		Member member = null;
-		
+		Member member = new MemberService().selectByIdAndPw(userId, userPw);
 		
 		if (member != null) {
 			request.getSession().setAttribute("loginMember", member);
