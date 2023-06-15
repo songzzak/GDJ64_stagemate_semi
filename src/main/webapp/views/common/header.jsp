@@ -27,7 +27,7 @@
         </form>
         <div class="header-container-icons">
             <div>
-                <input type="button" value="" 
+                <input type="button" value="" onclick="toLoginPage();"  
                 	style="background-image: url('<%= request.getContextPath() %>/images/common/icon_login.svg')">
                 <p class="fw-bold">로그인</p>
             </div>

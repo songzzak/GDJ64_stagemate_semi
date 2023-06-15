@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp" %>
-<!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet" href="<%= contextPath %>/css/jaehun/style_login.css">
-<!---------------------------------------->
 <title>로그인</title>
 </head>
 <body>
 <%@ include file="/views/common/header.jsp" %>
-<!-----------   아래에서 HTML 작업  ----------->
 <section class="login min1280px">
     <div class="login-container max1280px centering-children">
     	<div class="login-form" style="background-image: url('<%= contextPath %>/images/jaehun/login_page/login_container.svg');">
@@ -33,7 +30,7 @@
     				</div>
     			</div>
     		</div>
-    		<div class="login-form-right centering-children">
+    		<form action="<%= contextPath %>/" class="login-form-right centering-children">
     			<div class="form-right_content">
     				<h3 class="fw-bold" style="letter-spacing :0.1rem;">LOGIN</h3>
     				<div class="right_content_account">
@@ -61,15 +58,15 @@
     					<input type="submit" class="btn-layout btn-login" value="입장하기">
     				</div>
     			</div>
-    		</div>
+    		</form>
     	</div>
     </div>
 </section>
-<!-----------   위에서 HTML 작업  ----------->
 <%@ include file="/views/common/footer.jsp" %>
 <script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>
 <script src="<%= contextPath %>/js/script_common.js"></script>
 <!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
+<script src="<%= contextPath %>/js/script_login.js"></script>
 <!-------------------------------------------->
 </body>
 </html>
