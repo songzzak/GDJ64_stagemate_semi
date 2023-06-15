@@ -1,6 +1,6 @@
 @import url("style_init.css");
 
-img {
+header img, footer img {
     display: block;
     width: 100%;
 }
