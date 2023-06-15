@@ -1,6 +1,14 @@
 @import url("../style_init.css");
 
 /* common */
+.font-color-yellow {
+	color: var(--sm-yellow);
+}
+
+.font-size-small {
+	font-size: 0.8rem;
+}
+
 .centering-children {
 	display: flex;
 	justify-content: center;
@@ -112,9 +120,23 @@
 	text-align: center;
 }
 
+.form-right_content>h3 {
+	font-size: 1.5rem;
+	margin-top: -15px;
+}
+
+.form-right_content>h3+div {
+	height: 40px;
+	margin: 0px 10px 0px 20px;
+}
+
 .right_content_account, .right_content_login {
 	padding: 1px;
 	margin: 30px 10px 5px 20px;
+}
+
+.right_content_account {
+	margin-top: 0px;
 }
 
 .right_content_account>div {
