@@ -1,0 +1,202 @@
+@import url("../style_init.css");
+
+/* common */
+.centering-children {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn-login {
+	background-color: var(--sm-brown);
+    border: 2px solid var(--sm-yellow);
+    color: var(--sm-yellow);
+}
+
+.btn-login:hover {
+	background-color: var(--sm-yellow);
+    border: 2px solid var(--sm-brown);
+    color: var(--sm-brown);
+}
+
+.login img {
+	display: block;
+	width: 100%;
+}
+
+.login a, .login a:visited {
+    text-decoration: none;
+    color: var(--sm-brown);
+}
+
+/* login */
+.login-container {
+	height: 600px;
+}
+
+.login-form {
+	width: 900px;
+	height: 361px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	display: flex;
+}
+
+.login-form-left {
+	width: 645px;
+	height: 361px;
+	padding: 15px 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.form-left_upper, .form-left_lower {
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.left_upper_bar {
+	width: 200px;
+	height: 78px;
+	border-bottom: 20px solid var(--sm-brown);
+}
+
+.left_upper_words {
+	color: var(--sm-brown);
+	-webkit-text-stroke: 3px var(--sm-brown);
+	font-size: 3.3rem;
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+}
+
+.left_lower_img {
+	width: 40%;
+}
+
+.left_lower_enroll {
+	width: 40%;
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+	justify-content: end;
+	padding-bottom: 15px;
+}
+
+.left_lower_enroll>div {
+	width: 100%;
+	display: flex;
+	justify-content: end;
+}
+
+.left_lower_enroll img {
+	width: 10%;
+}
+
+.login-form-right {
+	top: 0;
+	right: 0;
+	width: 255px;
+	height: 361px;
+	padding: 3% 3% 3% 2%;
+}
+
+.form-right_content {
+	width: 100%;
+	height: 80%;
+	border-left: 2px dashed white;
+	color: white;
+	text-align: center;
+}
+
+.right_content_account, .right_content_login {
+	padding: 1px;
+	margin: 30px 10px 5px 20px;
+}
+
+.right_content_account>div {
+	width: 100%;
+}
+
+.right_content_account>div:first-child {
+	margin-bottom: 15px;
+}
+
+.right_content_account>div>input {
+	width: 100%;
+	height: 35px;
+	padding-left: 10px;
+	border-radius: 8px;
+	border-style: none;
+}
+
+.right_content_account input::placeholder {
+    color: var(--sm-brown);
+    font-weight: 500;
+}
+
+.right_content_account input:focus {
+    outline: none;
+}
+
+.right_content_options {
+	font-size: 0.8rem;
+	display: flex;
+	justify-content: space-between;
+	margin: 0px 10px 10px 22px;
+}
+
+.right_content_options input[type="checkbox"] {
+	display: none;
+}
+
+.checkbox_fake {
+        display: inline-block;
+        width: 13px;
+        height: 13px;
+        margin-bottom: -2px;
+        border-radius: 4px;
+        background-color: white;
+        position: relative;
+        cursor: pointer;
+}
+
+.right_content_options label {
+	cursor: pointer;
+}
+
+input[id="saveId"]:checked + .checkbox_fake::after{
+		display: inline-block;
+        content:'✔';
+        color: var(--green);
+        font-size: 0.6rem;
+        font-weight: 900;
+        width: 13px;
+        height: 13px;
+        position: absolute;
+        left: 0;
+        top: 0;
+}
+
+.right_content_options>div:last-child {
+	display: flex;
+	justify-content: space-between;
+	
+}
+
+.right_content_options p:first-child {
+	margin-right: 5px;
+}
+
+.right_content_options a, .right_content_options a:visited {
+    text-decoration: none;
+    color: white;
+}
+
+.right_content_login>input {
+	display: inline-block;
+	width: 100%;
+}
