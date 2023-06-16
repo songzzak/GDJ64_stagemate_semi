@@ -29,7 +29,7 @@
                 <li><a href="<%= request.getContextPath() %>/musical.do">뮤지컬</a></li>
                 <li><a href="<%= request.getContextPath() %>/act.do">연극</a></li>
                 <li><a href="<%= request.getContextPath() %>/concert.do">콘서트</a></li>
-                <li><a href="#">스토어</a></li>
+                <li><a href="<%=request.getContextPath()%>/store/productList.do">스토어</a></li>
                 <li><a href="#">커뮤니티</a></li>
             </ul>
         </nav>

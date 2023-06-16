@@ -1,0 +1,246 @@
+
+
+/* 공통 스타일 */
+.menu_style,
+.bar {
+  width: 100px;
+  height: auto;
+  white-space: nowrap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+}
+
+/* | */
+.bar {
+  width: 19px;
+  height: 26px;
+  font-size: 20px;
+  color: #828282;
+  flex: none;
+}
+
+.menu_style span {
+  color: #828282;
+  flex: none;
+}
+
+.menu_style span:hover {
+  cursor: pointer;
+}
+
+span.select-store-menu {
+  color: #000000;
+}
+
+#sectionContainer {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto; /* 수정: 중앙 정렬을 위해 margin 속성 추가 */
+}
+
+#store_nav_menu a {
+  text-decoration: none;
+}
+
+.center-abs {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#store_nav_menu ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  gap: 10px;
+  width: 100%; /* 수정: 부모 요소에 맞게 100%로 설정 */
+  height: 26px;
+  margin-top: 10px;
+}
+
+/* 전체상품 */
+#store_nav_title {
+  width: 243px;
+  height: 40px;
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 30px;
+  text-align: center;
+  color: #000000;
+  margin: 20px auto;
+}
+
+.select-store-menu,
+.menu_style,
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 선택된 메뉴 스타일 */
+.select-store-menu {
+  font-weight: 600;
+  color: #000000;
+}
+
+/* 스토어 네비게이션 */
+
+
+#store_nav_title {
+  margin-bottom: 50px;
+}
+
+#store_nav_menu {
+  display: flex;
+  justify-content: center;
+  width: max-content;
+}
+
+/* store_search */
+#store_search {
+  position: absolute;
+  width: 400px;
+  height: 40px;
+  left: 50%;
+  top: 300px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+}
+  
+  /* input_search_text */
+  #input_search_text {
+    box-sizing: border-box;
+    flex: 1;
+    height: 40px;
+    background: #FFFFFF;
+    border: 1px solid #1C0808;
+    border-radius: 20px 0 0 20px;
+    padding: 0 10px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    color: #828282;
+    position: relative;
+    z-index: -1;
+  }
+  
+  /* search_button */
+  #search_button {
+    width: 40px;
+    height: 40px;
+    background: #1C0808;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: -20px;
+  }
+
+
+  .prod_tr {
+    background-color: #FFFFFF;
+  }
+  
+  .prod_td1 {
+    width: 420px;
+    height: 620px;
+  }
+  
+  .productContainer {
+    width: 1280;
+    height: 1240;
+    margin-top: 100px;
+  }
+  
+  .imageContainer {
+    width: 350px;
+    height: 350px;
+    border: 1px solid black;
+    border-radius: 10%;
+    margin: 20px;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    transition: transform 0.3s
+  }
+  .imageContainer img{
+    width: 255px;
+    height: 310px;
+  }
+  .imageContainer:hover{
+    transform: scale(1.1);
+  }
+  
+  .productDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 21px;
+  }
+  .product {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .brand {
+    color: #828282;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  
+  .name, .price{
+    font-size: 25px;
+    font-weight: bolder;
+    margin-top: 10px;
+  }
+  .wish{
+    height: 39px;
+    display: flex;
+    align-items: center;
+
+  }
+  .wish svg:hover{
+    cursor: pointer;
+  }
+  .flex-container {
+    width: 350px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+  }
+  .wish-count {
+    margin-right: 10px;
+    color: #BC0000;
+    font-size: 20px;
+  }
+
+  .page-bar {
+    display: flex;
+    padding: 0px;
+    gap: 50px;
+    height: 39px;
+    margin: 50px;
+    align-items: center;
+    justify-content: center;
+  }
+ 
+  .bar-num{
+    color: #828282;
+    text-decoration: none;
+  }
