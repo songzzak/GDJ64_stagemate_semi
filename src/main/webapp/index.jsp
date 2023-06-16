@@ -232,10 +232,5 @@
 <script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>
 <script src="<%= contextPath %>/js/script_common.js"></script>
 <script src="<%= contextPath %>/js/jaehun/script_main.js"></script>
-<script>
-const toLoginPage = () => {
-	location.replace(getContextPath() + "/login.do");
-};
-</script>
 </body>
 </html>

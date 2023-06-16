@@ -48,7 +48,7 @@
     					<div>
     						<input type="checkbox" name="saveId" id="saveId">
 							<label for="saveId" class="checkbox_fake"></label>
-							<label for="saveId">ID 저장</label>
+							<label for="saveId" <%= saveId != "" ? "checked" : "" %>>ID 저장</label>
     					</div>
     					<div>
 							<p><a href="">ID 찾기</a></p>
@@ -76,7 +76,7 @@
 				<p>나중에 다시 시도해주세요.</p>
 			</div>
 			<div>
-				<button type="button" class="btn-layout btn-brown" onclick="closePopupError();">확인</button>
+				<button type="button" class="btn-layout btn-brown" onclick="closeModalError();">확인</button>
 			</div>
 		</div>
 	</div>
@@ -138,7 +138,7 @@ const validateAccount = () => {
 		},
 		error:(request, status, error) => {
 			if (request.status === 500) {
-				showPopupError();
+				showModalError();
 			}
 		}
 	});
@@ -159,14 +159,14 @@ function showLoading() {
 			.css("margin", "0 auto");
 }
 
-function showPopupError() {
+function showModalError() {
 	$(".popup-error-bg").css("transition", "all 0.8s")
 							.addClass("popup-error-show");
 	$(".popup-error-content").css("transition", "all 0.8s")
 							.addClass("popup-error-slide");
 }
 
-function closePopupError() {
+function closeModalError() {
 	$(".popup-error-bg").css("transition", "")
 						.removeClass("popup-error-show");
 	$(".popup-error-content").css("transition", "")

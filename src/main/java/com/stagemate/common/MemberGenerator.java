@@ -16,7 +16,7 @@ public class MemberGenerator {
 						.memberEmail(rs.getString("MEMBER_EMAIL"))
 						.memberPhone(rs.getString("MEMBER_PHONE"))
 						.memberAddress(rs.getString("MEMBER_ADDRESS"))
-						.enrrolDate(rs.getDate("ENROLL_DATE"))
+						.enrollDate(rs.getDate("ENROLL_DATE"))
 						.wthdrDate(rs.getString("WTHDR_DATE") == null ? null : rs.getDate("WTHDR_DATE"))
 						.build();
 		

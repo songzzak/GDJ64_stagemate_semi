@@ -1,9 +1,3 @@
-$('.header-container-icons input').hover(event => {
-    if (event.target == event.currentTarget) {
-        $(event.target).next().fadeToggle(500);
-    }
-});
-
 const slideBanners = (() => {
     const wrapper = $('.banners-wrapper');
     const container = $('.banners-container');
