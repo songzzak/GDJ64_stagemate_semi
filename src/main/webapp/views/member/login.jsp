@@ -90,6 +90,11 @@ const validateAccount = () => {
 	const userId = $('#userId').val();
 	const password = $('#password').val();
 	const saveId = $('#saveId').is(":checked");
+	
+	console.log($('#saveId').is(":checked"));
+	console.log($('#saveId').val());
+	console.log($("#loginForm").serialize());
+	
 	const accessFailed = $("#accessFailed");
 	
 	accessFailed.html("");
@@ -110,7 +115,7 @@ const validateAccount = () => {
 					.append(generatePTag("15자 이하로 입력해주세요."));
 		return;
 	}
-
+	
 	$.ajax({
 		type: "post",
 		url: "<%= contextPath %>/loginEnd.do",
@@ -120,7 +125,9 @@ const validateAccount = () => {
 			"saveId": saveId
 		},
 		dataType: "text",
+		beforeSend: showLoading,
 		success: (data) => {
+			accessFailed.html("");
 			if (data === "true") {
 				// 추후 원래 있던 페이지로 가는 코드로 수정
 				location.replace("<%= contextPath %>");
@@ -140,6 +147,16 @@ const validateAccount = () => {
 function generatePTag(msg) {
 	return $("<p>").addClass("font-color-yellow font-size-small")
 				.text(msg);
+}
+
+function showLoading() {
+	const $div = $("<div>");
+	const loading = $("<img src='<%= contextPath %>/images/jaehun/login_page/loading.gif'>");
+	$("#accessFailed").append($div.append(loading));
+	$div.width("100%").height("100%");
+	loading.height("100%")
+			.width(loading.height())
+			.css("margin", "0 auto");
 }
 
 function showPopupError() {
