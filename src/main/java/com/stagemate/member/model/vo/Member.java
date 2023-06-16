@@ -19,7 +19,6 @@ public class Member {
 	private String memberEmail;
 	private String memberPhone;
 	private String memberAddress;
-	private Date enrrolDate;
+	private Date enrollDate;
 	private Date wthdrDate;
-	private int proImgNo;
 }

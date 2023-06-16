@@ -1,6 +1,6 @@
 @import url("../style_init.css");
 
-img {
+.banners img, .reservation img, .goods_and_board img {
     display: block;
     width: 100%;
 }

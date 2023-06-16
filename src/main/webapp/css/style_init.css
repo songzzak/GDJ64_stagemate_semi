@@ -10,6 +10,7 @@
     --gray-dark: #808080;
     --gray-darker: rgb(52, 52, 52);
     --green: #24c058;
+    --jh-red: #DD3333;
 }
 
 /* white space */
@@ -94,4 +95,11 @@ ul {
     height: 50px;
     padding-top: 23px;
     color: white;
+}
+
+/* centering children selectors by flex */
+.centering-children {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
