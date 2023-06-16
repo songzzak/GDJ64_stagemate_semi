@@ -25,10 +25,10 @@
         </div>
         <nav>
             <ul>
-                <li><a href="<%= request.getContextPath() %>">홈</a></li>
-                <li><a href="#">뮤지컬</a></li>
-                <li><a href="#">연극</a></li>
-                <li><a href="#">콘서트</a></li>
+                <li><a href="<%= request.getContextPath() %>" class="sample">홈</a></li>
+                <li><a href="<%= request.getContextPath() %>/musical.do">뮤지컬</a></li>
+                <li><a href="<%= request.getContextPath() %>/act.do">연극</a></li>
+                <li><a href="<%= request.getContextPath() %>/concert.do">콘서트</a></li>
                 <li><a href="#">스토어</a></li>
                 <li><a href="#">커뮤니티</a></li>
             </ul>

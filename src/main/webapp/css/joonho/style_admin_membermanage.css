@@ -1,0 +1,260 @@
+
+#admin_menu {
+	width: 13%;
+	display: flex;
+	flex-direction:column;
+ 	margin-top: 10%; 
+}
+#admin_menu ul{
+	list-style-type: disc;
+}
+#admin_membermanage_table a, .pageBar a{
+	text-decoration: none;
+	color:black;
+}
+#admin_menu>div:not(:first-child)>*,#admin_menu>div:not(:first-child)>*>*>*{
+	color: rgb(81,81,81,0.7);
+}
+#admin_menu>div:not(:first-child)>*>*>*{
+	font-size: 16px;
+}
+#admin_menu>div>a{
+	font-size: 24px;
+}
+
+#admin_menu li{
+	margin-left:20px; 
+}
+#admin_menu>div{
+	margin-bottom:20px ;
+}
+#admin_menu a{
+	text-decoration: none;
+}
+
+.member_table_a {
+	height: 42px;
+	background-color: var(--gray-light);
+}
+
+.member_table_b {
+	height: 42px;
+	background-color: white;
+}
+#admin_membermanage_table{
+	width:100%;
+	
+}
+#admin_membermanage_table>thead {
+	height: 36px;
+	background-color: rgb(28, 8, 8);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#admin_membermanage_table>thead>tr {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+#admin_membermanage_table>thead>tr>th {
+	color: white;
+}
+
+#admin_membermanage_table>tbody>tr {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+#admin_membermanage_table>tbody>tr>td {
+	display: flex;
+	justify-content: center;
+}
+
+
+
+#withdrawal{
+	display: flex;
+	justify-content: flex-end;
+}
+
+
+div#search-container {
+	margin: 3% 0 1% 0;
+    padding: 0.5%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+div#search-container form{
+	display: flex;
+}
+#searchType{
+	width: 11%;
+	height: 32px;
+	font-size: 15px;
+	border-radius: 10px;
+	outline: none;
+	padding-left: 10px;
+	border: 1px solid black;
+}
+div#search-userId {
+	display: inline-block;
+}
+
+div#search-userName {
+	display: none;
+}
+
+div#search-gender {
+	display: none;
+}
+
+#memberManage input[type=text]{
+	width: 300px;
+	height: 32px;
+	font-size: 15px;
+	border: 0;
+	border-radius: 10px;
+	outline: none;
+	padding-left: 10px;
+	border: 1px solid black;
+}
+#memberManage>#search-container input[type=button]{
+    height: 32px;
+    width: 70px;
+    padding: 3px 3px 3px 3px;
+    font-size: 16px;
+    margin-left: 3%;
+}
+
+#page{
+	display: flex;
+    justify-content: center;
+}
+.pageBar{
+	display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+    align-items: center;
+    margin-top:5%;
+    margin-bottom: 5%;
+    
+}
+.pageBar>div{
+	width:20%;
+	display:flex;
+	justify-content: space-around;
+	font-size: 20px;
+	
+}
+
+
+#maincontainer {
+	display: flex;
+}
+
+#memberManage{
+	width: 87%;
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+
+#memberManage>h2, hr {
+	color: rgb(81, 81, 81, 0.7);
+}
+
+#maincontainer>div:first-child>*{
+	text-decoration: none;
+}
+
+#admin_membermanage_table th:not(:first-child), #admin_membermanage_table td:not(:first-child){
+	width: 150px;
+}
+#admin_membermanage_table th:first-child, #admin_membermanage_table td:first-child{
+	width : 50px;
+}
+#maincontainer>div>div:first-child>a{
+	font-weight:bolder;
+	color : black;
+	
+}
+.btn-r{
+	width:30%;
+}
+#inner_pop p{
+	margin-bottom: 10%;
+}
+#inner_pop img{
+	margin-bottom: 20%;
+}
+.pop-container, .pop-conts, #inner_pop{
+	height:100%;
+}
+#inner_pop{
+	display:flex;
+	flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#inner_pop>div:last-child{
+	display:flex;
+    width: 60%;
+    justify-content: center;
+}
+.pop-layer {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 450px;
+	height: 300px;
+	background-color: #fff;
+	border: 1px solid var(--gray-dark);
+	z-index: 10;
+}
+#yes{
+ 	display: inline-flex; 
+	width:100%;
+	height: 40px;
+	padding: 0 14px 0;
+	background-color: var(--sm-brown);
+	color: #fff;
+	line-height: 25px;
+	border-radius: 10%;
+	font-size: 20px;
+	align-items: center;
+    justify-content: center;
+    font-weight: bolder;
+    margin-right: 20%;
+    text-decoration: none;
+}
+#no{
+	display: inline-flex;
+	width:100%;
+	height: 40px;
+	padding: 0 14px 0;
+	border:1px solid var(--sm-brown);
+	line-height: 25px;
+	font-size: 13px;
+	color: var(--sm-brown);
+	line-height: 25px;
+	border-radius: 10%;
+	font-size: 20px;
+	align-items: center;
+    justify-content: center;
+    font-weight: bolder;
+    margin-left: 20%;
+    text-decoration: none;
+}
+
+#memberManage>h2{
+	font-size: 36px;
+	font-weight: bolder;
+    margin-top: 2%;
+}
+
