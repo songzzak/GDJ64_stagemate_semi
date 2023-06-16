@@ -37,6 +37,7 @@ private static final String SQL_PATH = "/sql/member/member_sql.properties";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+//			throw new NullPointerException("SQL 문제로 NPE 발생시킴");
 		} finally {
 			JDBCTemplate.close(rs);
 			JDBCTemplate.close(pstmt);

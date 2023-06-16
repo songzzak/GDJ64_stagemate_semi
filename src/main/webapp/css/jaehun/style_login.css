@@ -14,10 +14,14 @@
     color: var(--sm-yellow);
 }
 
-.btn-login:hover {
+.btn-login_active {
 	background-color: var(--sm-yellow);
     border: 2px solid var(--sm-brown);
     color: var(--sm-brown);
+}
+
+.login {
+	min-height: 500px;
 }
 
 .login img, .popup-error-bg img {
@@ -271,4 +275,16 @@ input[id="saveId"]:checked + .checkbox_fake::after{
 
 .popup-error-slide {
 	transform: translate(-50%, -40%);
+}
+
+@media screen and (max-width: 1920px) { 
+  .login { 
+    min-height: 600px; 
+  } 
+} 
+
+@media screen and (min-width: 1920px) { 
+  .login { 
+    min-height: 880px; 
+  } 
 }
