@@ -71,15 +71,16 @@
 				<div class="logout-content_msg">
 					<% if (loginMember != null) { %>
 						<% if (loginMember.getMemberId().equals("stageadmin")) { %>
-							<h5>관리자 페이지</h5>
+							<h5><a href="">관리자 페이지</a></h5>
 						<% } else { %>
-							<h5>마이 페이지</h5>
+							<h5><a href="">마이 페이지</a></h5>
 					<% } } %>
 					<div></div>
-					<h5>로그아웃</h5>
+					<h5><a href="<%= request.getContextPath() %>/member/logout.do">로그아웃</a></h5>
 				</div>
 				<div class="logout-content_close">
 					<input type="button" value="" 
+					onclick="closeModalLogOut();"
                 	style="background-image: url('<%= request.getContextPath() %>/images/common/profile_close.svg')">
 				</div>
 		</div>
@@ -90,7 +91,7 @@ function showModalLogOut() {
 	$(".logout-content_close").width("8%");
 	$(".logout-content_close").height($(".logout-content_close").width());
 	
-	$(".modal-logout-container").css("transition", "all 0.5s")
+	$(".modal-logout-container").css("transition", "all 1s")
 							.addClass("modal-logout-show");
 }
 

@@ -149,7 +149,11 @@ header {
 .logout-content_msg {
 	display: flex;
 	justify-content: space-evenly;
-	font-weight: 900;
+}
+
+.logout-content_msg a {
+	font-weight: 500;
+	font-size: 0.8rem;
 }
 
 .logout-content_msg>div {
@@ -182,7 +186,7 @@ header {
 }
 
 .modal-logout-show {
-	z-index: 1;
+	z-index: 999;
 	opacity: 1;
 }
 

@@ -36,7 +36,7 @@
     				<div id="accessFailed"></div>
     				<div class="right_content_account">
     					<div>
-							<input type="" id="userId" name="userId" placeholder="아이디" onfocus="this.placeholder = ''"
+							<input type="text" id="userId" name="userId" placeholder="아이디" onfocus="this.placeholder = ''"
                     				onblur="this.placeholder = '아이디'">
 						</div>
 						<div>
@@ -48,7 +48,7 @@
     					<div>
     						<input type="checkbox" name="saveId" id="saveId">
 							<label for="saveId" class="checkbox_fake"></label>
-							<label for="saveId" <%= saveId != "" ? "checked" : "" %>>ID 저장</label>
+							<label for="saveId">ID 저장</label>
     					</div>
     					<div>
 							<p><a href="">ID 찾기</a></p>
@@ -86,14 +86,20 @@
 <script src="<%= contextPath %>/js/script_common.js"></script>
 <!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 <script>
-const validateAccount = () => {
+$(document).ready(() => {
+	function checkSaveId() {
+		if ("<%= saveId %>" !== "") {
+			$("#saveId").prop("checked", true);
+			$("#userId").val("<%= saveId %>");
+		}
+	}
+	checkSaveId();
+});
+
+function validateAccount() {
 	const userId = $('#userId').val();
 	const password = $('#password').val();
 	const saveId = $('#saveId').is(":checked");
-	
-	console.log($('#saveId').is(":checked"));
-	console.log($('#saveId').val());
-	console.log($("#loginForm").serialize());
 	
 	const accessFailed = $("#accessFailed");
 	
@@ -167,6 +173,7 @@ function showModalError() {
 }
 
 function closeModalError() {
+	$("#accessFailed").html("");
 	$(".popup-error-bg").css("transition", "")
 						.removeClass("popup-error-show");
 	$(".popup-error-content").css("transition", "")
