@@ -8,12 +8,6 @@
 	font-size: 0.8rem;
 }
 
-.centering-children {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
 .btn-login {
 	background-color: var(--sm-brown);
     border: 2px solid var(--sm-yellow);

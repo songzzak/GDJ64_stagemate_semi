@@ -96,3 +96,10 @@ ul {
     padding-top: 23px;
     color: white;
 }
+
+/* centering children selectors by flex */
+.centering-children {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

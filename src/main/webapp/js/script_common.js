@@ -4,7 +4,12 @@ function getContextPath() {
 	return location.href.substring(hostIndex, location.href.indexOf("/", hostIndex + 1));
 }
 
-// 로그인 페이지로 이동
+// redirection 방식으로 메인 페이지로 이동
+function toMainPage() {
+	location.replace(getContextPath());
+}
+
+// redirection 방식으로 로그인 페이지로 이동
 function toLoginPage() {
 	location.replace(getContextPath() + "/login.do");
 }
