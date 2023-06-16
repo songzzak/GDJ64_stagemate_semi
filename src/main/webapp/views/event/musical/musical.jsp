@@ -27,7 +27,7 @@
 			<div id="gold_poster">
 				<!-- 포스터 -->
 				<div>
-					<img src="<%= contextPath %>/images/joonho/나르치스와골드문트.png"
+					<img src="<%= contextPath %>/images/joonho/Narcissus_and_Goldmund.png"
 						width="320" height="450">
 				</div>
 				<!-- 간단내용 -->
