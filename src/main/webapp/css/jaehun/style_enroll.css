@@ -1,0 +1,210 @@
+@import url("../style_init.css");
+
+.w-1280px {
+    width: 1280px;
+    margin: 0 auto;
+    padding: 0 3%;
+}
+
+.w-70p {
+    width: 70% !important;
+    margin: 0 !important;
+}
+
+.address_white_space {
+    padding-right: 30%;
+    margin-bottom: 3% !important;
+}
+
+.fc-yellow {
+    color: var(--sm-yellow);
+}
+
+.fc-orange {
+    color: #EF6400;
+}
+
+.fc-red {
+    color: var(--jh-red);
+}
+
+.fc-blue {
+    color: var(--jh-blue);
+}
+
+.fs-small {
+	font-size: 0.8rem;
+}
+
+.btn-layout-unchecked {
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: 900;
+}
+
+.btn-color-unchecked {
+    border: 1px solid var(--gray);
+    background-color: white;
+    color: var(--gray);
+}
+
+.enroll img {
+    display: block;
+    width: 100%;
+}
+
+.enroll-container {
+    min-height: 1000px;
+    display: flex;
+    justify-content: center;
+    margin: 5% 0;
+}
+
+.enroll-wrapper {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.enroll-wrapper>h2 {
+    text-align: center;
+    font-size: 3rem;
+    color: var(--sm-brown);
+}
+
+.enroll-wrapper>p {
+    margin: 4% 0;
+    text-align: end;
+    color: var(--gray);
+}
+
+.enroll-form-combo {
+    width: 100%;
+    height: 45px;
+    margin-bottom: 6%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.enroll-form-box {
+    position: relative;
+    width: 100%;
+    height: 45px;
+    margin-bottom: 6%;
+}
+
+.form-box_name {
+    position: absolute;
+    top: 30%;
+    left: -170px;
+    width: 150px;
+    color: var(--gray-darker);
+    text-align: end;
+}
+
+.enroll-form-box>input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--gray);
+    outline: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.enroll-wrapper-right {
+    width: 30%;
+    display: flex;
+    justify-content: end;
+}
+
+.enroll-wrapper-right .enroll-btn_radio:first-child {
+    margin-right: 6%;
+}
+
+.enroll-wrapper-right .enroll-btn_radio {
+    width: 40%;
+    position: relative;
+}
+
+.enroll-form-box>input::placeholder {
+    color: var(--gray);
+}
+
+input[name="gender"] {
+    display: none;
+}
+
+input[name="gender"] + label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2% 20px;
+}
+
+input[name="gender"] + label:hover,
+input[name="gender"]:checked + label {
+    color: white;
+    background-color: var(--sm-brown);
+    border: 2px solid var(--sm-brown);
+}
+
+.enroll-btn_radio span {
+    font-weight: 900;
+}
+
+.btn-api {
+    display: inline-block;
+    width: 86%;
+    margin-left: auto;
+}
+
+.btn-api:hover, .enroll-form-box>input[type="submit"]:hover {
+    color: var(--sm-yellow);
+}
+
+.form-box_agreement {
+    display: flex; 
+    align-items: center;
+}
+
+.form-box_agreement>* {
+    margin-right: 3%;
+}
+
+input[name="agreement"] {
+    display: none;
+}
+
+input[name="agreement"] + label {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border-radius: 4px;
+    background-color: var(--gray);
+    position: relative;
+    cursor: pointer;
+}
+
+.form-box_agreement .fc-blue {
+    text-decoration: underline;
+}
+
+/* 개인정보 동의 창의 내용을 다 읽을 때 발동시키기 */
+/* input[name="agreement"]:checked + label::after {
+    display: inline-block;
+    content: "\2713";
+    text-align: center;
+    background-color: var(--gray);
+    border-radius: 4px;
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 900;
+    width: 13px;
+    height: 13px;
+    position: absolute;
+    left: 0;
+    top: 0;
+} */

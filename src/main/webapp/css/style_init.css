@@ -11,6 +11,7 @@
     --gray-darker: rgb(52, 52, 52);
     --green: #24c058;
     --jh-red: #DD3333;
+    --jh-blue: #615EFF;
 }
 
 /* white space */
@@ -100,6 +101,13 @@ ul {
 /* centering children selectors by flex */
 .centering-children {
 	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.centering-children-column {
+    display: flex;
+    flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }

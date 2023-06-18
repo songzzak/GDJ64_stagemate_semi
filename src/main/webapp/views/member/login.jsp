@@ -25,7 +25,7 @@
     					<h3>아직 <span class="fw-bold">MATE</span>가 아니신가요?</h3>
     					<div>
     						<img src="<%= contextPath %>/images/jaehun/login_page/enroll.svg" alt="회원가입_아이콘">
-    						<h3><a class="fw-bold" href="">회원가입 하기</a></h3>
+    						<h3><a class="fw-bold" href="<%= contextPath %>/member/enroll.do">회원가입 하기</a></h3>
     					</div>
     				</div>
     			</div>
