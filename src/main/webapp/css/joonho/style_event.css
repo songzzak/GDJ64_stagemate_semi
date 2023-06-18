@@ -1,3 +1,8 @@
+#pointmark{
+	margin-top: 4%;
+    color: red;
+}
+
 #gold_details_map>div>h1{
 	margin-bottom: 20%;
 }
@@ -105,6 +110,9 @@ div#cancel_info {
 	flex-direction: column;
 	width: 70%;
 }
+#gold_seat{
+	color:rgb(0,0,0,0.3);
+}
 
 #money>div {
 	display: flex;
@@ -112,13 +120,13 @@ div#cancel_info {
 }
 
 .money>div>h3:last-child {
-	color: #bc0000;
 	margin-left: 4%;
 }
 
 #gold_seat>div>button {
-	border: none;
-	background-color: var(--sm-yellow);
+	background:white;
+	border:1px solid rgb(0,0,0,0.3);
+	color:rgb(0,0,0,0.3);
 	width: 320px;
 	height: 70px;
 	border-radius: 15px;

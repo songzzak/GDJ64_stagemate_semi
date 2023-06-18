@@ -10,21 +10,8 @@ const urlcopy = () => {
 	alert("링크가 복사되었습니다. 필요하신 곳에 붙여넣기 하세요!")
 }
 const openmap = () => {
-	open("<%=request.getContextPath()%>/map.do", "_blank", 'top=' + (window.innerHeight / 2 - 250) + ', left=' + (window.innerWidth / 2 - 250) + ', width=500, height=500')
+	open("<%=contextPath%>/map.do", "_blank", 'top=' + (window.innerHeight / 2 - 250) + ', left=' + (window.innerWidth / 2 - 250) + ', width=500, height=500')
 }
-let flag = true;
-$("#schedule").click(e => {
-	if (flag == true) {
-		$("#schedule").css({ "backgroundColor": "var(--sm-brown)", "color": "white" })
-		flag = false;
-	} else {
-		$("#schedule").css({ "backgroundColor": "white", "color": "black" })
-		flag = true;
-	}
-})
-
-
-
 
 $("#detail_information").click(e => {
 	$("#detail_information").css({ "borderBottom": "14px solid black" })
@@ -228,4 +215,8 @@ function leftPad(value) {
 		return value;
 	}
 	return value;
+}
+
+function toReservationMusical(){
+	location.assign(getContextPath() + "/musical/reservation.do");
 }

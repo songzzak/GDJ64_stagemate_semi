@@ -4,7 +4,7 @@
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet" href="<%=contextPath%>/css/joonho/style_event_main.css">
 <!---------------------------------------->
-<title>페이지 타이틀 입력</title>
+<title>STAGEMATE/뮤지컬</title>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
