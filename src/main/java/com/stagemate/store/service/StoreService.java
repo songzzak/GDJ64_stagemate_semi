@@ -36,4 +36,18 @@ public class StoreService {
 		return result;
 	}
 
+	public List<Product> searchProductsByKeyword(int cPage, int numPerPage, String keyword) {
+		Connection conn=getConnection();
+		List<Product> list=dao.searchProductsByKeyword(conn,cPage,numPerPage,keyword);
+		close(conn);
+		return list;
+	}
+
+	public int searchProductsByKeywordCnt(String keyword) {
+		Connection conn=getConnection();
+		int result=dao.searchProductsByKeywordCnt(conn, keyword);
+		close(conn);
+		return result;
+	}
+
 }

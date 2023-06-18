@@ -90,4 +90,44 @@ public class StoreDao {
 		return result;
 	}
 
+	public List<Product> searchProductsByKeyword(Connection conn, int cPage, int numPerPage, String keyword) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Product> list=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchProductsByKeyword"));
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setInt(2, ((cPage-1)*numPerPage+1));
+			pstmt.setInt(3, cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(getProduct(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int searchProductsByKeywordCnt(Connection conn, String keyword) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchProductsByKeywordCnt"));
+			pstmt.setString(1, "%"+keyword+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

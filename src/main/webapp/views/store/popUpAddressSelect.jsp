@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="javax.servlet.http.HttpServletRequest" %>
+<%
+   HttpServletRequest request2 = (HttpServletRequest) pageContext.getRequest();
+   String contextPath = request2.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +30,10 @@
 <body>
     <div class="popup-address-list">
         <h1 class="popup-tit">배송지 변경</h1>
-        <a href="#" class="n-link"><span class="btn-insert-addr">신규 배송지 등록</span><span class="btn-insert-addr bigpont">+</span></a>
+        <a href="" class="n-link" onclick="delivery_form(); return false;">
+            <span class="btn-insert-addr">신규 배송지 등록</span>
+            <span class="btn-insert-addr bigpont">+</span>
+          </a>
         <div class="list-dlv-address">
             <div class="addr-info">
                 <div>
@@ -47,6 +55,11 @@
         </div>
         <div class="list-dvl-paging"></div>
     </div>
-
+    <script>
+        function delivery_form() {
+        var url = "<%=contextPath %>/views/store/popupAddressInsert.jsp";
+        window.open(url, '_blank', 'width=500, height=970');
+        }
+    </script>
 </body>
 </html>

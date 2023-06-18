@@ -21,10 +21,13 @@ public class StoreUpdateLikeCnt extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	int productNo=Integer.parseInt(request.getParameter("productId"));
-	int likeCnt=Integer.parseInt(request.getParameter("newLikeCount"));
-	int result=new StoreService().updateProductLikeCnt(productNo,likeCnt);
-	response.sendRedirect("/views/store/store_main.jsp");
+		int productNo=Integer.parseInt(request.getParameter("productNo"));
+		int likeCnt=Integer.parseInt(request.getParameter("newLikeCount"));
+		System.out.println(productNo);
+		System.out.println(likeCnt);
+		int result=new StoreService().updateProductLikeCnt(productNo,likeCnt);
+		if(result>0)request.getRequestDispatcher("/views/store/productList.jsp").forward(request, response);
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

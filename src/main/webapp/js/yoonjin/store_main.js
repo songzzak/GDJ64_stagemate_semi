@@ -11,10 +11,10 @@ $(".bar-num").on("click",function(e){
     let $heartIcon = $(this).find("svg");
     let $countElement = $(this).find(".wish-count");
     let count = parseInt($countElement.text());
-    console.log(e.target);
-  	console.log($heartIcon);
-  	console.log($countElement);
+	let productNo = $(this).closest(".product").find(".productDetails input[type='hidden']").val();
+  
   	console.log(count);
+  	console.log(productNo);
     if ($heartIcon.css("fill") === "none") {
       $heartIcon.css("fill", "#BC0000");
       count=(count+1);
@@ -23,15 +23,23 @@ $(".bar-num").on("click",function(e){
       $heartIcon.css("fill", "none");
       count=(count-1)
     }
-    console.log(count);
-	  $.post(getContextPath() + "/store/updateProductLikeCnt.do", {
-	    productId: $("#productNo").val(),
+    //console.log(count);
+    //console.log(getContextPath());
+    $countElement.text(count); // 좋아요 수 업데이트
+	  $.post(getContextPath() + "/store/updateProductLikeCnt.do", 
+	  {
+	    productNo: productNo,
 	    newLikeCount: count
 	  });
-	
   });
   
 $(".imageContainer").click(e=>{
-    console.log(getContextPath());
+    //console.log(getContextPath());
 	location.assign(getContextPath()+"/store/storeView.do");
 });
+
+$("#search_button").click(() => {
+    const keyword = $("#input_search_text").val();
+   	location.href = getContextPath() + "/store/productSearch.do?search=" + keyword;
+});
+

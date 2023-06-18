@@ -65,24 +65,19 @@ List<Product> products = (List) request.getAttribute("products");
 						<td class="prod_td1">
 							<div class="product">
 								<div class="imageContainer">
-									<img
-										src="<%=contextPath%>/images/yoonjin/information/default_img.gif"
-										alt="Product Image">
+									<img src="<%=contextPath%>/images/yoonjin/information/default_img.gif" alt="Product Image">
 								</div>
 								<div class="productDetails">
-									<input type="hidden" value="<%=p.getProductNo()%>"
-										id="productNo"> <span class="brand"><%=p.getProductTitle()%></span>
+									<input type="hidden" value="<%=p.getProductNo()%>">
+									<span class="brand"><%=p.getProductTitle()%></span>
 									<span class="name"><%=p.getProductNm()%></span>
 									<div class="flex-container">
-										<span class="price"><%=p.getProductPrice()%></span> <span
-											class="wish"> <span class="wish-count"><%=p.getProductLikeCnt()%></span>
-											<svg width="44" height="39" viewBox="0 0 44 39" fill="none"
-												xmlns="http://www.w3.org/2000/svg">
-                                        <path
-													d="M12.9329 1.67188C6.67923 1.67188 1.60938 6.80209 1.60938 13.1302C1.60938 24.5885 14.9917 35.0052 22.1976 37.4281C29.4035 35.0052 42.7859 24.5885 42.7859 13.1302C42.7859 6.80209 37.716 1.67188 31.4623 1.67188C27.6329 1.67188 24.2461 3.59584 22.1976 6.54063C21.1535 5.03563 19.7663 3.80739 18.1536 2.95988C16.5409 2.11238 14.7501 1.67058 12.9329 1.67188Z"
-													stroke="#BC0000" stroke-width="2" stroke-linecap="round"
-													stroke-linejoin="round" />
-                                    </svg>
+										<span class="price"><%=p.getProductPrice()%></span>
+										<span class="wish"> <span class="wish-count"><%=p.getProductLikeCnt()%></span>
+											<svg width="44" height="39" viewBox="0 0 44 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        		<path d="M12.9329 1.67188C6.67923 1.67188 1.60938 6.80209 1.60938 13.1302C1.60938 24.5885 14.9917 35.0052 22.1976 37.4281C29.4035 35.0052 42.7859 24.5885 42.7859 13.1302C42.7859 6.80209 37.716 1.67188 31.4623 1.67188C27.6329 1.67188 24.2461 3.59584 22.1976 6.54063C21.1535 5.03563 19.7663 3.80739 18.1536 2.95988C16.5409 2.11238 14.7501 1.67058 12.9329 1.67188Z"
+												stroke="#BC0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    	</svg>
 										</span>
 									</div>
 								</div>

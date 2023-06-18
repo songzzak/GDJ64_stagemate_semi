@@ -71,7 +71,7 @@
 			</div>
 		</div>
 		<div id="btn_order_coplete">
-			<button class="btn-layout btn-brown" id="goto_home_btn">홈으로 가기</button>
+			<button class="btn-layout btn-brown" id="goto_home_btn" onclick="toMainPage();">홈으로 가기</button>
 			<button class="btn-layout btn-brown">결제내역으로 가기</button>
 		</div>
 		<div id="cancle_info_container">
@@ -79,7 +79,6 @@
 			<hr class="hr_margin_style01">
 			<img src="<%=contextPath %>/images/yoonjin/information/교환반품안내서.jpg">
 		</div>
-	</div>
 </section>
 <%@ include file="/views/common/footer.jsp" %>
 <script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>

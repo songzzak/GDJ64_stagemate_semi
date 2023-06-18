@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp" %>
+
 <link rel="stylesheet" href="<%=contextPath %>/css/yoonjin/style_store_order_form.css">
 <title>Order Form</title>
 </head>
@@ -24,21 +25,24 @@
                             <span>배송지</span>
                             <div>
                                 <span>기본배송지</span>
-                                <button>배송지변경</button>
+                                <button class="btn-layout2 btn-brown" onclick="openPopup('<%=contextPath%>/views/store/popUpAddressSelect.jsp')">배송지변경</button>
                             </div>
                         </li>
                         <li>
-                            <span>이름 / 연락처</span>
+                            <span>이름</span>
                             <div>
-                                <ul class="horizontal-list">
-                                    <li class="li_margin_style01">김팬텀</li>
-                                    <li>010-1234-6666</li>
-                                </ul>
+                                <span>김팬텀</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span>연락처</span>
+                            <div>
+                                <span>010-1234-5678</span>
                             </div>
                         </li>
                         <li>
                             <span>주소</span>
-                            <div>서울시 어쩌구 저쩌동 59-8 403</div>
+                            <div><span>서울시 어쩌구 저쩌동 59-8 403</span></div>
                         </li>
                         <li>
                             <span>배송 요청사항</span>
