@@ -16,7 +16,11 @@
                     <div class="form-box_name">
                         <p class="fw-bold">아이디<span class="fw-bold fc-orange">*</span></p>
                     </div>
-                    <input type="text" name="userId" id="idToUse" duplicate="true" placeholder="8 ~ 15자리 대소문자 및 숫자만 입력" onfocus="this.placeholder = ''" onblur="this.placeholder = '8 ~ 15자리 대소문자 및 숫자만 입력'">
+                    <input type="text" name="userId" id="idToUse" duplicate="true" 
+                    		onkeyup="validateIdLength();"
+                    		placeholder="8 ~ 15자리 대소문자 및 숫자만 입력" 
+                    		onfocus="this.placeholder = ''" 
+                    		onblur="this.placeholder = '8 ~ 15자리 대소문자 및 숫자만 입력'">
                 </div>
                 <div class="enroll-form-box enroll-check_mark">
                     <div class="form-box_name">
@@ -125,6 +129,25 @@
             alert("개인정보 수집 및 이용 동의에 대한 내용을 읽어야 체크할 수 있습니다.");
         });
     });
+    
+    function validateIdLength() {
+    	$(".idInvalid").remove();
+    	const idToUse = $("#idToUse");
+    	const $p = $("<p>").text("아이디는 8자 이상 15자 이하에 영문 대소문자 및 숫자만 입력할 수 있습니다.")
+    					.css({
+    						position: "absolute",
+    						bottom: "-46%",
+    						left: "27%",
+    						fontSize: "0.8rem",
+    						color: "var(--jh-crimson)"
+    					}).addClass("idInvalid");
+    	if (idToUse.val().length < 8 || idToUse.val().length > 15) {
+    		idToUse.css("border", "2px solid var(--jh-crimson)");
+    		idToUse.parent().append($p);
+    	} else {
+    		$(".idInvalid").remove();
+    	}
+    }
 
     function startTimer(element) {
         $(element).addClass("fc-yellow");
