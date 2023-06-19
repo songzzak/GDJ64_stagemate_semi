@@ -30,22 +30,20 @@
 						</div>
 						<div id="wheelchair_seat">
 							<div>
-								<div>
-									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
-									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
-									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
-									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
-									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
-									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
-								</div>
-								<div>
-									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
-									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
-									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
-									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
-									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
-									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
-								</div>
+								<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+								<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+								<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+								<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+								<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+								<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+							</div>
+							<div>
+								<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+								<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+								<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+								<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+								<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+								<img src="<%= contextPath %>/images/joonho/wheelchair.png">
 							</div>
 						</div>
 					</div>
@@ -144,7 +142,7 @@
 	<style>
 	#wheelchair_seat{
 		display:flex;
-		width:80%;
+		width:100%;
 	}
 	#seat_main{
 		display:flex;

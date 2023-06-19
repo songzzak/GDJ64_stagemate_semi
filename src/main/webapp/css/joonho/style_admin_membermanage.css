@@ -1,37 +1,50 @@
+/* 관리자 메뉴 스타일 */
+#store_admin_nav {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 60px;
+}
+#store_admin_nav a{
+	text-decoration: none;
+	list-style: none;
+    color:#959595;
+}
+#store_admin_nav_ul>li:first-child>a{
+	 color: black;
+}
 
-#admin_menu {
-	width: 13%;
-	display: flex;
-	flex-direction:column;
- 	margin-top: 10%; 
+#store_admin_nav nav ul {
+    list-style: none;
+    width: 120px;
+    margin: 0px 10px;
+    color:#959595;
 }
-#admin_menu ul{
-	list-style-type: disc;
+
+#store_admin_nav nav ul li a{
+    font-weight: bold;
 }
+#store_admin_nav nav ul li{
+    padding: 5px;
+}
+
+#store_admin_nav nav ul li ul {
+    font-size: 13px;
+    display: block;
+    position: relative;
+    margin-left: 20px;
+}
+
+#store_admin_nav_ul li ul{
+    display: block;
+    padding: 5px;
+    list-style-type: disc;
+    margin-bottom: 5px;
+}
+
 #admin_membermanage_table a, .pageBar a{
 	text-decoration: none;
 	color:black;
 }
-#admin_menu>div:not(:first-child)>*,#admin_menu>div:not(:first-child)>*>*>*{
-	color: rgb(81,81,81,0.7);
-}
-#admin_menu>div:not(:first-child)>*>*>*{
-	font-size: 16px;
-}
-#admin_menu>div>a{
-	font-size: 24px;
-}
-
-#admin_menu li{
-	margin-left:20px; 
-}
-#admin_menu>div{
-	margin-bottom:20px ;
-}
-#admin_menu a{
-	text-decoration: none;
-}
-
 .member_table_a {
 	height: 42px;
 	background-color: var(--gray-light);

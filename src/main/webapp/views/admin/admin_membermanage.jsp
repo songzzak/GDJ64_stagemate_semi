@@ -17,39 +17,41 @@ List<Member> members = (List) request.getAttribute("member");
     <div class="max1280px">
         <div id="maincontainer">
 			<!-- 관리자 사이드메뉴 -->
-			<div id="admin_menu">
-				<div>
-					<a href="">회원관리</a>
-				</div>
-				<div>
-					<a href="">상품관리</a>
-					<ul>
-						<li><a href="">예매</a></li>
-						<li><a href="">스토어</a></li>
+			<div id="store_admin_nav">
+				<nav>
+					<ul id="store_admin_nav_ul">
+						<li><a href="" class="select_nav_admin">회원 관리</a></li>
+						<li>
+							<a href="">상품 관리</a>
+							<ul>
+								<li><a href="">예매</a></li>
+								<li><a href="">스토어</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">판매 관리</a>
+							<ul>
+								<li><a href="">판매내역관리</a></li>
+								<li><a href="">결제 취소 요청</a></li>
+								<li><a href="">반품/교환 관리</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">커뮤니티 관리</a>
+							<ul>
+								<li><a href="">게시판 관리</a></li>
+								<li><a href="">신고 관리</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">고객센터</a>
+							<ul>
+								<li><a href="">공지사항 관리</a></li>
+								<li><a href="">1:1문의 관리</a></li>
+							</ul>
+						</li>
 					</ul>
-				</div>
-				<div>
-					<a href="">판매관리</a>
-					<ul>
-						<li><a href="">판매내역 관리</a></li>
-						<li><a href="">결제 취소요청</a></li>
-						<li><a href="">반품/교환관리</a></li>
-					</ul>
-				</div>
-				<div>
-					<a href="">커뮤니티관리</a>
-					<ul>
-						<li><a href="">게시판 관리</a></li>
-						<li><a href="">신고 관리</a></li>
-					</ul>
-				</div>
-				<div>
-					<a href="">고객센터</a>
-					<ul>
-						<li><a href="">공지사항 관리</a></li>
-						<li><a href="">1:1문의 관리</a></li>
-					</ul>
-				</div>
+				</nav>
 			</div>
 			<!-- 회원검색창 -->
 			<div id="memberManage">
