@@ -45,10 +45,13 @@ p {
 		<div class="max1280px">
 			<body>
 				<div class="board_title">
-					<strong>STAGEMATE</strong>
-					<hr>
-					<p>게시글</p>
-				</div>
+				<strong>STAGEMATE</strong>
+				<hr>
+				<p>게시글</p>
+			</div>
+			<div class="board_main">
+				
+			</div>
 			</body>
 		</div>
 	</section>

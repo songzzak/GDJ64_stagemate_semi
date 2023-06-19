@@ -3,9 +3,49 @@
 <%@ include file="/views/common/top.jsp"%>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <style>
+a.on {
+	display: inline-block;
+	min-width: 80px;
+	padding: 10px;
+	text-align: center;
+	border: 1px solid #000;
+	border-radius: 15px;
+	color: red;
+}
+
+table {
+	width: 100%;
+}
+
+td {
+	height: 50px;
+	text-align: center;
+}
+
+#adminBoard_head_list>table tr:first-child {
+	background-color: #e2e2e2;
+	font-size: 25px;
+}
+
+div#adminBoard_head_list {
+	margin-top: 3%;
+}
+
+.bt_wrap {
+	margin-top: 15px;
+	text-align: right;
+	/* font-size: 0; */
+	margin-right: 4%;
+}
+
+select {
+	border-radius: 15px;
+	height: 40px;
+}
+
 .extracontainer {
-	margin-left: 32.2%;
-	margin-top: 2%;
+	margin-left: 34.2%;
+	margin-top: 1%;
 }
 
 a {
@@ -26,7 +66,7 @@ a {
 	top: 1780.98px;
 	margin-bottom: 5%;
 	margin-left: 34%;
-	margin-top: 5%;
+	margin-top: 3%;
 }
 
 .page-num {
@@ -52,8 +92,8 @@ a {
 	transform: translateX(-50%);
 	display: flex;
 	align-items: center;
-	margin-left: 32.1%;
-	margin-top: -4.5%;
+	margin-left: 33.1%;
+	margin-top: -5%;
 }
 
 /* input_search_text */
@@ -86,158 +126,33 @@ a {
 	border-radius: 50%;
 	cursor: pointer;
 	margin-left: -20px;
-	margin-bottom: 1%;
 }
 
-select {
-	border-radius: 15px;
-	height: 40px;
-}
-/*comment */
-.board_list {
-	margin-bottom: 0;
-}
-
-.board_list .title {
-	width: 43%;
-	margin-top: 0.3%;
-	font-size: 20px;
-}
-
-.board_list .writer {
-	text-align: center;
-	width: 10%;
-	margin-left: 3.2%;
-	margin-top: 0.3%;
-	font-size: 20px;
-}
-
-.board_list .date {
-	text-align: center;
-	width: 10%;
-	margin-right: 5px;
-	margin-top: 0.3%;
-	font-size: 20px;
-}
-
-h3 {
-	font-size: 30px;
-	margin-top: 8%;
-	margin-left: 7%;
-}
-
-.board_list_theme {
-	background-color: #e2e2e2;
-	height: 35px;
-}
-
-div.bt_wrap a {
-	color: red;
-	text-decoration: none;
-}
-
-.main_line>hr {
-	color: black;
-}
-
-hr {
-	border-top: 2px solid #e2e2e2;
-}
-
-.com_date10 {
-	text-align: end;
-	margin-left: 5.9%;
-}
-
-.com_date11 {
-	text-align: end;
-	margin-left: 5.2%;
-}
-
-.com_test {
-	text-align: end;
-	margin-left: 57.9%;
-}
-
-.com_test1 {
-	text-align: end;
-	margin-left: 56.8%;
-}
-
-.com_test2 {
-	text-align: end;
-	margin-left: 57.9%;
-}
-
-.com_test3 {
-	text-align: end;
-	margin-left: 57.9%;
-}
-
-.com_test5 {
-	text-align: end;
-	margin-left: 42.2%;
-}
-
-.test10 {
-	text-align: end;
-	margin-left: 5.2%;
-}
-
-.test11 {
-	text-align: end;
+table.adminBoard_head_list {
 	margin-left: 5%;
 }
 
-.test12 {
-	text-align: end;
-	margin-left: 5.1%;
+.adminBoard_head_list th {
+	border: 1px solid red;
+	height: 130px;
+	width: 30%;
 }
 
-div.board_list {
-	display: flex;
-	margin-top: 2%;
+table.adminBoard_head_list td {
+	border: 1px solid blue;
+	margin-bottom: 5%;
 }
 
-div.num.b {
-	margin-left: 5.5%;
-	margin-top: 0.3%;
-	font-size: 20px;
+.admin_board {
+	margin-top: 10%;
+	margin-left: 7%;
 }
 
-div.title.b {
-	margin-left: 15%;
+div.admin_board>h3 {
+	font-size: 30px;
 }
-
-div.date.b {
-	margin-left: 20px;
-}
-
-div.admin_num {
-	margin-left: 3.3%;
-}
-
-input {
-	border-radius: 15px;
-	height: 20px;
-	width: 40px;
-	margin-bottom: 1%;
-}
-
-.bt_wrap a.on {
-	display: inline-block;
-	min-width: 80px;
-	padding: 10px;
-	text-align: center;
-	border: 1px solid #000;
-	border-radius: 15px;
-}
-
-.bt_wrap {
-	margin-top: 15px;
-	text-align: right;
-	/* font-size: 0; */
-	margin-right: 4%;
+td#adminBoard_middle_theme {
+    text-align: left;
 }
 </style>
 
@@ -250,124 +165,60 @@ input {
 	<section class="min1280px">
 		<div class="max1280px">
 			<body>
-				<div class="board_wrap">
-					<h3>댓글 신고조회 및 처리</h3>
-					<br>
+				<div class="admin_board">
+					<h3>게시글 신고조회 및 처리</h3>
+				</div>
+				<br>
+				<hr>
+				<div id="adminBoard_head_list">
+					<table>
+						<tr>
+							<th>글번호</th>
+							<th>제목</th>
+							<th>글쓴이</th>
+							<th>작성날짜</th>
+						</tr>
+						<tr>
+							<td>2301</td>
+							<td id="adminBoard_middle_theme">현영이도 엄청난 팁들과 도움을 많이 줬어요</td>
+							<td>조장흠5</td>
+							<td>2022.05.08</td>
+						</tr>
+						<tr>
+							<td>2302</td>
+							<td id="adminBoard_middle_theme">더 이상 쓸 말이 없네요</td>
+							<td>조장흠6</td>
+							<td>2022.05.08</td>
+						</tr>
+						<tr>
+							<td>2303</td>
+							<td id="adminBoard_middle_theme">jquery</td>
+							<td>조장흠7</td>
+							<td>2022.05.08</td>
+						</tr>
+						<tr>
+							<td>2304</td>
+							<td id="adminBoard_middle_theme">java</td>
+							<td>조장흠8</td>
+							<td>2022.05.08</td>
+						</tr>
+						<tr>
+							<td>2305</td>
+							<td id="adminBoard_middle_theme">oracle</td>
+							<td>조장흠9</td>
+							<td>2022.05.08</td>
+						</tr>
+						<tr>
+							<td>2306</td>
+							<td id="adminBoard_middle_theme">javascript</td>
+							<td>조장흠10</td>
+							<td>2022.05.08</td>
+						</tr>
+					</table>
 					<hr>
-					<div class="board_list_theme">
-						<div class="board_list">
-							<div class="top"></div>
-							<div class="num b">글번호</div>
-							<div class="title b">제목</div>
-							<div class="writer b">작성자</div>
-							<div class="date b">작성일자</div>
-						</div>
-					</div>
-					<div class="board_list">
-						<input type="checkbox" name="check" value="선택">
-						<div class="admin_num">101</div>
-						<div class="test10">
-							<div class="admin_title">
-								<a href="#">바보</a>
-							</div>
-						</div>
-						<div class="com_test">
-							<div class="com_writer">조장흠5</div>
-						</div>
-						<div class="com_date10">
-							<div class="com_date">2022.05.08</div>
-						</div>
-						<br>
-					</div>
-					<hr>
-					<div class="board_list">
-						<input type="checkbox" name="check" value="선택"></label>
-						<div class="admin_num">102</div>
-						<div class="test11">
-							<div class="admin_title">
-								<a href="#">멍충이</a>
-							</div>
-						</div>
-						<div class="com_test1">
-							<div class="com_writer1">조장흠6</div>
-						</div>
-						<div class="com_date10">
-							<div class="com_date">2022.05.08</div>
-						</div>
-						<br>
-					</div>
-					<hr>
-					<div class="board_list">
-						<input type="checkbox" name="check" value="선택"></label>
-						<div class="admin_num">103</div>
-						<div class="test10">
-							<div class="admin_title">
-								<a href="#">해삼</a>
-							</div>
-						</div>
-						<div class="com_test3">
-							<div class="com_writer2">조장흠7</div>
-						</div>
-						<div class="com_date10">
-							<div class="com_date">2022.05.08</div>
-						</div>
-						<br>
-					</div>
-					<hr>
-					<div class="board_list">
-						<input type="checkbox" name="check" value="선택"></label>
-						<div class="admin_num">104</div>
-						<div class="test10">
-							<div class="admin_title">
-								<a href="#">멍게</a>
-							</div>
-						</div>
-						<div class="com_test3">
-							<div class="com_writer3">조장흠8</div>
-						</div>
-						<div class="com_date10">
-							<div class="com_date">2022.05.08</div>
-						</div>
-						<br>
-					</div>
-					<hr>
-					<div class="board_list">
-						<input type="checkbox" name="check" value="선택"></label>
-						<div class="admin_num">105</div>
-						<div class="test10">
-							<div class="admin_title">
-								<a href="#">똥개</a>
-							</div>
-						</div>
-						<div class="com_test3">
-							<div class="com_writer4">조장흠9</div>
-						</div>
-						<div class="com_date10">
-							<div class="com_date">2022.05.08</div>
-						</div>
-						<br>
-					</div>
-					<hr>
-					<div class="board_list">
-						<input type="checkbox" name="check" value="선택"></label>
-						<div class="admin_num">106</div>
-						<div class="test12">
-							<div class="admin_title">
-								<a href="#">나는 재훈씨보다 자바를 잘한다</a>
-							</div>
-						</div>
-						<div class="com_test5">
-							<div class="com_writer5">조장흠10</div>
-						</div>
-						<div class="com_date11">
-							<div class="com_date">2022.05.08</div>
-						</div>
-						<br>
-					</div>
-					<hr>
-					<div class="bt_wrap">
-						<a href="#" class="on">삭제</a>
-					</div>
+				</div>
+				<div class="bt_wrap">
+					<a href="#" class="on">삭제</a>
 				</div>
 				<div class="extracontainer">
 					<form action="">
