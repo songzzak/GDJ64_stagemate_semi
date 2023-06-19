@@ -1,1 +1,76 @@
 @charset "UTF-8";
+#store_manager_container{
+    width: 100%;
+}
+#product_insert_form {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  #product_insert_form table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  #product_insert_form tr{
+    font-size: 16px;
+  }
+  
+  #product_insert_form th,
+  #product_insert_form td {
+    padding: 5px;
+    padding-bottom: 20px;
+    text-align: left;
+  }
+  
+  #product_insert_form th {
+    font-weight: bold;
+  }
+  
+  #product_insert_form input[type="text"],
+  #product_insert_form input[type="number"] {
+    width: 40%;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 15px;
+  }
+  #product_insert_form input[type="number"] {
+    width: 20%;
+  }
+  #product_insert_form input[type="file"]{
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+  img#productFile{
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+  }
+  #upfilename{
+    font-size: 14px;
+    color: #959595;
+  }
+  #product_insert_form textarea{
+    border: 1px solid black;
+    border-radius: 15px;
+  }
+  
+  #product_insert_form #insert_btn {
+    margin-top: 20px;
+    float: right;
+  }
+  
+  #product_insert_form button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #1C0808;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #product_insert_form button:hover {
+    background-color: #333;
+  }
