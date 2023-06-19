@@ -28,6 +28,26 @@
 						<div id="seatMap">
 							<!-- 좌석 표시를 위한 공간 -->
 						</div>
+						<div id="wheelchair_seat">
+							<div>
+								<div>
+									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+								</div>
+								<div>
+									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+									<img src="<%= contextPath %>/images/joonho/wheelchair.png">
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -109,7 +129,7 @@
          function selectSeat(seat) {
              if (seat.hasClass("seat")) {
                   if (seat.hasClass("selected")) {
-                     selectedSeat.removeClass("selected");
+                     seat.removeClass("selected");
                      seat.html("");
                  }else{
                  	seat.addClass("selected");
@@ -122,6 +142,10 @@
 	 });
 	</script>
 	<style>
+	#wheelchair_seat{
+		display:flex;
+		width:80%;
+	}
 	#seat_main{
 		display:flex;
 	    justify-content: center;

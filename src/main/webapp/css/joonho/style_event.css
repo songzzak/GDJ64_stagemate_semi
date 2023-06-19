@@ -5,6 +5,8 @@
 
 #gold_details_map>div>h1{
 	margin-bottom: 20%;
+	font-weight: bold;
+    font-size: 35px;
 }
 #detail_information_img>img {
 	width: 80%;
