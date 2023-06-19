@@ -1,0 +1,273 @@
+/* 관리자 메뉴 스타일 */
+#store_admin_nav {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 60px;
+}
+#store_admin_nav a{
+	text-decoration: none;
+	list-style: none;
+    color:#959595;
+}
+#store_admin_nav_ul>li:first-child>a{
+	 color: black;
+}
+
+#store_admin_nav nav ul {
+    list-style: none;
+    width: 120px;
+    margin: 0px 10px;
+    color:#959595;
+}
+
+#store_admin_nav nav ul li a{
+    font-weight: bold;
+}
+#store_admin_nav nav ul li{
+    padding: 5px;
+}
+
+#store_admin_nav nav ul li ul {
+    font-size: 13px;
+    display: block;
+    position: relative;
+    margin-left: 20px;
+}
+
+#store_admin_nav_ul li ul{
+    display: block;
+    padding: 5px;
+    list-style-type: disc;
+    margin-bottom: 5px;
+}
+
+#admin_membermanage_table a, .pageBar a{
+	text-decoration: none;
+	color:black;
+}
+.member_table_a {
+	height: 42px;
+	background-color: var(--gray-light);
+}
+
+.member_table_b {
+	height: 42px;
+	background-color: white;
+}
+#admin_membermanage_table{
+	width:100%;
+	
+}
+#admin_membermanage_table>thead {
+	height: 36px;
+	background-color: rgb(28, 8, 8);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#admin_membermanage_table>thead>tr {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+#admin_membermanage_table>thead>tr>th {
+	color: white;
+}
+
+#admin_membermanage_table>tbody>tr {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+#admin_membermanage_table>tbody>tr>td {
+	display: flex;
+	justify-content: center;
+}
+
+
+
+#withdrawal{
+	display: flex;
+	justify-content: flex-end;
+}
+
+
+div#search-container {
+	margin: 3% 0 1% 0;
+    padding: 0.5%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+div#search-container form{
+	display: flex;
+}
+#searchType{
+	width: 11%;
+	height: 32px;
+	font-size: 15px;
+	border-radius: 10px;
+	outline: none;
+	padding-left: 10px;
+	border: 1px solid black;
+}
+div#search-userId {
+	display: inline-block;
+}
+
+div#search-userName {
+	display: none;
+}
+
+div#search-gender {
+	display: none;
+}
+
+#memberManage input[type=text]{
+	width: 300px;
+	height: 32px;
+	font-size: 15px;
+	border: 0;
+	border-radius: 10px;
+	outline: none;
+	padding-left: 10px;
+	border: 1px solid black;
+}
+#memberManage>#search-container input[type=button]{
+    height: 32px;
+    width: 70px;
+    padding: 3px 3px 3px 3px;
+    font-size: 16px;
+    margin-left: 3%;
+}
+
+#page{
+	display: flex;
+    justify-content: center;
+}
+.pageBar{
+	display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+    align-items: center;
+    margin-top:5%;
+    margin-bottom: 5%;
+    
+}
+.pageBar>div{
+	width:20%;
+	display:flex;
+	justify-content: space-around;
+	font-size: 20px;
+	
+}
+
+
+#maincontainer {
+	display: flex;
+}
+
+#memberManage{
+	width: 87%;
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+
+#memberManage>h2, hr {
+	color: rgb(81, 81, 81, 0.7);
+}
+
+#maincontainer>div:first-child>*{
+	text-decoration: none;
+}
+
+#admin_membermanage_table th:not(:first-child), #admin_membermanage_table td:not(:first-child){
+	width: 150px;
+}
+#admin_membermanage_table th:first-child, #admin_membermanage_table td:first-child{
+	width : 50px;
+}
+#maincontainer>div>div:first-child>a{
+	font-weight:bolder;
+	color : black;
+	
+}
+.btn-r{
+	width:30%;
+}
+#inner_pop p{
+	margin-bottom: 10%;
+}
+#inner_pop img{
+	margin-bottom: 20%;
+}
+.pop-container, .pop-conts, #inner_pop{
+	height:100%;
+}
+#inner_pop{
+	display:flex;
+	flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#inner_pop>div:last-child{
+	display:flex;
+    width: 60%;
+    justify-content: center;
+}
+.pop-layer {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 450px;
+	height: 300px;
+	background-color: #fff;
+	border: 1px solid var(--gray-dark);
+	z-index: 10;
+}
+#yes{
+ 	display: inline-flex; 
+	width:100%;
+	height: 40px;
+	padding: 0 14px 0;
+	background-color: var(--sm-brown);
+	color: #fff;
+	line-height: 25px;
+	border-radius: 10%;
+	font-size: 20px;
+	align-items: center;
+    justify-content: center;
+    font-weight: bolder;
+    margin-right: 20%;
+    text-decoration: none;
+}
+#no{
+	display: inline-flex;
+	width:100%;
+	height: 40px;
+	padding: 0 14px 0;
+	border:1px solid var(--sm-brown);
+	line-height: 25px;
+	font-size: 13px;
+	color: var(--sm-brown);
+	line-height: 25px;
+	border-radius: 10%;
+	font-size: 20px;
+	align-items: center;
+    justify-content: center;
+    font-weight: bolder;
+    margin-left: 20%;
+    text-decoration: none;
+}
+
+#memberManage>h2{
+	font-size: 36px;
+	font-weight: bolder;
+    margin-top: 2%;
+}
+

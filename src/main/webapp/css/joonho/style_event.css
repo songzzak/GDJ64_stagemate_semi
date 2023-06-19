@@ -1,0 +1,328 @@
+#pointmark{
+	margin-top: 4%;
+    color: red;
+}
+
+#gold_details_map>div>h1{
+	margin-bottom: 20%;
+	font-weight: bold;
+    font-size: 35px;
+}
+#detail_information_img>img {
+	width: 80%;
+}
+
+#reservation_cancel_info th {
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;
+	background-color: #E9B910;
+}
+
+#reservation_cancel_info td {
+	border-bottom: 1px solid black;
+}
+
+#reservation_cancel_info tr {
+	text-align: center;
+}
+
+.info>div:last-child {
+	width: 100%;
+}
+
+.info_table_detail {
+	width: 100%;
+}
+
+div#cancel_info {
+	width: 100%;
+}
+
+#gold_maincontainer hr {
+	width: 100%;
+}
+
+.info_table {
+	display: flex;
+	justify-content: center;
+	margin-top: 2%;
+	margin-bottom: 2%
+}
+
+.info>div:first-child {
+	width: 20%;
+}
+
+#reservation_info_content p {
+	font-size: 14px;
+}
+
+.info {
+	display: flex;
+	width: 100%;
+}
+
+.gold_info {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	margin-top: 5%;
+	margin-bottom: 15%;
+	margin-top: 5%;
+}
+
+#gold_details {
+	display: flex;
+	font-size: 30px;
+	justify-content: space-between;
+}
+
+#gold_details>div {
+	display: flex;
+	width: 300px;
+	justify-content: center;
+	height: 70px;
+}
+
+#gold_seat>div:last-child {
+	display: flex;
+	justify-content: center;
+}
+
+#seat_money>div {
+	display: flex;
+	margin-bottom: 7%;
+	margin-top: 7%;
+}
+
+#seat_money h3 {
+	font-size: 21px;
+}
+
+#seat_money {
+	height: 350px;
+}
+
+#gold_content>div>div:last-child>h3, #money>div>h3 {
+	color: var(--gray-dark);
+}
+
+#money {
+	display: flex;
+	flex-direction: column;
+	width: 70%;
+}
+#gold_seat{
+	color:rgb(0,0,0,0.3);
+}
+
+#money>div {
+	display: flex;
+	margin-bottom: 5%;
+}
+
+.money>div>h3:last-child {
+	margin-left: 4%;
+}
+
+#gold_seat>div>button {
+	background:white;
+	border:1px solid rgb(0,0,0,0.3);
+	color:rgb(0,0,0,0.3);
+	width: 320px;
+	height: 70px;
+	border-radius: 15px;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+#gold_seat {
+	width: 400px;
+	margin-left: 10%;
+}
+
+#gold_choice {
+	display: flex;
+	margin-bottom: 5%;
+}
+
+.gold_h2 {
+	font-size: 20px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+
+#schedule {
+	width: 240px;
+	height: 56px;
+	background-color: white;
+	border-radius: 15px;
+	font-size: 19px;
+	font-weight: bold;
+	margin-left: 30px;
+	margin-top: 50px;
+}
+
+#reservation_calendar>div:last-child {
+	width: 320px;
+}
+
+#reservation_calendar {
+	display: flex;
+	margin-top: 4%;
+}
+
+#reservation {
+	display: flex;
+}
+
+#gold_bar {
+	border: 1px solid var(--gray-light);
+	width: 0.1px;
+	height: 400px;
+}
+
+#gold_calender {
+	background-color: white;
+	height: auto;
+	width: 400px;
+	margin: 0px;
+	padding: 20px;
+	margin: 0 auto;
+	border-radius: 5px;
+}
+
+.Calendar td {
+	width: 50px;
+	height: 50px;
+}
+
+.Calendar {
+	text-align: center;
+}
+
+.Calendar>thead>tr:first-child>td {
+	font-family: 'Questrial', sans-serif;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.Calendar>thead>tr:last-child>td {
+	font-family: 'Questrial', sans-serif;
+	font-weight: 600;
+}
+
+.Calendar>tbody>tr>td>p {
+	font-family: 'Montserrat', sans-serif;
+	height: 45px;
+	width: 45px;
+	border-radius: 45px;
+	transition-duration: .2s;
+	line-height: 45px;
+	margin: 2.5px;
+	display: block;
+	text-align: center;
+}
+
+.pastDay {
+	color: lightgray;
+}
+
+.today {
+	background-color: #F5D042;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.futureDay {
+	background-color: #FFFFFF;
+	cursor: pointer;
+}
+
+.futureDay:hover {
+	background: #eee;
+}
+
+.futureDay.choiceDay, .today.choiceDay {
+	background: #0A174E;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+#gold_maincontainer {
+	display: flex;
+	flex-direction: column;
+}
+/* title */
+#gold_title {
+	margin: 2%
+}
+
+#gold_title img{
+	width:2%;
+	cursor: pointer;
+}
+
+#gold_title>h1 {
+	font-size: 50px;
+	font-weight: bold;
+	margin-bottom: 1%;
+}
+
+#gold_title>div {
+	display: flex;
+	font-size: 24px;
+	color: var(--gray-dark);
+	align-items: center;
+}
+
+#gold_title>div>h3 {
+	margin: 1%;
+}
+
+#gold_poster {
+	margin-top: 5%;
+	margin-bottom: 5%;
+	display: flex;
+	justify-content: space-around;
+}
+
+#gold_content>div {
+	margin-bottom: 8%;
+}
+
+#gold_poster>div>div {
+	display: flex;
+	font-size: 24px;
+}
+
+#gold_content>div>div:first-child>h3 {
+	font-weight: bold;
+	width: 130px;
+}
+
+#gold_icon>div>button {
+	width: 94px;
+	height: 40px;
+	background-color: white;
+	border-radius: 10px;
+	display: flex;
+	font-size: 20px;
+	align-items: center;
+	justify-content: space-evenly;
+	margin-right: 4%;
+}
+
+#gold_icon>div {
+	display: flex;
+}
+#gold_icon button>img{
+	width:35%;
+}
+
+#urlcopy {
+	cursor: pointer;
+	width:39px;
+}

@@ -31,7 +31,7 @@ public class AdminFilter extends HttpFilter implements Filter {
 		HttpSession session = req.getSession();
 		Object admin = session.getAttribute(LOGIN_MEMBER);
 		
-		if (admin == null || !((Member) admin).getMemberId().equals("admin")) {
+		if (admin == null || !((Member) admin).getMemberId().equals("stageadmin")) {
 			req.setAttribute("msg", "잘못된 접근입니다!");
 			req.setAttribute("loc", "/");
 			req.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);

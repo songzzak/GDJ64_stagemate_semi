@@ -1,8 +1,28 @@
 package com.stagemate.admin.service;
 
-public class AdminService {
+import static com.stagemate.common.JDBCTemplate.close;
+import static com.stagemate.common.JDBCTemplate.getConnection;
 
-	public AdminService() {
-		// TODO Auto-generated constructor stub
+import java.sql.Connection;
+import java.util.List;
+
+import com.stagemate.admin.model.dao.AdminDao;
+import com.stagemate.member.model.vo.Member;
+
+public class AdminService {
+	private AdminDao dao=new AdminDao();
+	
+	public List<Member> listMember(int cPage,int numPerpage){
+		Connection conn=getConnection();
+		List<Member> list=dao.memberManage(conn,cPage,numPerpage);
+		close(conn);
+		return list;
+	}
+	
+	public int selectMemberCount() {
+		Connection conn=getConnection();
+		int result=dao.memberCount(conn);
+		close(conn);
+		return result;
 	}
 }
