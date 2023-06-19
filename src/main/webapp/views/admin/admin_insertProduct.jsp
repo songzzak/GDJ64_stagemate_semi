@@ -13,41 +13,41 @@
 <section class="min1280px">
 	<div id="sectionContainer" class="max1280px body_height div_flex_style">
 		<div id="store_admin_nav">
-			<nav>
-				<ul id="store_admin_nav_ul">
-					<li>회원 관리</li>
-					<li class="select_nav_admin">
-						상품 관리
-						<ul>
-							<li>예매</li>
-							<li class="select_nav_admin">스토어</li>
-						</ul>
-					</li>
-					<li>
-						판매 관리
-						<ul>
-							<li>판매내역관리</li>
-							<li>결제 취소 요청</li>
-							<li>반품/교환 관리</li>
-						</ul>
-					</li>
-					<li>
-						커뮤니티 관리
-						<ul>
-							<li>게시판 관리</li>
-							<li>신고 관리</li>
-						</ul>
-					</li>
-					<li>
-						고객센터
-						<ul>
-							<li>공지사항 관리</li>
-							<li>1:1문의 관리</li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</div>
+				<nav>
+					<ul id="store_admin_nav_ul">
+						<li><a href="" class="select_nav_admin">회원 관리</a></li>
+						<li>
+							<a href="">상품 관리</a>
+							<ul>
+								<li><a href="">예매</a></li>
+								<li><a href="<%=contextPath%>/views/admin/selectAllProduct.do">스토어</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">판매 관리</a>
+							<ul>
+								<li><a href="">판매내역관리</a></li>
+								<li><a href="">결제 취소 요청</a></li>
+								<li><a href="">반품/교환 관리</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">커뮤니티 관리</a>
+							<ul>
+								<li><a href="">게시판 관리</a></li>
+								<li><a href="">신고 관리</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">고객센터</a>
+							<ul>
+								<li><a href="">공지사항 관리</a></li>
+								<li><a href="">1:1문의 관리</a></li>
+							</ul>
+						</li>
+					</ul>
+				</nav>
+			</div>
 		<div id="store_manager_container">
 			<div id="store_manager_nav">
 				<nav>

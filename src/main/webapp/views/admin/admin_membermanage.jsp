@@ -25,7 +25,7 @@ List<Member> members = (List) request.getAttribute("member");
 							<a href="">상품 관리</a>
 							<ul>
 								<li><a href="">예매</a></li>
-								<li><a href="">스토어</a></li>
+								<li><a href="<%=contextPath%>/views/admin/selectAllProduct.do">스토어</a></li>
 							</ul>
 						</li>
 						<li>
