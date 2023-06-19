@@ -106,9 +106,9 @@
                 </div>
                 <div class="enroll-form-box form-box_agreement">
                     <p class="fw-bold">개인정보 수집 및 이용 동의<span class="fw-bold fc-orange">*</span></p>
-                    <input type="checkbox" name="agreement" id="agreement" required>
+                    <input type="checkbox" name="agreement" id="agreement" required readonly>
 					<label for="agreement"></label>
-                    <p style="cursor: pointer" class="fc-blue" onclick="">내용 보기</p>
+                    <p style="cursor: pointer" class="fc-blue" onclick="toAgreement();">내용 보기</p>
                 </div>
                 <div class="enroll-form-box">
                     <input type="submit" class="btn-layout btn-brown" value="가입하기" onclick="return isAllValid();">
@@ -307,6 +307,17 @@
     	}
         $(".confirmResult").remove();
         passwordToConfirm.parent().append(warningSign);
+    }
+    
+    function toAgreement() {
+    	const width = 400;
+    	const height = 700;
+    	const left = (window.screen.width / 2) + (width / 2);
+    	const top = (window.screen.height / 2) + (height / 2);
+    	
+    	window.open('<%= contextPath %>/member/agreement.do', 
+				'_blank',
+				'width=' + width, 'height=' + height, 'left=' + left, 'top=' + top);
     }
     
     function addWarningSign(className, msg, colorName) {
