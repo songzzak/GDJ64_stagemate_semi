@@ -1,0 +1,288 @@
+@import url("../style_init.css");
+
+.BookingDetailStore_bigchart {
+	margin: auto;
+	width: 1100px;
+	height: 900px;
+/* 	border: 0.5px solid  #e9ecef;; */
+	flex-direction: row;
+}
+.bigchart {
+	margin: auto;
+	width: 900px;
+	height: 800px;
+	border: 0.5px solid  #e9ecef;;
+	flex-direction: row;
+	margin-top: 15px;
+	margin-bottom: 5px;
+}
+
+/* 선 조절 */
+.division-line {
+	border-top: 0.5px solid gray;
+	margin-left: 90px;
+	width: 900px;
+	margin: 0 auto;
+}
+
+#BookingDetailStore_title {
+	color: gray;
+	font-size: 30px;
+	font-weight: bold;
+	margin-left: 100px;
+	padding-top: 100px;
+}
+
+   .store_title{
+    	font-size: 22px;
+        background-color: #e9ecef;
+        margin-bottom: 5px;
+        height: 50px;
+    }
+    #bookchart2{
+        flex-direction: row;/* 테이블 가로 정렬 */
+        display: flex;
+     
+    }
+    .storebook{
+        margin-right: 5px;
+    }
+
+ 
+
+
+    /* 표1 디자인 */
+    .store_info  {
+        width: 600px;
+        border-top: 1px solid8 #444444;
+       
+        border-collapse: collapse;
+        margin:auto;
+    }
+    .store_info th{
+        
+        border-bottom: 1px solid  #e9ecef;;
+        text-align: left;
+        padding:6px;
+    }
+    .store_info tr{
+       
+        border-bottom: 1px solid  #e9ecef;;
+        text-align: left;
+    }
+
+    /* 중간 열 줄 */
+    .store_info td{
+        border-left: 1px solid  #e9ecef;;
+        Padding-left:10px;/* 테이블 간격 */
+        
+}
+
+    /* 밑줄 라인 */
+    .under_td{
+        text-align:right;
+        padding:6px;
+        background-color: #e9ecef;;
+        border-left: none;
+        
+    }
+
+    
+    
+   /* 표2(구매자정보) 디자인 */
+   .shopper_chart {
+    width: 850px;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+    margin:auto;
+    }
+    .shopper_chart th{
+        background-color: #e9ecef;;
+        border-bottom: 1px solid  #e9ecef;;
+    }
+    .shopper_chart tr{
+    
+        border-bottom: 1px solid  #e9ecef;;
+        text-align: left;
+        
+
+    }
+
+    .shopper_chart th{
+        padding: 4px;
+        text-align:center;
+        width : 150px
+    }
+    .shopper_chart td{
+        Padding-left:15px;
+    }
+    /* 구매자정보  */
+    .shopper-info{
+      margin-left:30px;
+        padding:10px 0px 3px 0px;
+    }
+
+
+
+    /* 표3(결제내역) 디자인 */
+   .shop_chart {
+    width: 850px;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+    margin:auto;
+    }
+    .shop_chart th{
+        background-color: #e9ecef;;
+        border-bottom: 1px solid  #e9ecef;;
+    }
+    .shop_chart tr{
+    
+        border-bottom: 1px solid  #e9ecef;;
+        text-align: left;
+        
+
+    }
+
+    .shop_chart th{
+        padding: 4px;
+        text-align:center;
+        width : 150px
+        
+    }
+    .shop_chart td{
+        Padding-left:15px;
+    }
+
+    /* 결제내역 글씨  */
+    .shop-info{
+        margin-left:30px;
+        padding:10px 0px 3px 0px;
+    }
+
+
+    /* 표4(배송지정보) 디자인 */
+    .dlv_chart {
+    width: 850px;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+    margin:auto;
+    }
+    .dlv_chart th{
+        background-color: #e9ecef;;
+    }
+    .dlv_chart tr{
+    
+        border-bottom: 1px solid  #e9ecef;;
+        text-align: left;
+        
+
+    }
+
+    .dlv_chart th{
+        padding: 4px;
+        text-align:center;
+        width : 150px
+        
+    }
+    .dlv_chart td{
+        Padding-left:15px;
+    }
+
+    /* 배송지정보 글씨  */
+    .dlv-info{
+   margin-left:30px;
+        padding:10px 0px 3px 0px;
+    }
+      
+
+
+
+
+   
+    /* 글씨 모음 */
+    .store_title{
+        font-weight: bold;
+        padding:10px 0px 10px 10px;
+    }
+    .font-pay{
+        margin-left:26px;
+        padding:10px 0px 3px 0px;
+    }
+    .cancel-txt{
+        margin-bottom: 30px;
+    }
+
+    .cancel-gd{
+        padding:10px 0px 3px 20px;
+        font-weight: bold;
+    }
+    .cancel-date{
+        font-weight: bold;
+        padding:10px 0px 3px 20px;
+    }
+    .cancel_box{
+        padding:10px 0px 3px 20px;
+    }
+
+       /* 예매취소 아래 선 조절 */
+       .cancel-line{
+        border-top: 0.2px solid gray;
+        margin-left: 20px;
+        width: 860px;     
+    }
+
+    .ref-txt{
+        font-size:13px;
+   
+     
+    }
+
+
+    /* 버튼  */
+     /* 예매내역 버튼 */
+     .re-btn2{
+        border: none;
+        padding: 8px 45px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        background-color: var( --sm-yellow);
+        border: 2px solid var( --sm-yellow);
+        color: var(--sm-brown);
+        margin: 0 auto;    /* 버튼 글씨정렬 후 버튼 일자 정렬 */
+        display: flex;
+        margin-bottom: 25px;
+        margin-top: 90px;
+    }
+
+    .BDS_inq_btn{
+        border: none;
+        font-weight: bold;
+        background-color: var( --sm-yellow);
+        border: 2px solid var( --sm-yellow);
+        color: var(--sm-brown);
+        padding: 8px 28px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+
+    }
+    .BDS_ref_btn{
+        border: none;
+        font-weight: bold;
+        background-color: var(--gray-light);
+        border: 2px solid var(--gray-light);
+        color: var(--sm-brown);
+        padding: 8px 28px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+
+       
+    }
+    .BDS_btn{
+ 
+        margin-left:620px;
+}
+

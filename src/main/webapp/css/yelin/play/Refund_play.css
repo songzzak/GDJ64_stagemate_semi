@@ -1,0 +1,387 @@
+@import url("../style_init.css");
+
+
+
+
+    
+
+    #BookingDetailPlay_title{
+        color:gray;
+        font-size: 30px;
+        font-weight: bold;
+        margin-left: 130px;
+        padding-top: 100px;
+    }
+
+    .division-line{
+border-top: 0.5px solid gray;
+	margin-left: 90px;
+	width: 900px;
+	margin: 0 auto;   
+    }
+    .play_title{
+        font-size: 22px;
+        
+    }
+ 
+    
+    /* 전체틀선 */
+    .Refund1_bigchart{
+        margin:auto;
+        width:900px;
+        height:420px;
+        border:0.5px solid #e9ecef;
+        flex-direction: row;
+        margin-top: 15px;
+        margin-bottom: 5px;
+    }
+        
+  
+    .play_title{
+        background-color:#e9ecef;;
+        margin-bottom: 5px;
+        height: 50px;
+    }
+    #bookchart2{
+        flex-direction: row;/* 테이블 가로 정렬 */
+        display: flex;
+     
+    }
+    .ticketbook{
+        margin-right: 60px;
+    }
+
+
+    /* 표1 디자인 */
+    .book_info  {
+        width: 600px;
+        border-top: 1px solid8 #444444;
+       
+        border-collapse: collapse;
+        margin:auto;
+    }
+    .book_info th{
+        
+        border-bottom: 1px solid #e9ecef;;
+        text-align: left;
+        padding:6px;
+    }
+    .book_info tr{
+       
+        border-bottom: 1px solid #e9ecef;;
+        text-align: left;
+    }
+
+
+    /* 중간 열 줄 */
+    .book_info td{
+            border-left: 1px solid #e9ecef;;
+            Padding-left:10px;/* 테이블 간격 */
+            
+    }
+
+    
+     /* 표2 결제내역*/
+     .pay_chart {
+        width: 850px;
+        border-top: 1px solid #444444;
+        border-collapse: collapse;
+        margin:auto;
+    }
+    .pay_chart th{
+        background-color:#e9ecef;;
+        border-bottom: 1px solid #e9ecef;;
+    }
+    .pay_chart tr{
+       
+        border-bottom: 1px solid #e9ecef;;
+        text-align: left;
+    }
+
+    .pay_chart th{
+        padding: 4px;
+        text-align:center;
+    }
+    .pay_chart td{
+        Padding-left:15px;
+    }
+   
+  
+
+    /* 표3 환불내역 */
+    .refund_chart {
+        width: 900px;
+        border-top: 1px solid #444444;
+        border-collapse: collapse;
+        margin:auto;
+        margin-top: 5px;
+    }
+    .refund_chart th{
+        background-color:#e9ecef;
+        border-bottom: 1px solid #e9ecef;
+    }
+    .refund_chart tr{
+       
+        border-bottom: 1px solid #e9ecef;
+        text-align: left;
+    }
+
+    .refund_chart th{
+        padding: 4px;
+        text-align:center;
+    }
+
+    .refund_chart td{
+        Padding-left:15px;
+    }
+
+    .under_td2{
+        background-color: var(--sm-brown);
+        color: white;
+        padding: 4px;
+        text-align:center;
+        
+    }
+
+   
+
+    /* 글씨 모음 */
+    .play_title{
+        font-weight: bold;
+        padding:10px 0px 10px 10px;
+    }
+    .font-pay{
+        margin-left:26px;
+        padding:10px 0px 3px 0px;
+    }
+    .rfd-list{
+        margin-left: 175px;
+        padding:20px 0px 3px 0px;
+        font-weight: bold;
+    }
+ 
+  
+/* 
+예매내역목록 / 취소하기 버튼 
+ */
+ .re-btn3{
+    border: none;
+    font-weight: bold;
+    background-color: var( --sm-yellow);
+    border: 2px solid var( --sm-yellow);
+    color: var(--sm-brown);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    width: 160px;
+    height: 35px;
+    margin-right: 10px;
+    margin-bottom: 70px;
+    margin-top: 30px;
+    cursor:pointer;
+ }
+
+.refund-btn{
+    border: none;
+    font-weight: bold;
+    background-color: var(--sm-brown);
+    border: 2px solid var(--sm-brown);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    width: 160px;
+    height: 35px;
+    margin-top: 30px;
+    cursor:pointer;
+
+}
+
+/* 버튼 두개 나란히 두고 정렬 */
+.refund-btn-group{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+    /*경고 메세지*/
+    .warning-msg{
+            margin:auto;
+            width:900px;
+            height:100px;
+            border:0.5px solid var( --sm-yellow);
+            flex-direction: row;
+            margin-top: 40px;
+
+            display: flex;
+            flex-direction: row;
+            padding: 0px 0px 0px 20px;
+          
+    }
+
+    #warning-txt{
+        padding:30px 20px 5px 20px;
+    }
+   
+   
+   
+.w_m_img{
+	width:90px;
+	height:70px;
+	margin-top:13px;
+}
+   
+   
+   
+   
+   /* RefundFin */
+
+
+ /* 구매상세내역서 */
+    #RefundFin_play_title{
+       color:gray;
+        font-size: 30px;
+        font-weight: bold;
+        margin-left: 130px;
+        padding-top: 100px;
+    }
+    /* 선 조절 */
+    .division-line{
+       border-top: 0.5px solid gray;
+	margin-left: 90px;
+	width: 900px;
+	margin: 0 auto;   
+    }
+  
+   
+   
+   
+   /*경고 메세지*/
+   .warning-msg2{
+    margin:auto;
+    width:900px;
+    height:100px;
+    border:0.5px solid var( --sm-yellow);
+    flex-direction: row;
+    margin-top: 40px;
+
+    display: flex;
+    flex-direction: row;
+    padding: 0px 0px 0px 20px;
+  
+}
+    /* 경고 메세지 문자 */
+    #warning-txt2{
+    margin:35px 20px 30px 20px;
+    font-size: 20px;
+    font-weight:bold;
+    }
+
+    /* 환불내역 문자 */
+    .refund-cnt{
+        margin-left:155px;
+        padding:10px 0px 3px 0px;
+      
+    }
+
+    /* 환불내역 네모칸 */
+    .refundbox{
+        background-color: #e9ecef;
+        height: 60px;
+        width: 900px;
+        margin:auto;
+        border-top: 0.5px solid black;
+    }
+
+    /* 환불내역 네모칸 텍스트 */
+    .refundbox-text{
+        margin:auto;
+       
+        
+        margin:18px 20px 30px 20px;
+    font-size: 20px;
+    font-weight:bold;
+        
+    }
+
+    /* 환불 상세내역 텍스트 */
+    .refundcnt-detail{
+        margin-left:155px;
+        padding:30px 0px 3px 0px;
+    }
+
+    /* 환불 상세내역 표 */
+   
+
+     /* 표3 환불내역 */
+     .refundcnt-detail-chart {
+        width: 900px;
+        border-top: 1px solid #e9ecef;
+        border-collapse: collapse;
+        margin:auto;
+        margin-top: 5px;
+    }
+    .refundcnt-detail-chart th{
+        background-color:#e9ecef;
+        border-bottom: 1px solid #e9ecef;
+    }
+    .refundcnt-detail-chart tr{
+       
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .refundcnt-detail-chart th{
+        padding: 4px;
+        text-align:center;
+    }
+
+    .refundcnt-detail-chart td{
+        Padding-left:15px;
+    }
+
+ 
+    /* 예매내역목록/취소내역 버튼 */
+    .re-btn4{
+        border: none;
+        font-weight: bold;
+        background-color: var( --sm-yellow);
+        border: 2px solid var( --sm-yellow);
+        color: var(--sm-brown);
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        width: 160px;
+        height: 35px;
+        margin-right: 10px;
+        margin-bottom: 70px;
+        margin-top: 30px;
+        cursor:pointer;
+     }
+    
+    .refund-btn2{
+        border: none;
+        font-weight: bold;
+        background-color: var(--sm-brown);
+        border: 2px solid var(--sm-brown);
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        border: none;
+        width: 160px;
+        height: 35px;
+        margin-top: 30px;
+        cursor:pointer;
+    }
+    
+    /* 버튼 두개 나란히 두고 정렬 */
+    .refundcnt-btn{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+   
+   
+   
