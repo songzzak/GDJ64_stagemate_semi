@@ -37,7 +37,30 @@ private static final String SQL_PATH = "/sql/member/member_sql.properties";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-//			throw new NullPointerException("SQL 문제로 NPE 발생시킴");
+			throw new IllegalArgumentException();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return member;
+	}
+
+	public Member selectById(Connection conn, String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member member = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectById"));
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				member = MemberGenerator.by(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException();
 		} finally {
 			JDBCTemplate.close(rs);
 			JDBCTemplate.close(pstmt);

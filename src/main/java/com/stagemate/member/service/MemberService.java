@@ -19,4 +19,11 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		return member;
 	}
+	
+	public Member selectById(String id) {
+		Connection conn = JDBCTemplate.getConnection();
+		Member member = memberDao.selectById(conn, id);
+		JDBCTemplate.close(conn);
+		return member;
+	}
 }
