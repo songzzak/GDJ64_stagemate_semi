@@ -140,9 +140,21 @@
 	 });
 	</script>
 	<style>
+	#wheelchair_seat>div{
+		width:40%;
+		display: flex;
+		justify-content: center;
+	}
+	#wheelchair_seat>div>img{
+		margin-left: 2%;
+		margin-right: 2%;
+		
+	}
 	#wheelchair_seat{
 		display:flex;
 		width:100%;
+	    justify-content: space-around;
+	    margin-bottom: 5%;
 	}
 	#seat_main{
 		display:flex;
@@ -165,7 +177,7 @@
 	background-color: black;
 	color: white;
 	width: 4%;
-	padding: 1%;
+	padding: 1%; 
 }
 
 #first_seat>div>h2 {
@@ -176,9 +188,7 @@
     font-weight: bold;
     color: var(--gray)
 }
-div#seatMap {
-    margin-bottom: 5%;
-}
+
 #first_seat {
 	border-radius: 15px;
 	border: 1px solid var(--gray);
