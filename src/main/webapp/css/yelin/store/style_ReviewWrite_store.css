@@ -1,0 +1,191 @@
+@import url("../style_init.css");
+.ReviewWriteStore_bigchart{
+   margin: auto;
+	width: 900px;
+	height: 650px;
+/* 	border: 0.5px solid black; */
+	flex-direction: row;
+	margin-top: 15px;
+	margin-bottom: 5px;
+}
+/* 구매내역 조절 */
+#ReviewWriteStore_title{
+   color: gray;
+	font-size: 30px;
+	font-weight: bold;
+	margin-left: 5px;
+	padding-top: 100px;
+}
+    
+    /* 선 조절 */
+.division-line{
+   border-top: 0.5px solid gray;
+	margin-left: 90px;
+	width: 900px;
+	margin: 0 auto;
+}
+/* 리뷰 한줄 소개 */
+.review-txt2{
+   margin-left: 10px;
+	padding: 10px 0px 0px 0px;
+	font-size: 18px;
+}
+.review-txt{
+   margin-left:10px;
+	padding: 5px 0px 3px 0px;
+	font-size: 13px;
+}
+
+
+/* 네모 상자 안에 상품명~ */
+.parchase_txtbox{
+    width:90px;
+    height:140px;
+    background-color: #e9ecef;
+    border-radius:8px;
+    position: relative;
+    margin-top: 40px;
+    margin-left:75px;
+    margin-right:15px;
+    text-align:center;
+}
+.parchase_txtbox2{
+position: absolute;
+margin-top: 18px;
+margin-left:12px;
+}
+
+
+
+
+
+
+/* 검색 버튼 */
+.RS_searchbtn button{
+    color: white;
+    background-color: var(--sm-brown);
+    border: none;
+    padding: 3px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20;
+    border-radius: 5px;
+    font-weight: 20;
+    cursor:pointer;
+}
+
+#RS-attachbtn{
+      color: white;
+    background-color: var(--sm-brown);
+    border: none;
+    padding: 3px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20;
+    border-radius: 5px;
+    font-weight: 20;
+    cursor:pointer;
+}
+.RS_attach{
+    margin-top:20px;
+}
+
+.RB-reac-rate{
+	margin-top:20px;
+}
+.RB-reac-rate img{
+	vertical-align: middle;
+	height: 10px;
+	width: 10px;
+	display:inline-block;
+	margin-right:10px;
+}
+.RS_attachbtn button{
+    color: white;
+    background-color: var(--sm-brown);
+    border: none;
+    padding: 1px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20;
+    border-radius: 5px;
+    font-weight: 20;
+    cursor:pointer;
+}
+
+#RS-attach, #RS_txt{
+    border-radius: 5px;
+    margin-right:5px;
+}
+/* 배치 조절 */
+.RS-biggroup{
+    display: flex;
+    
+}
+.RS-biggroup{
+    /* background-color: var(--sm-brown); */
+    width: 600px;
+    height: 180px;
+}
+
+.RS_btngroup{
+    flex-direction: row;
+    flex:1;
+    margin-top:38px;
+}
+
+/* 입력칸 */
+
+.RS-textarea{
+    border-radius: 15px;
+    padding: 30px;
+    margin-left: 75px;
+    margin-top: 25px;
+    width: 750px;
+    height:150px;
+    
+}
+
+/* comment 길이 */
+.RS_util_right{
+    text-align: right;
+    margin-right:75px;
+    margin-top: 5px;
+    resize:none;
+}
+/* 하단버튼 */
+.RS-list-box{
+    margin-top: 20px;
+    text-align: center;
+  
+}
+.RS-comment-btn{
+
+    background-color: var(--sm-brown);
+    background-color: var( --sm-yellow);
+    color: var(--sm-brown);
+    border: none;
+    padding: 5px 25px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 20;
+    border-radius: 5px;
+    cursor:pointer;
+    margin-left:590px;
+}
+
+.RS-list-btn{
+    margin-top: 0px;
+    color: white;
+    background-color: var(--sm-brown);
+    border: none;
+    padding: 5px 25px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 20;
+    border-radius: 5px;
+    cursor:pointer;
+    
+   
+}
+
