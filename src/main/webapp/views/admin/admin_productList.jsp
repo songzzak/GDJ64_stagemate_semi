@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <%@page import="java.util.List,com.stagemate.store.model.vo.Product"%>
-<%-- <%
+<%
 List<Product> products = (List) request.getAttribute("products");
-%> --%>
+%>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/yoonjin/style_product_list_for_admin.css">
 <title>Store Management</title>
@@ -16,12 +16,12 @@ List<Product> products = (List) request.getAttribute("products");
 			<div id="store_admin_nav">
 				<nav>
 					<ul id="store_admin_nav_ul">
-						<li><a href="" class="select_nav_admin">회원 관리</a></li>
-						<li>
+						<li><a href="">회원 관리</a></li>
+						<li class="select_nav_admin">
 							<a href="">상품 관리</a>
 							<ul>
 								<li><a href="">예매</a></li>
-								<li><a href="<%=contextPath%>/views/admin/selectAllProduct.do">스토어</a></li>
+								<li class="select_nav_admin"><a href="<%=contextPath%>/admin/selectAllProduct.do">스토어</a></li>
 							</ul>
 						</li>
 						<li>
@@ -71,49 +71,33 @@ List<Product> products = (List) request.getAttribute("products");
 							<th>등록일</th>
 							<th></th>
 						</tr>
+						<%
+					if (products.isEmpty()) {
+					%>
+					<tr>
+						<td colspan="7">등록된 상품이 없습니다.</td>
+					</tr>
+				    <%}else{ 
+				    	for(Product p : products){%>
 						<tr>
-							<td>1</td>
-							<td>행사이름</td>
-							<td>상품이름</td>
-							<td>7000</td>
-							<td>55</td>
-							<td>재고관리 수시로</td>
-							<td>2023-05-08</td>
+							<td><%=p.getProductNo() %></td>
+							<td><%=p.getProductTitle() %></td>
+							<td><%=p.getProductNm() %></td>
+							<td><%=p.getProductPrice() %></td>
+							<td><%=p.getProductAmt() %></td>
+							<td><%=p.getProductComment() %> </td>
+							<td><%=p.getProductInsertDate() %></td>
 							<td>
 								<button class="btn_store_mng">수정</button>
 								<button class="btn_store_mng">삭제</button>
 							</td>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>행사이름2</td>
-							<td>상품이름2</td>
-							<td>5000</td>
-							<td>29</td>
-							<td>추후 재입고예정 없음</td>
-							<td>2023-05-30</td>
-							<td>
-								<button class="btn_store_mng">수정</button>
-								<button class="btn_store_mng">삭제</button>
-							</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>행사이름3</td>
-							<td>상품이름3</td>
-							<td>3000</td>
-							<td>109</td>
-							<td></td>
-							<td>2023-06-07</td>
-							<td>
-								<button class="btn_store_mng">수정</button>
-								<button class="btn_store_mng">삭제</button>
-							</td>
-						</tr>
+						<%}
+					}%>
 					</table>
 				</div>
 				<div class="page-bar">
-					<%-- <%=request.getAttribute("pageBar")%> --%>
+					<%=request.getAttribute("pageBar")%>
 				</div>
 			</div>
 		</div>
@@ -121,6 +105,6 @@ List<Product> products = (List) request.getAttribute("products");
 	<%@ include file="/views/common/footer.jsp"%>
 	<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 	<script src="<%=contextPath%>/js/script_common.js"></script>
-	<script src="<%=request.getContextPath()%>/js/yoonjin/product_list_for_admin.js"></script>
+	<script src="<%=contextPath%>/js/yoonjin/product_list_for_admin.js"></script>
 </body>
 </html>

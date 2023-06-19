@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.stagemate.common.PropertiesGenerator;
 import com.stagemate.store.model.vo.Product;
+import com.stagemate.store.model.vo.StoreUpfile;
 
 public class StoreDao {
 
@@ -125,6 +126,43 @@ public class StoreDao {
 			e.printStackTrace();
 		}finally {
 			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertProduct(Connection conn, Product p) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertProduct"));
+			pstmt.setString(1, p.getProductTitle());
+			pstmt.setString(2, p.getProductNm());
+			pstmt.setInt(3, p.getProductPrice());
+			pstmt.setInt(4, p.getProductAmt());
+			pstmt.setString(5, p.getProductComment() != null && !p.getProductComment().isEmpty() ? p.getProductComment() : null);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertFileData(Connection conn, StoreUpfile file, Product p) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertFileData"));
+			pstmt.setInt(1, p.getProductNo());
+			pstmt.setString(2, file.getImgFilenameOri());
+			pstmt.setString(3, file.getImgFileRename());
+			pstmt.setString(4, String.valueOf(file.getIsMainImg())); 
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
 			close(pstmt);
 		}
 		return result;

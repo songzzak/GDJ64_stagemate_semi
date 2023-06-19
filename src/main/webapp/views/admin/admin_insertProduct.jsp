@@ -15,12 +15,12 @@
 		<div id="store_admin_nav">
 				<nav>
 					<ul id="store_admin_nav_ul">
-						<li><a href="" class="select_nav_admin">회원 관리</a></li>
-						<li>
+						<li><a href="" >회원 관리</a></li>
+						<li class="select_nav_admin">
 							<a href="">상품 관리</a>
 							<ul>
 								<li><a href="">예매</a></li>
-								<li><a href="<%=contextPath%>/views/admin/selectAllProduct.do">스토어</a></li>
+								<li class="select_nav_admin"><a href="<%=contextPath%>/admin/selectAllProduct.do">스토어</a></li>
 							</ul>
 						</li>
 						<li>
@@ -58,14 +58,47 @@
 			</div>
 			<hr>
 			<div id="product_insert_form">
-				<form>
+				<form action="<%=contextPath%>/admin/insertProductEnd.do" method="post" enctype="multipart/form-data">
 					<table>
 						<tr>
 							<th>행사*</th>
-							<td><input type="text" name="" id=""></td>
+							<td><input type="text" name="productTitle" id="" required placeholder="행사명이 없는 경우 '일반상품'으로 입력"></td>
 						</tr>
-						
+						<tr>
+							<th>상품명*</th>
+							<td><input type="text" name="productNm" id="" required></td>
+						</tr>
+						<tr>
+							<th>판매가*</th>
+							<td><input type="number" name="productPrice" id="" required></td>
+						</tr>
+						<tr>
+							<th>재고수량*</th>
+							<td><input type="number" name="productAmt" id="" required></td>
+						</tr>
+						<tr>
+							<th>대표이미지*</th>
+							<td>
+								<img src="<%=contextPath%>/images/yoonjin/information/default_img2.png" id="productFile">
+    							<input type="file" name="upFileMain" id="productFileInput" style="display:none" accept="image/*" required>
+								<span id="upfilename"></span>
+							</td>
+						</tr>
+						<tr>
+							<th>상세이미지*</th>
+							<td><input type="file" name="upFileDetail" id="" required></td>
+						</tr>
+						<tr>
+							<th>관리자비고</th>
+							<td>
+								<textarea name="productComment" id="" cols="60" rows="5"></textarea>
+							</td>
+						</tr>
 					</table>
+					<div id="insert_btn">
+						<button type="submit">등록</button>
+						<button type="reset">취소</button>
+					</div>
 				</form>
 			</div>
 			<div class="page-bar">

@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.stagemate.store.dao.StoreDao;
 import com.stagemate.store.model.vo.Product;
+import com.stagemate.store.model.vo.StoreUpfile;
 
 public class StoreService {
 	
@@ -46,6 +47,24 @@ public class StoreService {
 	public int searchProductsByKeywordCnt(String keyword) {
 		Connection conn=getConnection();
 		int result=dao.searchProductsByKeywordCnt(conn, keyword);
+		close(conn);
+		return result;
+	}
+
+	public int insertProduct(Product product) {
+		Connection conn=getConnection();
+		int result=dao.insertProduct(conn,product);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int insertFileData(StoreUpfile mainImg, Product product) {
+		Connection conn=getConnection();
+		int result=dao.insertFileData(conn,mainImg,product);
+		if(result>0) commit(conn);
+		else rollback(conn);
 		close(conn);
 		return result;
 	}
