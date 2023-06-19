@@ -3,6 +3,52 @@
 <%@ include file="/views/common/top.jsp"%>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <style>
+/* store_search */
+#store_search {
+	/* position: absolute; */
+	width: 400px;
+	height: 40px;
+	left: 50%;
+	top: 170px;
+	transform: translateX(-50%);
+	display: flex;
+	align-items: center;
+	margin-left: 265px;
+	margin-top: -5%;
+}
+
+/* input_search_text */
+#input_search_text {
+	box-sizing: border-box;
+	flex: 1;
+	height: 40px;
+	background: #FFFFFF;
+	border: 1px solid #1C0808;
+	border-radius: 20px 0 0 20px;
+	padding: 0 10px;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 300;
+	font-size: 20px;
+	line-height: 24px;
+	color: #828282;
+	position: relative;
+	z-index: -1;
+}
+
+/* search_button */
+#search_button {
+	width: 40px;
+	height: 40px;
+	background: #1C0808;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	cursor: pointer;
+	margin-left: -20px;
+}
+
 a.on {
 	display: inline-block;
 	min-width: 80px;
@@ -82,51 +128,6 @@ a {
 	text-align: center;
 	color: #828282;
 }
-/* store_search */
-#store_search {
-	/* position: absolute; */
-	width: 400px;
-	height: 40px;
-	left: 50%;
-	top: 170px;
-	transform: translateX(-50%);
-	display: flex;
-	align-items: center;
-	margin-left: 33.1%;
-	margin-top: -5%;
-}
-
-/* input_search_text */
-#input_search_text {
-	box-sizing: border-box;
-	flex: 1;
-	height: 40px;
-	background: #FFFFFF;
-	border: 1px solid #1C0808;
-	border-radius: 20px 0 0 20px;
-	padding: 0 10px;
-	font-family: 'Inter';
-	font-style: normal;
-	font-weight: 300;
-	font-size: 20px;
-	line-height: 24px;
-	color: #828282;
-	position: relative;
-	z-index: -1;
-}
-
-/* search_button */
-#search_button {
-	width: 40px;
-	height: 40px;
-	background: #1C0808;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 50%;
-	cursor: pointer;
-	margin-left: -20px;
-}
 
 table.adminBoard_head_list {
 	margin-left: 5%;
@@ -150,14 +151,20 @@ table.adminBoard_head_list td {
 
 div.admin_board>h3 {
 	font-size: 30px;
+	margin-left: -81px;
 }
+
 td#adminBoard_middle_theme {
-    text-align: left;
+	text-align: left;
+}
+
+input {
+	height: 20px;
 }
 </style>
 
 <!---------------------------------------->
-<title>페이지 타이틀 입력</title>
+<title>게시글 신고조회 및 처리</title>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
@@ -173,42 +180,49 @@ td#adminBoard_middle_theme {
 				<div id="adminBoard_head_list">
 					<table>
 						<tr>
+							<th></th>
 							<th>글번호</th>
 							<th>제목</th>
 							<th>글쓴이</th>
 							<th>작성날짜</th>
 						</tr>
 						<tr>
+							<td><input type="checkbox" name="check" value="선택"></td>
 							<td>2301</td>
-							<td id="adminBoard_middle_theme">현영이도 엄청난 팁들과 도움을 많이 줬어요</td>
+							<td id="adminBoard_middle_theme">현영이도 많은 도움을...</td>
 							<td>조장흠5</td>
 							<td>2022.05.08</td>
 						</tr>
 						<tr>
+							<td><input type="checkbox" name="check" value="선택"></td>
 							<td>2302</td>
 							<td id="adminBoard_middle_theme">더 이상 쓸 말이 없네요</td>
 							<td>조장흠6</td>
 							<td>2022.05.08</td>
 						</tr>
 						<tr>
+							<td><input type="checkbox" name="check" value="선택"></td>
 							<td>2303</td>
 							<td id="adminBoard_middle_theme">jquery</td>
 							<td>조장흠7</td>
 							<td>2022.05.08</td>
 						</tr>
 						<tr>
+							<td><input type="checkbox" name="check" value="선택"></td>
 							<td>2304</td>
 							<td id="adminBoard_middle_theme">java</td>
 							<td>조장흠8</td>
 							<td>2022.05.08</td>
 						</tr>
 						<tr>
+							<td><input type="checkbox" name="check" value="선택"></td>
 							<td>2305</td>
 							<td id="adminBoard_middle_theme">oracle</td>
 							<td>조장흠9</td>
 							<td>2022.05.08</td>
 						</tr>
 						<tr>
+							<td><input type="checkbox" name="check" value="선택"></td>
 							<td>2306</td>
 							<td id="adminBoard_middle_theme">javascript</td>
 							<td>조장흠10</td>

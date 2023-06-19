@@ -33,10 +33,17 @@ p {
 	margin-left: 5%;
 	font-size: 35px;
 }
+hr{
+	margin-top: 2%;
+}
+table{
+	width: 100%;
+	border: 1px black;
+}
 </style>
 
 <!---------------------------------------->
-<title>페이지 타이틀 입력</title>
+<title>게시글 작성</title>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
@@ -47,7 +54,23 @@ p {
 				<div class="board_title">
 					<strong>STAGEMATE</strong>
 					<hr>
-					<p>게시글</p>
+					<p>게시글 작성</p>
+				</div>
+				<div id="boardwrite">
+					<table>
+						<tr>
+							<th>제목</th>
+							<th>작성중...</th>
+						</tr>
+						<tr>
+							<th>파일첨부</th>
+							<th></th>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<th>작성작성</th>
+						</tr>
+					</table>
 				</div>
 			</body>
 		</div>
