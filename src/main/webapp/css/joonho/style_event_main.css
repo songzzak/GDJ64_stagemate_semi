@@ -1,4 +1,3 @@
-
 #musical>div:first-child * {
 	font-size: 100px;
 }
@@ -24,20 +23,21 @@ div.musical_content>div {
 }
 
 div.musical_content>div>h4 {
-	font-size: 22px;
+	font-size: 20px;
 	font-weight: bolder;
 	text-align: left;
 	margin-top: 10px;
 	margin-bottom: 0px;
 }
-#chioce_array a{
+
+#chioce_array a {
 	font-size: 20px;
 	margin-right: 5px;
 	margin-left: 5px;
 	text-decoration: none;
-	color:black;
-	
+	color: black;
 }
+
 div.musical_content>div>h5 {
 	color: #828282;
 	text-align: left;
@@ -77,8 +77,6 @@ div.musical_product>div img {
 	/* border: 1px solid red; */
 }
 
-
-
 #search {
 	width: 300px;
 	height: 25px;
@@ -115,9 +113,9 @@ div.musical_product>div img {
 }
 
 #choice {
-	display:flex;
- 	justify-content:center; 
-	width:45%;
+	display: flex;
+	justify-content: center;
+	width: 45%;
 	margin-top: 1.5%;
 }
 
@@ -133,20 +131,21 @@ div.musical_product>div img {
 #choice [type="radio"]:checked {
 	border: 0.35rem solid var(--sm-brown);
 }
-#choice>div{
- display: flex;
- width:21%;
- align-items: center;
-  justify-content: center;
+
+#choice>div {
+	display: flex;
+	width: 21%;
+	align-items: center;
+	justify-content: center;
 }
-#choice>div p{
+
+#choice>div p {
 	margin-right: 7%;
 	font-size: 20px;
 }
 
-
 .like {
-display: flex;
+	display: flex;
 }
 
 .like p {
@@ -154,44 +153,69 @@ display: flex;
 	display: flex;
 	align-items: center;
 }
+
 #event_search {
-    width: 400px;
-    height: 40px;
-    left: 50%;
-    top: 170px;
-  }
-  
-  /* input_search_text */
-  #input_search_text {
-    box-sizing: border-box;
-    flex: 1;
-    height: 40px;
-    background: #FFFFFF;
-    border: 1px solid #1C0808;
-    border-radius: 20px 0 0 20px;
-    padding: 0 10px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 20px;
-    line-height: 24px;
-    color: #828282;
-    position: relative;
-    z-index: -1;
-  }
-  
-  /* search_button */
-  #search_button {
-    width: 40px;
-    height: 40px;
-    background: #1C0808;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-left: -20px;
-  }
+	width: 400px;
+	height: 40px;
+	left: 50%;
+	top: 170px;
+}
 
-  
+/* input_search_text */
+#input_search_text {
+	box-sizing: border-box;
+	flex: 1;
+	height: 40px;
+	background: #FFFFFF;
+	border: 1px solid #1C0808;
+	border-radius: 20px 0 0 20px;
+	padding: 0 10px;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 300;
+	font-size: 20px;
+	line-height: 24px;
+	color: #828282;
+	position: relative;
+	z-index: -1;
+}
 
+/* search_button */
+#search_button {
+	width: 40px;
+	height: 40px;
+	background: #1C0808;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	cursor: pointer;
+	margin-left: -20px;
+}
+
+.pageBar a {
+	text-decoration: none;
+	color: black;
+}
+
+#page {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.pageBar {
+	display: flex;
+	justify-content: space-evenly;
+	width: 50%;
+	align-items: center;
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
+
+.pageBar>div {
+	width: 20%;
+	display: flex;
+	justify-content: space-around;
+	font-size: 20px;
+}

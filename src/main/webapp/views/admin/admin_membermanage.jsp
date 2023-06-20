@@ -96,8 +96,11 @@ List<Member> members = (List) request.getAttribute("member");
 					<tbody>
 						<%
 						int i = 1;
-						if (members.isEmpty()) {
-						} else {
+						if (members.isEmpty()) {%>
+						<tr>
+							<td colspan="6">등록된 회원이 없습니다.</td>
+						</tr>
+						<%} else {
 							for (Member m : members) {
 						%>
 						<tr class=<%=i % 2 == 0 ? "member_table_a" : "member_table_b"%>>
