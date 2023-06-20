@@ -1,4 +1,4 @@
-package com.stagemate.controller;
+package com.stagemate.event.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ReservationMusical
+ * Servlet implementation class Musical
  */
-@WebServlet("/musical/reservation.do")
-public class ReservationMusical extends HttpServlet {
+@WebServlet("/concert.do")
+public class Concert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReservationMusical() {
+    public Concert() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class ReservationMusical extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/event/musical/musical_reservation.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/event/concert/concert_main.jsp").forward(request, response);
 	}
 
 	/**

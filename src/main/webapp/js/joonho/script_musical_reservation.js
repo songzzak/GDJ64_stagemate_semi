@@ -170,3 +170,6 @@ const seat_reset = () => {
 function prev_page() {
 	location.replace(getContextPath() + "/musicalNum1.do");
 }
+function toPayment() {
+		location.replace(getContextPath() + "/event/payment.do");
+	}

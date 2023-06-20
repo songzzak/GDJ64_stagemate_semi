@@ -5,7 +5,7 @@
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/joonho/style_musical_reservation.css">
 <!---------------------------------------->
-<title>페이지 타이틀 입력</title>
+<title>STAGEMATE/좌석선택</title>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
@@ -97,7 +97,7 @@
 						<button onclick="prev_page();">이전 단계</button>
 						<button onclick="seat_reset();">좌석 초기화</button>
 					</div>
-					<button>좌석선택 완료</button>
+					<button onclick="toPayment()">좌석선택 완료</button>
 				</div>
 			</div>
 		</div>
@@ -107,7 +107,7 @@
 	<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 	<script src="<%=contextPath%>/js/script_common.js"></script>
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
-<script src="<%=contextPath%>/js/joonho/script_concert_reservation.js"></script>
+<script src="<%=contextPath%>/js/joonho/script_musical_reservation.js"></script>
 	<!-------------------------------------------->
 </body>
 </html>

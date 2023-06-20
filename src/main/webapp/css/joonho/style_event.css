@@ -32,6 +32,7 @@
 
 .info_table_detail {
 	width: 100%;
+	border-collapse: collapse;
 }
 
 div#cancel_info {

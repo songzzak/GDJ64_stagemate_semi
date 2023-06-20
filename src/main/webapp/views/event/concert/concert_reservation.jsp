@@ -5,7 +5,7 @@
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/joonho/style_concert_reservation.css">
 <!---------------------------------------->
-<title>페이지 타이틀 입력</title>
+<title>STAGEMATE/좌석선택</title>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
