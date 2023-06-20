@@ -94,15 +94,19 @@
                         	readonly>
                     </div>
                     <div class="enroll-wrapper-right">
-                        <!-- 주소 api랑 연결하기 -->
-                        <button onclick="" class="btn-layout-unchecked btn-api btn-brown" type="button">우편번호 찾기</button>
+                        <button onclick="openPostCode();" class="btn-layout-unchecked btn-api btn-brown" type="button">우편번호 찾기</button>
                     </div>
                 </div>
-                <div class="enroll-form-box">
+                <div class="enroll-form-box" style="margin-bottom: 3%;">
                     <input type="text" name="address" id="address" 
-                    	placeholder="상세 주소" 
-                    	onfocus="this.placeholder = '상세 주소'" 
+                    	placeholder="주소" 
+                    	onfocus="this.placeholder = '주소'" 
                     	readonly>
+                </div>
+                <div class="enroll-form-box">
+                    <input type="text" name="addressDetail" id="addressDetail" 
+                    	placeholder="상세 주소" 
+                    	onfocus="this.placeholder = '상세 주소'">
                 </div>
                 <div class="enroll-form-box form-box_agreement">
                     <p class="fw-bold">개인정보 수집 및 이용 동의<span class="fw-bold fc-orange">*</span></p>
@@ -135,9 +139,9 @@
 	</div>
 </div>
 <%@ include file="/views/common/footer.jsp" %>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>
 <script src="<%= contextPath %>/js/script_common.js"></script>
-<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 <script>
     const idToUse = $("#idToUse");
     const passwordToUse = $("#passwordToUse");
@@ -462,6 +466,39 @@
     	}
 	    $("input[name=agreement]").prop("checked", false);
     });
+    
+    function openPostCode() {
+    	new daum.Postcode({
+    		oncomplete: (data) => {
+    			let address = "";
+    			let extraAddress = "";
+    			
+    			if (data.userSelectedType === "R") {
+    				address = data.roadAddress;
+    			} else {
+    				address = data.jibunAddress;
+    			}
+    			
+    			if (data.userSelectedType === "R") {
+    				if(data.bname !== "" && /[동|로|가]$/g.test(data.bname)){
+    					extraAddress += data.bname;
+                    }
+    			}
+    			console.log(extraAddress);
+    			if(data.buildingName !== "" && data.apartment === "Y"){
+    				extraAddress += (extraAddress !== "" ? ", " + data.buildingName : data.buildingName);
+                }
+    			console.log(extraAddress);
+    			if(extraAddress !== ""){
+    				extraAddress = ` (\${extraAddress})`;
+                }
+    			console.log(extraAddress);
+    			$("#address").val(address + extraAddress);
+    			$("#zipCode").val(data.zonecode);
+    			$("#addressDetail").focus();
+    		}
+    	}).open();
+    }
 </script>
 </body>
 </html>
