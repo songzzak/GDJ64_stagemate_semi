@@ -1,0 +1,197 @@
+#payment_button {
+	display: flex;
+	justify-content: space-around;
+}
+
+#payment_button>button {
+	width: 40%;
+	height: 50px;
+	border-radius: 15px;
+	font-size: 20px;
+	font-weight: bolder;
+	cursor: pointer;
+}
+
+#payment_button>button:first-child {
+	background-color: white;
+}
+
+#payment_button>button:last-child {
+	border: none;
+	background-color: var(--sm-yellow);
+}
+
+#payment_final {
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 3%;
+}
+
+#payment_final>h1 {
+	font-size: 25px;
+	font-weight: bold;
+}
+
+#payment_buyer {
+	margin-bottom: 30%;
+}
+
+#payment_buyer>h2 {
+	font-size: 28px;
+	font-weight: bold;
+}
+
+#payment_buyer>h3 {
+	font-size: 22px;
+	color: var(--gray);
+}
+
+#payment_title {
+	margin-bottom: 13%;
+}
+
+#payment_title>h2 {
+	font-size: 27px;
+	font-weight: bolder;
+}
+
+#seat_title * {
+	margin-right: 2%;
+}
+
+#payment_detail>div:first-child>h3 {
+	font-weight: bolder;
+}
+
+#payment_detail>div:first-child>h3, #payment_detail>div:last-child>h3:nth-child(-n+3)
+	{
+	margin-bottom: 20px;
+}
+
+#payment_detail>div:first-child {
+	margin-right: 15%;
+}
+
+#payment_detail>div:last-child>h3 {
+	color: var(--gray);
+}
+
+#seat_title {
+	display: flex;
+	align-items: center;
+	font-size: 30px;
+	margin-top: 5%;
+	margin-bottom: 3%;
+}
+
+#seat_title>h2:nth-child(3), #seat_title>h3 {
+	color: var(--sm-brown);
+	font-weight: bold;
+}
+
+#seat_title>h2:not(:nth-child(3)) {
+	color: var(--gray-light);
+	font-weight: bold;
+}
+
+#payment_info {
+	margin-top: 3%;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 2%;
+}
+
+#payment_info>div {
+	margin: 2%;
+}
+
+#payment_info>div:last-child {
+	margin-left: 10%;
+	width: 33%;
+}
+
+#payment_detail {
+	display: flex;
+}
+
+#payment_cancel_info {
+	margin-top: 3%;
+	margin-bottom: 5%;
+}
+
+#payment_cancel_info>h1 {
+	color: var(--jh-red);
+	font-weight: bolder;
+	margin-bottom: 1%;
+}
+
+#payment_cancel_info input[type=checkbox] {
+	border-radius: 5px;
+	margin-left: 1.5%;
+	width: 15px;
+	height: 15px;
+}
+
+#payment_cancel_info>div {
+	display: flex;
+	align-items: center;
+}
+
+#payment_cancel_info>div:nth-child(2) {
+	margin-bottom: 2%;
+}
+
+#payment_cancel_info>div>div {
+	display: flex;
+	width: 35%;
+	align-items: center;
+}
+
+#payment_cancel_info>div>div>h3 {
+	font-weight: bold;
+}
+
+#payment_cancel_info>div>h2 {
+	font-weight: bolder;
+	margin-bottom: 1%;
+	font-size: 27px;
+}
+
+#payment_cancel_info>div>div:last-child {
+	margin-left: 3%;
+}
+
+#payment_cancel_info>div>div>button {
+	margin-left: 3%;
+	background-color: white;
+	border: none;
+	color: blue;
+	margin-bottom: 1%;
+	cursor: pointer;
+}
+
+#payment_cancel_tbl {
+	border-collapse: collapse;
+	margin-bottom: 3%;
+}
+
+#payment_cancel_tbl th {
+	border-top: 1px solid black;
+	background-color: var(--sm-yellow);
+	height: 30px;
+}
+
+#payment_cancel_tbl td {
+	text-align: center;
+	border-bottom: 1px solid var(--gray);
+	height: 26px;
+}
+
+#payment_cancel_tbl td:first-child {
+	width: 30%;
+}
+
+#payment_cancel_tbl td:nth-child(3) {
+	border-left: 1px solid var(--gray);
+	width: 40%;
+}

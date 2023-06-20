@@ -302,7 +302,7 @@
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51321917c05ca5a38fbce7ed8b6a981c"></script>
-	<script src="<%=contextPath%>/js/joonho/musical.js"></script>
+	<script src="<%=contextPath%>/js/joonho/script_musical.js"></script>
 	<script>
 	let flag=true;
 	const roundchoice=()=>{

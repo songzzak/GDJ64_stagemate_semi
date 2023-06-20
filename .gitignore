@@ -120,4 +120,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-.dbeaver/*
+.dbeaver/
+Scripts/

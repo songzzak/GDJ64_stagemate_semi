@@ -3,7 +3,7 @@
 <%@ include file="/views/common/top.jsp"%>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
-	href="<%=contextPath%>/css/joonho/style_musical_reservation.css">
+	href="<%=contextPath%>/css/joonho/style_act_reservation.css">
 <!---------------------------------------->
 <title>STAGEMATE/좌석선택</title>
 </head>
@@ -24,7 +24,6 @@
 			<div id="seat_main">
 				<div id="first_seat">
 					<div>
-						<h4>1F</h4>
 						<h2>STAGE</h2>
 						<div id="seatMap1F">
 							<!-- 좌석 표시를 위한 공간 -->
@@ -49,14 +48,6 @@
 						</div>
 					</div>
 				</div>
-				<div id="second_seat">
-					<div>
-						<h4>2F</h4>
-						<div id="seatMap2F">
-							<!-- 좌석 표시를 위한 공간 -->
-						</div>
-					</div>
-				</div>
 			</div>
 			<!-- 좌석 선택창 -->
 			<div id="seat_choice">
@@ -65,24 +56,9 @@
 					<h2>좌석등급/가격</h2>
 					<hr>
 					<div>
-						<div class="seat unavailable" style="background-color: #CE3500"></div>
-						<h3>VIP석 150,000원</h3>
-						<h3>(잔여 : 5석)</h3>
-					</div>
-					<div>
-						<div class="seat unavailable" style="background-color: #9900C9"></div>
-						<h3>R석 120,000원</h3>
-						<h3>(잔여 : 16석)</h3>
-					</div>
-					<div>
-						<div class="seat unavailable" style="background-color: #00CCCC"></div>
-						<h3>S석 90,000원</h3>
-						<h3>(잔여 : 32석)</h3>
-					</div>
-					<div>
-						<div class="seat unavailable" style="background-color: #5529DD"></div>
-						<h3>A석 70,000원</h3>
-						<h3>(잔여 : 27석)</h3>
+						<div class="seat unavailable" style="background-color: #008B2F"></div>
+						<h3>전석 : 50,000원</h3>
+						<h3>(잔여 : 56석)</h3>
 					</div>
 				</div>
 				<!-- 선택한좌석 -->
@@ -97,7 +73,7 @@
 						<button onclick="prev_page();">이전 단계</button>
 						<button onclick="seat_reset();">좌석 초기화</button>
 					</div>
-					<button onclick="toPayment()">좌석선택 완료</button>
+					<button>좌석선택 완료</button>
 				</div>
 			</div>
 		</div>
@@ -107,7 +83,7 @@
 	<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 	<script src="<%=contextPath%>/js/script_common.js"></script>
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
-<script src="<%=contextPath%>/js/joonho/script_musical_reservation.js"></script>
+	<script src="<%=contextPath%>/js/joonho/script_act_reservation.js"></script>
 	<!-------------------------------------------->
 </body>
 </html>
