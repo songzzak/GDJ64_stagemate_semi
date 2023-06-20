@@ -24,9 +24,17 @@
 			<div id="seat_main">
 				<div id="first_seat">
 					<div>
-						<h4>1F</h4>
+						<h4>1F-스탠딩석</h4>
 						<h2>STAGE</h2>
 						<div id="seatMap1F">
+							<!-- 좌석 표시를 위한 공간 -->
+						</div>
+					</div>
+				</div>
+				<div id="second_seat">
+					<div>
+						<h4>2F-지정석</h4>
+						<div id="seatMap2F">
 							<!-- 좌석 표시를 위한 공간 -->
 						</div>
 						<div id="wheelchair_seat">
@@ -49,14 +57,6 @@
 						</div>
 					</div>
 				</div>
-				<div id="second_seat">
-					<div>
-						<h4>2F</h4>
-						<div id="seatMap2F">
-							<!-- 좌석 표시를 위한 공간 -->
-						</div>
-					</div>
-				</div>
 			</div>
 			<!-- 좌석 선택창 -->
 			<div id="seat_choice">
@@ -65,24 +65,14 @@
 					<h2>좌석등급/가격</h2>
 					<hr>
 					<div>
-						<div class="seat unavailable" style="background-color: #CE3500"></div>
-						<h3>VIP석 150,000원</h3>
-						<h3>(잔여 : 5석)</h3>
-					</div>
-					<div>
-						<div class="seat unavailable" style="background-color: #9900C9"></div>
-						<h3>R석 120,000원</h3>
-						<h3>(잔여 : 16석)</h3>
-					</div>
-					<div>
-						<div class="seat unavailable" style="background-color: #00CCCC"></div>
-						<h3>S석 90,000원</h3>
-						<h3>(잔여 : 32석)</h3>
-					</div>
-					<div>
 						<div class="seat unavailable" style="background-color: #5529DD"></div>
-						<h3>A석 70,000원</h3>
-						<h3>(잔여 : 27석)</h3>
+						<h3>스탠딩석 : 80,000원</h3>
+						<h3>(잔여 : 56석)</h3>
+					</div>
+					<div>
+						<div class="seat unavailable" style="background-color: #EF6400"></div>
+						<h3>지정석 80,000원</h3>
+						<h3>(잔여 : 42석)</h3>
 					</div>
 				</div>
 				<!-- 선택한좌석 -->
@@ -112,13 +102,13 @@
 	 $(document).ready(function () {
          // 좌석 맵 배열
          var seatMap = [
-             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-             [1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-             [1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1],
-             [1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-             [1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1],
-             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1]
+             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
          ];
          var seatMap2 =[
         	 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -142,36 +132,24 @@
                     	count++;
                     }
                     var seatElement = $("<div>").addClass(seatClass)
-                    if((i==0||i==1)&&!seatElement.hasClass("unavailable")){
+                    if(!seatElement.hasClass("unavailable")){
                     	seatElement.css({"backgroundColor":"var(--sm-brown)","color":"white","fontSize":"120%"});
-                    	if(i==0&&(j==2||j==14)){
+                    	if(i==0&&(j==4||j==16)){
                     		seatElement.text("A").addClass("unavailable");
-                    	}else if(i==1&&(j==2||j==14)){
+                    	}else if(i==1&&(j==4||j==16)){
                     		seatElement.text("B").addClass("unavailable");
-                    	}else{
-                    		seatElement.css({"backgroundColor":"#CE3500"}).append("<div style='display: none'>"+"1층 "+String.fromCharCode([65+i])+"열"+count+"번 (VIP석)"+'</div>');
-                    		count++;
-                    	}
-                    }else if((i==2||i==3)&&!seatElement.hasClass("unavailable")){
-                    	seatElement.css({"backgroundColor":"var(--sm-brown)","color":"white","fontSize":"120%"});
-                    	if(i==2&&(j==4||j==16)){
+                    	}else if(i==2&&(j==4||j==16)){
                     		seatElement.text("C").addClass("unavailable");
                     	}else if(i==3&&(j==4||j==16)){
                     		seatElement.text("D").addClass("unavailable");
-                    	}else{
-                    		seatElement.css({"backgroundColor":"#9900C9"}).append("<div style='display: none'>"+"1층 "+String.fromCharCode([65+i])+"열"+count+"번 (R석)"+'</div>');
-                    		count++;
-                    	}
-                    }else if((i==4||i==5||i==6)&&!seatElement.hasClass("unavailable")){
-                    	seatElement.css({"backgroundColor":"var(--sm-brown)","color":"white","fontSize":"120%"})
-                    	if(i==4&&(j==4||j==16)){
+                    	}else if(i==4&&(j==4||j==16)){
                     		seatElement.text("E").addClass("unavailable");
                     	}else if(i==5&&(j==4||j==16)){
                     		seatElement.text("F").addClass("unavailable");
                     	}else if(i==6&&(j==4||j==16)){
                     		seatElement.text("G").addClass("unavailable");
                     	}else{
-                    		seatElement.css({"backgroundColor":"#00CCCC"}).append("<div style='display: none'>"+"1층 "+String.fromCharCode([65+i])+"열"+count+"번 (S석)"+'</div>');
+                    		seatElement.css({"backgroundColor":"#5529DD"}).append("<div style='display: none'>"+"1층 "+String.fromCharCode([65+i])+"열"+count+"번 (스탠딩석)"+'</div>');
                     		count++;
                     	}
                     }	
@@ -205,7 +183,7 @@
                     	}else if(i==4&&(j==4||j==16)){
                     		seatElement.text("L").addClass("unavailable");
                     	}else{
-                    		seatElement.css({"backgroundColor":"#5529DD"}).append("<div style='display: none'>"+"2층 "+String.fromCharCode([65+i+7])+"열"+count+"번 (A석)"+'</div>');
+                    		seatElement.css({"backgroundColor":"#EF6400"}).append("<div style='display: none'>"+"2층 "+String.fromCharCode([65+i+7])+"열"+count+"번 (지정석)"+'</div>');
                     		count++;
                     	}
                     }	
@@ -282,6 +260,12 @@
 		}
 	</script>
 	<style>
+	#seat_class_price>div h3{
+		font-size: 16px;
+	}
+	#seatMap1F{
+		margin-bottom: 5%;
+	}
 	#seat_choice_button{
 		width:26%;
 	}
@@ -318,7 +302,7 @@
 		font-size: 18px;
 	}
 	#selectedSeat>div>div{
-		width:55%;
+		width:65%;
 	}
 	#selectedSeat>div>button{
 		width:22px;
@@ -362,7 +346,7 @@
 }
 
 #seatMap2F {
-	margin-bottom: 5%;
+	margin-top: 2%;
 }
 
 #wheelchair_seat>div {
@@ -405,8 +389,10 @@
 	border-radius: 10px;
 	background-color: black;
 	color: white;
-	width: 4%;
 	padding: 1%;
+    width: 12%;
+    display: flex;
+    justify-content: center;
 }
 
 #first_seat>div>h2 {
