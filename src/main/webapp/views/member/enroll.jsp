@@ -106,8 +106,8 @@
                 </div>
                 <div class="enroll-form-box form-box_agreement">
                     <p class="fw-bold">개인정보 수집 및 이용 동의<span class="fw-bold fc-orange">*</span></p>
-                    <input type="checkbox" name="agreement" id="agreement" required readonly>
-					<label for="agreement"></label>
+                    <input type="checkbox" name="agreement" id="agreement">
+					<label></label>
                     <p style="cursor: pointer" class="fc-blue" onclick="toAgreement();">내용 보기</p>
                 </div>
                 <div class="enroll-form-box">
@@ -163,11 +163,6 @@
             $(".enroll-check_mark").append($div.append(checkMark));
         }
         generateCheckMark();
-
-        $("input[name=agreement]").prop("disabled", true);
-        $("input[name=agreement] + label").click(() => {
-            alert("개인정보 수집 및 이용 동의에 대한 내용을 읽어야 체크할 수 있습니다.");
-        });
     });
 
     function isAllValid() {
@@ -424,7 +419,14 @@
     	$(".popup-error-content").css("transition", "")
     							.removeClass("popup-error-slide");
     }
+    
+    $("input[name=agreement] + label").click(() => {
+    	if (!$("input[name=agreement]").is(":checked")) {
+    		alert("개인정보 수집 및 이용 동의에 대한 내용을 읽어야 체크할 수 있습니다.");
+    		return;
+    	}
+	    $("input[name=agreement]").prop("checked", false);
+    });
 </script>
-<!-------------------------------------------->
 </body>
 </html>

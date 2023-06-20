@@ -172,8 +172,8 @@
 	display: none;
 }
 
-.checkbox_fake {
-        display: inline-block;
+.right_content_options label:first-of-type {
+		display: inline-block;
         width: 13px;
         height: 13px;
         margin-bottom: -2px;
@@ -183,11 +183,7 @@
         cursor: pointer;
 }
 
-.right_content_options label {
-	cursor: pointer;
-}
-
-input[id="saveId"]:checked + .checkbox_fake::after{
+input[id="saveId"]:checked + label:first-of-type::after{
 		display: inline-block;
         content: "\2713";
         background-color: var(--green);

@@ -51,7 +51,7 @@
     				<div class="right_content_options">
     					<div>
     						<input type="checkbox" name="saveId" id="saveId">
-							<label for="saveId" class="checkbox_fake"></label>
+							<label for="saveId"></label>
 							<label for="saveId">ID 저장</label>
     					</div>
     					<div>

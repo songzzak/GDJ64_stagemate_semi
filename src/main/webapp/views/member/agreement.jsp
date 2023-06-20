@@ -53,10 +53,11 @@
 			<div class="agreement-content_btn">
 				<div>
 		            <button class="btn-layout btn-brown" 
-		            		onclick="isChecked();">확인</button>
+		            		onclick="confirmPopupAgreement();">확인</button>
 		        </div>
 		        <div>
-		            <button class="btn-layout btn-white">취소</button>
+		            <button class="btn-layout btn-white"
+		            		onclick="closePopupAgreement();">취소</button>
 		        </div>	
 			</div>
 		</article>
@@ -64,11 +65,15 @@
 <script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 <script src="<%= contextPath %>/js/script_common.js"></script>
 <script>
-	function isChecked() {
+	function confirmPopupAgreement() {
 		if ($("#agreement").is(":checked")) {
 			$(opener.document).find("#agreement").prop("checked", true);
 			window.close();
 		}
+	}
+	
+	function closePopupAgreement() {
+		window.close();
 	}
 </script>
 </body>
