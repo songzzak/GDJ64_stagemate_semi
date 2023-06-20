@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stagemate.review.model.vo.ReviewPlay;
-import com.stagemate.review.model.vo.ReviewPlay;
 
 
 @WebServlet("/Review/ReviewListServlet.do")
@@ -56,7 +55,7 @@ public class ReviewListServlet extends HttpServlet {
 				list.add(getReviewList(rs));
 			}
 		
-		rs.close();
+		 rs.close();
 		 pstmt.close();
          conn.close();
       } catch (SQLException e) {

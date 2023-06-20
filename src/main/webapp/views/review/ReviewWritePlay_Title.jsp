@@ -3,10 +3,13 @@
 <%@ include file="/views/common/top.jsp"%>
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/yelin/play/style_Detailed_play.css">
+	<%@ page import="java.util.List,com.stagemate.review.model.vo.PlaySearch" %>  
 <title>STAGEMATE</title>
 </head>
 <body>
-
+<%
+	List<PlaySearch> playSearch = (List)request.getAttribute("keyword");
+ %>
 
 
 	<div class="Playtitle_title">
@@ -21,23 +24,18 @@
 		</div>
 		<table class="BookedPlay_List">
 			<label for="">
+			<%if(playSearch.isEmpty()){ %>
 				<tr>
-					<td>뮤지컬<나르치스와 골드문트></td>
-					<td>2023.06.19 18:00</td>
-					<td><input type="radio""> S390292929</td>
+					<td colspan="3">조회된 데이터가 없습니다.</td>
 				</tr>
+			<%}else{
+				for (PlaySearch r: playSearch) {%>
 				<tr>
-					<td>뮤지컬<나르치스와 골드문트></td>
-					<td>2023.06.19 18:00</td>
-					<td><input type="radio""> S390292929</td>
+					<td><%= r.getEventName() %></td>
+					<td><                         <input type="radio""><%= r.getRsvNo()%></td>
 				</tr>
-				<tr>
-					<td>뮤지컬<나르치스와 골드문트></td>
-					<td>2023.06.19 18:00</td>
-					<td><input type="radio""> S390292929</td>
-				</tr>
-				
-
+				<% }
+				}%>
 			</label>
 		</table>
 
