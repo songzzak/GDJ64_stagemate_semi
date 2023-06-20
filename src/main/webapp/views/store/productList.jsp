@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
-<%@page import="java.util.List,com.stagemate.store.model.vo.Product"%>
+<%@page import="java.util.List,com.stagemate.store.model.vo.Product,com.stagemate.store.model.vo.StoreUpfile"%>
 <%
 List<Product> products = (List) request.getAttribute("products");
+List<StoreUpfile> files = (List) request.getAttribute("files");
 %>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/yoonjin/style_store_main.css">
@@ -51,21 +52,37 @@ List<Product> products = (List) request.getAttribute("products");
 						<td colspan="3">조회된 상품이 없습니다.</td>
 					</tr>
 					<%
-					} else {
-					int size = products.size();
-					for (int i = 0; i < 2; i++) {
-					%>
-					<tr class="prod_tr">
-						<%
-						for (int j = 0; j < 3; j++) {
-							int index = i * 3 + j;
-							if (index < size) {
-								Product p = products.get(index);
-						%>
+                    } else {
+                    int size = products.size();
+                    for (int i = 0; i < 2; i++) {
+                    %>
+                    <tr class="prod_tr">
+                        <%
+                        for (int j = 0; j < 3; j++) {
+                            int index = i * 3 + j;
+                            if (index < size) {
+                                Product p = products.get(index);
+                                int productNo = p.getProductNo();
+                                StoreUpfile mainFile = null;
+                                for (StoreUpfile file : files) {
+                                    if (file.getProductNo()==(productNo) && file.getIsMainImg()=='Y') {
+                                        mainFile = file;
+                                        break;
+                                    }
+                                }
+                        %>
 						<td class="prod_td1">
 							<div class="product">
 								<div class="imageContainer">
-									<img src="<%=contextPath%>/images/yoonjin/information/default_img.gif" alt="Product Image">
+								<%
+								String path=null;
+								if(mainFile != null){
+									path=contextPath+"/upload/yoonjin/"+mainFile.getImgFileRename();
+								}else{
+									path=contextPath +"/images/yoonjin/information/default_img.gif";
+								}
+								%>
+									<img src="<%= path %>" alt="Product Image">
 								</div>
 								<div class="productDetails">
 									<input type="hidden" value="<%=p.getProductNo()%>">

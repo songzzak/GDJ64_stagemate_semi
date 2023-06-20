@@ -60,6 +60,7 @@ public class InsertProductEndServlet extends HttpServlet {
             String refilenameMain = mr.getFilesystemName("upFileMain");
             String orifilenameDetail = mr.getOriginalFileName("upFileDetail");
             String refilenameDetail = mr.getFilesystemName("upFileDetail");
+            
             StoreUpfile mainImg = StoreUpfile.builder()
                     .imgFilenameOri(orifilenameMain)
                     .imgFileRename(refilenameMain)

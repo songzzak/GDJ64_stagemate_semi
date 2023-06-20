@@ -193,7 +193,15 @@ public class StoreDao {
 			pstmt=conn.prepareStatement(sql.getProperty("selectAllFile"));
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				StoreUpfile f;
+				StoreUpfile f=StoreUpfile.builder()
+						.upfileNo(rs.getInt("upfile_no"))
+						.productNo(rs.getInt("product_no"))
+						.imgFilenameOri(rs.getString("img_filename_ori"))
+						.imgFileRename(rs.getString("img_file_rename"))
+						.upfileDate(rs.getDate("upfile_date"))
+						.isMainImg((rs.getString("is_main_img")).charAt(0))
+						.build();
+				files.add(f);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
