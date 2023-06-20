@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="/views/common/top.jsp" %>
+	pageEncoding="UTF-8"%>
+<%@ include file="/views/common/top.jsp"%>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <style>
 .board_head_list {
@@ -171,7 +171,7 @@ div.num {
 .extracontainer {
 	display: flex;
 	justify-content: center;
-	margin-top: 1%;
+	margin-top: -1%;
 }
 
 input {
@@ -183,6 +183,7 @@ input {
 select {
 	border-radius: 15px;
 	height: 40px;
+	border: 1px solid black;
 }
 
 .search {
@@ -267,11 +268,11 @@ select {
 <title>게시글 목록</title>
 </head>
 <body>
-<%@ include file="/views/common/header.jsp" %>
-<!-----------   아래에서 HTML 작업  ----------->
-<section class="min1280px">
-    <div class="max1280px">
-        <body>
+	<%@ include file="/views/common/header.jsp"%>
+	<!-----------   아래에서 HTML 작업  ----------->
+	<section class="min1280px">
+		<div class="max1280px">
+			<body>
 				<div class="board_wrap">
 					<div class="board_title">
 						<strong>STAGEMATE</strong>
@@ -437,7 +438,7 @@ select {
 						</div>
 					</div>
 					<div class="bt_wrap">
-						<a href="#" class="on">작성</a>
+						<a href="#" onclick="window.open('boardWrite.jsp')" class="on">작성</a>
 					</div>
 					<div class="extracontainer">
 						<form action="">
@@ -502,16 +503,16 @@ select {
 					</div>
 				</div>
 			</body>
-    </div>
-</section>
-<!-----------   위에서 HTML 작업  ----------->
-<%@ include file="/views/common/footer.jsp" %>
-<script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>
-<script src="<%= contextPath %>/js/script_common.js"></script>
-<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
-<script>
-
-</script>
-<!-------------------------------------------->
+		</div>
+	</section>
+	<!-----------   위에서 HTML 작업  ----------->
+	<%@ include file="/views/common/footer.jsp"%>
+	<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
+	<script src="<%=contextPath%>/js/script_common.js"></script>
+	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
+	<script>
+		
+	</script>
+	<!-------------------------------------------->
 </body>
 </html>

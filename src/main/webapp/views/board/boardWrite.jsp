@@ -99,7 +99,7 @@ input#file-upload-button {
 						<tr>
 							<th width=80>제목</th>
 							<td colspan="2" height=50><textarea placeholder="제목을 입력하세요."
-									style="width: 100%; height: 100%"></textarea>
+									style="width: 100%; height: 100%"></textarea></td>
 						</tr>
 						<tr>
 							<th width=80>파일첨부</th>

@@ -41,6 +41,7 @@ div#adminBoard_head_list {
 select {
 	border-radius: 15px;
 	height: 40px;
+	border: 1px solid black;
 }
 
 .extracontainer {
@@ -150,13 +151,14 @@ table.adminBoard_head_list td {
 
 div.admin_board>h3 {
 	font-size: 30px;
-	margin-left:-80px;
+	margin-left: -80px;
 }
 
 td#adminBoard_middle_theme {
 	text-align: left;
 }
-input{
+
+input {
 	height: 20px;
 }
 </style>
@@ -298,8 +300,8 @@ input{
 	<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 	<script src="<%=contextPath%>/js/script_common.js"></script>
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
-	
-	
+
+
 	<!-------------------------------------------->
 </body>
 </html>

@@ -87,6 +87,7 @@ div#adminBoard_head_list {
 select {
 	border-radius: 15px;
 	height: 40px;
+	border: 1px solid black;
 }
 
 .extracontainer {

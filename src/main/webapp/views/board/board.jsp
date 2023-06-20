@@ -67,25 +67,29 @@ textarea {
 	margin-left: 15%;
 	margin-top: -25%;
 }
+
 button#btn-insert {
-    background: white;
-    border-radius: 15%;
-    height: 27px;
-    margin-right: 20%;
-    width: 50px;
-    height: 50px;
-    margin-top: -25%;
+	background: white;
+	border-radius: 15%;
+	height: 27px;
+	margin-right: 20%;
+	width: 50px;
+	height: 50px;
+	margin-top: -25%;
 }
+
 .board_comment_content {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
 }
+
 .bt_wrap {
 	display: flex;
 	justify-content: flex-end;
 	margin-bottom: 5%;
 }
+
 a.on {
 	display: inline-block;
 	min-width: 80px;
@@ -96,6 +100,7 @@ a.on {
 	margin-left: 2%;
 	margin-top: 40%;
 }
+
 a {
 	text-decoration: none;
 	color: black;
@@ -140,7 +145,7 @@ a {
 					</table>
 					<div class="bt_wrap">
 						<a href="#" class="on">신고</a> 
-						<a href="#" class="on">수정</a>
+						<a href="#" onclick="window.open('boardModify.jsp')"class="on">수정</a> 
 						<a href="#" class="on">삭제</a>
 					</div>
 				</div>
