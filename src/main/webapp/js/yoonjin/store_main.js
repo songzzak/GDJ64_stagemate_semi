@@ -1,3 +1,5 @@
+
+
 $("#store_nav_menu span").on("click",function(e){
     $("#store_nav_menu").find("span").removeClass("select-store-menu");
     $(e.target).addClass("select-store-menu");
@@ -33,9 +35,10 @@ $(".bar-num").on("click",function(e){
 	  });
   });
   
-$(".imageContainer").click(e=>{
-    //console.log(getContextPath());
-	location.assign(getContextPath()+"/store/storeView.do");
+$(".imageContainer").click(function(e) {
+  var pNo = $(this).siblings('.productDetails').find('input[type="hidden"]').val();
+  console.log(pNo);
+  location.assign(getContextPath() + "/store/storeView.do?no=" + pNo);
 });
 
 $("#search_button").click(() => {

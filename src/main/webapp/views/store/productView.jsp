@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp" %>
+<%@page import="java.util.List,com.stagemate.store.model.vo.Product,com.stagemate.store.model.vo.StoreUpfile"%>
+<%
+Product p = (Product)request.getAttribute("p");
+List<StoreUpfile> files = (List) request.getAttribute("fileList");
+StoreUpfile main=null;
+StoreUpfile detail=null;
+for(StoreUpfile f:files){
+	if(f.getIsMainImg()=='Y'){
+		main=f;
+	}else{
+		detail=f;
+	}
+};
+%>
 <link rel="stylesheet" href="<%= contextPath %>/css/jaehun/style_main.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/yoonjin/style_store_product_view.css">
 <title>Product</title>
@@ -12,27 +26,27 @@
 		<div id="product-container">
 			<div id="productMainImage">
 				<img
-					src="<%=contextPath %>/images/yoonjin/store/셰퍼드페어리 아크릴마그넷 S.F. 대표이미지jpg.jpg"
+					src="<%=contextPath+"/upload/yoonjin/"+main.getImgFileRename()%>"
 					alt="">
 			</div>
 			<div id="productInfo">
 				<div id="infoDetail">
 					<table>
 						<tr>
-							<td colspan="2"><h3>셰퍼드 페어리, 행동하라!</h3></td>
+							<td colspan="2"><h3><%=p.getProductTitle() %></h3></td>
 						</tr>
 						<tr>
-							<td colspan="2">아크릴 마그넷_S.F</td>
+							<td colspan="2"><%=p.getProductNm() %></td>
 						</tr>
 						<tr>
 							<td>판매가</td>
-							<td>￦<span id="pricebyone">7,000</span></td>
+							<td><span id="pricebyone"><%=p.getProductPrice()%></span></td>
 						</tr>
 						<tr>
 							<td>수량 선택</td>
 							<td id="product-select-count"><img
 								src="<%=contextPath %>/images/yoonjin/button/minus.svg" alt="">
-								<p class="fixed-width">2</p> <img
+								<p class="fixed-width">1</p> <img
 								src="<%=contextPath %>/images/yoonjin/button/plus.svg" alt="">
 							</td>
 						</tr>
@@ -41,7 +55,7 @@
 						<div id="like">
 							<img src="<%=contextPath %>/images/yoonjin/button/btn_wish.svg"
 								alt="">
-							<p id="like-cnt">23</p>
+							<p id="like-cnt"><%=p.getProductLikeCnt() %></p>
 						</div>
 						<img src="<%=contextPath %>/images/yoonjin/button/share.jpg" alt=""
 							id="shareSvg">
@@ -54,8 +68,8 @@
 							<p>총 상품 금액</p>
 						</div>
 						<div id="product-totalspan">
-							<p>(총 수량 2개)</p>
-							<p>￦14,000</p>
+							<p>(총 수량 1개)</p>
+							<p></p>
 						</div>
 					</div>
 					<hr class="linestyle01">
@@ -84,7 +98,7 @@
 			<hr class="linestyle02">
 			<div id="product-detailInfo">
 				<img
-					src="<%=contextPath %>/images/yoonjin/store/셰퍼드페어리 아크릴마그넷 S.F상세이미지.jpg"
+					src="<%=contextPath+"/upload/yoonjin/"+detail.getImgFileRename()%>"
 					alt="">
 			</div>
 			<div id="product-review">

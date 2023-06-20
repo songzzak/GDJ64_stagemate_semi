@@ -1,5 +1,8 @@
          // 초기 상태에서는 #product-detailInfo만 표시!!
             $(document).ready(() => {
+				const price=parseInt($("#pricebyone").text());
+				$("#product-totalspan p:last-child").text((price).toLocaleString());
+				
                 $("#product-review, #product-cancleInfo").hide();
 
                 $("#li-detailInfo").click(() => toggleActiveMenu($("#li-detailInfo"), "#product-detailInfo"));
@@ -42,13 +45,12 @@
                     // 플러스 버튼 클릭 시
                     count++;
                     }
-
                     // 수량 업데이트
                     // $("product-totalspan p").text(count);
                     $("#product-totalspan p:first-child").text("(총 수량 " + count + "개)");
 					//금액 업데이트
-					const price=parseInt($("#pricebyone").text());
-					$("#product-totalspan p:last-child").text("￦" + count*price+",000");
+					
+					$("#product-totalspan p:last-child").text((count*price).toLocaleString());
                 });
             });
             

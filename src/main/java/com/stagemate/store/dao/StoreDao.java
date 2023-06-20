@@ -212,4 +212,52 @@ public class StoreDao {
 		return files;
 	}
 
+	public Product selectProductByProductNo(Connection conn, int pNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Product p=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectProductByProductNo"));
+			pstmt.setInt(1, pNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				p=getProduct(rs);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return p;
+	}
+
+	public List<StoreUpfile> selectFileByProductNo(Connection conn, int pNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<StoreUpfile> fileList=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectFileByProductNo"));
+			pstmt.setInt(1, pNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				StoreUpfile f=StoreUpfile.builder()
+						.upfileNo(rs.getInt("upfile_no"))
+						.productNo(rs.getInt("product_no"))
+						.imgFilenameOri(rs.getString("img_filename_ori"))
+						.imgFileRename(rs.getString("img_file_rename"))
+						.upfileDate(rs.getDate("upfile_date"))
+						.isMainImg((rs.getString("is_main_img")).charAt(0))
+						.build();
+				fileList.add(f);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return fileList;
+	}
+
 }

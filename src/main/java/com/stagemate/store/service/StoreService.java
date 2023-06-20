@@ -85,5 +85,19 @@ public class StoreService {
 		return files;
 	}
 
+	public Product selectProductByProductNo(int pNo) {
+		Connection conn= getConnection();
+		Product p=dao.selectProductByProductNo(conn,pNo);
+		close(conn);
+		return p;
+	}
+
+	public List<StoreUpfile> selectFileByProductNo(int pNo) {
+		Connection conn=getConnection();
+		List<StoreUpfile> fileList=dao.selectFileByProductNo(conn,pNo);
+		close(conn);
+		return fileList;
+	}
+
 
 }
