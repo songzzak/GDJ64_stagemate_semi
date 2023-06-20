@@ -107,7 +107,7 @@
 	<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 	<script src="<%=contextPath%>/js/script_common.js"></script>
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
-<script src="<%=contextPath%>/js/joonho/script_musical_reservation.js"></script>
+	<script src="<%=contextPath%>/js/joonho/script_musical_reservation.js"></script>
 	<!-------------------------------------------->
 </body>
 </html>

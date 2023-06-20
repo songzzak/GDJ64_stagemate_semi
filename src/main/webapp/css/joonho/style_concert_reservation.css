@@ -127,12 +127,12 @@
 	align-items: center;
 }
 
-#seat_title>h2:first-child, #seat_title>h3 {
+#seat_title>h2:first-child, #seat_title>h3:nth-child(2) {
 	color: var(--sm-brown);
 	font-weight: bold;
 }
 
-#seat_title>h2:not(:first-child) {
+#seat_title>h2:not(:first-child), #seat_title>h3:not(:nth-child(2)) {
 	color: var(--gray-light);
 	font-weight: bold;
 }
