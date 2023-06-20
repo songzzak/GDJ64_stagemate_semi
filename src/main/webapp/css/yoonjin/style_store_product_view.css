@@ -1,0 +1,293 @@
+#product-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+    justify-content: space-between;
+}
+hr.linestyle01{
+    margin : 20px 0px;
+}
+hr.linestyle02{
+    width: 100%;
+    height: 1px;
+    margin-top: -10px;
+}
+/* 이미지 컨테이거 */
+#productMainImage{
+    border: 1px solid black;
+    width: 600px;
+    height: 600px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    /* height: 100%; */
+}
+/* 이미지태그 */
+#productMainImage>img{
+    display: block;
+    margin: auto;
+    max-width: 440px;
+    max-height: 530px;
+    margin: 20px 50px;
+}
+/* 제품정보 */
+#productInfo{
+    width: 500px;
+    height: 600px;
+    margin-left: 150px;
+}
+
+#infoDetail{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* padding-bottom: 70px; */
+}
+#infoDetail table{
+    margin-top: 80px;
+}
+
+#infoDetail tr{
+    height: 60px;
+}
+#infoDetail td{
+    font-family: 'Inter';
+    font-weight: 300;
+    font-size: 20px;
+    margin-right: 15px;
+    /* vertical-align: top; */
+}
+
+p.fixed-width {
+    width: 30px;
+    text-align: center;
+}
+/* 갯수설정 */
+#product-select-count{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+#product-select-count img{
+    width: 30px;
+    height: 30px;
+}
+
+/* 좋아요,공유버튼 컨테이너 */
+#likeAndShare{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 150px;
+}
+
+
+/* 좋아요 수 */
+#like{
+    width: 70px;
+    height: 40px;
+    border: 1px solid #686868;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+    margin-right: 20px;
+}
+#like p{
+    font-size: 20px ;
+    color: #686868;
+}
+#like img{
+   width: 24px;
+   height: 21px;
+}
+#shareSvg{
+    width: 40px;
+    height: 40px;
+}
+
+
+/* 총금액 총갯수 */
+#product-total,#product-totalspan{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+#product-totalPrice{
+    font-family: 'Inter';
+    font-weight: 300;
+    font-size: 30px;
+}
+#product-totalspan>p:first-child{
+    font-family: 'Inter';
+    font-weight: 300;
+    font-size: 16px;
+}
+#product-totalspan>p:last-child{
+    font-family: 'Inter';
+    font-weight: bolder;
+    font-size: 32px;
+    margin-left: 10px;
+}
+
+/* 구매,카트,위시 버튼 */
+#product-view-btn{
+    display: flex;
+    justify-content: space-between;
+}
+#product-view-btn img{
+    width: 40px;
+    display: inline-block;
+    
+}
+#product-view-btn_pay{
+    width: 280px;
+    height: 80px;
+    background-color: #E9B910;
+    border: none;
+    font-family: 'Inter';
+    font-weight: 300;
+    font-size: 30px;
+}
+#product-view-btn_cart,
+#product-view-btn_wish{
+    width: 80px;
+    height: 80px;
+    background-color: #d9d9d9;
+    border: none;
+    text-align: center;
+}
+#product-view-btn_pay,#product-view-btn_cart,
+#product-view-btn_wish:hover{
+    cursor: pointer;
+}
+
+/* 상세정보 메뉴 */
+#detail-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  justify-content: center;
+    width: 1285px;
+    text-align: center;
+}
+
+#detail-container>div>img{
+    align-items: center;
+    margin: 30px 0px;
+}
+#detail-container>nav {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    padding-top: 50px;
+  }
+#detail-container>nav>ul{
+    width: 990px;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Inter';
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 29px;
+    color: #686868;
+
+}
+#detail-container li:hover{
+    cursor: pointer;
+}
+/* 상세정보 선택클래스 */
+.active {
+    font-weight: 600;
+    color: black;
+    text-decoration: underline solid 10px black;
+}
+
+/* 리뷰 */
+#product-review{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 50px;
+}
+#product-review-warning{
+    display: flex;
+    flex-direction: row;
+}
+#product-review-warning img{
+    width: 50px;
+    height: 50px;
+}
+#product-review-warning p{
+    font-family: 'Inter';
+    font-size: 18px;
+    color: red;
+    text-align: left;
+}
+#product-review-warning,
+#review-box-container {
+  justify-content: flex-start;
+}
+#review-reacted{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+#review-reacted ul{
+  display: flex;
+  list-style-type: none;
+}
+#review-reacted li{
+    width: 60px;
+    display: flex;
+    align-items: center;
+}
+#review-reacted img{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+#review-reacted>p{
+    font-family: 'Inter';
+    font-size: 22px;
+    font-weight: bolder;
+    margin-right: 30px;
+}
+#review-box-container{
+    display: flex;
+    flex-direction: column;
+}
+#review-box-container>div{
+    margin: 20px 0px;
+}
+#store-review-writer{
+    font-size: 26px;
+    font-weight: bolder;
+    text-align: start;
+}
+#store-review-content{
+    font-size: 22px;
+    text-align: start;
+}
+#reactionAndDate{
+    display: flex;
+    flex-direction: row;
+    float: right;
+}
+#store-review-react{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+#store-review-date{
+    font-size: 20px;
+    color: #686868;
+}
+
+  

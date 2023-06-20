@@ -1,0 +1,131 @@
+/* 컨테이너 스타일 */
+.container_style01 {
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* 내비게이션 스타일 */
+  #nav_order_complete {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin: 20px 0;
+  }
+  
+  #nav_order_complete span {
+    color: #555;
+    font-family: 'Inter';
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 5px;
+  }
+  
+  /* 상품 결제 완료 섹션 스타일 */
+  #order_detail_view {
+    margin-top: 30px;
+    width: 800px;
+  }
+  
+  .order_result_title {
+    width: 800px;
+    height: 50px;
+    font-family: 'Inter';
+    font-size: 25px;
+    font-weight: bold;
+    background-color: #1c0808;
+    color: white;
+    display: flex;
+    align-items: center;
+  }
+  .payment_result_title{
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: lighter;
+    margin: 20px 0px 5px 5px;
+  }
+  
+  #order_detail_view ul {
+    padding: 0;
+    list-style: none;
+  }
+  
+  #order_detail_view li{
+    height: 40px;
+    display: flex;
+    color: #555;
+    font-family: 'Inter';
+    font-size: 15px;
+    align-items: stretch;
+  }
+  
+  #order_detail_view span {
+    color: #555;
+    font-family: 'Inter';
+    font-size: 15px;
+    width: 200px;
+    align-items: center;
+  }
+
+  .horizontal-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.li_margin_style01{
+    margin-right: 15px;
+}
+.vertical-center {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    margin-left: 10px;
+  }
+  
+  .bgc-gray {
+    background-color: #ececec;
+    text-align: left;
+    display: flex; /* 추가: flex 속성 적용 */
+    align-items: center; /* 추가: 수직 가운데 정렬을 위해 */
+    padding: 0 10px; /* 추가: 좌우 여백 조정 */
+  }
+  
+  .underline-gray {
+    border-bottom: 1px solid #d9d9d9;
+  }
+
+  .hr_margin_style01 {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #d9d9d9;
+  }
+  
+  /* 취소 및 환불 안내 스타일 */
+  #cancle_info_container {
+    text-align: left;
+    margin-top: 30px;
+  }
+  
+  #cancle_info_container span {
+    font-family: 'Inter';
+    font-size: 15px;
+  }
+  
+  #cancle_info_container img {
+    max-width: 100%;
+  }
+  
+  #btn_order_coplete{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  #btn_order_coplete button{
+    width: 240px;
+    height: 56px;
+    margin: 30px 15px;
+  }
+  #order_detail_view{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }

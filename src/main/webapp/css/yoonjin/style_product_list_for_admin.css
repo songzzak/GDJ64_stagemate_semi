@@ -1,0 +1,155 @@
+/* 최소높이설정 */
+.body_height {
+    min-height: 900px;
+}
+.div_flex_style{
+    display: flex;
+    flex-direction: row;
+}
+/* 관리자 메뉴 스타일 */
+#store_admin_nav {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 60px;
+}
+#store_admin_nav a{
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+}
+#store_admin_nav nav ul {
+    list-style: none;
+    width: 120px;
+    margin: 0px 10px;
+    color:#959595;
+}
+.select_nav_admin{
+    color: black;
+}
+
+#store_admin_nav nav ul li {
+    padding: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#store_admin_nav nav ul li ul {
+    font-size: 13px;
+    display: block;
+    position: relative;
+    margin-left: 20px;
+}
+
+#store_admin_nav_ul li ul {
+    display: block;
+    padding: 5px;
+    list-style-type: disc;
+    margin-bottom: 5px;
+}
+
+
+/* 상품관리 스타일 */
+#store_manager_container {
+    margin-top: 20px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
+}
+
+#store_manager_nav {
+    margin-bottom: 20px;
+}
+
+#store_manager_nav span {
+    font-weight: bold;
+    font-size: 36px;
+    color: #1C0808
+}
+#store_manager_nav span>img{
+    height: 30px;
+}
+
+#store_manager_nav nav span:not(:last-child) {
+    margin-right: 5px;
+}
+
+#store_manager_container hr {
+    border-top: 1px solid #ddd;
+    margin-top: 10px;
+    width: 100%;
+}
+/* 상품리스트 */
+#store_manager_list {
+    margin-bottom: 20px;
+}
+
+#insert_product_btn {
+    margin: 20px 0px;
+}
+/* 리스트 테이블 */
+#store_manager_tbl {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#store_manager_tbl th,
+#store_manager_tbl td {
+    padding: 2px;
+    text-align: center;
+    overflow: hidden;
+    word-break: break-all;
+    font-size: 12px;
+}
+#manageTbl_productNo{
+    width: 50px;
+}
+#store_manager_tbl th {
+    background-color: var(--sm-brown);
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+#store_manager_tbl td:hover {
+    overflow: visible;
+    white-space: normal;
+}
+
+#store_manager_tbl tr:nth-child(even) {
+    background-color: #F0F0F0;
+}
+/* 수정 삭제 버튼 스타일 */
+.btn_store_mng{
+    width: 50px;
+    height: 20px;
+    background-color: #ffffff;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: #333;
+    padding: 2px;
+    cursor: pointer;
+    font-size: 5px;
+    margin: 2px 2px;
+}
+.btn_store_mng:hover{
+    background-color: #1C0808;
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+}
+/* 페이징바 */
+.page-bar {
+    display: flex;
+    padding: 0px;
+    gap: 50px;
+    height: 39px;
+    margin: 50px;
+    align-items: center;
+    justify-content: center;
+    margin: 50px auto;
+  }
+ 
+  .bar-num{
+    color: #828282;
+    text-decoration: none;
+  }
