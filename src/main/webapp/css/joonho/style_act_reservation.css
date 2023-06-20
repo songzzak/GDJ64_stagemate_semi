@@ -1,0 +1,189 @@
+#seat_class_price>div h3 {
+	font-size: 16px;
+}
+
+#seat_choice_button {
+	width: 26%;
+}
+
+#seat_choice_button>button {
+	border: none;
+	background-color: var(--sm-yellow);
+	width: 100%;
+	height: 60px;
+	border-radius: 15px;
+	margin-top: 2%;
+	font-size: 25px;
+	font-weight: bolder;
+	color: var(--sm-brown);
+}
+
+#seat_choice_button button {
+	cursor: pointer;
+}
+
+#seat_choice_button>div>button {
+	border-radius: 15px;
+	background-color: white;
+	width: 49%;
+	height: 56px;
+	font-size: 21px;
+	font-weight: bolder;
+	color: var(--sm-brown);
+	border: 2px solid var(--sm-brown);
+}
+
+#seat_choice_button>div>button:hover {
+	border: none;
+	background-color: var(--sm-brown);
+	color: white;
+}
+
+#selectedSeat {
+	font-size: 18px;
+}
+
+#selectedSeat>div>div {
+	width: 65%;
+}
+
+#selectedSeat>div>button {
+	width: 22px;
+	height: 22px;
+	background-color: white;
+	color: var(--gray);
+	font-weight: bolder;
+	border: 2px solid var(--gray);
+}
+
+#seat_class_price>h2, #seat_class_price>hr, #select_seat>h2,
+	#select_seat>hr {
+	margin-bottom: 5%;
+}
+
+#selectedSeat>div {
+	display: flex;
+	align-items: center;
+}
+
+#seat_choice {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 7%;
+	height: 160px;
+}
+
+#seat_class_price, #select_seat {
+	width: 26%;
+	margin-right: 5%;
+}
+
+#seat_class_price>div>h3:last-child {
+	margin-left: 3%;
+	color: red;
+}
+
+#seat_class_price>div>div {
+	margin-right: 4%;
+}
+
+#seat_class_price>div {
+	display: flex;
+	margin-bottom: 3%;
+	align-items: center;
+}
+
+#seatMap2F {
+	margin-top: 2%;
+}
+
+#wheelchair_seat>div {
+	width: 40%;
+	display: flex;
+	justify-content: center;
+}
+
+#wheelchair_seat>div>img {
+	margin-left: 2%;
+	margin-right: 2%;
+}
+
+#wheelchair_seat {
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+	margin-bottom: 5%;
+}
+
+#seat_main {
+	display: flex;
+	justify-content: center;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	flex-direction: column;
+	align-items: center;
+}
+
+#seat_title>h2:first-child, #seat_title>h3 {
+	color: var(--sm-brown);
+	font-weight: bold;
+}
+
+#seat_title>h2:not(:first-child) {
+	color: var(--gray-light);
+	font-weight: bold;
+}
+
+#first_seat>div>h2 {
+	display: flex;
+	justify-content: center;
+	font-size: 40px;
+	margin-bottom: 2%;
+	font-weight: bold;
+	color: var(--gray)
+}
+
+#first_seat {
+	border-radius: 15px;
+	width: 80%;
+	margin-bottom: 5%;
+}
+
+#seat_title * {
+	margin-right: 2%;
+}
+
+#seat_title {
+	display: flex;
+	align-items: center;
+	font-size: 30px;
+	margin-top: 5%;
+	margin-bottom: 3%;
+}
+
+.row {
+	display: flex;
+	justify-content: center;
+}
+/* 좌석 스타일 */
+.seat {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 26px;
+	height: 26px;
+	margin: 5px;
+	cursor: pointer;
+	font-size: 80%;
+	border-radius: 5px;
+}
+
+.selected {
+	border: 3px solid black;
+	color: white;
+}
+
+.unavailable {
+	pointer-events: none;
+	background-color: var(--gray)
+}
