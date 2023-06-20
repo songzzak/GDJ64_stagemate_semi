@@ -71,7 +71,7 @@
                         	onblur="this.placeholder = 'stagemate@gmail.com'">
                     </div>
                     <div class="enroll-wrapper-right">
-                        <button onclick="startTimer(this);" class="btn-layout-unchecked btn-api btn-brown" type="button">인증번호 발송하기</button>
+                        <button onclick="sendAuthCode(this);" class="btn-layout-unchecked btn-api btn-brown" type="button">인증번호 발송하기</button>
                     </div>
                 </div>
                 <div class="enroll-form-box">
@@ -142,6 +142,7 @@
     const idToUse = $("#idToUse");
     const passwordToUse = $("#passwordToUse");
     const passwordToConfirm = $("#passwordToConfirm");
+    const email = $("#email");
 
     const idRegex = /^[0-9a-zA-Z]{8,15}$/;
     const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,15}$/;
@@ -346,17 +347,48 @@
 						.attr("src", "<%= contextPath %>/images/jaehun/page_enroll/unchecked.svg");
     }
 
-    function startTimer(element) {
-        $(element).addClass("fc-yellow");
-        alert("입력한 이메일로 인증번호가 발송되었습니다.");
-        $(element).text("인증번호 다시 발송하기");
-        $(element).removeClass("fc-yellow");
-        generateTimer(element);
+    function sendAuthCode(element) {
+        if (email.val() === '') {
+            alert("이메일을 입력하지 않았습니다.");
+            return;
+        }
+
+        $.ajax({
+            type: "get",
+            url: getContextPath() + "/member/sendAuthCode.do",
+            data: { "receiver": email.val()},
+            dataType: "text",
+            beforeSend: () => {
+                $(element).addClass("fc-yellow");
+                alert("입력한 이메일로 인증번호가 발송되었습니다.");
+                $(element).text("인증번호 다시 발송하기");
+                $(element).removeClass("fc-yellow");
+                generateTimer(element)
+            },
+            success: (data) => {
+                const authCode = $("#authCode");
+                $(".enroll-form-timer button").click(() => {
+                    if (data === authCode.val()) {
+                        console.log('일치');
+                    } else {
+                        console.log('불일치');
+                    }
+                });
+            },
+            error:(request, status, error) => {
+                if (request.status === 500) {
+                    showModalError();
+                }
+            }
+        });
     }
 
     function generateTimer(element) {
     	const formCombo = $("<div>").addClass("enroll-form-combo enroll-form-timer");
-        const formBox = $("<div>").addClass("enroll-form-box w-70p");
+        const formBox = $("<div>").addClass("enroll-form-box w-70p").css({
+            display: "flex",
+            justifyContent: "space-between"    
+        });
         const authCode = $("<input>").attr({
                 type: "text",
                 id: "authCode",
@@ -364,7 +396,9 @@
                 onfocus: "this.placeholder = ''",
                 onblur: "this.placeholder = '인증번호 입력'"
         });
-        const enrollWrapperRight = $("<div>").addClass("enroll-wrapper-right");
+        const enrollWrapperRightInner = $("<div>").addClass("enroll-wrapper-right");
+        const btnCheck = $("<button>").addClass("btn-layout-unchecked btn-api btn-brown").attr("type", "button").text("확인");
+        const enrollWrapperRightOuter = $("<div>").addClass("enroll-wrapper-right");
         
         const cssTime = {
         		width: "35%",
@@ -374,11 +408,12 @@
         const timerSeconds = $("<p>").text("01:00").css(cssTime).addClass("fc-red centering-children");
 
         formBox.append(authCode);
-        enrollWrapperRight.append(timerTitle).append(timerSeconds);
+        formBox.append(enrollWrapperRightInner.append(btnCheck));
+        enrollWrapperRightOuter.append(timerTitle).append(timerSeconds);
         
         $(".enroll-form-timer").remove();
         formCombo.append(formBox)
-                .append(enrollWrapperRight)
+                .append(enrollWrapperRightOuter)
                 .insertAfter($(element).parent().parent());
         
         setTimer(timerSeconds);
