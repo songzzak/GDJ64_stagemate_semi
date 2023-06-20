@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stagemate.store.model.vo.Product;
+import com.stagemate.store.model.vo.StoreUpfile;
 import com.stagemate.store.service.StoreService;
 
 
@@ -39,8 +40,10 @@ public class StoreProductList extends HttpServlet {
 		
 		//1. DB에서 member테이블에 있는 데이터 가져오기
 		List<Product> products=new StoreService().selectAllProduct(cPage,numPerPage);
+		List<StoreUpfile> files=new StoreService().selectAllFile();
 		//2.DB에서 가져온 데이터 저장(화면출력)
 		request.setAttribute("products", products);
+		request.setAttribute("files", files);
 		
 		//3 페이지바 구성
 		//3-1) DB에 저장된 전체 데이터의 수를 가져오기

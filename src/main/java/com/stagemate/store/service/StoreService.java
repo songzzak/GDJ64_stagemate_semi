@@ -1,10 +1,14 @@
 package com.stagemate.store.service;
 
-import static com.stagemate.common.JDBCTemplate.*;
-
+import static com.stagemate.common.JDBCTemplate.close;
+import static com.stagemate.common.JDBCTemplate.commit;
+import static com.stagemate.common.JDBCTemplate.getConnection;
+import static com.stagemate.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.stagemate.store.dao.StoreDao;
 import com.stagemate.store.model.vo.Product;
@@ -51,22 +55,35 @@ public class StoreService {
 		return result;
 	}
 
-	public int insertProduct(Product product) {
+	public Map<String, Integer> insertProduct(Product product) {
+	    Connection conn = getConnection();
+	    int result = dao.insertProduct(conn, product);
+	    int pNo = 0; 
+	    if (result > 0) {
+	        pNo = dao.selectSeqCurrval(conn);
+	    }
+	    close(conn);
+	    Map<String, Integer> resultMap = new HashMap<>();
+	    resultMap.put("result", result);
+	    resultMap.put("pNo", pNo);
+	    return resultMap;
+	}
+
+	public int insertFileData(StoreUpfile mainImg, int pNo) {
 		Connection conn=getConnection();
-		int result=dao.insertProduct(conn,product);
+		int result=dao.insertFileData(conn,mainImg,pNo);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);
 		return result;
 	}
 
-	public int insertFileData(StoreUpfile mainImg, Product product) {
+	public List<StoreUpfile> selectAllFile() {
 		Connection conn=getConnection();
-		int result=dao.insertFileData(conn,mainImg,product);
-		if(result>0) commit(conn);
-		else rollback(conn);
+		List<StoreUpfile> files=dao.selectAllFile(conn);
 		close(conn);
-		return result;
+		return files;
 	}
+
 
 }

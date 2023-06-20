@@ -150,12 +150,12 @@ public class StoreDao {
 		return result;
 	}
 
-	public int insertFileData(Connection conn, StoreUpfile file, Product p) {
+	public int insertFileData(Connection conn, StoreUpfile file, int pNo) {
 		PreparedStatement pstmt=null;
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("insertFileData"));
-			pstmt.setInt(1, p.getProductNo());
+			pstmt.setInt(1, pNo);
 			pstmt.setString(2, file.getImgFilenameOri());
 			pstmt.setString(3, file.getImgFileRename());
 			pstmt.setString(4, String.valueOf(file.getIsMainImg())); 
@@ -166,6 +166,42 @@ public class StoreDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int selectSeqCurrval(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectSeqCurrval"));
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public List<StoreUpfile> selectAllFile(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<StoreUpfile> files=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllFile"));
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				StoreUpfile f;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return files;
 	}
 
 }

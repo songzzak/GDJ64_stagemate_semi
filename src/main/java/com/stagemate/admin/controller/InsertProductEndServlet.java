@@ -30,60 +30,66 @@ public class InsertProductEndServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 // MultipartRequest 객체를 사용하여 파일 업로드 처리
-	    String path = getServletContext().getRealPath("/upload/yoonjin");
-	    int maxSize = 1024 * 1024 * 100; // 100MB
-	    String encode = "UTF-8";
-	    DefaultFileRenamePolicy dfr = new DefaultFileRenamePolicy();
-	    MultipartRequest mr = new MultipartRequest(request, path, maxSize, encode, dfr);
+        String path = getServletContext().getRealPath("/upload/yoonjin");
+        int maxSize = 1024 * 1024 * 100; // 100MB
+        String encode = "UTF-8";
+        DefaultFileRenamePolicy dfr = new DefaultFileRenamePolicy();
+        MultipartRequest mr = new MultipartRequest(request, path, maxSize, encode, dfr);
 
-	    // 제품 정보 저장
-	    String productTitle = mr.getParameter("productTitle");
-	    String productNm = mr.getParameter("productNm");
-	    int productPrice = Integer.parseInt(mr.getParameter("productPrice"));
-	    int productAmt = Integer.parseInt(mr.getParameter("productAmt"));
-	    String productComment = mr.getParameter("productComment");
-	    Product product = Product.builder()
-	            .productTitle(productTitle)
-	            .productNm(productNm)
-	            .productPrice(productPrice)
-	            .productAmt(productAmt)
-	            .productComment(productComment)
-	            .build();
-	    int productInsertResult = new StoreService().insertProduct(product);
+        // 제품 정보 저장및 객체생성
+        String productTitle = mr.getParameter("productTitle");
+        String productNm = mr.getParameter("productNm");
+        int productPrice = Integer.parseInt(mr.getParameter("productPrice"));
+        int productAmt = Integer.parseInt(mr.getParameter("productAmt"));
+        String productComment = mr.getParameter("productComment");
+        Product product = Product.builder()
+                .productTitle(productTitle)
+                .productNm(productNm)
+                .productPrice(productPrice)
+                .productAmt(productAmt)
+                .productComment(productComment)
+                .build();
+        StoreService storeService = new StoreService();
+        Map<String, Integer> insertResult = storeService.insertProduct(product);
+        int productInsertResult = insertResult.get("result");
+        int pNo = insertResult.get("pNo");
+        
+        if(productInsertResult > 0) {
+            // 파일 정보 저장
+            String orifilenameMain = mr.getOriginalFileName("upFileMain");
+            String refilenameMain = mr.getFilesystemName("upFileMain");
+            String orifilenameDetail = mr.getOriginalFileName("upFileDetail");
+            String refilenameDetail = mr.getFilesystemName("upFileDetail");
+            StoreUpfile mainImg = StoreUpfile.builder()
+                    .imgFilenameOri(orifilenameMain)
+                    .imgFileRename(refilenameMain)
+                    .isMainImg('Y')
+                    .build();
+            StoreUpfile DetailImg = StoreUpfile.builder()
+                    .imgFilenameOri(orifilenameDetail)
+                    .imgFileRename(refilenameDetail)
+                    .isMainImg('N')
+                    .build();
+            // 매개변수로 첨부파일객체와 참조키용 Product의 고유키 전달
+            int fileInsertResult1 = storeService.insertFileData(mainImg, pNo);
+            int fileInsertResult2 = storeService.insertFileData(DetailImg, pNo);
 
-	    // 파일 정보 저장
-	    String orifilenameMain = mr.getOriginalFileName("upFileMain");
-	    String refilenameMain = mr.getFilesystemName("upFileMain");
-	    String orifilenameDetail = mr.getOriginalFileName("upFileDetail");
-	    String refilenameDetail = mr.getFilesystemName("upFileDetail");
-	    StoreUpfile mainImg = StoreUpfile.builder()
-	    		.imgFilenameOri(orifilenameMain)
-	    		.imgFileRename(refilenameMain)
-	    		.isMainImg('Y')
-	    		.build();
-	    StoreUpfile DetailImg = StoreUpfile.builder()
-	    		.imgFilenameOri(orifilenameDetail)
-	    		.imgFileRename(refilenameDetail)
-	    		.isMainImg('N')
-	    		.build();
-	    int fileInsertResult1 = new StoreService().insertFileData(mainImg, product);
-	    int fileInsertResult2 = new StoreService().insertFileData(DetailImg, product);
-
-	    if (productInsertResult > 0 && fileInsertResult1 > 0 && fileInsertResult2 > 0) {
-	        // 성공적으로 삽입된 경우
-	        String msg = "새 상품 등록 완료!";
-	        String loc = "/admin/selectAllProduct.do";
-	        request.setAttribute("msg", msg);
-	        request.setAttribute("loc", loc);
-	        request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-	    } else {
-	        // 삽입 실패
-	        String msg = "새 상품 등록 실패";
-	        String loc = "/admin/insertProduct.do";
-	        request.setAttribute("msg", msg);
-	        request.setAttribute("loc", loc);
-	        request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);   
-	    }
+            if (fileInsertResult1 > 0 && fileInsertResult2 > 0) {
+                // 성공적으로 삽입된 경우
+                String msg = "새 상품 등록 완료!";
+                String loc = "/admin/selectAllProduct.do";
+                request.setAttribute("msg", msg);
+                request.setAttribute("loc", loc);
+                request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+            } else {
+                // 삽입 실패
+                String msg = "새 상품 등록 실패";
+                String loc = "/admin/insertProduct.do";
+                request.setAttribute("msg", msg);
+                request.setAttribute("loc", loc);
+                request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);   
+            }
+        }
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
