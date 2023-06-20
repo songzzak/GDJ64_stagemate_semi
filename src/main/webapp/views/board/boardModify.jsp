@@ -18,11 +18,7 @@
 	margin-left: 5%;
 	font-size: 30px;
 }
-/* text-align: right; */
-margin-left
-:
-5%;
-}
+
 .board_title strong {
 	margin-left: 5%;
 	font-size: 35px;
@@ -33,12 +29,56 @@ p {
 	margin-left: 5%;
 	font-size: 35px;
 }
-hr{
+
+hr {
 	margin-top: 2%;
 }
-table{
+
+table {
 	width: 100%;
 	border: 1px black;
+}
+
+div#boardwrite {
+	margin-left: 5%;
+	width: 100%;
+	margin-top: -8%;
+}
+
+
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a.on {
+	display: inline-block;
+	min-width: 80px;
+	padding: 10px;
+	text-align: center;
+	border: 1px solid #000;
+	border-radius: 15px;
+	margin-left: 2%;
+	margin-top: 1.5%;
+}
+
+td {
+	text-align: center;
+}
+
+.bt_wrap {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 5%;
+}
+#filecontainer {
+	display: flex;
+	margin-left: 3%;
+}
+
+input#file-upload-button {
+	border-radius: 15%;
 }
 </style>
 
@@ -56,21 +96,29 @@ table{
 					<hr>
 					<p>게시글 수정</p>
 				</div>
-				<div id="boardModify">
-					<table>
+				<div id="boardwrite">
+					<table border="1" width=500>
 						<tr>
-							<th>제목</th>
-							<th>작성중...</th>
+							<th width=80>제목</th>
+							<td colspan="2" height=50><textarea placeholder="수정중..."
+									style="width: 100%; height: 100%"></textarea>
 						</tr>
 						<tr>
-							<th>파일첨부</th>
-							<th></th>
+							<th width=80>파일첨부</th>
+							<td colspan="2" height=50><div id="filecontainer">
+									<form action="" method="post" enctype="mulipart/form-data">
+										<input type="file" name="upfile" multiple> <input
+											type="submit" value="업로드">
 						</tr>
 						<tr>
-							<th>내용</th>
-							<th>작성작성</th>
+							<td colspan="2" height=400><textarea placeholder="수정수정"
+									style="width: 100%; height: 100%"></textarea></td>
 						</tr>
 					</table>
+					<div class="bt_wrap">
+						<a href="#" class="on">취소</a> <a href="#" class="on">완료</a>
+					</div>
+
 				</div>
 			</body>
 		</div>

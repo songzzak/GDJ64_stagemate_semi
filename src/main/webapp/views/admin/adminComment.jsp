@@ -299,6 +299,7 @@ input{
 	<script src="<%=contextPath%>/js/script_common.js"></script>
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 	
+	
 	<!-------------------------------------------->
 </body>
 </html>

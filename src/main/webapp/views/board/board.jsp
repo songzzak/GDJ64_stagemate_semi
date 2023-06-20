@@ -59,10 +59,47 @@ td#board_view_posistion {
 	text-align: right;
 }
 
-th#board_view_posistion1{
+th#board_view_posistion1 {
 	text-align: left;
 }
-th#board_view_
+
+textarea {
+	margin-left: 15%;
+	margin-top: -25%;
+}
+button#btn-insert {
+    background: white;
+    border-radius: 15%;
+    height: 27px;
+    margin-right: 20%;
+    width: 50px;
+    height: 50px;
+    margin-top: -25%;
+}
+.board_comment_content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.bt_wrap {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 5%;
+}
+a.on {
+	display: inline-block;
+	min-width: 80px;
+	padding: 10px;
+	text-align: center;
+	border: 1px solid #000;
+	border-radius: 15px;
+	margin-left: 2%;
+	margin-top: 40%;
+}
+a {
+	text-decoration: none;
+	color: black;
+}
 </style>
 
 <!---------------------------------------->
@@ -101,6 +138,15 @@ th#board_view_
 							<th id="board_view_posistion1">안녕하세요!! 많은 분들이 저를 도와줬어요!!</th>
 						</tr>
 					</table>
+					<div class="bt_wrap">
+						<a href="#" class="on">신고</a> 
+						<a href="#" class="on">수정</a>
+						<a href="#" class="on">삭제</a>
+					</div>
+				</div>
+				<div class="board_comment_content">
+					<textarea name="content" cols="90" rows="5"></textarea>
+					<button type="submit" id="btn-insert">등록</button>
 				</div>
 		</div>
 </body>
