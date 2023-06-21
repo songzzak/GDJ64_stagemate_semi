@@ -44,6 +44,7 @@ List<StoreUpfile> files = (List) request.getAttribute("files");
 				</div>
 			</div>
 			<div class="productContainer">
+				<input type="hidden" id="userId" value="<%=loginMember==null?"":loginMember.getMemberId()%>">
 				<table>
 					<%
 					if (products.isEmpty()) {

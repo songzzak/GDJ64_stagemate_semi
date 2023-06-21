@@ -58,5 +58,11 @@ $("#product-view-btn_pay").click(e => {
     const pNo = $("#pNo").val();
     const count = parseInt($("#product-select-count p").text());
     const userId=$("#userId").val();
-    location.assign(getContextPath() + "/store/storeOrder.do?no=" + pNo + "&count=" + count+"&userId="+userId);
+    console.log(userId);
+   if(userId!=""){
+	    location.assign(getContextPath() + "/store/storeOrder.do?no=" + pNo + "&count=" + count+"&userId="+userId);
+	}else{
+		alert("로그인 후 이용 가능합니다.");
+	}
+	
 });
