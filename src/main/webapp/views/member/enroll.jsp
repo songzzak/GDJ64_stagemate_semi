@@ -227,11 +227,10 @@
         		$("form[name=enrollData]").serialize(), 
         		(data) => {
         			if (data == 1) {
-        				alert("가입 성공");
+        				location.replace("<%= contextPath %>/member/enrollSuccess.do");
         			} else {
-        				alert("가입 실패");
+        				alert("회원가입에 실패했습니다. 입력한 정보를 다시 확인해주세요.");
         			}
-        			location.replace(getContext());
         		}
         );
     }
