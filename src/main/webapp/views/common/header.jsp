@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+   <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.stagemate.member.model.vo.Member, java.util.Arrays" %>
 <%
@@ -67,7 +67,7 @@
             <div>
                 <input type="button" value="" 
                 	style="background-image: url('<%= request.getContextPath() %>/images/common/icon_notice.svg')">
-                <p class="icons_text_lower fw-bold">공지사항</p>
+                <p class="icons_text_lower fw-bold">공지사항</p> 
             </div>
         </div>
         <div class="modal-logout-container">
