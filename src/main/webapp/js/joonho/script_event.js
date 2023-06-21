@@ -185,17 +185,7 @@ function buildCalendar() {
 		}else if(nowDay>endDay){
 			newDIV.className = "pastDay";
 		}else {                                      // 미래인 경우
-			for(let dayValue of daysList){
-				switch(dayValue){
-					case '월' : newDIV.parentElement.parentElement.children[0].children[0].className = "futureDay"; break;
-					case '화' : newDIV.parentElement.parentElement.children[1].children[0].className = "futureDay"; break;
-					case '수' : newDIV.parentElement.parentElement.children[2].children[0].className = "futureDay"; break;
-					case '목' : newDIV.parentElement.parentElement.children[3].children[0].className = "futureDay"; break;
-					case '금' : newDIV.parentElement.parentElement.children[4].children[0].className = "futureDay"; break;
-					case '토' : newDIV.parentElement.parentElement.children[5].children[0].className = "futureDay"; break;
-					case '일' : newDIV.parentElement.parentElement.children[6].children[0].className = "futureDay"; break;
-				}
-			}
+			newDIV.className = "futureDay";
 			newDIV.onclick = function() { choiceDate(this); }
 		}
 	}
