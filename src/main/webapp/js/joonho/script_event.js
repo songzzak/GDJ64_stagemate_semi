@@ -73,7 +73,7 @@ $("#movemap").click(e=>{
 	$("#gold_details_map").css({"display":"inline-flex","flex-direction":"column","align-items": "center"})
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new kakao.maps.LatLng(37.523898, 127.025587), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(GPSX, GPSY), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
 
@@ -113,7 +113,7 @@ $("#gold_location").click(e=>{
 	$("#gold_details_map").css({"display":"inline-flex","flex-direction":"column","align-items": "center"})
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new kakao.maps.LatLng(37.523898, 127.025587), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(GPSX, GPSY), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
 
@@ -174,15 +174,17 @@ function buildCalendar() {
 		if (nowDay.getDay() == 6) {                 // 토요일인 경우
 			nowRow = tbody_Calendar.insertRow();    // 새로운 행 추가
 		}
+		
 
-		if (nowDay < today) {                       // 지난날인 경우
+		if (nowDay < today || nowDay<startDay) {                       // 지난날인 경우
 			newDIV.className = "pastDay";
 		}
 		else if (nowDay.getFullYear() == today.getFullYear() && nowDay.getMonth() == today.getMonth() && nowDay.getDate() == today.getDate()) { // 오늘인 경우           
 			newDIV.className = "today";
 			newDIV.onclick = function() { choiceDate(this); }
-		}
-		else {                                      // 미래인 경우
+		}else if(nowDay>endDay){
+			newDIV.className = "pastDay";
+		}else {                                      // 미래인 경우
 			newDIV.className = "futureDay";
 			newDIV.onclick = function() { choiceDate(this); }
 		}
@@ -195,6 +197,10 @@ function choiceDate(newDIV) {
 		document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
 	}
 	newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
+	const choiceButton=$("#gold_button").append($("<button>").addClass('schedule').css({"cursor":"pointer"}).text("됐나?"));
+	choiceButton.click( function(){
+			roundchoice();
+		});
 }
 
 // 이전달 버튼 클릭

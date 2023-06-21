@@ -55,10 +55,6 @@
 	font-weight: bolder;
 }
 
-#seat_title * {
-	margin-right: 2%;
-}
-
 #payment_detail>div:first-child>h3 {
 	font-weight: bolder;
 }
@@ -74,6 +70,10 @@
 
 #payment_detail>div:last-child>h3 {
 	color: var(--gray);
+}
+
+#seat_title * {
+	margin-right: 2%;
 }
 
 #seat_title {

@@ -85,7 +85,7 @@ public class MemberListServlet extends HttpServlet {
 		if(pageNo>totalPage) {
 			pageBar+="<span>"+right_double_arrow+"</span>";
 		}else {
-//			pageBar+="<a href='"+request.getRequestURI()+"?cPage="+pageNo+"'>"+right_double_arrow+"</a>";
+			pageBar+="<a href='"+request.getRequestURI()+"?cPage="+pageNo+"'>"+right_double_arrow+"</a>";
 		}
 		request.setAttribute("pageBar", pageBar);
 		request.getRequestDispatcher("/views/admin/admin_membermanage.jsp").forward(request, response);
