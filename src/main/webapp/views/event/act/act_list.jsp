@@ -62,7 +62,7 @@ List<EventUpfile> files = (List) request.getAttribute("files");
 						<%
 						if (acts.isEmpty()) {
 						%>
-						<div>등록된 뮤지컬이 없습니다. 확인 후 등록 해주세요</div>
+						<div>등록된 연극이 없습니다. 확인 후 등록 해주세요</div>
 						<%
 						} else {
 						for (Event a : acts) {
@@ -74,6 +74,7 @@ List<EventUpfile> files = (List) request.getAttribute("files");
 						<div class="musical_product">
 							<img src="<%=contextPath%>/upload/joonho/<%=u.getEuRename()%>"
 								width="250" height="350">
+							<input type="hidden" value="<%=a.getEventNo()%>">
 							<h4><%=a.getEventNm()%></h4>
 							<h5><%=a.getLocation()%></h5>
 							<div>
@@ -115,7 +116,12 @@ List<EventUpfile> files = (List) request.getAttribute("files");
 	<script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>
 	<script src="<%= contextPath %>/js/script_common.js"></script>
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
-
+	<script>
+	$(".musical_product>img,.musical_product>h4").click(function(e) {
+		  var eventNo = $(this).parent().find('input[type="hidden"]').val();
+		  location.assign(getContextPath() + "/event/eventView.do?no=" + eventNo);
+	});
+	</script>
 	<!-------------------------------------------->
 </body>
 </html>

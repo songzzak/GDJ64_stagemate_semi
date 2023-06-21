@@ -20,6 +20,7 @@ div.musical_content {
 div.musical_content>div {
 	margin-left: 1.5%;
 	margin-right: 1.5%;
+	width:22%;
 }
 
 div.musical_content>div>h4 {
@@ -28,6 +29,7 @@ div.musical_content>div>h4 {
 	text-align: left;
 	margin-top: 10px;
 	margin-bottom: 0px;
+	height:67px;
 }
 
 #chioce_array a {
@@ -218,4 +220,7 @@ div.musical_product>div img {
 	display: flex;
 	justify-content: space-around;
 	font-size: 20px;
+}
+.musical_product>img,.musical_product>h4{
+	cursor: pointer;
 }

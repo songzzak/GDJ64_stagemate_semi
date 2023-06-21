@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
+<%@ page
+	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile"%>
+<%
+Event event = (Event) request.getAttribute("event");
+List<EventUpfile> files = (List) request.getAttribute("files");
+%>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/joonho/style_event.css">
 <!---------------------------------------->
-<title>STAGEMATE/뮤지컬-나르치스와 골드문트</title>
+<title>STAGEMATE/<%=event.getEventNm() %></title>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
@@ -15,11 +21,11 @@
 			<div id="gold_maincontainer">
 				<!-- 제목장소등 -->
 				<div id="gold_title">
-					<h1>나르치스와 골드문트</h1>
+					<h1><%=event.getEventNm() %></h1>
 					<div>
-						<h4>2023.05.13~2023.07.23</h4>
+						<h4><%=event.getEventStartDt() %>~<%=event.getEventEndDt() %></h4>
 						<h3>|</h3>
-						<h4>광림아트센터 BBCH홀</h4>
+						<h4><%=event.getLocation() %></h4>
 						<img id="movemap" src="<%=contextPath%>/images/joonho/map.png"
 							width="24" height="24">
 					</div>
@@ -29,9 +35,13 @@
 				<div id="gold_poster">
 					<!-- 포스터 -->
 					<div>
+						<%for (EventUpfile f : files) {
+						if ((f.getPurposeNo().equals("PUR1"))) {
+						%> 
 						<img
-							src="<%=contextPath%>/images/joonho/Narcissus_and_Goldmund.png"
+							src="<%=contextPath%>/upload/joonho/<%=f.getEuRename()%>"
 							width="320" height="450">
+						<%}} %>
 					</div>
 					<!-- 간단내용 -->
 					<div id="gold_content">
@@ -41,7 +51,7 @@
 								<h3>등급</h3>
 							</div>
 							<div>
-								<h3>8세 이상 관람가</h3>
+								<h3><%=event.getEventAge() %>세 이상 관람가</h3>
 							</div>
 						</div>
 						<!-- 관람시간 -->
@@ -50,7 +60,7 @@
 								<h3>관람시간</h3>
 							</div>
 							<div>
-								<h3>150분(인터미션 20분 포함)</h3>
+								<h3><%=event.getEventDuration() %>분<%if(event.getEventInter()>0){ %>(인터미션 <%=event.getEventInter() %>분 포함)<%} %></h3>
 							</div>
 						</div>
 						<!-- 가격 -->
@@ -58,6 +68,7 @@
 							<div>
 								<h3>가격</h3>
 							</div>
+							<%if(event.getEvcNo().equals("EVC1")){ %>
 							<div id="money" class="money">
 								<div>
 									<h3>VIP석</h3>
@@ -76,6 +87,25 @@
 									<h3>70,000원</h3>
 								</div>
 							</div>
+							<%}else if(event.getEvcNo().equals("EVC2")){ %>
+							<div id="money" class="money">
+								<div>
+									<h3>스탠딩석</h3>
+									<h3>80,000원</h3>
+								</div>
+								<div>
+									<h3>지정석</h3>
+									<h3>80,000원</h3>
+								</div>
+							</div>
+							<%}else if(event.getEvcNo().equals("EVC3")){ %>
+							<div id="money" class="money">
+									<div>
+										<h3>전석</h3>
+										<h3>50,000원</h3>
+									</div>
+							</div>
+							<%} %>
 						</div>
 					</div>
 					<!-- 아이콘 -->
@@ -142,6 +172,7 @@
 							<h2 class="gold_h2">예매 가능좌석</h2>
 						</div>
 						<hr>
+						<%if(event.getEvcNo().equals("EVC1")){ %>
 						<div id="seat_money" class="chiocemoney">
 							<div>
 								<h3>VIP석 150,000원</h3>
@@ -160,6 +191,25 @@
 								<h3>(잔여 : 2석)</h3>
 							</div>
 						</div>
+						<%}else if(event.getEvcNo().equals("EVC2")){ %>
+						<div id="seat_money" class="chiocemoney">
+							<div>
+								<h3>스탠딩석 : 80,000원</h3>
+								<h3>(잔여 : 매진)</h3>
+							</div>
+							<div>
+								<h3>지정석 : 80,000원</h3>
+								<h3>(잔여 : 18석)</h3>
+							</div>
+						</div>
+						<%}else if(event.getEvcNo().equals("EVC3")){ %>
+						<div id="seat_money" class="chiocemoney">
+							<div>
+								<h3>전석 : 50,000원</h3>
+								<h3>(잔여 : 매진)</h3>
+							</div>
+						</div>
+						<%} %>
 						<div>
 							<button onclick="toReservationMusical();" id="res_cho" style="pointer-events:none">예매 하기</button>
 						</div>
@@ -189,18 +239,14 @@
 					</div>
 					<hr>
 					<div class="gold_info">
+					<%for (EventUpfile f : files) {
+						if ((f.getPurposeNo().equals("PUR2"))) {
+						%>
 						<div id="detail_information_img"
 							style="display: inline-flex; flex-direction: column; align-items: center;">
-							<img src="<%=contextPath%>/images/joonho/gold1.jpg"> <img
-								src="<%=contextPath%>/images/joonho/gold2.jpg"> <img
-								src="<%=contextPath%>/images/joonho/gold3.jpg"> <img
-								src="<%=contextPath%>/images/joonho/gold4.jpg"> <img
-								src="<%=contextPath%>/images/joonho/gold5.jpg"> <img
-								src="<%=contextPath%>/images/joonho/gold6.jpg"> <img
-								src="<%=contextPath%>/images/joonho/gold7.jpg"> <img
-								src="<%=contextPath%>/images/joonho/gold8.jpg"> <img
-								src="<%=contextPath%>/images/joonho/gold9.jpg">
+							<img src="<%=contextPath%>/upload/joonho/<%=f.getEuRename()%>"> 
 						</div>
+						<%}} %>
 						<div id="reservation_cancel_info" style="display: none">
 							<div id="reservation_info" class="info">
 								<div>
@@ -286,10 +332,11 @@
 						</div>
 						<div id="gold_details_map" style="display: none">
 							<div>
-								<h1>광림아트센터 BBHC홀</h1>
+								<h1><%=event.getLocation() %></h1>
 							</div>
 							<div id="map" style="width: 80%; height: 650px;"></div>
 						</div>
+						<button onclick="mapclick();">fakhsdklajdkljsakljk</button>
 					</div>
 				</div>
 			</div>
@@ -304,6 +351,15 @@
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51321917c05ca5a38fbce7ed8b6a981c"></script>
 	<script src="<%=contextPath%>/js/joonho/script_musical.js"></script>
 	<script>
+	let jsonMap ={
+			"광림아트센터 BBCH홀" : ["37.523898", "127.025587"],
+			"예스24스테이지" : ["37.582705", "127.003203"],
+			"샤롯데씨어터" : ["37.510693", "127.099874"]
+	
+	}
+	function mapclick(){
+		console.log(jsonMap["<%=event.getLocation() %>"][0]);
+	}
 	let flag=true;
 	const roundchoice=()=>{
 	<%if (loginMember == null) {%>

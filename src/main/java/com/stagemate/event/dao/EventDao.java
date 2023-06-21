@@ -15,6 +15,7 @@ import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.member.model.vo.Member;
 import com.stagemate.store.dao.StoreDao;
+import com.stagemate.store.model.vo.StoreUpfile;
 
 public class EventDao {
 	
@@ -189,5 +190,47 @@ public class EventDao {
 			close(rs);
 			close(pstmt);
 		}return result;
+	}
+	
+	public Event selectEventByEventNo(Connection conn, String eventNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Event event=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectEventByEventNo"));
+			pstmt.setString(1, eventNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				event=getEvent(rs);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return event;	
+	}
+	
+	public List<EventUpfile> selectFileByEventNo(Connection conn, String eventNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<EventUpfile> files=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectFileByEventNo"));
+			pstmt.setString(1, eventNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				EventUpfile e=getEventUpfile(rs);
+				files.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return files;
+		
 	}
 }

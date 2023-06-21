@@ -327,3 +327,9 @@ div#cancel_info {
 	cursor: pointer;
 	width:39px;
 }
+div#gold_content {
+    width: 42%;
+}
+#money>div>h3:last-child {
+	color:var(--jh-red)
+}

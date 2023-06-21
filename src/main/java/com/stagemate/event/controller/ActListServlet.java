@@ -17,13 +17,13 @@ import com.stagemate.event.service.EventService;
  * Servlet implementation class Musical
  */
 @WebServlet("/act.do")
-public class ActList extends HttpServlet {
+public class ActListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ActList() {
+    public ActListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

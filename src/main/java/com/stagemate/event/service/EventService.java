@@ -57,5 +57,20 @@ public class EventService {
 		return result;
 	}
 	
+	public Event selectEventByEventNo(String eventNo) {
+		Connection conn=getConnection();
+		Event event=dao.selectEventByEventNo(conn,eventNo);
+		close(conn);
+		return event;
+		
+	}
+	public List<EventUpfile> selectFileByEventNo(String eventNo) {
+		Connection conn=getConnection();
+		List<EventUpfile> files=dao.selectFileByEventNo(conn,eventNo);
+		close(conn);
+		return files;
+		
+	}
+	
 
 }
