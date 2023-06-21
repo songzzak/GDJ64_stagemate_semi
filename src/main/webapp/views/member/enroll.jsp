@@ -95,7 +95,7 @@
                         	readonly>
                     </div>
                     <div class="enroll-wrapper-right">
-                        <button onclick="openPostCode();" class="btn-layout-unchecked btn-api btn-brown" type="button">우편번호 찾기</button>
+                        <button onclick="openPostCode('#zipCode', '#address', '#addressDetail');" class="btn-layout-unchecked btn-api btn-brown" type="button">우편번호 찾기</button>
                     </div>
                 </div>
                 <div class="enroll-form-box" style="margin-bottom: 3%;">
