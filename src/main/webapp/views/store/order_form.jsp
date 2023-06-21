@@ -31,7 +31,7 @@ DlvAdress d=(DlvAdress)request.getAttribute("defaultAddress");
                             <span>배송지</span>
                             <div>
                                 <span><%=d.getDlvNm() %></span>
-                                <button class="btn-layout2 btn-brown" onclick="openPopup('<%=contextPath%>/views/store/popUpAddressSelect.jsp')">배송지변경</button>
+                                <button class="btn-layout2 btn-brown" onclick="openPopup('<%=contextPath%>/dlv/selectDlvAddress.do?userId=<%=loginMember.getMemberId()%>')">배송지변경</button>
                             </div>
                         </li>
                         <li>

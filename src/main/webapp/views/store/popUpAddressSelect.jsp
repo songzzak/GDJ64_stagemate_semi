@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="javax.servlet.http.HttpServletRequest" %>
+    <%@page import="java.util.List,com.stagemate.deliveryAddress.model.vo.DlvAdress"%>
 <%
    HttpServletRequest request2 = (HttpServletRequest) pageContext.getRequest();
    String contextPath = request2.getContextPath();
+   List<DlvAdress> dlvList =(List)request.getAttribute("dlvList");
 %>
 <!DOCTYPE html>
 <html>
@@ -16,8 +18,8 @@
     .popup-tit{margin:0;padding-bottom:20px;font-size:24px;font-weight:bold;color:#1C0808}
     .n-link{display:inline-block;font-size:14px;color:#1C0808;text-decoration:none;margin-top:10px;}
     .btn-insert-addr{margin-right:5px;color:#E9B910;}
-    .list-dlv-address{margin-top:20px;border-bottom: 1px solid #666;}
-    .addr-info{padding:10px;background-color:#f9f9f9;border-radius:5px;margin-bottom:10px}
+    .list-dlv-address{margin-top:20px;}
+    .addr-info{padding:10px;background-color:#f9f9f9;margin-bottom:10px;border-bottom: 1px solid #666;}
     .addr-info span:first-child{font-size:18px;font-weight:bold;color:#1C0808}
     #default_addr{font-size:14px;font-weight:bold;color:#E9B910;margin-left:10px}
     .phone_no,.txt-addr{font-size:14px;color:#666;margin-top:5px}
@@ -35,13 +37,17 @@
             <span class="btn-insert-addr bigpont">+</span>
           </a>
         <div class="list-dlv-address">
+        <%for(DlvAdress d:dlvList){ %>
             <div class="addr-info">
                 <div>
-                    <span>김팬텀(김팬텀님 배송지)</span>
+                    <span><%=d.getDlvNm() %></span>
+                    <%if(d.getIsDefaultDlv()=='Y'){ %>
                     <span id="default_addr">기본배송지</span>
+                    <%} %>
                 </div>
-                <div class="phone_no">010-0000-0000</div>
-                <div class="txt-addr">서울시 어쩌구 저쩌구</div>
+                <div class="phone_no"><%=d.getDlvPerson()%>님</div>
+                <div class="phone_no"><%=d.getDlvPhone() %></div>
+                <div class="txt-addr"><%=d.getDlvAddress() %></div>
                 <div id="addr-btns">
                     <div class="btn-left">
                         <button>수정</button>
@@ -52,6 +58,7 @@
                     </div>
                 </div>
             </div>
+            <%} %>
         </div>
         <div class="list-dvl-paging"></div>
     </div>
