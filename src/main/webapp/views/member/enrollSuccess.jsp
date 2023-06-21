@@ -20,7 +20,7 @@
 			<p>STAGEMATE는 언제나 노력하겠습니다.</p>
     		<div>
             	<input type="button" class="btn-layout btn-brown" value="메인 페이지로 이동"
-            			onclick="location.assign(getContextPath())">
+            			onclick="toMainPage();">
         	</div>
     	</div>
     </article>

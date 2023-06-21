@@ -69,6 +69,8 @@
 		if ($("#agreement").is(":checked")) {
 			$(opener.document).find("#agreement").prop("checked", true);
 			window.close();
+		} else {
+			alert("개인정보 수집 및 이용 동의를 체크해야 확인 버튼을 누를 수 있습니다.");
 		}
 	}
 	
