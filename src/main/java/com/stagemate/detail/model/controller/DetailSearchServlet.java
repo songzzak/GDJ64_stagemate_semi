@@ -1,4 +1,4 @@
-package com.stagemate.review.controller;
+package com.stagemate.detail.model.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,15 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-@WebServlet("/Review/ReviewWritePlay_Title.do")
-public class ReviewWritePlayTitleServlet extends HttpServlet {
+/**
+ * Servlet implementation class DetailSearchServlet
+ */
+@WebServlet("/DetailSearchServlet")
+public class DetailSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewWritePlayTitleServlet() {
+    public DetailSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -24,10 +26,11 @@ public class ReviewWritePlayTitleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		
+		//기간
 		
 		
-		request.getRequestDispatcher("/views/review/ReviewWritePlay_Title.jsp")
-		.forward(request, response);
 		
 	}
 

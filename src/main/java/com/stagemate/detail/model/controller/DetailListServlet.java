@@ -1,21 +1,23 @@
-package com.stagemate.review.controller;
+package com.stagemate.detail.model.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.stagemate.detail.model.service.DetailListService;
+import com.stagemate.detail.model.vo.Detail;
 
-@WebServlet("/Review/ReviewWritePlay_Title.do")
-public class ReviewWritePlayTitleServlet extends HttpServlet {
+@WebServlet("/Detail/DetailListServlet.do")
+public class DetailListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReviewWritePlayTitleServlet() {
+
+    public DetailListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -24,11 +26,11 @@ public class ReviewWritePlayTitleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		List<Detail> detail=new DetailListService().selectPlayDetail();
+		request.setAttribute("DetailList", detail);
 		
-		
-		request.getRequestDispatcher("/views/review/ReviewWritePlay_Title.jsp")
-		.forward(request, response);
-		
+		request.getRequestDispatcher("/views/detail/detailList.jsp").forward(request, response);  
 	}
 
 	/**

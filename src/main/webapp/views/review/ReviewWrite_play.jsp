@@ -36,9 +36,7 @@
 							</div>
 							<div class="RB_info" style="margin-top: 20px">
 								<div>
-									<p>
-										뮤지컬
-										<나르치스와 골드문트> 2023.06.19 18:00 
+									<p id='result'>
 									</p>
 								</div>
 
@@ -89,7 +87,7 @@
 		<script>
         //상품명 검색창 
    		const SearchPlayTitle=()=>{
-	   		const childWindow=open("<%=request.getContextPath()%>/Review/ReviewWritePlay_Title.do","_blank","width=650,height=300");
+	   		const childWindow=open("<%=request.getContextPath()%>/Review/SearchTitle.do","_blank","width=650,height=300");
    		}
 	   
    
