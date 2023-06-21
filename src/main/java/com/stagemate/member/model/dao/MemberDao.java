@@ -90,4 +90,28 @@ private static final String SQL_PATH = "/sql/member/member_sql.properties";
 		}
 		return member;
 	}
+
+	public int insertMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertMember"));
+			pstmt.setString(1, member.getMemberId());
+			pstmt.setString(2, member.getMemberPw());
+			pstmt.setString(3, member.getMemberNm());
+			pstmt.setDate(4, member.getMemberBdate());
+			pstmt.setString(5, member.getMemberEmail());
+			pstmt.setString(6, member.getMemberPhone());
+			pstmt.setString(7, member.getMemberAddress());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 }

@@ -145,7 +145,7 @@
     margin-left: auto;
 }
 
-.btn-api:hover, .enroll-form-box>input[type="submit"]:hover {
+.btn-api:hover, #btnSubmit:hover {
     color: var(--sm-yellow);
 }
 
@@ -190,6 +190,11 @@ input[name="agreement"]:checked + label::after {
     position: absolute;
     left: 0;
     top: 0;
+}
+
+#btnSubmit {
+    display: block;
+    width: 100%;
 }
 
 .popup-error-bg {

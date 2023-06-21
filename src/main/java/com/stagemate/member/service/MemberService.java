@@ -27,10 +27,23 @@ public class MemberService {
 		return member;
 	}
 
-	public Object selectByEmail(String email) {
+	public Member selectByEmail(String email) {
 		Connection conn = JDBCTemplate.getConnection();
 		Member member = memberDao.selectByEmail(conn, email);
 		JDBCTemplate.close(conn);
 		return member;
+	}
+	
+	public int insertMember(Member member) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = memberDao.insertMember(conn, member);
+		
+		if (result > 0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
 	}
 }

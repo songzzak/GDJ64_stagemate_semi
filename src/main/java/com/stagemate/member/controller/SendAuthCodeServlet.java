@@ -25,9 +25,7 @@ public class SendAuthCodeServlet extends HttpServlet {
 			throws ServletException, IOException 
 	{
 		final String receiver = request.getParameter("receiver");
-		System.out.println(receiver);
 		final String authCode = generateAuthCode();
-		System.out.println(authCode);
 		
 		AuthMailSender authMailSender = new AuthMailSender();
 		authMailSender.send(receiver, authCode);
@@ -48,17 +46,11 @@ public class SendAuthCodeServlet extends HttpServlet {
 		StringBuilder authCode = new StringBuilder();
 		
 		IntStream.range(0, MAX_DIGIT).forEach(digit -> {
-			switch (random.nextInt(3)) {
-				case 0:
-					authCode.append((char) (random.nextInt(26) + 97));
-					break;
-				case 1:
-					authCode.append((char) (random.nextInt(26) + 65));
-					break;
-				case 2:
-					authCode.append(String.valueOf(random.nextInt(MAX_NUMBER_EXCLUDED)));
-					break;
+			if (random.nextInt(2) == 0) {
+				authCode.append((char) (random.nextInt(26) + 65));
+				return;
 			}
+			authCode.append(String.valueOf(random.nextInt(MAX_NUMBER_EXCLUDED)));
 		});
 		return authCode.toString();
 	}

@@ -25,7 +25,7 @@
 }
 
 /* font smoothing */
-h1, h2, h3, h4, h5, h6, p, span, a, i, button, input, input::placeholder, td, th {
+h1, h2, h3, h4, h5, h6, p, span, a, i, button, input, input::placeholder, td, th, button {
     transform: rotate(0.04deg);
 }
 

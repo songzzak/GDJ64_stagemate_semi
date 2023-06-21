@@ -11,7 +11,7 @@
         <div class="enroll-wrapper">
             <h2 class="enroll-form-title fw-bold">회원가입</h2>
             <p class="fw-bold fs-small"><span class="fw-bold fc-orange">*</span>표시는 꼭 입력해야 하는 항목입니다.</p>
-            <form action="<%= contextPath %>/member/enrollEnd.do" method="post" class="centering-children-column">
+            <form name="enrollData" method="post" class="centering-children-column">
                 <div class="enroll-form-combo">
                     <div class="enroll-form-box enroll-check_mark w-70p">
 	                    <div class="form-box_name">
@@ -116,7 +116,7 @@
                     <p style="cursor: pointer" class="fc-blue" onclick="toAgreement();">내용 보기</p>
                 </div>
                 <div class="enroll-form-box">
-                    <input type="submit" class="btn-layout btn-brown" value="가입하기" onclick="return isAllValid();">
+                    <button id="btnSubmit" type="button" class="btn-layout btn-brown" onclick="return isAllValid();">가입하기</button>
                 </div>
             </form>
         </div>
@@ -198,7 +198,11 @@
 			return false;
         }
 
-        // 이메일 인증 실패 시 return false
+        if (email.attr("isAuthorized") === "false") {
+            alert('이메일 인증을 통과하지 않았습니다.');
+            email.focus();
+			return false;
+        }
 
         if (!phoneRegex.test($("#phone").val())) {
             alert('올바른 전화번호 형식이 아닙니다.');
@@ -212,6 +216,24 @@
             $("#address").focus();
 			return false;
         }
+
+        if (!$("#agreement").is(":checked")) {
+            alert('개인정보 수집 및 이용 동의를 하지 않았습니다.');
+            $("#agreement").focus();
+			return false;
+        }
+        
+        $.post("<%= contextPath %>/member/enrollEnd.do", 
+        		$("form[name=enrollData]").serialize(), 
+        		(data) => {
+        			if (data == 1) {
+        				alert("가입 성공");
+        			} else {
+        				alert("가입 실패");
+        			}
+        			location.replace(getContext());
+        		}
+        );
     }
     
     function validateIdRegex() {
@@ -294,7 +316,8 @@
     }
     
     function validatePwCorrectness() {
-        $(".confirmResult").remove();
+        // validatePwRegex랑 합쳐보기
+        $(".pwInvalid, .confirmResult").remove();
     	let warningSign = addWarningSign("confirmResult", 
     										"입력한 비밀번호와 일치하지 않습니다.",
     										"var(--jh-crimson)");
@@ -354,7 +377,10 @@
     }
 
     function sendAuthCode(element) {
+        let realCode = '';
         let timer = undefined;
+        let count = 29;
+        
     	$(".emailDuplicate").remove();
     	
         if (!emailRegex.test(email.val())) {
@@ -377,7 +403,7 @@
 							"var(--jh-crimson)");
             		email.parent().append(warningSign);
                 } else {
-                	email.css("border", "2px solid var(--gray)");
+                	email.css("border", "1px solid var(--gray)");
                 	$.ajax({
                         type: "get",
                         url: getContextPath() + "/member/sendAuthCode.do",
@@ -387,24 +413,47 @@
                         dataType: "text",
                         beforeSend: () => {
                             $(element).addClass("fc-yellow");
-                            alert("입력한 이메일로 인증번호가 발송되었습니다.\n인증번호가 도착하는 데에는 1 ~ 2분이 걸립니다.");
+                            alert("입력한 이메일로 인증번호가 발송되었습니다.\n인증번호가 도착하는 데에는 1 ~ 2분 정도 걸립니다.");
                             $(element).text("인증번호 다시 발송하기");
                             $(element).removeClass("fc-yellow");
+
                             generateTimer(timer, element);
+                            timer = setInterval(() => {
+                                let minutes = parseInt(count / 60, 10);
+                                let seconds = parseInt(count % 60, 10);
+
+                                minutes = minutes < 10 ? "0" + minutes : minutes;
+                                seconds = seconds < 10 ? "0" + seconds : seconds;
+                            
+                                $(".timer_seconds").text(minutes + ":" + seconds);
+                            
+                                if (--count < 0) {
+                                    clearInterval(timer);
+                                    realCode = '';
+                                    $(".timer_seconds").text("00:00");
+                                }
+                            }, 1000);
                         },
                         success: (data) => {
+                            realCode = data;
                             const authCode = $("#authCode");
                             $(".enroll-form-timer button").click(() => {
-                                if (data === authCode.val()) {
-                                    email.attr("isAuthorized", "true");
-                                    alert("인증되었습니다.");
-                                    clearInterval(timer);
-                                    $(element).text("인증 완료");
-                                    $(element).off("click"); // 왜 안 되냐
-                                    $(".enroll-form-timer").remove();
-                                } else {
-                                    alert("인증번호가 일치하지 않습니다. 다시 시도해주세요.");
+                                if (realCode === '') {
+                                    alert("입력 시간이 지났습니다. 다시 인증번호를 받아서 입력해주세요.");
+                                    return;
                                 }
+
+                                if (realCode === authCode.val()) {
+                                    email.attr("isAuthorized", "true");
+                                    email.attr("readonly", true);
+                                    alert("인증되었습니다.");
+                                    $(element).text("인증 완료");
+                                    $(element).removeAttr("onclick");
+                                    $(".enroll-form-timer").remove();
+                                    return;
+                                }
+                                
+                                alert("인증번호가 일치하지 않습니다. 다시 시도해주세요.");
                             });
                         },
                         error:(request, status, error) => {
@@ -446,7 +495,7 @@
                 textAlign: "center"
         };
         const timerTitle = $("<p>").text("남은 시간").css(cssTime).addClass("fs-small centering-children");
-        const timerSeconds = $("<p>").text("01:00").css(cssTime).addClass("fc-red centering-children");
+        const timerSeconds = $("<p>").text("01:00").css(cssTime).addClass("fc-red centering-children timer_seconds");
 
         formBox.append(authCode);
         formBox.append(enrollWrapperRightInner.append(btnCheck));
@@ -456,8 +505,6 @@
         formCombo.append(formBox)
                 .append(enrollWrapperRightOuter)
                 .insertAfter($(element).parent().parent());
-        
-        setTimer(timer, timerSeconds);
     }
 
     function setTimer(timer, element) {
@@ -473,7 +520,6 @@
             element.text(minutes + ":" + seconds);
         
             if (--count < 0) {
-                email.attr("isAuthorized", "false");
                 clearInterval(timer);
                 element.text("00:00");
             }
@@ -520,15 +566,12 @@
     					extraAddress += data.bname;
                     }
     			}
-    			console.log(extraAddress);
     			if(data.buildingName !== "" && data.apartment === "Y"){
     				extraAddress += (extraAddress !== "" ? ", " + data.buildingName : data.buildingName);
                 }
-    			console.log(extraAddress);
     			if(extraAddress !== ""){
     				extraAddress = ` (\${extraAddress})`;
                 }
-    			console.log(extraAddress);
     			$("#address").val(address + extraAddress);
     			$("#zipCode").val(data.zonecode);
     			$("#addressDetail").focus();
