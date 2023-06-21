@@ -17,6 +17,18 @@ public class DlvAddressService {
 		close(conn);
 		return dlvList;
 	}
+
+	public int insertDlvAddress(DlvAdress newAddress) {
+		Connection conn=getConnection();
+		int seqNo=dao.selectDlvSeqNo(conn);
+		int result=dao.insertDlvAddress(conn,newAddress,seqNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
 	
 	
 }

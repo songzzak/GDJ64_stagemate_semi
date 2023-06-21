@@ -29,7 +29,8 @@
 
 </head>
 <body>
-    <form name="form1" method="post" id="delivery_form">
+    <form action="<%=request.getContextPath()%>/dlv/insertDlvAddress.do" method="post" id="delivery_form">
+    <input type="hidden" name="userId" value="<%=request.getParameter("userId") %>">
         <div>
             <h1>신규 배송지</h1>
             <table>
@@ -40,40 +41,39 @@
                 <tbody>
                     <tr>
                         <th>수령인</th>
-                        <td><input name="name" type="text" class="n-input" value=""></td>
+                        <td><input name="name" type="text" class="n-input" value="" required></td>
                     </tr>
                     <tr>
-                        <th>배송지명(선택)</th>
-                        <td><input name="title" type="text" class="n-input" value=""></td>
+                        <th>배송지명</th>
+                        <td><input name="title" type="text" class="n-input" value="" required></td>
                     </tr>
                     <tr>
                         <th>연락처</th>
-                        <td><input name="phone" type="text" class="n-input" value=""></td>
+                        <td><input name="phone" type="text" class="n-input" value="" required></td>
                     </tr>
                     <tr>
                         <th>배송지 주소</th>
                         <td>
                             <div class="search">
                                 <div id="search-input">
-                                    <input name="zipcode1" data-name="data-zipcode" type="text" class="n-input" value="" readonly="">
-                                    <button type="button" id="btn-search" class="n-btn btn-sm btn-accent" onclick="window.open(''); return false;">검색</button>
+                                    <input id="zipcode" name="zipcode" data-name="data-zipcode" type="text" class="n-input" value="" readonly="" required>
+                                    <button type="button" id="btn-search" class="n-btn btn-sm btn-accent" onclick="openPostCode('#zipcode', '#addr1', '#addr2');">검색</button>
                                 </div>
-                                <input name="addr1" data-name="data-addr1" type="text" class="n-input" value="" readonly="">
-                                <input name="addr2" data-name="data-addr2" type="text" class="n-input" value="">
-                            </div>
-                            <div class="n-check-block">
-                                <input type="checkbox" class="n-check" id="delivery_defaultCheck" name="delivery_default" onchange="chk_default(this);">
-                                <label for="delivery_defaultCheck">기본 배송지 설정</label>
+                                <input id="addr1" name="addr1" data-name="data-addr1" type="text" class="n-input" value="" readonly="" required>
+                                <input id="addr2" name="addr2" data-name="data-addr2" type="text" class="n-input" value="">
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="popup-btn">
-                <button type="button" class="n-btn btn-lighter" onclick="self.close();">취소</button>
-                <button type="button" class="n-btn btn-accent" onclick="chk_submit();return false;">등록</button>
+                <button type="reset" class="n-btn btn-lighter" onclick="self.close();">취소</button>
+                <button type="submit" class="n-btn btn-accent">등록</button>
             </div>
         </div>
     </form>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="<%= request.getContextPath() %>/js/jquery-3.7.0.min.js"></script>
+	<script src="<%= request.getContextPath() %>/js/script_common.js"></script>
 </body>
 </html>

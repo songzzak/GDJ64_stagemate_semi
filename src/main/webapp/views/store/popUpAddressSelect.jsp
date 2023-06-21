@@ -6,6 +6,7 @@
    HttpServletRequest request2 = (HttpServletRequest) pageContext.getRequest();
    String contextPath = request2.getContextPath();
    List<DlvAdress> dlvList =(List)request.getAttribute("dlvList");
+   String userId=(String)request.getAttribute("userId");
 %>
 <!DOCTYPE html>
 <html>
@@ -64,11 +65,12 @@
     </div>
     <script>
         function delivery_form() {
-        var url = "<%=contextPath %>/views/store/popupAddressInsert.jsp";
+        var url = "<%=contextPath %>/views/store/popupAddressInsert.jsp?userId=<%=userId%>";
         window.open(url, '_blank', 'width=500, height=440');
         }
         function selectAddress(address, name, phone, addressDetails) {
             opener.setSelectedAddress(address, name, phone, addressDetails);
+
             window.close();
         }
     </script>
