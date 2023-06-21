@@ -30,25 +30,25 @@ DlvAdress d=(DlvAdress)request.getAttribute("defaultAddress");
                         <li>
                             <span>배송지</span>
                             <div>
-                                <span><%=d.getDlvNm() %></span>
+                                <span id="dlvName"><%=d.getDlvNm() %></span>
                                 <button class="btn-layout2 btn-brown" onclick="openPopup('<%=contextPath%>/dlv/selectDlvAddress.do?userId=<%=loginMember.getMemberId()%>')">배송지변경</button>
                             </div>
                         </li>
                         <li>
                             <span>이름</span>
                             <div>
-                                <span><%=d.getDlvPerson() %></span>
+                                <span id="dlvPerson"><%=d.getDlvPerson() %></span>
                             </div>
                         </li>
                         <li>
                             <span>연락처</span>
                             <div>
-                                <span><%=d.getDlvPhone() %></span>
+                                <span id="dlvPhone"><%=d.getDlvPhone() %></span>
                             </div>
                         </li>
                         <li>
                             <span>주소</span>
-                            <div><span><%=d.getDlvAddress() %></span></div>
+                            <div><span id="dlvAddress"><%=d.getDlvAddress() %></span></div>
                         </li>
                         <li>
                             <span>배송 요청사항</span>

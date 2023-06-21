@@ -45,7 +45,7 @@
                     <span id="default_addr">기본배송지</span>
                     <%} %>
                 </div>
-                <div class="phone_no"><%=d.getDlvPerson()%>님</div>
+                <div class="phone_no"><%=d.getDlvPerson()%></div>
                 <div class="phone_no"><%=d.getDlvPhone() %></div>
                 <div class="txt-addr"><%=d.getDlvAddress() %></div>
                 <div id="addr-btns">
@@ -54,7 +54,7 @@
                         <button>삭제</button>
                     </div>
                     <div class="btn-right">
-                        <button>선택</button>
+                        <button class="selectDlv" onclick="selectAddress('<%=d.getDlvNm()%>', '<%=d.getDlvPerson()%>', '<%=d.getDlvPhone()%>', '<%=d.getDlvAddress()%>');">선택</button>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,11 @@
     <script>
         function delivery_form() {
         var url = "<%=contextPath %>/views/store/popupAddressInsert.jsp";
-        window.open(url, '_blank', 'width=500, height=970');
+        window.open(url, '_blank', 'width=500, height=440');
+        }
+        function selectAddress(address, name, phone, addressDetails) {
+            opener.setSelectedAddress(address, name, phone, addressDetails);
+            window.close();
         }
     </script>
 </body>

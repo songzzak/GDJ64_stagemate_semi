@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>배송지 추가 | StageMate</title>
 <style>
-    body{width:500px;height:970px;background-color:#f5f5f5;font-family:'Inter',sans-serif;margin:0;padding:0}
+    body{width:500px;height:440px;background-color:#f5f5f5;font-family:'Inter',sans-serif;margin:0;padding:0}
     form{margin:0 auto;padding:20px;box-sizing:border-box;background-color:#fff;border-radius:5px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
     h1{margin:0;padding-bottom:20px;font-size:24px;font-weight:bold;color:#1C0808}
     table{width:100%;margin-bottom:20px;border-collapse:collapse}
