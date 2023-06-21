@@ -50,7 +50,7 @@
                             <a href="#" class="bt last">>></a>
                         </div>
                    			 <div class="bt_wrap">
-                   			 <button class="on" onclick="">글쓰기</button>
+                   			 <button class="on" onclick="location.assign('<%=request.getContextPath()%>/notice/insertForm.do')">글쓰기</button>
                    			 </div>
                    			 
                             <!-- <a href="write.html" class="on">등록</a>
