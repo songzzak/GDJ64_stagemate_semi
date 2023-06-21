@@ -67,4 +67,27 @@ private static final String SQL_PATH = "/sql/member/member_sql.properties";
 		}
 		return member;
 	}
+
+	public Member selectByEmail(Connection conn, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member member = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectByEmail"));
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				member = MemberGenerator.by(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return member;
+	}
 }

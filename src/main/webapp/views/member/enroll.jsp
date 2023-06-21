@@ -66,6 +66,7 @@
                             <p class="fw-bold">이메일<span class="fw-bold fc-orange">*</span></p>
                         </div>
                         <input type="email" name="email" id="email" 
+                        	isAuthorized="false"
                         	placeholder="stagemate@gmail.com" 
                         	onfocus="this.placeholder = ''" 
                         	onblur="this.placeholder = 'stagemate@gmail.com'">
@@ -152,6 +153,7 @@
     const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,15}$/;
     const bdRegex = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
     const phoneRegex = /^01([0|1|6|9])([0-9]{3,4})([0-9]{4})$/;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     $(() => {
         function generateCheckMark() {
@@ -352,32 +354,66 @@
     }
 
     function sendAuthCode(element) {
-        if (email.val() === '') {
-            alert("이메일을 입력하지 않았습니다.");
+        let timer = undefined;
+    	$(".emailDuplicate").remove();
+    	
+        if (!emailRegex.test(email.val())) {
+        	emailRegex.lastIndex = 0;
+            alert("올바른 이메일 형식이 아닙니다.");
             return;
         }
-
+        
         $.ajax({
-            type: "get",
-            url: getContextPath() + "/member/sendAuthCode.do",
-            data: { "receiver": email.val()},
-            dataType: "text",
-            beforeSend: () => {
-                $(element).addClass("fc-yellow");
-                alert("입력한 이메일로 인증번호가 발송되었습니다.");
-                $(element).text("인증번호 다시 발송하기");
-                $(element).removeClass("fc-yellow");
-                generateTimer(element)
-            },
+        	type: "get",
+        	url: getContextPath() + "/member/emailDuplication.do",
+        	data: { 
+        		"receiver": email.val()
+        	},
             success: (data) => {
-                const authCode = $("#authCode");
-                $(".enroll-form-timer button").click(() => {
-                    if (data === authCode.val()) {
-                        console.log('일치');
-                    } else {
-                        console.log('불일치');
-                    }
-                });
+            	if (data === "duplicate") {
+            		email.css("border", "2px solid var(--jh-crimson)");
+            		warningSign = addWarningSign("emailDuplicate", 
+							"사용 중인 이메일입니다.",
+							"var(--jh-crimson)");
+            		email.parent().append(warningSign);
+                } else {
+                	email.css("border", "2px solid var(--gray)");
+                	$.ajax({
+                        type: "get",
+                        url: getContextPath() + "/member/sendAuthCode.do",
+                        data: { 
+                        	"receiver": email.val()
+                        },
+                        dataType: "text",
+                        beforeSend: () => {
+                            $(element).addClass("fc-yellow");
+                            alert("입력한 이메일로 인증번호가 발송되었습니다.\n인증번호가 도착하는 데에는 1 ~ 2분이 걸립니다.");
+                            $(element).text("인증번호 다시 발송하기");
+                            $(element).removeClass("fc-yellow");
+                            generateTimer(timer, element);
+                        },
+                        success: (data) => {
+                            const authCode = $("#authCode");
+                            $(".enroll-form-timer button").click(() => {
+                                if (data === authCode.val()) {
+                                    email.attr("isAuthorized", "true");
+                                    alert("인증되었습니다.");
+                                    clearInterval(timer);
+                                    $(element).text("인증 완료");
+                                    $(element).off("click"); // 왜 안 되냐
+                                    $(".enroll-form-timer").remove();
+                                } else {
+                                    alert("인증번호가 일치하지 않습니다. 다시 시도해주세요.");
+                                }
+                            });
+                        },
+                        error:(request, status, error) => {
+                            if (request.status === 500) {
+                                showModalError();
+                            }
+                        }
+                    });
+                }
             },
             error:(request, status, error) => {
                 if (request.status === 500) {
@@ -387,7 +423,7 @@
         });
     }
 
-    function generateTimer(element) {
+    function generateTimer(timer, element) {
     	const formCombo = $("<div>").addClass("enroll-form-combo enroll-form-timer");
         const formBox = $("<div>").addClass("enroll-form-box w-70p").css({
             display: "flex",
@@ -398,11 +434,12 @@
                 id: "authCode",
                 placeholder: "인증번호 입력",
                 onfocus: "this.placeholder = ''",
-                onblur: "this.placeholder = '인증번호 입력'"
+                onblur: "this.placeholder = '인증번호 입력'",
+                onkeyup: '$("#email").attr("isAuthorized", "false");'
         });
         const enrollWrapperRightInner = $("<div>").addClass("enroll-wrapper-right");
         const btnCheck = $("<button>").addClass("btn-layout-unchecked btn-api btn-brown").attr("type", "button").text("확인");
-        const enrollWrapperRightOuter = $("<div>").addClass("enroll-wrapper-right");
+        const enrollWrapperRightOuter = $("<div>").addClass("enroll-wrapper-right time_left");
         
         const cssTime = {
         		width: "35%",
@@ -420,11 +457,10 @@
                 .append(enrollWrapperRightOuter)
                 .insertAfter($(element).parent().parent());
         
-        setTimer(timerSeconds);
+        setTimer(timer, timerSeconds);
     }
 
-    function setTimer(element) {
-        let timer = undefined;
+    function setTimer(timer, element) {
         let count = 59;
 
         timer = setInterval(() => {
@@ -437,7 +473,7 @@
             element.text(minutes + ":" + seconds);
         
             if (--count < 0) {
-                // 회원가입 못하게 막기
+                email.attr("isAuthorized", "false");
                 clearInterval(timer);
                 element.text("00:00");
             }

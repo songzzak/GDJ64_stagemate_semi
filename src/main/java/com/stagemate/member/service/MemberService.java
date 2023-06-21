@@ -26,4 +26,11 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		return member;
 	}
+
+	public Object selectByEmail(String email) {
+		Connection conn = JDBCTemplate.getConnection();
+		Member member = memberDao.selectByEmail(conn, email);
+		JDBCTemplate.close(conn);
+		return member;
+	}
 }

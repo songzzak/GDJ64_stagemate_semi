@@ -17,7 +17,7 @@ import com.stagemate.common.AuthMailSender;
 public class SendAuthCodeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final int MAX_DIGIT = 6;
-	private static final int MAX_NUMBER = 9;
+	private static final int MAX_NUMBER_EXCLUDED = 10;
        
     public SendAuthCodeServlet() {}
 
@@ -48,7 +48,17 @@ public class SendAuthCodeServlet extends HttpServlet {
 		StringBuilder authCode = new StringBuilder();
 		
 		IntStream.range(0, MAX_DIGIT).forEach(digit -> {
-			authCode.append(String.valueOf(random.nextInt(MAX_NUMBER)));
+			switch (random.nextInt(3)) {
+				case 0:
+					authCode.append((char) (random.nextInt(26) + 97));
+					break;
+				case 1:
+					authCode.append((char) (random.nextInt(26) + 65));
+					break;
+				case 2:
+					authCode.append(String.valueOf(random.nextInt(MAX_NUMBER_EXCLUDED)));
+					break;
+			}
 		});
 		return authCode.toString();
 	}
