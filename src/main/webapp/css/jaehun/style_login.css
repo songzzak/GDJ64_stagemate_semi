@@ -14,10 +14,14 @@
     color: var(--sm-yellow);
 }
 
-.btn-login:hover {
+.btn-login_active {
 	background-color: var(--sm-yellow);
     border: 2px solid var(--sm-brown);
     color: var(--sm-brown);
+}
+
+.login {
+	min-height: 500px;
 }
 
 .login img, .popup-error-bg img {
@@ -168,8 +172,8 @@
 	display: none;
 }
 
-.checkbox_fake {
-        display: inline-block;
+.right_content_options label:first-of-type {
+		display: inline-block;
         width: 13px;
         height: 13px;
         margin-bottom: -2px;
@@ -179,11 +183,7 @@
         cursor: pointer;
 }
 
-.right_content_options label {
-	cursor: pointer;
-}
-
-input[id="saveId"]:checked + .checkbox_fake::after{
+input[id="saveId"]:checked + label:first-of-type::after{
 		display: inline-block;
         content: "\2713";
         background-color: var(--green);
@@ -271,4 +271,16 @@ input[id="saveId"]:checked + .checkbox_fake::after{
 
 .popup-error-slide {
 	transform: translate(-50%, -40%);
+}
+
+@media screen and (max-width: 1920px) { 
+  .login { 
+    min-height: 600px; 
+  } 
+} 
+
+@media screen and (min-width: 1920px) { 
+  .login { 
+    min-height: 880px; 
+  } 
 }

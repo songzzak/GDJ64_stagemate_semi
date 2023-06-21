@@ -1,0 +1,37 @@
+@import url("../style_init.css");
+
+.enroll_success img {
+	display: block;
+	width: 80%;
+	margin: 0 auto;
+}
+
+.enroll_success p {
+	color: var(--gray);
+	text-align: center;
+	font-weight: 900;
+}
+
+.success-top, .success-middle, .success-bottom {
+	margin: 10% 0;
+}
+
+.success-top>h2 {
+	text-align: center;
+    font-size: 3rem;
+    color: var(--sm-brown);
+}
+
+.success-bottom {
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.success-bottom div {
+	margin-top: 5%;
+}
+
+.success-bottom input[type="button"]:hover {
+	color: var(--sm-yellow);
+}
