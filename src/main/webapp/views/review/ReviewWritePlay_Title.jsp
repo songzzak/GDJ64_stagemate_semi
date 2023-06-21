@@ -32,7 +32,8 @@
 				for (PlaySearch r: playSearch) {%>
 				<tr>
 					<td><%= r.getEventName() %></td>
-					<td><                         <input type="radio""><%= r.getRsvNo()%></td>
+					<td><input type="radio"><%= r.getRsvNo()%></td>
+					<td>관람 전</td>
 				</tr>
 				<% }
 				}%>

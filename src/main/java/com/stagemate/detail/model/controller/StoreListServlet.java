@@ -9,15 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stagemate.detail.model.service.DetailListService;
-import com.stagemate.detail.model.vo.Detail;
+import com.stagemate.detail.model.service.StoreListService;
+import com.stagemate.detail.model.vo.StoreDetail;
 
-@WebServlet("/Detail/DetailListServlet.do")
-public class DetailListServlet extends HttpServlet {
+/**
+ * Servlet implementation class StoreListServlet
+ */
+@WebServlet("/StoreListServlet")
+public class StoreListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
-    public DetailListServlet() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public StoreListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,11 +31,21 @@ public class DetailListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		List<Detail> detail=new DetailListService().selectPlayDetail();
-		request.setAttribute("DetailList", detail);
 		
-		request.getRequestDispatcher("/views/detail/detailList.jsp").forward(request, response);  
+		
+		List<StoreDetail> detail = new StoreListService().selectStoreDetail();
+		request.setAttribute("StoreList", detail);
+		
+		request.getRequestDispatcher("/views/detail/detailList.jsp").forward(request, response);
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	/**

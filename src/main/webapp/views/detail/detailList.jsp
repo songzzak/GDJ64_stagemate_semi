@@ -4,12 +4,17 @@
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/yelin/style_detailList.css">
 <%@ page import="java.util.List,com.stagemate.detail.model.vo.Detail"%>
+<%@ page import="java.util.List,com.stagemate.detail.model.vo.StoreDetail"%>
 <title>STAGEMATE</title>
 </head>
 <body>
 	<%
-	//Detail 정보 가져와야 한다. 
+	//PlayDetail 정보 가져와야 한다. 
 	List<Detail> details = (List) request.getAttribute("DetailList");
+	%>
+	<%
+	//StoreDetail 정보 가져와야 한다. 
+	List<StoreDetail> stores = (List) request.getAttribute("StoreList");
 	%>
 	<%@ include file="/views/common/header.jsp"%>
 
@@ -52,11 +57,15 @@
 						style="padding: 60px 0px 0px 0px; float: right;">
 						<div class="termsearchbox" style="margin-right: 30px;">
 
-							 기간별 조회 <button name="filterDate" class="perbtn active" value="1" onclick="search_btn(event)">7일</button>
-							<button name="filterDate" class="perbtn" value="2" onclick="search_btn(event)">1개월</button>
-							<button name="filterDate" class="perbtn" value="3" onclick="search_btn(event)">3개월</button> 
+							기간별 조회
+							<button name="filterDate" class="perbtn active" value="1"
+								onclick="search_btn(event)">7일</button>
+							<button name="filterDate" class="perbtn" value="2"
+								onclick="search_btn(event)">1개월</button>
+							<button name="filterDate" class="perbtn" value="3"
+								onclick="search_btn(event)">3개월</button>
 
-						<!-- 기간검색 : 시작일 종료일로 리스트 조회  -->
+							<!-- 기간검색 : 시작일 종료일로 리스트 조회  -->
 							<!-- 시작일<input type="text" name="startDate">
 							종료일<input type="text" name="endDate">
 							<button onclick="">검색</button>
@@ -64,7 +73,7 @@
 						<script>
 							
 						</script> -->
-	
+
 						</div>
 						<div class="datebox">
 							예매일자별 조회 <select class="btnbox btnbox-white" id="year1"
@@ -218,42 +227,21 @@
 							</tr>
 						</thead>
 						<tbody>
+							<%
+							for (StoreDetail s : stores) {
+							%>
 							<tr>
 								<td class="book_no">2023-04-16</a></td>
-								<td class="book_no"><a href="" style="color: gray;">S304310481</a></td>
-								<td class="book_no"><a href="">아크네 마그넷</a></td>
-								<td class="book_no">14,000</td>
+								<td class="book_no"><a href="" style="color: gray;"><%=s.getOrderNo()%></a></td>
+								<td class="book_no"><a href=""><%=s.getProductNm()%></a></td>
+								<td class="book_no"><%=s.getTotalPrice()%></td>
 								<td class="book_no">배송 중</td>
 								<td class="book_no"><a href=""
 									style="text-decoration: none;">리뷰작성</a></td>
 							</tr>
-							<tr>
-								<td class="book_no">2023-04-16</a></td>
-								<td class="book_no"><a href="" style="color: gray;">S304310481</a></td>
-								<td class="book_no"><a href="">아크네 마그넷</a></td>
-								<td class="book_no">14,000</td>
-								<td class="book_no">배송 중</td>
-								<td class="book_no"><a href=""
-									style="text-decoration: none;">리뷰작성</a></td>
-							</tr>
-							<tr>
-								<td class="book_no">2023-04-16</a></td>
-								<td class="book_no"><a href="" style="color: gray;">S304310481</a></td>
-								<td class="book_no"><a href="">아크네 마그넷</a></td>
-								<td class="book_no">14,000</td>
-								<td class="book_no">배송 중</td>
-								<td class="book_no"><a href=""
-									style="text-decoration: none;">리뷰작성</a></td>
-							</tr>
-							<tr>
-								<td class="book_no">2023-04-16</a></td>
-								<td class="book_no"><a href="" style="color: gray;">S304310481</a></td>
-								<td class="book_no"><a href="">아크네 마그넷</a></td>
-								<td class="book_no">14,000</td>
-								<td class="book_no">배송 중</td>
-								<td class="book_no"><a href=""
-									style="text-decoration: none;">리뷰작성</a></td>
-							</tr>
+							<%
+							}
+							%>
 
 						</tbody>
 					</table>
