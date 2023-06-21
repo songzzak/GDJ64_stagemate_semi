@@ -260,4 +260,60 @@ public class StoreDao {
 		return fileList;
 	}
 
+    public int updateProduct(Connection conn, Product product) {
+    	PreparedStatement pstmt = null;
+        int result = 0;
+        try {
+        	pstmt = conn.prepareStatement(sql.getProperty("updateProduct"));
+            pstmt.setString(1, product.getProductTitle());
+            pstmt.setString(2, product.getProductNm());
+            pstmt.setInt(3, product.getProductPrice());
+            pstmt.setInt(4, product.getProductAmt());
+            pstmt.setString(5, product.getProductComment());
+            pstmt.setInt(6, product.getProductNo());
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	close(pstmt);
+        }
+        return result;
+    }
+
+    public int updateFileData(Connection conn, StoreUpfile file, int productNo) {
+    	PreparedStatement pstmt = null;
+        int result = 0;
+        try {
+            pstmt = conn.prepareStatement(sql.getProperty("updateFileData"));
+            pstmt.setString(1, file.getImgFilenameOri());
+            pstmt.setString(2, file.getImgFileRename());
+            pstmt.setInt(3, productNo);
+            pstmt.setString(4, String.valueOf(file.getIsMainImg()));
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	close(pstmt);
+        }
+        return result;
+    }
+
+	public int deleteProductByNo(Connection conn, int pNo) {
+		PreparedStatement pstmt = null;
+        int result = 0;
+        try {
+            pstmt = conn.prepareStatement(sql.getProperty("deleteProductByNo"));
+            pstmt.setInt(1, pNo);
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	close(pstmt);
+        }
+        return result;
+	}
+
+
+
+
 }

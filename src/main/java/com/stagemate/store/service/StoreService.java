@@ -61,6 +61,9 @@ public class StoreService {
 	    int pNo = 0; 
 	    if (result > 0) {
 	        pNo = dao.selectSeqCurrval(conn);
+	        commit(conn);
+	    }else {
+	    	rollback(conn);
 	    }
 	    close(conn);
 	    Map<String, Integer> resultMap = new HashMap<>();
@@ -98,6 +101,34 @@ public class StoreService {
 		close(conn);
 		return fileList;
 	}
+
+	public int updateProduct(Product product) {
+		Connection conn=getConnection();
+		int result=dao.updateProduct(conn, product);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int updateFileData(StoreUpfile mainImg, int productNo) {
+		Connection conn=getConnection();
+		int result=dao.updateFileData(conn, mainImg,productNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int deleteProductByNo(int pNo) {
+		Connection conn=getConnection();
+		int result=dao.deleteProductByNo(conn, pNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
 
 
 }

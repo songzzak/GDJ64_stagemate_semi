@@ -85,11 +85,11 @@ List<Product> products = (List) request.getAttribute("products");
 							<td><%=p.getProductNm() %></td>
 							<td><%=p.getProductPrice() %></td>
 							<td><%=p.getProductAmt() %></td>
-							<td><%=p.getProductComment() %> </td>
+							<td><%=p.getProductComment()==null?"":p.getProductComment() %> </td>
 							<td><%=p.getProductInsertDate() %></td>
 							<td>
-								<button class="btn_store_mng">수정</button>
-								<button class="btn_store_mng">삭제</button>
+								<button class="btn_store_mng btn_product_update">수정</button>
+								<button class="btn_store_mng btn_product_delete">삭제</button>
 							</td>
 						</tr>
 						<%}

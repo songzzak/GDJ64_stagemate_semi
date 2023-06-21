@@ -32,6 +32,8 @@ for(StoreUpfile f:files){
 			<div id="productInfo">
 				<div id="infoDetail">
 					<table>
+					<input type="hidden" id="pNo" value="<%=p.getProductNo()%>">
+					<input type="hidden" id="userId" value="<%=loginMember.getMemberId()%>">
 						<tr>
 							<td colspan="2"><h3><%=p.getProductTitle() %></h3></td>
 						</tr>
@@ -46,7 +48,7 @@ for(StoreUpfile f:files){
 							<td>수량 선택</td>
 							<td id="product-select-count"><img
 								src="<%=contextPath %>/images/yoonjin/button/minus.svg" alt="">
-								<p class="fixed-width">1</p> <img
+								<p class="fixed-width" id="ordercount">1</p> <img
 								src="<%=contextPath %>/images/yoonjin/button/plus.svg" alt="">
 							</td>
 						</tr>

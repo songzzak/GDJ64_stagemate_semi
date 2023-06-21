@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.stagemate.store.model.vo.Product;
+import com.stagemate.store.model.vo.StoreUpfile;
 import com.stagemate.store.service.StoreService;
 
 @WebServlet("/store/productSearch.do")
@@ -39,8 +40,9 @@ public class SearchProductList extends HttpServlet {
         }
 
         List<Product> products = new StoreService().searchProductsByKeyword(cPage, numPerPage, keyword);
-        System.out.println(products);
+        List<StoreUpfile> files=new StoreService().selectAllFile();
         request.setAttribute("products", products);
+        request.setAttribute("files", files);
 
         int totalData = new StoreService().searchProductsByKeywordCnt(keyword);
         int totalPage = (int) Math.ceil((double) totalData / numPerPage);

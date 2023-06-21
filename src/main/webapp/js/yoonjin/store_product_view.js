@@ -32,7 +32,7 @@
                     }
                 });
 
-                var count = parseInt($("#product-select-count p").text());
+                var count = parseInt($("#ordercount").text());
 
                 // 수량 변경 시 이벤트 핸들러
                 $("#product-select-count img").click(function() {
@@ -54,6 +54,9 @@
                 });
             });
             
- $("#product-view-btn_pay").click(e=>{
-    location.assign(getContextPath()+"/store/storeOrder.do");
- })
+$("#product-view-btn_pay").click(e => {
+    const pNo = $("#pNo").val();
+    const count = parseInt($("#product-select-count p").text());
+    const userId=$("#userId").val();
+    location.assign(getContextPath() + "/store/storeOrder.do?no=" + pNo + "&count=" + count+"&userId="+userId);
+});

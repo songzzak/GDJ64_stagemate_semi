@@ -31,16 +31,16 @@
 					<li class="underline-gray">
 						<span class="bgc-gray">이름</span>
 						<div>
-							<span class="vertical-center">김팬텀</span>
+							<span class="vertical-center"><%=loginMember.getMemberNm() %></span>
 						</div>
 					</li>
 					<li class="underline-gray">
 						<span class="bgc-gray">연락처</span>
-						<span class="vertical-center">010-1234-6666</span>
+						<span class="vertical-center"><%=loginMember.getMemberPhone() %></span>
 					</li>
 					<li class="underline-gray">
 						<span class="bgc-gray">주소</span>
-						<div class="vertical-center">서울시 어쩌구 저쩌동 59-8 403</div>
+						<div class="vertical-center"><%=loginMember.getMemberAddress() %></div>
 					</li>
 					<li class="underline-gray">
 						<span class="bgc-gray">배송 요청사항</span>
