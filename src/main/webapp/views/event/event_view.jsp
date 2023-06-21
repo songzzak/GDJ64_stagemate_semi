@@ -2,10 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <%@ page
-	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile"%>
+	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile,com.stagemate.event.model.vo.EventTime"%>
 <%
 Event event = (Event) request.getAttribute("event");
 List<EventUpfile> files = (List) request.getAttribute("files");
+List<EventTime> et = (List) request.getAttribute("et");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -159,8 +160,8 @@ List<EventUpfile> files = (List) request.getAttribute("files");
 								<div id="gold_bar"></div>
 								<div>
 									<div id="gold_button">
-										<button id="schedule" style="cursor: pointer;"
-											onclick="roundchoice();">1회 오후 7시 30분</button>
+										<button class="schedule" style="cursor: pointer;"
+											onclick="roundchoice();">1회 </button>
 									</div>
 								</div>
 							</div>
@@ -336,7 +337,6 @@ List<EventUpfile> files = (List) request.getAttribute("files");
 							</div>
 							<div id="map" style="width: 80%; height: 650px;"></div>
 						</div>
-						<button onclick="mapclick();">fakhsdklajdkljsakljk</button>
 					</div>
 				</div>
 			</div>
@@ -349,17 +349,56 @@ List<EventUpfile> files = (List) request.getAttribute("files");
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51321917c05ca5a38fbce7ed8b6a981c"></script>
-	<script src="<%=contextPath%>/js/joonho/script_musical.js"></script>
+	<script src="<%=contextPath%>/js/joonho/script_event.js"></script>
 	<script>
+	/* 지도 위치 지정 */
 	let jsonMap ={
 			"광림아트센터 BBCH홀" : ["37.523898", "127.025587"],
-			"예스24스테이지" : ["37.582705", "127.003203"],
-			"샤롯데씨어터" : ["37.510693", "127.099874"]
-	
+			"예스24스테이지 3관" : ["37.582705", "127.003203"],
+			"예스24스테이지 1관" : ["37.582705", "127.003203"],
+			"샤롯데씨어터" : ["37.510693", "127.099874"],
+			"대학로 해피씨어터" : ["37.581846", "127.002567"],
+			"홍대 제이엘씨어터" : ["37.553111", "126.922218"],
+			"예그린 씨어터" : ["37.583870", "127.003045"],
+			"대학로 틴틴홀" : ["37.581561", "127.003548"],
+			"올림픽공원 올림픽홀" : ["37.514626", "127.127601"],
+			"KBS 울산홀" : ["35.544506", "129.326446"],
+			"KBS아레나" : ["37.556730", "126.847916"]
 	}
-	function mapclick(){
-		console.log(jsonMap["<%=event.getLocation() %>"][0]);
+	var GPSX=jsonMap["<%=event.getLocation() %>"][0]
+	var GPSY=jsonMap["<%=event.getLocation() %>"][1]
+	/* 달력 */
+	var startDay=new Date('<%=event.getEventStartDt() %>')
+	var endDay=new Date('<%=event.getEventEndDt() %>')
+
+	var monday=[];
+	var tuesday=[];
+	var wednesday=[];
+	var thursday=[];
+	var friday=[];
+	var saturday=[];
+	var sunday=[];
+	var arrowday=[]
+	<%for(EventTime e:et){%>
+	switch('<%=e.getEtDay()%>'){
+		case '월' : monday.push('<%=e.getEtStartTime() %>'); break;
+		case '화' : tuesday.push('<%=e.getEtStartTime() %>'); break;
+		case '수' : wednesday.push('<%=e.getEtStartTime() %>'); break;
+		case '목' : thursday.push('<%=e.getEtStartTime() %>'); break;
+		case '금' : friday.push('<%=e.getEtStartTime() %>'); break;
+		case '토' : saturday.push('<%=e.getEtStartTime() %>'); break;
+		case '일' : sunday.push('<%=e.getEtStartTime() %>');break;
 	}
+	arrowday.push('<%=e.getEtDay()%>')
+	<%}%>
+	const days=new Set(arrowday);
+	const daysList= days.values();
+	console.log(monday);
+	console.log(tuesday);
+	console.log(saturday);
+	console.log(sunday);
+	console.log(new Set(arrowday).size);
+	/* 버튼 로그인 후 선택 가능 */
 	let flag=true;
 	const roundchoice=()=>{
 	<%if (loginMember == null) {%>

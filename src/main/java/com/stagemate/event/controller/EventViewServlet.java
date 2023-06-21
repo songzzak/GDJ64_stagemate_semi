@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stagemate.event.model.vo.Event;
+import com.stagemate.event.model.vo.EventTime;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.service.EventService;
-import com.stagemate.store.service.StoreService;
 
 /**
  * Servlet implementation class MusicalNum1
@@ -36,8 +36,10 @@ public class EventViewServlet extends HttpServlet {
 		String eventNo=request.getParameter("no");
 		Event event=new EventService().selectEventByEventNo(eventNo);
 		List<EventUpfile> files=new EventService().selectFileByEventNo(eventNo);
+		List<EventTime> et=new EventService().selectTimeByEvent(eventNo);
 		request.setAttribute("event", event);
 		request.setAttribute("files", files);
+		request.setAttribute("et", et);
 		request.getRequestDispatcher("/views/event/event_view.jsp").forward(request, response);
 	}
 

@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.stagemate.event.dao.EventDao;
 import com.stagemate.event.model.vo.Event;
+import com.stagemate.event.model.vo.EventTime;
 import com.stagemate.event.model.vo.EventUpfile;
 
 public class EventService {
@@ -69,6 +70,14 @@ public class EventService {
 		List<EventUpfile> files=dao.selectFileByEventNo(conn,eventNo);
 		close(conn);
 		return files;
+		
+	}
+	
+	public List<EventTime> selectTimeByEvent(String eventNo){
+		Connection conn=getConnection();
+		List<EventTime> et=dao.selectTimeByEvent(conn,eventNo);
+		close(conn);
+		return et;
 		
 	}
 	

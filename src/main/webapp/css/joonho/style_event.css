@@ -153,7 +153,7 @@ div#cancel_info {
 	margin-bottom: 20px;
 }
 
-#schedule {
+.schedule {
 	width: 240px;
 	height: 56px;
 	background-color: white;
@@ -230,7 +230,7 @@ div#cancel_info {
 }
 
 .today {
-	background-color: #F5D042;
+	background-color: var(--sm-yellow);
 	color: #fff;
 	font-weight: 600;
 	cursor: pointer;
@@ -246,7 +246,7 @@ div#cancel_info {
 }
 
 .futureDay.choiceDay, .today.choiceDay {
-	background: #0A174E;
+	background: var(--sm-brown);
 	color: #fff;
 	font-weight: 600;
 	cursor: pointer;

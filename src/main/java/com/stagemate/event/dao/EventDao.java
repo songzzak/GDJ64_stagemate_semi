@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.stagemate.common.PropertiesGenerator;
 import com.stagemate.event.model.vo.Event;
+import com.stagemate.event.model.vo.EventTime;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.member.model.vo.Member;
 import com.stagemate.store.dao.StoreDao;
@@ -49,6 +50,15 @@ public class EventDao {
 				.eventNo(rs.getString("EVENT_NO"))
 				.purposeNo(rs.getString("PURPOSE_NO"))
 				.euDate(rs.getDate("EU_DATE"))
+				.build();
+	}
+	
+	private EventTime getEventTime(ResultSet rs) throws SQLException{
+		return EventTime.builder()
+				.etNo(rs.getString("ET_NO"))
+				.eventNo(rs.getString("EVENT_NO"))
+				.etDay(rs.getString("ET_DAY"))
+				.etStartTime(rs.getString("ET_START_TIME"))
 				.build();
 	}
 	
@@ -232,5 +242,26 @@ public class EventDao {
 		}
 		return files;
 		
+	}
+	
+	public List<EventTime> selectTimeByEvent(Connection conn, String eventNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<EventTime> et=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectTimeByEventNo"));
+			pstmt.setString(1, eventNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				EventTime e=getEventTime(rs);
+				et.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return et;
 	}
 }

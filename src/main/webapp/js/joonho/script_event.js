@@ -73,7 +73,7 @@ $("#movemap").click(e=>{
 	$("#gold_details_map").css({"display":"inline-flex","flex-direction":"column","align-items": "center"})
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new kakao.maps.LatLng(37.523898, 127.025587), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(GPSX, GPSY), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
 
@@ -113,7 +113,7 @@ $("#gold_location").click(e=>{
 	$("#gold_details_map").css({"display":"inline-flex","flex-direction":"column","align-items": "center"})
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new kakao.maps.LatLng(37.523898, 127.025587), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(GPSX, GPSY), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
 
@@ -174,16 +174,28 @@ function buildCalendar() {
 		if (nowDay.getDay() == 6) {                 // 토요일인 경우
 			nowRow = tbody_Calendar.insertRow();    // 새로운 행 추가
 		}
+		
 
-		if (nowDay < today) {                       // 지난날인 경우
+		if (nowDay < today || nowDay<startDay) {                       // 지난날인 경우
 			newDIV.className = "pastDay";
 		}
 		else if (nowDay.getFullYear() == today.getFullYear() && nowDay.getMonth() == today.getMonth() && nowDay.getDate() == today.getDate()) { // 오늘인 경우           
 			newDIV.className = "today";
 			newDIV.onclick = function() { choiceDate(this); }
-		}
-		else {                                      // 미래인 경우
-			newDIV.className = "futureDay";
+		}else if(nowDay>endDay){
+			newDIV.className = "pastDay";
+		}else {                                      // 미래인 경우
+			for(let dayValue of daysList){
+				switch(dayValue){
+					case '월' : newDIV.parentElement.parentElement.children[0].children[0].className = "futureDay"; break;
+					case '화' : newDIV.parentElement.parentElement.children[1].children[0].className = "futureDay"; break;
+					case '수' : newDIV.parentElement.parentElement.children[2].children[0].className = "futureDay"; break;
+					case '목' : newDIV.parentElement.parentElement.children[3].children[0].className = "futureDay"; break;
+					case '금' : newDIV.parentElement.parentElement.children[4].children[0].className = "futureDay"; break;
+					case '토' : newDIV.parentElement.parentElement.children[5].children[0].className = "futureDay"; break;
+					case '일' : newDIV.parentElement.parentElement.children[6].children[0].className = "futureDay"; break;
+				}
+			}
 			newDIV.onclick = function() { choiceDate(this); }
 		}
 	}
@@ -195,6 +207,10 @@ function choiceDate(newDIV) {
 		document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
 	}
 	newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
+	const choiceButton=$("#gold_button").append($("<button>").addClass('schedule').css({"cursor":"pointer"}).text("됐나?"));
+	choiceButton.click( function(){
+			roundchoice();
+		});
 }
 
 // 이전달 버튼 클릭
