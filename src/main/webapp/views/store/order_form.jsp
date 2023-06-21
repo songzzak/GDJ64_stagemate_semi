@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp" %>
-<%@page import="java.util.List,com.stagemate.store.model.vo.Product,com.stagemate.store.model.vo.StoreUpfile"%>
+<%@page import="java.util.List,com.stagemate.store.model.vo.Product,com.stagemate.store.model.vo.StoreUpfile,com.stagemate.deliveryAddress.model.vo.DlvAdress"%>
 <%
 Product p = (Product)request.getAttribute("p");
 StoreUpfile main = (StoreUpfile)request.getAttribute("main");
 int count = (int)request.getAttribute("count");
+DlvAdress d=(DlvAdress)request.getAttribute("defaultAddress");
 %>
 <link rel="stylesheet" href="<%=contextPath %>/css/yoonjin/style_store_order_form.css">
 <title>Order Form</title>
@@ -29,25 +30,25 @@ int count = (int)request.getAttribute("count");
                         <li>
                             <span>배송지</span>
                             <div>
-                                <span>기본배송지</span>
+                                <span><%=d.getDlvNm() %></span>
                                 <button class="btn-layout2 btn-brown" onclick="openPopup('<%=contextPath%>/views/store/popUpAddressSelect.jsp')">배송지변경</button>
                             </div>
                         </li>
                         <li>
                             <span>이름</span>
                             <div>
-                                <span><%=loginMember.getMemberNm() %></span>
+                                <span><%=d.getDlvPerson() %></span>
                             </div>
                         </li>
                         <li>
                             <span>연락처</span>
                             <div>
-                                <span><%=loginMember.getMemberPhone() %></span>
+                                <span><%=d.getDlvPhone() %></span>
                             </div>
                         </li>
                         <li>
                             <span>주소</span>
-                            <div><span><%=loginMember.getMemberAddress() %></span></div>
+                            <div><span><%=d.getDlvAddress() %></span></div>
                         </li>
                         <li>
                             <span>배송 요청사항</span>
@@ -126,7 +127,26 @@ int count = (int)request.getAttribute("count");
 	        if (rsp.success) {
 	          var msg = '결제가 완료되었습니다.';
 	          alert(msg);
-	          location.href = "<%=request.getContextPath()%>/store/orderComplete.do"
+	     	<%--   // 결제 완료 후 서블릿으로 데이터 전송
+	            var xhr = new XMLHttpRequest();
+	            xhr.open("POST", "<%=request.getContextPath()%>/store/orderComplete.do", true);
+	            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	            xhr.onreadystatechange = function () {
+	                if (xhr.readyState === 4 && xhr.status === 200) {
+	                    console.log(xhr.responseText);
+	                    // 서블릿에서 orderComplete.jsp로 이동
+	                    location.href = "<%=request.getContextPath()%>/store/orderComplete.jsp";
+	                }
+	            };
+	            // 전송할 데이터 설정 (주문자 정보, 배송지 정보 등)
+	            var data = "paymentNo=" + encodeURIComponent(rsp.merchant_uid) +
+	                "&paymentPrice=" + encodeURIComponent(rsp.paid_amount) +
+	                "&paymentMeans=" + encodeURIComponent(rsp.pay_method) +
+	                "&memberId=" + encodeURIComponent('<%=loginMember.getMemberId() %>') +
+	                "&dlvId=" + encodeURIComponent('<%=dlvId %>') +
+	                "&shipMsg=" + encodeURIComponent('<%=shipMsg %>') +
+	                "&totalPrice=" + encodeURIComponent('<%=(count*p.getProductPrice()) %>');	            
+	            xhr.send(data); --%>
 	        } else {
 	          var msg = '결제에 실패하였습니다.';
 	          msg += '에러내용 : ' + rsp.error_msg;

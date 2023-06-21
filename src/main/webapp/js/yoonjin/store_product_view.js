@@ -57,5 +57,6 @@
 $("#product-view-btn_pay").click(e => {
     const pNo = $("#pNo").val();
     const count = parseInt($("#product-select-count p").text());
-    location.assign(getContextPath() + "/store/storeOrder.do?no=" + pNo + "&count=" + count);
+    const userId=$("#userId").val();
+    location.assign(getContextPath() + "/store/storeOrder.do?no=" + pNo + "&count=" + count+"&userId="+userId);
 });

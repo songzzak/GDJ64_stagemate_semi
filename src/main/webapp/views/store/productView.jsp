@@ -33,6 +33,7 @@ for(StoreUpfile f:files){
 				<div id="infoDetail">
 					<table>
 					<input type="hidden" id="pNo" value="<%=p.getProductNo()%>">
+					<input type="hidden" id="userId" value="<%=loginMember.getMemberId()%>">
 						<tr>
 							<td colspan="2"><h3><%=p.getProductTitle() %></h3></td>
 						</tr>
