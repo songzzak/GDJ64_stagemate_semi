@@ -108,7 +108,6 @@ private static final String SQL_PATH = "/sql/member/member_sql.properties";
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new IllegalArgumentException();
 		} finally {
 			JDBCTemplate.close(pstmt);
 		}

@@ -16,5 +16,36 @@ function toLoginPage() {
 
 // 헤더 아이콘 hover 하면 텍스트 등장
 $('.header-container-icons input').hover(event => {
-    $(event.target).next(".icons_text_lower").fadeToggle(500);
+	$(event.target).next(".icons_text_lower").fadeToggle(500);
 });
+
+// 우편 번호 서비스를 불러옴
+function openPostCode() {
+	new daum.Postcode({
+		oncomplete: (data) => {
+			let address = "";
+			let extraAddress = "";
+
+			if (data.userSelectedType === "R") {
+				address = data.roadAddress;
+			} else {
+				address = data.jibunAddress;
+			}
+
+			if (data.userSelectedType === "R") {
+				if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+					extraAddress += data.bname;
+				}
+			}
+			if (data.buildingName !== "" && data.apartment === "Y") {
+				extraAddress += (extraAddress !== "" ? ", " + data.buildingName : data.buildingName);
+			}
+			if (extraAddress !== "") {
+				extraAddress = ` (\${extraAddress})`;
+			}
+			$("#address").val(address + extraAddress);
+			$("#zipCode").val(data.zonecode);
+			$("#addressDetail").focus();
+		}
+	}).open();
+}

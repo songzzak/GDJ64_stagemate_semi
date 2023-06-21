@@ -547,36 +547,6 @@
     	}
 	    $("input[name=agreement]").prop("checked", false);
     });
-    
-    function openPostCode() {
-    	new daum.Postcode({
-    		oncomplete: (data) => {
-    			let address = "";
-    			let extraAddress = "";
-    			
-    			if (data.userSelectedType === "R") {
-    				address = data.roadAddress;
-    			} else {
-    				address = data.jibunAddress;
-    			}
-    			
-    			if (data.userSelectedType === "R") {
-    				if(data.bname !== "" && /[동|로|가]$/g.test(data.bname)){
-    					extraAddress += data.bname;
-                    }
-    			}
-    			if(data.buildingName !== "" && data.apartment === "Y"){
-    				extraAddress += (extraAddress !== "" ? ", " + data.buildingName : data.buildingName);
-                }
-    			if(extraAddress !== ""){
-    				extraAddress = ` (\${extraAddress})`;
-                }
-    			$("#address").val(address + extraAddress);
-    			$("#zipCode").val(data.zonecode);
-    			$("#addressDetail").focus();
-    		}
-    	}).open();
-    }
 </script>
 </body>
 </html>
