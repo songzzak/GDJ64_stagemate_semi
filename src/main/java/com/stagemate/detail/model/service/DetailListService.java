@@ -1,21 +1,25 @@
 package com.stagemate.detail.model.service;
+import static com.stagemate.common.JDBCTemplate.close;
+import static com.stagemate.common.JDBCTemplate.getConnection;
+
 import java.sql.Connection;
 import java.util.List;
-import static com.stagemate.common.JDBCTemplate.close;
+
 import com.stagemate.detail.model.dao.DetailListDao;
 import com.stagemate.detail.model.vo.Detail;
 
-
 public class DetailListService {
-private DetailListDao dao=new DetailListDao(); //dao 만들어주기 
-	//connection 연결 요청
-	public List<Detail> selectDetails(){
+	//dao와 연결
+	private DetailListDao dao = new DetailListDao();
+	
+	//여기서 db연결 시작 pstmt 과 rs
+	//예매내역서 가져오기 
+	public List<Detail> selectPlayDetail(){
 		Connection conn=getConnection();
-		
-		List<Detail> details=dao.selectDetails(conn); //conn에서 dao로 전달
-		conn.close();
-		return details;
-		
-		
+		List<Detail> result=dao.selectPlayDetail(conn);
+		close(conn);
+		return result;
 	}
+	
+	
 }

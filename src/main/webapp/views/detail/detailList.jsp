@@ -3,11 +3,15 @@
 <%@ include file="/views/common/top.jsp"%>
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/yelin/style_detailList.css">
-<%-- 	<%@ page import="java.util.List,com.stagemate.review.model.vo.PlaySearch" %>   --%>
+<%@ page import="java.util.List,com.stagemate.detail.model.vo.Detail"%>
 <title>STAGEMATE</title>
 </head>
 <body>
-<%@ include file="/views/common/header.jsp"%>
+	<%
+	//Detail 정보 가져와야 한다. 
+	List<Detail> details = (List) request.getAttribute("DetailList");
+	%>
+	<%@ include file="/views/common/header.jsp"%>
 
 	<div class="BookList min1280px">
 		<div class=BookingList_bigchart>
@@ -47,11 +51,20 @@
 					<div class="search-btn"
 						style="padding: 60px 0px 0px 0px; float: right;">
 						<div class="termsearchbox" style="margin-right: 30px;">
-							기간별 조회 <input type="button" class="perbtn active" value="7일"
-								onclick="search_btn(event)"> <input type="button"
-								class="perbtn" value="1개월" onclick="search_btn(event)">
-							<input type="button" class="perbtn" value="3개월"
-								onclick="search_btn(event)">
+
+							 기간별 조회 <button name="filterDate" class="perbtn active" value="1" onclick="search_btn(event)">7일</button>
+							<button name="filterDate" class="perbtn" value="2" onclick="search_btn(event)">1개월</button>
+							<button name="filterDate" class="perbtn" value="3" onclick="search_btn(event)">3개월</button> 
+
+						<!-- 기간검색 : 시작일 종료일로 리스트 조회  -->
+							<!-- 시작일<input type="text" name="startDate">
+							종료일<input type="text" name="endDate">
+							<button onclick="">검색</button>
+								
+						<script>
+							
+						</script> -->
+	
 						</div>
 						<div class="datebox">
 							예매일자별 조회 <select class="btnbox btnbox-white" id="year1"
@@ -114,17 +127,22 @@
 							</tr>
 						</thead>
 						<tbody>
+							<%
+							for (Detail d : details) {
+							%>
 							<tr>
-								<td class="book_no"><a href="" style="color: gray">S120329133</a></td>
+								<td class="book_no"><a href="" style="color: gray"><%=d.getRsvNo()%></a></td>
 								<td class="book_no"><a href=""
-									style="text-decoration: none; color: black">뮤지컬<아르토고흐></a></td>
+									style="text-decoration: none; color: black"><%=d.getEventName()%></a></td>
 								<td class="book_no">2023-06-04 18:00</td>
 								<td class="book_no">1매</td>
 								<td class="book_no">2023-06-03 17:00</td>
 								<td class="book_no">예매</td>
 								<td class="book_no"><a href="">리뷰작성</a></td>
 							</tr>
-
+							<%
+							}
+							%>
 
 
 						</tbody>
@@ -137,7 +155,7 @@
 
 
 			</div>
-		<!--스토어내역 -->
+			<!--스토어내역 -->
 			<div class="StoreBookingList">
 				<div class="Play_Main">
 					<div class="search-btn"
@@ -287,7 +305,7 @@
 	</div>
 	<%@ include file="/views/common/footer.jsp"%>
 	<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
-<script src="<%=contextPath%>/js/yelin/detailList.js"></script>
+	<script src="<%=contextPath%>/js/yelin/detailList.js"></script>
 </body>
 
 </html>
