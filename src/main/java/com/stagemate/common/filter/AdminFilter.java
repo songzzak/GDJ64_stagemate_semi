@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.stagemate.member.model.vo.Member;
 //필터 적용할 서블릿 추후 수정
-@WebFilter("/admin/*")
+@WebFilter(urlPatterns={"/admin/*","/notice/insertFrom.do"})
 public class AdminFilter extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 5019094855642891983L;
 	private static final String LOGIN_MEMBER = "loginMember"; // 로그인한 계정 아이디 name 통일하기
