@@ -1,0 +1,99 @@
+.link_active {
+    color: black;
+}
+
+.link_active li:first-of-type {
+    color: #959595;
+}
+
+#insertEvent {
+    min-height: 1000px;
+    margin: 0 auto;
+    padding: 0 3%;
+    display: flex;
+    width: 1280px;
+}
+
+#insertEvent img {
+    display: block;
+    width: 100%;
+}
+
+.insertEvent-sidebar {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 60px;
+}
+
+.insertEvent-sidebar li {
+    padding: 5px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.insertEvent-sidebar a{
+    text-decoration: none;
+    color: inherit;
+    font-weight: 900;
+}
+
+.insertEvent-sidebar_big {
+    list-style: none;
+    width: 120px;
+    margin: 0px 10px;
+    color: #959595;
+}
+
+.insertEvent-sidebar_small {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    list-style-type: disc;
+    margin-bottom: 5px;
+    font-size: 13px;
+    position: relative;
+    margin-left: 20px;
+}
+
+.insertEvent-content {
+    width: 1160px;
+    margin-top: 20px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
+}
+
+.insertEvent-title {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.insertEvent-title p {
+    font-weight: bold;
+    font-size: 36px;
+    color: var(--sm-brown);
+    margin: 0 9px;
+}
+
+.insertEvent-title p:first-of-type {
+    margin-left: 0px;
+}
+
+.insertEvent-title img{
+    height: 30px;
+}
+
+.insertEvent-content hr {
+    border-top: 1px solid #ddd;
+    margin-top: 10px;
+    width: 100%;
+}
+
+form[name="insertEventForm"] {
+    margin-top: 20px;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+}
