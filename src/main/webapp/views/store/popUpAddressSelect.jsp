@@ -40,6 +40,7 @@
         <div class="list-dlv-address">
         <%for(DlvAdress d:dlvList){ %>
             <div class="addr-info">
+            <input type="hidden" class="dlvId" name="dlvId" value="<%=d.getDlvId()%>">
                 <div>
                     <span><%=d.getDlvNm() %></span>
                     <%if(d.getIsDefaultDlv()=='Y'){ %>
@@ -51,8 +52,8 @@
                 <div class="txt-addr"><%=d.getDlvAddress() %></div>
                 <div id="addr-btns">
                     <div class="btn-left">
-                        <button>수정</button>
-                        <button>삭제</button>
+                        <button class="update_dlv_btn">수정</button>
+                        <button class="delete_dlv_btn">삭제</button>
                     </div>
                     <div class="btn-right">
                         <button class="selectDlv" onclick="selectAddress('<%=d.getDlvNm()%>', '<%=d.getDlvPerson()%>', '<%=d.getDlvPhone()%>', '<%=d.getDlvAddress()%>');">선택</button>
@@ -63,6 +64,7 @@
         </div>
         <div class="list-dvl-paging"></div>
     </div>
+    <script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>
     <script>
         function delivery_form() {
         var url = "<%=contextPath %>/views/store/popupAddressInsert.jsp?userId=<%=userId%>";
@@ -70,9 +72,21 @@
         }
         function selectAddress(address, name, phone, addressDetails) {
             opener.setSelectedAddress(address, name, phone, addressDetails);
-
             window.close();
         }
+        $(".update_dlv_btn").click(e => {
+            const dlvId = $(e.target).closest(".addr-info").find(".dlvId").val();
+            console.log(dlvId);
+            location.assign('<%=contextPath%>/dlv/updateDlvAddress.do?no=' + dlvId);
+        });
+
+        $(".delete_dlv_btn").click(e => {
+            const dlvId = $(e.target).closest(".addr-info").find(".dlvId").val();
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                location.assign('<%=contextPath%>/dlv/deleteDlvAddress.do?no=' + dlvId);
+            }
+        });
+
     </script>
 </body>
 </html>

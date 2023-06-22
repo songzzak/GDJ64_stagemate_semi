@@ -29,6 +29,35 @@ public class DlvAddressService {
 		}
 		return result;
 	}
+
+	public DlvAdress selectDlvAddressByDlvId(String dlvId) {
+		Connection conn=getConnection();
+		DlvAdress d=dao.selectDlvAddressByDlvId(conn, dlvId);
+		close(conn);
+		return d;
+	}
+
+	public int updateDlvAddress(DlvAdress newAddress, String dlvId) {
+		Connection conn=getConnection();
+		int result=dao.updateDlvAddress(conn, newAddress, dlvId);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int deleteDlvAddress(String dlvId) {
+		Connection conn=getConnection();
+		int result=dao.deleteDlvAddress(conn, dlvId);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
 	
 	
 }
