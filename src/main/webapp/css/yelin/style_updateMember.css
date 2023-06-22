@@ -1,0 +1,109 @@
+.updateMember_eng {
+	color: var(--sm-brown);
+	font-size: 40px;
+	font-weight: bold;
+	padding-top: 30px;
+	margin-left: 30px;
+}
+
+.updateMember_kor {
+	color: var(--sm-brown);
+	font-size: 30px;
+	font-weight: bold;
+	padding-top: 5px;
+	margin-left: 30px;
+}
+
+.updateMember_chart {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	height: 720px;
+}
+
+.bigchart {
+	height: 720px;
+	width: 720px;
+	margin: 0 auto;
+}
+/* 테이블 */
+.updateTable {
+	font-size: 18px;
+	width: 680px;
+	height: 400px;
+/* 	border: 1px solid black; */
+	text-align: center;
+	 margin: 0 auto; 
+
+	margin-top: 50px;
+}
+
+.updateTable tr, td {
+	text-align: left;
+}
+.updateTable tr{
+	padding: 30px;
+
+	}
+	.updateTable th{
+	font-weight: bold;
+
+	}
+
+.infoUpdate_btn {
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 40px;
+}
+
+.cancel_btn {
+	border: none;
+	font-weight: bold;
+	background-color: var(--gray-light);
+	border: 2px solid var(--gray-light);
+	color: var(--sm-brown);
+	padding: 8px 70px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.update_btn {
+	border: none;
+	font-weight: bold;
+	background-color: var(--sm-brown);
+	border: 2px solid var(--sm-brown);
+	color: white;
+	padding: 8px 70px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+/* 수정버튼 */
+.updateTable button{
+	border: none;
+	font-weight: bold;
+	background-color: var(--sm-brown);
+	border: 2px solid var(--sm-brown);
+	color: white;
+	padding: 5px 20px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+/* input 버튼 */
+.updateTable input{
+	border: none;
+	font-weight: bold;
+	padding: 8px 30px;
+/* 	text-align: center; */
+	text-decoration: none;
+	border-radius: 8px;
+	border: 1px solid var(--sm-brown);
+}
