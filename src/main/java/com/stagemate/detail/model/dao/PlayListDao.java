@@ -11,12 +11,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-public class DetailListDao {
+public class PlayListDao {
 
 	private final Properties sql = new Properties();
 	
-	public DetailListDao() {
-	String path=DetailListDao.class.getResource("/sql/detail/detail_sql.properties").getPath();
+	public PlayListDao() {
+	String path=PlayListDao.class.getResource("/sql/detail/detail_sql.properties").getPath();
 	try {
 		sql.load(new FileReader(path));
 	} catch (IOException e) {

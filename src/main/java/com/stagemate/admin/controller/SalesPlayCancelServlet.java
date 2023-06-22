@@ -1,23 +1,23 @@
-package com.stagemate.detail.model.controller;
+package com.stagemate.admin.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stagemate.detail.model.service.DetailListService;
-import com.stagemate.detail.model.vo.Detail;
-
-@WebServlet("/Detail/DetailListServlet.do")
-public class DetailListServlet extends HttpServlet {
+/**
+ * Servlet implementation class SalesPlayCancelServlet
+ */
+@WebServlet("/admin/SalesPlayCancel.do")
+public class SalesPlayCancelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
-    public DetailListServlet() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SalesPlayCancelServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,11 +26,7 @@ public class DetailListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		List<Detail> detail=new DetailListService().selectPlayDetail();
-		request.setAttribute("DetailList", detail);
-		
-		request.getRequestDispatcher("/views/detail/detailList.jsp").forward(request, response);  
+		request.getRequestDispatcher("/views/admin/admin_salesPlayCancel.jsp").forward(request, response);
 	}
 
 	/**

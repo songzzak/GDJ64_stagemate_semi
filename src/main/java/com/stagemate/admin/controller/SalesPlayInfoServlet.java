@@ -1,4 +1,4 @@
-package com.stagemate.detail.model.controller;
+package com.stagemate.admin.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,30 +7,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class DetailSearchServlet
- */
-@WebServlet("/DetailSearchServlet")
-public class DetailSearchServlet extends HttpServlet {
+@WebServlet("/admin/SalesPlayInfo.do")
+public class SalesPlayInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DetailSearchServlet() {
+
+    public SalesPlayInfoServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		
-		//기간
 		
 		
+		
+		
+		//화면 요청
+		request.getRequestDispatcher("/views/admin/admin_salesPlayInfo.jsp").forward(request, response);
 		
 	}
 

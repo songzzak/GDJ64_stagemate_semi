@@ -4,12 +4,17 @@
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/yelin/style_detailList.css">
 <%@ page import="java.util.List,com.stagemate.detail.model.vo.Detail"%>
+<%@ page import="java.util.List,com.stagemate.detail.model.vo.StoreDetail"%>
 <title>STAGEMATE</title>
 </head>
 <body>
 	<%
-	//Detail 정보 가져와야 한다. 
+	//PlayDetail 정보 가져와야 한다. 
 	List<Detail> details = (List) request.getAttribute("DetailList");
+	%>
+	<%
+	//StoreDetail 정보 가져와야 한다. 
+	List<StoreDetail> stores = (List) request.getAttribute("StoreList");
 	%>
 	<%@ include file="/views/common/header.jsp"%>
 
@@ -52,11 +57,15 @@
 						style="padding: 60px 0px 0px 0px; float: right;">
 						<div class="termsearchbox" style="margin-right: 30px;">
 
-							 기간별 조회 <button name="filterDate" class="perbtn active" value="1" onclick="search_btn(event)">7일</button>
-							<button name="filterDate" class="perbtn" value="2" onclick="search_btn(event)">1개월</button>
-							<button name="filterDate" class="perbtn" value="3" onclick="search_btn(event)">3개월</button> 
+							기간별 조회
+							<button name="filterDate" class="perbtn active" value="1"
+								onclick="search_btn(event)">7일</button>
+							<button name="filterDate" class="perbtn" value="2"
+								onclick="search_btn(event)">1개월</button>
+							<button name="filterDate" class="perbtn" value="3"
+								onclick="search_btn(event)">3개월</button>
 
-						<!-- 기간검색 : 시작일 종료일로 리스트 조회  -->
+							<!-- 기간검색 : 시작일 종료일로 리스트 조회  -->
 							<!-- 시작일<input type="text" name="startDate">
 							종료일<input type="text" name="endDate">
 							<button onclick="">검색</button>
@@ -64,7 +73,7 @@
 						<script>
 							
 						</script> -->
-	
+
 						</div>
 						<div class="datebox">
 							예매일자별 조회 <select class="btnbox btnbox-white" id="year1"
@@ -218,42 +227,21 @@
 							</tr>
 						</thead>
 						<tbody>
+							<%
+							for (StoreDetail s : stores) {
+							%>
 							<tr>
 								<td class="book_no">2023-04-16</a></td>
-								<td class="book_no"><a href="" style="color: gray;">S304310481</a></td>
-								<td class="book_no"><a href="">아크네 마그넷</a></td>
-								<td class="book_no">14,000</td>
+								<td class="book_no"><a href="" style="color: gray;"><%=s.getOrderNo()%></a></td>
+								<td class="book_no"><a href=""><%=s.getProductNm()%></a></td>
+								<td class="book_no"><%=s.getTotalPrice()%></td>
 								<td class="book_no">배송 중</td>
 								<td class="book_no"><a href=""
 									style="text-decoration: none;">리뷰작성</a></td>
 							</tr>
-							<tr>
-								<td class="book_no">2023-04-16</a></td>
-								<td class="book_no"><a href="" style="color: gray;">S304310481</a></td>
-								<td class="book_no"><a href="">아크네 마그넷</a></td>
-								<td class="book_no">14,000</td>
-								<td class="book_no">배송 중</td>
-								<td class="book_no"><a href=""
-									style="text-decoration: none;">리뷰작성</a></td>
-							</tr>
-							<tr>
-								<td class="book_no">2023-04-16</a></td>
-								<td class="book_no"><a href="" style="color: gray;">S304310481</a></td>
-								<td class="book_no"><a href="">아크네 마그넷</a></td>
-								<td class="book_no">14,000</td>
-								<td class="book_no">배송 중</td>
-								<td class="book_no"><a href=""
-									style="text-decoration: none;">리뷰작성</a></td>
-							</tr>
-							<tr>
-								<td class="book_no">2023-04-16</a></td>
-								<td class="book_no"><a href="" style="color: gray;">S304310481</a></td>
-								<td class="book_no"><a href="">아크네 마그넷</a></td>
-								<td class="book_no">14,000</td>
-								<td class="book_no">배송 중</td>
-								<td class="book_no"><a href=""
-									style="text-decoration: none;">리뷰작성</a></td>
-							</tr>
+							<%
+							}
+							%>
 
 						</tbody>
 					</table>
@@ -267,40 +255,7 @@
 		</div>
 
 
-		<div class="page-bar">
-			<svg class="arrow-left" width="30" height="31" viewBox="0 0 30 31"
-				fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-					d="M21.9873 23.4766L23.7498 21.7141L18.0248 15.9766L23.7498 10.2391L21.9873 8.47656L14.4873 15.9766L21.9873 23.4766Z"
-					fill="black" />
-                    <path
-					d="M13.75 23.4766L15.5125 21.7141L9.7875 15.9766L15.5125 10.2391L13.75 8.47656L6.25 15.9766L13.75 23.4766Z"
-					fill="black" />
-                </svg>
-			<svg class="double-arrow-left" width="30" height="31"
-				viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-					d="M19.2625 21.7141L13.5375 15.9766L19.2625 10.2391L17.5 8.47656L10 15.9766L17.5 23.4766L19.2625 21.7141Z"
-					fill="black" />
-                </svg>
-			<a class="page-num select">1</a> <a class="page-num">2</a> <a
-				class="page-num">3</a>
-			<svg class="arrow-right" width="30" height="31" viewBox="0 0 30 31"
-				fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-					d="M10.7375 10.2391L16.4625 15.9766L10.7375 21.7141L12.5 23.4766L20 15.9766L12.5 8.47656L10.7375 10.2391Z"
-					fill="black" />
-                </svg>
-			<svg class="double-arrow-right" width="30" height="31"
-				viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-					d="M8.0127 8.47656L6.2502 10.2391L11.9752 15.9766L6.2502 21.7141L8.0127 23.4766L15.5127 15.9766L8.0127 8.47656Z"
-					fill="black" />
-                    <path
-					d="M16.25 8.47656L14.4875 10.2391L20.2125 15.9766L14.4875 21.7141L16.25 23.4766L23.75 15.9766L16.25 8.47656Z"
-					fill="black" />
-                </svg>
-		</div>
+		
 
 	</div>
 	<%@ include file="/views/common/footer.jsp"%>

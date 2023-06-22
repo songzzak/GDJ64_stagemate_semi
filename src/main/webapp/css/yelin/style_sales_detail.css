@@ -1,0 +1,300 @@
+/* 전체틀선 */
+.Playmanagement_title_bigchart {
+	margin: auto;
+	width: 900px;
+	height: 500px;
+/* 	border: 0.5px solid lightgrey; */
+	flex-direction: row;
+	margin-top: 15px;
+	margin-bottom: 5px;
+}
+/* 구매내역 조절 */
+#Playmanagement_title {
+	color: gray;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+/* 선 조절 */
+.division-line {
+	border-top: 0.5px solid gray;
+	width: 950px;
+}
+
+/* 예매/스토어 버튼 */
+.SM-btn1 {
+	padding: 5px 25px;
+	font-size: 15px;
+	font-weight: bold;
+	color: var(--sm-brown);
+	cursor: pointer;
+	border-radius: 8px;
+	border: 2px solid var(--sm-brown);
+	background-color: white;
+}
+
+.SM-btn1:hover, .SM-btn1.active {
+	background: var(--sm-brown);
+	color: white;
+}
+
+.SM-click {
+	text-align: left;
+}
+
+/* 예매일자별 조회 */
+.SM-search-btn {
+	display: flex;
+	flex-direction: row;
+	width: 400px;
+	float: right;
+	margin-left: 700px;
+}
+
+.datebox {
+	float: right;
+}
+
+.btnbox3 {
+	border: none;
+	padding: 1px 10px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 20;
+	border-radius: 5px;
+	font-weight: 20;
+	cursor: pointer;
+}
+
+.btnbox-brown3 {
+	background-color: var(--sm-brown);
+	border: 2px solid var(--sm-brown);
+	color: white;
+}
+
+.btnbox-white3 {
+	background-color: white;
+	border: 2px solid var(--sm-brown);
+	color: var(--sm-brown);
+}
+
+/* 아이디/예매번호로 검색 */
+
+.SM-idsearch-btn {
+	display: flex;
+	flex-direction: row;
+	width: 350px;
+	float: right;
+/* 	margin-right: 15px; */
+	margin-bottom: 30px;
+}
+.SM-idsearch-btn3 {
+	display: flex;
+	flex-direction: row;
+	width: 350px;
+	float: right;
+	margin-right: 15px; 
+	margin-bottom: 30px;
+}
+
+
+#idsearch, .idsearch-txt {
+	border-radius: 5px;
+	border: 2px solid var(--sm-brown);
+}
+
+.idsearch-txt {
+	margin-right: 4px;
+}
+
+/* 판매관리 테이블 */
+.PlayManagement_List {
+	width: 900px;
+	margin: 0 auto;
+	margin-top: 45px;
+	border: 0.5px solid lightgray;
+	border-collapse: collapse;
+	/* 테두리 사이에 공백 없애줌 */
+	font-size: 14px;
+}
+
+.PlayManagement_List thead tr {
+	background-color: var(--sm-brown);
+	border-top: none;
+	color: white;
+}
+
+.PlayManagement_List tbody tr {
+	text-align: center;
+	border: 0.5px solid lightgray;
+	border-top: none;
+	border-left: none;
+}
+
+.PlayManagement_List td {
+	padding: 1px;
+	border: 0.5px solid lightgray;
+}
+
+.PlayManagement_List thead th {
+	padding: 5px;
+}
+
+.PlayManagement_List select {
+	border-style: none;
+	color: white;
+}
+/* 정보버튼 */
+.play-mg-detail {
+	background-color: white;
+	color: var(--sm-brown);
+	padding: 0px 13px;
+	border-radius: 8px;
+	font-size: 14px;
+	/* font-weight: bold; */
+	cursor: pointer;
+}
+
+/* 페이지바 */
+.page-bar {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 0px;
+	gap: 50px;
+	width: 456px;
+	height: 29px;
+	margin: 0 auto; /* 버튼 글씨정렬 후 버튼 일자 정렬 */
+	margin-bottom: 50px;
+}
+
+.page-num {
+	width: 13px;
+	height: 29px;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 24px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	color: #828282;
+}
+
+/* 스토어 관리 css */
+
+
+
+
+
+/* 아이디/예매번호로 검색 */
+
+
+.SM-idsearch-btn2 {
+	display: flex;
+	flex-direction: row;
+	width: 350px;
+	float: right;
+	margin-right: 3px;
+	margin-bottom: 30px;
+}
+
+.idsearch-submit {
+	border: none;
+	padding: 1px 10px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 20;
+	border-radius: 5px;
+	font-weight: 20;
+	cursor: pointer;
+	background-color: var(--sm-brown);
+	border: 2px solid var(--sm-brown);
+	color: white;
+}
+
+#idsearch, .idsearch-txt {
+	border-radius: 5px;
+	border: 2px solid var(--sm-brown);
+}
+
+.idsearch-txt {
+	margin-right: 4px;
+}
+
+/* 판매관리 테이블 */
+.StoreManagement_List {
+	width: 900px;
+	margin: 0 auto;
+	margin-top: 45px;
+	border: 0.5px solid lightgray;
+	border-collapse: collapse;
+	/* 테두리 사이에 공백 없애줌 */
+	font-size: 14px;
+}
+
+.StoreManagement_List thead tr {
+	background-color: var(--sm-brown);
+	border-top: none;
+	color: white;
+}
+
+.StoreManagement_List tbody tr {
+	text-align: center;
+	border: 0.5px solid lightgray;
+	border-top: none;
+	border-left: none;
+}
+
+.StoreManagement_List td {
+	padding: 1px;
+	border: 0.5px solid lightgray;
+}
+
+.StoreManagement_List thead th {
+	padding: 5px;
+}
+
+.StoreManagement_List select {
+	border-style: none;
+	color: white;
+}
+/* 정보버튼 */
+.play-mg-detail {
+	background-color: white;
+	color: var(--sm-brown);
+	padding: 0px 13px;
+	border-radius: 8px;
+	font-size: 14px;
+	/* font-weight: bold; */
+	cursor: pointer;
+}
+
+/* 페이지바 */
+.page-bar {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 0px;
+	gap: 50px;
+	width: 456px;
+	height: 29px;
+	margin: 0 auto; /* 버튼 글씨정렬 후 버튼 일자 정렬 */
+	display: flex;
+	margin-bottom: 50px;
+}
+
+.page-num {
+	width: 13px;
+	height: 29px;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 24px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	color: #828282;
+}

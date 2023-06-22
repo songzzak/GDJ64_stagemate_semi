@@ -1,0 +1,255 @@
+    /* 엑스박스 */
+
+    .btn_close {
+        /* display:inline-block; */
+        float:right;
+        border:none;
+        cursor: pointer;
+        background-color: #e9ecef;
+    } 
+    .btn_close:after {
+        display: inline-block; 
+        content: "\00d7"; 
+        font-size:20px; 
+        margin-left:5px;
+    }
+
+    
+    
+    
+    
+    /* 전체틀선 */
+    .MDStore_bigchart{
+        margin:auto;
+        width:1100px;
+        height:650px;
+        border:0.5px solid lightgrey;
+        flex-direction: row;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        background-color: #e9ecef;
+    }
+    .MDS_underline{
+        border-top: 0.5px solid gray;
+        margin:0 auto;
+        width: 1000px;   
+    }
+/* 회원정보이미지  */
+    .Order-group2{
+        width:700px;
+        margin:left;
+        margin-left:60px;
+
+    }
+    .OrderInfo_txt p{
+        font-size:23px;
+        margin:20px 0px 4px 50px;
+        font-weight: bold;
+        color:gray;
+    }
+
+    .MDStore_bigchart img{
+        margin:20px 0px 0px 30px;
+        float:left;
+    }
+    /* 주문자정보 테이블 */
+    .OrderInfo-table{
+        width:595px;
+        margin: 0 auto;
+        margin-top:30px;
+        margin-right:80px;
+        border-collapse: separate;
+        border-spacing: 3px 4px;
+        
+    }
+
+    .OrderInfo-table tr{
+        text-align:right;
+       
+    }
+    .OrderInfo-table td:first-child{
+        border-right: 0.5px solid lightgray;
+        padding: 3px;
+      
+    }
+    .OrderInfo-table tr td:last-child{
+    text-align:left;
+    padding-left:10px;
+    background-color: white;
+
+    }
+    .OrderInfo-table tr td:first-child{
+        border:none;
+    }
+    .OrderInfo-table td{
+    border-bottom: 0.5px solid lightgray;
+        }
+    .OrderInfo-table tr td:last-child{
+        border-top: 0.5px solid lightgray;
+        border-left: 0.5px solid lightgray;
+        border-right: 0.5px solid lightgray;
+        }
+
+
+/* 구매테이블 */
+.PurchaseList-store{
+    height:200px;
+}
+.PurchaseList-table{
+    width:950px;
+    margin:0 auto;
+    border-collapse: collapse;
+    background-color: white;
+}
+.PurchaseList-table thead tr {
+    background-color:black;
+    color:white;
+
+}
+.PurchaseList-table tbody tr{
+    text-align:center;
+}
+.PurchaseList-table th{
+    padding: 4px;
+    
+}
+.PurchaseList-table td{
+    padding: 6px;
+    border-bottom: 0.1px solid #444444;
+}
+
+
+/* 취소버튼 */
+
+
+/* 페이지바 */
+.page-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 50px;
+     width: 456px;
+    height: 29px;
+    margin: 0 auto;    /* 버튼 글씨정렬 후 버튼 일자 정렬 */
+    display: flex;
+}
+ 
+  .page-num {
+    width: 13px;
+    height: 29px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #828282;
+
+  } 
+  
+
+
+/*  */
+  /* 결제 취소 요청>예매 */
+  /*  */
+  /* 전체틀선 */
+  .MDPlayCancel_bigchart{
+    margin:auto;
+    width:600px;
+    height:500px;
+    border:0.5px solid lightgrey;
+    flex-direction: row;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+.MDPC_underline{
+    border-top: 0.5px solid gray;
+    margin:0 auto;
+    width: 500px;   
+}
+
+.MCPC_txt{
+    font-size:15px;
+    font-weight:bold;
+    margin:15px 0px 10px 60px;
+}
+
+/* 테이블 */
+.MDPinfo-table{
+    width:250px;
+    height:110px;
+    margin-top:20px;
+    border-collapse:collapse;
+    margin-left: 60px;
+}
+
+.MDPinfo-table td{
+    padding:2px;
+}
+.MDPinfo-table td{
+    font-weight:bold;
+}
+
+.MDPinfo-table tr{
+    padding:7px;
+}
+/* 입력박스 */
+.MDP-textarea{
+    border-radius: 15px;
+    padding: 30px;
+    margin-left: 60px;
+    margin-top: 25px;
+    width: 450px;
+    height:100px;
+    background-color: #e9ecef;
+    border:none;
+    resize:none;
+
+
+}
+
+.MDP-txtgroup{
+    margin-left:500px
+
+}
+
+
+/* 하단버튼 */
+
+.MDP-list-box{
+    margin-right:30px;
+    float:right;
+    margin-top: 10px;
+
+}
+.MDP-list-box button:first-child{
+
+    background-color: lightgray;
+    border: none;
+    padding: 5px 25px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 20;
+    border-radius: 5px;
+    /* margin-left:590px; */
+    cursor:pointer;
+
+}
+
+.MDP-list-box button:last-child{
+    margin-top: 0px;
+    color: white;
+    background-color:black;
+    border: none;
+    padding: 5px 25px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 20;
+    border-radius: 5px;
+    cursor:pointer;
+    
+   
+}

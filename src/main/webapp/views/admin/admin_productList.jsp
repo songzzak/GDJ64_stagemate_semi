@@ -27,7 +27,7 @@ List<Product> products = (List) request.getAttribute("products");
 						<li>
 							<a href="">판매 관리</a>
 							<ul>
-								<li><a href="">판매내역관리</a></li>
+								<li><a href="<%=contextPath%>/admin/SalesDetail.do">판매내역관리</a></li>
 								<li><a href="">결제 취소 요청</a></li>
 								<li><a href="">반품/교환 관리</a></li>
 							</ul>

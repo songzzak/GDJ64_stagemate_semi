@@ -102,15 +102,10 @@
 								<td class="book_no">2023-04-27</td>
 								<td class="book_no">2023-04-20</td>
 							</tr>
-							
-				
-
 						</tbody>
 					</table>
-
-					<!-- <input type="button" class="write_Storereview" value="리뷰 작성"> -->
-					
-					<button class="write_Storereview" onclick="location.assign('<%=request.getContextPath()%>/notice/insertForm.do')">리뷰작성</button>
+			
+					<button class="write_Storereview" onclick="location.assign('<%=request.getContextPath()%>/review/ReviewWriteStore')">리뷰작성</button>
 				</div>
 			</div>
 
