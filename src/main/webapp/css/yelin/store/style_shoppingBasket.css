@@ -1,0 +1,240 @@
+
+.SB_bigchart{
+    margin:auto;
+    width:900px;
+    height:720px;
+    /* border:0.5px solid lightgrey; */
+    flex-direction: row;
+    margin-top: 15px;
+}
+
+/* 구매상세내역 조절 */
+.ShoppingBasket_eng{
+    color:var(--sm-brown);
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 30px;
+}
+.ShoppingBasket_kor{
+    color:var(--sm-brown);
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
+.deliv-txt{
+    font-size:17px;
+    display:inline-block;
+    font-weight:bold;
+    margin-left:30px;
+
+}
+.deliv-txt2{
+    font-size:14px;
+    display:inline-block;
+    color:gray;
+    margin-left:10px;
+}
+.deliv-group{
+    margin-top:30px;
+}
+
+
+
+
+
+
+/* 버튼 디자인 */
+.btnbox {
+    border: none;
+    padding: 1px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20;
+    border-radius: 5px;
+    font-weight: 20;
+    cursor:pointer;
+    background-color: white;
+    border: 2px solid var(--sm-brown);
+    color: var(--sm-brown);
+}
+
+/* 장바구니 테이블 */
+
+.ShoppingBasket-table {
+
+   width: 850px;
+    border-collapse: collapse;
+    padding-bottom: 30px;    
+         
+}
+
+
+.ShoppingBasket-table thead tr {
+    background-color: var(--sm-brown);
+    color:white;
+}
+
+.ShoppingBasket-table th{
+    padding:5px;
+}
+
+
+.ShoppingBasket-table tbody tr{
+    text-align:center;
+}
+                
+.shop-bk{
+    padding: 10px;
+    border-bottom: 0.1px solid #444444;
+    }
+.SBT-txt{
+    text-align:right;
+    font-size:20px;
+    background-color: #e9ecef;
+    color:black;
+    padding:10px;
+}
+/* 테이블 안 글자 */
+
+.click-btn{
+/* 버튼 글씨정렬 후 버튼 일자 정렬 */
+    text-align: center;
+    display :inline-block;
+}
+
+                
+
+/* 주문하기 버튼 */
+.SBOrder-btn{
+    background-color: white;
+    color: var(--sm-brown);
+    padding: 4px 13px;
+    border-radius: 8px;
+    font-size:14px;
+    /* font-weight: bold; */
+    cursor:pointer;
+}
+
+/* 수량 버튼 */
+.haha {
+    position:relative;
+    /* border:1px solid black; */
+    overflow:hidden;
+}
+
+ .haha>button{
+    border-radius: 5px;
+    border:none;
+    background:black;
+    color:white;
+    width: 25px;
+    height: 25px;
+    font-size:17px;
+    cursor:pointer;
+    text-align:center;
+} 
+
+.numBox{
+    border-radius: 5px;
+    height:26px;
+    width:35px;
+    text-align:center;  
+    margin:0;
+} 
+
+/* 총 금액 상자 */
+.total-prc{
+    width:900px;
+    height:170px;
+    border:2.5px solid lightgrey;
+    width: 850px;
+}
+
+/* 아래칸 글씨 사이즈 */
+.tt-txt{
+    font-size:20px;
+}
+
+/* .count-prc{
+    float:right;
+
+} */
+
+.count-prc p{
+    display:inline-block;
+}
+.count-prc2 p{
+    display:inline-block;
+} 
+
+.total-prc2{
+    float:right;
+}
+
+#product-name{
+	color:black;
+	text-decoration-line:none;
+}
+
+
+.total-line{
+    border-top: 0.5px solid gray;
+    margin-top:4px;
+    border: 0.25px solid #e9ecef;
+    margin-right:10px;
+    width:300px;
+}
+/* 실선 */
+.dash-line{
+    border-style:dashed;
+    margin-top: 80px;
+    border-width:1px;
+    border-color:lightgray;
+    width:800px;
+    margin-left: 20px;
+    margin-right:20px;
+    margin-bottom:10px;
+}
+.payment-price p{
+    display:inline-block;
+}
+.payment-price{
+    float:right;
+}
+
+
+/* 버튼 */
+.lowerbtn-basket{
+    border: none;
+    font-weight: bold;
+    background-color: var(--gray-light);
+    border: 2px solid var(--gray-light);
+    color: var(--sm-brown);
+    padding: 8px 28px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor:pointer;
+
+}
+.lowerbtn-purchase{
+    border: none;
+    font-weight: bold;
+    background-color: var( --sm-yellow);
+    border: 2px solid var( --sm-yellow);
+    color: var(--sm-brown);
+    padding: 8px 28px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-left:18px;
+    cursor:pointer;
+
+}
+
+.SB-lowerbtn{
+    float:right;
+    margin-right:25px;
+    margin-top:25px;
+}

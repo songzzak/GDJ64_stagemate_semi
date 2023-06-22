@@ -6,8 +6,7 @@
 <title>STAGEMATE</title>
 </head>
 <body>
-	<%@ include file="/views/common/header.jsp"%>
-
+<%@ include file="/views/common/header.jsp"%>
 	<section class="min1280px">
 		<div id="sectionContainer" class="max1280px">
 			<div class="ReviewWritePlay_bigchart">
@@ -15,10 +14,6 @@
 				<div class="division-line"></div>
 				<p class="review-txt2">관람 후기</p>
 				<p class="review-txt">게시판 운영규정에 맞지 않는 글은 사전 통보없이 삭제될 수 있습니다.</p>
-<%-- 				<form action="<%=request.getContextPath()%>/notice/WriteReviewPlay.do"
-					method="post" enctype="multipart/form-data"></form> --%>
-
-
 
 					<div class="RB-biggroup">
 						<div class="book_txtbox">
@@ -82,18 +77,13 @@
 			</div>
 		</div>
 	
-
-
 		<script>
-        //상품명 검색창 
+        //상품명 검색 팝업 
    		const SearchPlayTitle=()=>{
 	   		const childWindow=open("<%=request.getContextPath()%>/Review/SearchTitle.do","_blank","width=650,height=300");
    		}
 	   
-   
-    </script>
-
-
+    	</script>
 
 	</section>
 	<%@ include file="/views/common/footer.jsp"%>
