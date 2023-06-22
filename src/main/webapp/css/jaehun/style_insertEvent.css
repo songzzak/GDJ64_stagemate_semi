@@ -1,3 +1,52 @@
+form[name="insertEventForm"] {
+    margin: 4% auto;
+    padding: 5%;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+
+input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    padding: 5px;
+    border: 1px solid var(--gray);
+    border-radius: 15px;
+    font-size: 1rem;
+}
+
+input[type="radio"] {
+    appearance: none;
+    border-radius: 50%;
+    margin: 2% 0 0 5%;
+    width: 19px;
+    height: 19px;
+    background-color: var(--sm-brown);
+    cursor: pointer;
+}
+
+input[type="radio"]:checked {
+    border: 5px solid var(--sm-brown);
+    background-color: white;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    border-radius: 5px;
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    background-color: var(--gray-light);
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--sm-brown);
+}
+
 .link_active {
     color: black;
 }
@@ -91,9 +140,118 @@
     width: 100%;
 }
 
-form[name="insertEventForm"] {
-    margin-top: 20px;
-    padding: 20px;
+.insert-box {
+    display: flex;
+    align-items: center;
     width: 100%;
-    height: 100%;
+    margin-bottom: 6%;
 }
+
+.insert-box-left {
+    width: 150px;
+    padding-right: 10px;
+}
+
+.insert-box-left p {
+    font-size: 1.1rem;
+}
+
+.insert-box-right {
+    width: 100%;
+}
+
+fieldset.insert-box-right {
+    display: flex;
+    border-style: none;
+}
+
+fieldset.insert-box-right>label {
+    display: flex;
+    align-items: center;
+    width: 15%;
+    margin-right: 2%;
+}
+
+fieldset.insert-box-right>label>* {
+    display: inline-block;
+}
+
+.insert-combo {
+    position: relative;
+    display: flex;
+}
+
+.event-info {
+    position: absolute;
+    top: -33%;
+    display: flex;
+    align-items: center;
+    width: 50%;
+    color: var(--jh-red);
+}
+
+.input_resized {
+    display: flex;
+    align-items: center;
+    width: 40%;
+}
+
+.event-period .input_resized {
+    width: 90%;
+}
+
+.event-time {
+    align-items: flex-start;
+}
+
+.event-time .insert-box-left {
+    margin-top: 6px;
+}
+
+.event-time fieldset {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 3px;
+}
+
+.event-time_table {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.event-time_day {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 6px;
+}
+
+.event-time_day>span {
+    line-height: 19px;
+    letter-spacing: 3px;
+}
+
+.event-time_row {
+    width: 20%;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.event-time_row>input {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.event-time_row>p {
+    margin: 0 5px;
+    font-size: 1.1rem;
+    color: var(--jh-blue);
+    cursor: pointer;
+    position: absolute;
+    top: 3%;
+    right: -89px;
+    font-weight: 900;
+}
+
