@@ -116,7 +116,7 @@
 						<button onclick="prev_page('<%=eventNo%>');">이전 단계</button>
 						<button onclick="seat_reset();">좌석 초기화</button>
 					</div>
-					<button onclick="toPayment()">좌석선택 완료</button>
+					<button onclick="toPayment('<%=eventNo%>')">좌석선택 완료</button>
 				</div>
 			</div>
 		</div>
