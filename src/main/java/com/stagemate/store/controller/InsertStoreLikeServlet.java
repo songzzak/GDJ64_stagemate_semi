@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.stagemate.store.model.vo.StoreLike;
 import com.stagemate.store.service.StoreService;
 
@@ -38,7 +39,9 @@ public class InsertStoreLikeServlet extends HttpServlet {
 				.build();
 
 		int result=new StoreService().insertStoreLike(sl);
-		if(result>0)request.getRequestDispatcher("/views/store/productList.jsp").forward(request, response);
+		System.out.println("결과"+result);
+		response.setContentType("application/json;charset=utf-8");
+		new Gson().toJson(result,response.getWriter());
 	}
 
 	/**

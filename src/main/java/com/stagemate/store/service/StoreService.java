@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.stagemate.store.dao.StoreDao;
+import com.stagemate.store.model.vo.Cart;
 import com.stagemate.store.model.vo.Product;
 import com.stagemate.store.model.vo.StoreLike;
 import com.stagemate.store.model.vo.StoreUpfile;
@@ -153,6 +154,15 @@ public class StoreService {
 		List<StoreLike> fileList=dao.selectAllLike(conn);
 		close(conn);
 		return fileList;
+	}
+
+	public int insertCart(Cart c) {
+		Connection conn=getConnection();
+		int result=dao.insertCart(conn,c);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
 	}
 
 
