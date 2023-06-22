@@ -20,11 +20,11 @@ List<Member> members = (List) request.getAttribute("member");
 			<div id="store_admin_nav">
 				<nav>
 					<ul id="store_admin_nav_ul">
-						<li><a href="" class="select_nav_admin">회원 관리</a></li>
+						<li><a href="<%=contextPath%>/admin/membermanage" class="select_nav_admin">회원 관리</a></li>
 						<li>
-							<a href="">상품 관리</a>
+							<a href="<%=contextPath%>/admin/eventlist">상품 관리</a>
 							<ul>
-								<li><a href="">예매</a></li>
+								<li><a href="<%=contextPath%>/admin/eventlist">예매</a></li>
 								<li><a href="<%=contextPath%>/admin/selectAllProduct.do">스토어</a></li>
 							</ul>
 						</li>
@@ -95,7 +95,6 @@ List<Member> members = (List) request.getAttribute("member");
 					</thead>
 					<tbody>
 						<%
-						int i = 1;
 						if (members.isEmpty()) {%>
 						<tr>
 							<td colspan="6">등록된 회원이 없습니다.</td>
@@ -103,7 +102,7 @@ List<Member> members = (List) request.getAttribute("member");
 						<%} else {
 							for (Member m : members) {
 						%>
-						<tr class=<%=i % 2 == 0 ? "member_table_a" : "member_table_b"%>>
+						<tr>
 							<td><input type="checkbox" name="check"></td>
 							<td><a href=""><%=m.getMemberId()%></a></td>
 							<td><%=m.getMemberNm()%></td>
@@ -112,7 +111,6 @@ List<Member> members = (List) request.getAttribute("member");
 							<td><%=m.getWthdrDate() == null ? "-" : m.getWthdrDate()%></td>
 						</tr>
 						<%
-						i++;
 						}
 						}
 						%>

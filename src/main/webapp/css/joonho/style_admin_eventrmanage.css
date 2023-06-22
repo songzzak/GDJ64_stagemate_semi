@@ -11,7 +11,8 @@
 	color: #959595;
 }
 
-#store_admin_nav_ul>li:first-child>a {
+#store_admin_nav_ul>li:nth-child(2)>a,
+ #store_admin_nav_ul>li:nth-child(2)>ul>li:first-child, #store_admin_nav_ul>li:nth-child(2)>ul>li:first-child a{
 	color: black;
 }
 
@@ -181,7 +182,7 @@ div#search-gender {
 }
 
 #memberManage>h2, hr {
-	color:var(--sm-brown);
+	color: rgb(81, 81, 81, 0.7);
 }
 
 #maincontainer>div:first-child>* {
@@ -285,4 +286,25 @@ div#search-gender {
 	font-weight: bolder;
 	margin-top: 2%;
 }
+.insertEvent-title {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.insertEvent-title p {
+    font-weight: bold;
+    font-size: 36px;
+    color: var(--sm-brown);
+    margin: 0 9px;
+}
+
+.insertEvent-title p:first-of-type {
+    margin-left: 0px;
+}
+
+.insertEvent-title img{
+    height: 30px;
+}
+
 

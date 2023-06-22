@@ -1,3 +1,6 @@
+div#maincontainer {
+    display: flex;
+}
 #musical>div:first-child * {
 	font-size: 100px;
 }
@@ -67,10 +70,6 @@ div.musical_product>div img {
 
 .musical_product {
 	margin-bottom: 30px;
-}
-
-div.musical_product>div img {
-	cursor: pointer;
 }
 
 #musical {

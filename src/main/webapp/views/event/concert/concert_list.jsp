@@ -22,8 +22,8 @@ List<EventUpfile> files = (List) request.getAttribute("files");
 				<div id="musical">
 					<h2>콘서트</h2>
 					<div id="chioce_array">
-						<a href="">최신등록순</a> | <a href="">인기도순</a> | <a href="">낮은가격순</a>
-						| <a href="">높은가격순</a> | <a href="">리뷰많은순</a>
+						<a href="">마감일자순</a> | <a href="">인기도순</a> | <a href="">리뷰많은 순</a>
+						| <a href="">제목순</a>
 					</div>
 					<br>
 					<form id="event_search">
@@ -73,8 +73,7 @@ List<EventUpfile> files = (List) request.getAttribute("files");
 						%> 
 						<div class="musical_product">
 							<img src="<%=contextPath%>/upload/joonho/<%=u.getEuRename()%>"
-								width="250" height="350">
-							<input type="hidden" value="<%=c.getEventNo()%>">
+								onclick="openprev('<%=c.getRsvOpenDt()%>','<%=c.getEventNo()%>')" width="250" height="350">
 							<h4><%=c.getEventNm()%></h4>
 							<h5><%=c.getLocation()%></h5>
 							<div>
@@ -117,10 +116,15 @@ List<EventUpfile> files = (List) request.getAttribute("files");
 	<script src="<%= contextPath %>/js/script_common.js"></script>
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 	<script>
-	$(".musical_product>img,.musical_product>h4").click(function(e) {
-		  var eventNo = $(this).parent().find('input[type="hidden"]').val();
-		  location.assign(getContextPath() + "/event/eventView.do?no=" + eventNo);
-	});
+	const openprev=(e,n)=>{
+		let today=new Date();
+		var openday=new Date(e);
+		if(openday>today){
+			alert(e+" 이후에 예매 가능합니다");
+		}else{
+			location.assign(getContextPath() + "/event/eventView.do?no=" + n);
+		}
+	}
 	</script>
 	<!-------------------------------------------->
 </body>

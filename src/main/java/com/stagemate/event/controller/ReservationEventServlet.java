@@ -9,23 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stagemate.event.model.vo.Event;
-import com.stagemate.event.model.vo.EventTime;
-import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.model.vo.Seat;
 import com.stagemate.event.service.EventService;
 
 /**
- * Servlet implementation class MusicalNum1
+ * Servlet implementation class ReservationMusical
  */
-@WebServlet("/event/eventView.do")
-public class EventViewServlet extends HttpServlet {
+@WebServlet("/event/reservation.do")
+public class ReservationEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EventViewServlet() {
+    public ReservationEventServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,16 +31,22 @@ public class EventViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String eventNo=request.getParameter("no");
-		Event event=new EventService().selectEventByEventNo(eventNo);
-		List<EventUpfile> files=new EventService().selectFileByEventNo(eventNo);
-		List<EventTime> et=new EventService().selectTimeByEvent(eventNo);
-		List<Seat> seats=new EventService().selectSeatAllByEvnNo(eventNo);
-		request.setAttribute("seats", seats);
-		request.setAttribute("event", event);
-		request.setAttribute("files", files);
-		request.setAttribute("et", et);
-		request.getRequestDispatcher("/views/event/event_view.jsp").forward(request, response);
+		String evcNo=request.getParameter("evc");
+		String eventNo=request.getParameter("event");
+		request.setAttribute("eventNo", eventNo);
+		if(evcNo.equals("EVC1")) {
+			List<Seat> seats=new EventService().selectSeatByEvnNoMusical(eventNo);
+			request.setAttribute("seats", seats);
+			request.getRequestDispatcher("/views/event/musical/musical_reservation.jsp").forward(request, response);
+		}else if(evcNo.equals("EVC2")) {
+			List<Seat> seats=new EventService().selectSeatByEvnNoConcert(eventNo);
+			request.setAttribute("seats", seats);
+			request.getRequestDispatcher("/views/event/concert/concert_reservation.jsp").forward(request, response);
+		}else{
+			List<Seat> seats=new EventService().selectSeatByEvnNoAct(eventNo);
+			request.setAttribute("seats", seats);
+			request.getRequestDispatcher("/views/event/act/act_reservation.jsp").forward(request, response);
+		}
 	}
 
 	/**
