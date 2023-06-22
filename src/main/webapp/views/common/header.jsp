@@ -104,8 +104,6 @@ function closeModalLogOut() {
 						.removeClass("modal-logout-show");
 }
 function myCart(){
-	console.log('<%=loginMember%>' === 'null');
-	
  <% if(loginMember != null) {%>
 	 location.assign('<%=request.getContextPath()%>/store/selectCartList.do?id=<%=loginMember.getMemberId()%>');
  <% } else { %>

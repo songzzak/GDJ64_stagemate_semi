@@ -165,6 +165,13 @@ public class StoreService {
 		return result;
 	}
 
+	public List<Cart> selectCartByUserId(String id) {
+		Connection conn=getConnection();
+		List<Cart> cartList=dao.selectCartByUserId(conn,id);
+		close(conn);
+		return cartList;
+	}
+
 
 
 }
