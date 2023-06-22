@@ -10,6 +10,7 @@ import com.stagemate.event.dao.EventDao;
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventTime;
 import com.stagemate.event.model.vo.EventUpfile;
+import com.stagemate.event.model.vo.Seat;
 
 public class EventService {
 	
@@ -80,6 +81,45 @@ public class EventService {
 		return et;
 		
 	}
+	public List<Event> listAllEvent(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<Event> list=dao.selectAllEvent(conn,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+	public int selectEventCount() {
+		Connection conn=getConnection();
+		int result=dao.selectEventCount(conn);
+		close(conn);
+		return result;
+	}
+	
+	public List<Seat> selectSeatByEvnNoMusical(String eventNo){
+		Connection conn=getConnection();
+		List<Seat> seats=dao.selectSeatByEvnNoMusical(conn,eventNo);
+		close(conn);
+		return seats;
+	}
+	public List<Seat> selectSeatByEvnNoConcert(String eventNo){
+		Connection conn=getConnection();
+		List<Seat> seats=dao.selectSeatByEvnNoConcert(conn,eventNo);
+		close(conn);
+		return seats;
+	}
+	public List<Seat> selectSeatByEvnNoAct(String eventNo){
+		Connection conn=getConnection();
+		List<Seat> seats=dao.selectSeatByEvnNoAct(conn,eventNo);
+		close(conn);
+		return seats;
+	}
+	
+	public List<Seat> selectSeatAllByEvnNo(String eventNo){
+		Connection conn=getConnection();
+		List<Seat> seats=dao.selectSeatAllByEvnNo(conn,eventNo);
+		close(conn);
+		return seats;
+	}
+	
 	
 
 }

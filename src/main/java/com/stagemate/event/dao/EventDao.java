@@ -14,9 +14,8 @@ import com.stagemate.common.PropertiesGenerator;
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventTime;
 import com.stagemate.event.model.vo.EventUpfile;
-import com.stagemate.member.model.vo.Member;
+import com.stagemate.event.model.vo.Seat;
 import com.stagemate.store.dao.StoreDao;
-import com.stagemate.store.model.vo.StoreUpfile;
 
 public class EventDao {
 	
@@ -50,6 +49,28 @@ public class EventDao {
 				.eventNo(rs.getString("EVENT_NO"))
 				.purposeNo(rs.getString("PURPOSE_NO"))
 				.euDate(rs.getDate("EU_DATE"))
+				.build();
+	}
+	
+	private Seat getSeat(ResultSet rs) throws SQLException {
+		return Seat.builder()
+				.seatNo(rs.getString("SEAT_NO"))
+				.isReserved(rs.getString("IS_RESERVED").charAt(0))
+				.slvNo(rs.getString("SLV_NO"))
+				.seatRow(rs.getString("SEAT_ROW").charAt(0))
+				.seatCol(rs.getInt("SEAT_COL"))
+				.eventNo(rs.getString("EVENT_NO"))
+				.evcNo(rs.getString("EVC_NO"))
+				.build();
+	}
+	private Seat getSeatAll(ResultSet rs) throws SQLException {
+		return Seat.builder()
+				.seatNo(rs.getString("SEAT_NO"))
+				.isReserved(rs.getString("IS_RESERVED").charAt(0))
+				.slvNo(rs.getString("SLV_NO"))
+				.seatRow(rs.getString("SEAT_ROW").charAt(0))
+				.seatCol(rs.getInt("SEAT_COL"))
+				.eventNo(rs.getString("EVENT_NO"))
 				.build();
 	}
 	
@@ -263,5 +284,121 @@ public class EventDao {
 			close(pstmt);
 		}
 		return et;
+	}
+	public List<Event> selectAllEvent(Connection conn,int cPage, int numPerpage){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllEvent"));
+			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	
+	public int selectEventCount(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try{
+			pstmt=conn.prepareStatement(sql.getProperty("selectEventCount"));
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+	public List<Seat> selectSeatByEvnNoConcert(Connection conn,String eventNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Seat> seats=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectSeatByEvnNoConcert"));
+			pstmt.setString(1, eventNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Seat s=getSeat(rs);
+				seats.add(s);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return seats;
+	}
+	public List<Seat> selectSeatByEvnNoAct(Connection conn,String eventNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Seat> seats=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectSeatByEvnNoAct"));
+			pstmt.setString(1, eventNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Seat s=getSeat(rs);
+				seats.add(s);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return seats;
+	}
+	public List<Seat> selectSeatByEvnNoMusical(Connection conn,String eventNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Seat> seats=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectSeatByEvnNoMusical"));
+			pstmt.setString(1, eventNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Seat s=getSeat(rs);
+				seats.add(s);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return seats;
+	}
+	public List<Seat> selectSeatAllByEvnNo(Connection conn,String eventNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Seat> seats=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllSeatByEvnNo"));
+			pstmt.setString(1, eventNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Seat s=getSeatAll(rs);
+				seats.add(s);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return seats;
 	}
 }

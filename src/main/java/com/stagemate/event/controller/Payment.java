@@ -1,6 +1,8 @@
 package com.stagemate.event.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +28,13 @@ public class Payment extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String eventNo=request.getParameter("no");
+		String row=request.getParameter("row");
+		String column=request.getParameter("column");
+		System.out.println(row);
+		System.out.println(column);
+
+		
 		request.getRequestDispatcher("/views/event/event_payment.jsp").forward(request, response);
 	}
 

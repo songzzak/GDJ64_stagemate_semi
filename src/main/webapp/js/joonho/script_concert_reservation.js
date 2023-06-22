@@ -2,20 +2,20 @@ let countSeat = 0;
 $(document).ready(function() {
 	// 좌석 맵 배열
 	var seatMap = [
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+		seatA,
+		seatB,
+		seatC,
+		seatD,
+		seatE,
+		seatF,
+		seatG
 	];
 	var seatMap2 = [
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+		seatH,
+		seatI,
+		seatJ,
+		seatK,
+		seatL
 	];
 
 	// 선택한 좌석 변수
@@ -155,6 +155,9 @@ const seat_reset = () => {
 	});
 	countSeat = 0;
 };
-function prev_page() {
-	location.replace(getContextPath() + "/musicalNum1.do");
+function prev_page(eventNo) {
+	location.replace(getContextPath() + "/event/eventView.do?no="+eventNo);
 }
+function toPayment() {
+		location.replace(getContextPath() + "/event/payment.do");
+	}

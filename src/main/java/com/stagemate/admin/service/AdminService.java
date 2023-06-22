@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.stagemate.admin.model.dao.AdminDao;
+import com.stagemate.event.model.vo.Event;
 import com.stagemate.member.model.vo.Member;
 
 public class AdminService {

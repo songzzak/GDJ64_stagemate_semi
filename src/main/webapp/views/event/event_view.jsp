@@ -2,11 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <%@ page
-	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile,com.stagemate.event.model.vo.EventTime"%>
+	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile,com.stagemate.event.model.vo.EventTime,com.stagemate.event.model.vo.Seat"%>
 <%
-Event event = (Event) request.getAttribute("event");
-List<EventUpfile> files = (List) request.getAttribute("files");
-List<EventTime> et = (List) request.getAttribute("et");
+	List<Seat> seats = (List) request.getAttribute("seats");
+	Event event = (Event) request.getAttribute("event");
+	List<EventUpfile> files = (List) request.getAttribute("files");
+	List<EventTime> et = (List) request.getAttribute("et");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -160,8 +161,6 @@ List<EventTime> et = (List) request.getAttribute("et");
 								<div id="gold_bar"></div>
 								<div>
 									<div id="gold_button">
-										<button class="schedule" style="cursor: pointer;"
-											onclick="roundchoice();">1회 </button>
 									</div>
 								</div>
 							</div>
@@ -173,46 +172,73 @@ List<EventTime> et = (List) request.getAttribute("et");
 							<h2 class="gold_h2">예매 가능좌석</h2>
 						</div>
 						<hr>
-						<%if(event.getEvcNo().equals("EVC1")){ %>
+						<%if(event.getEvcNo().equals("EVC1")){ 
+						int vip=0;int r=0;int s=0;int a=0;
+							for (Seat seat : seats){
+								
+								if((seat.getSeatRow()=='A'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='B'&&seat.getIsReserved()=='N')){
+									vip++;
+								}else if((seat.getSeatRow()=='C'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='D'&&seat.getIsReserved()=='N')){
+									r++;
+								}else if((seat.getSeatRow()=='E'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='F'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='G'&&seat.getIsReserved()=='N')){
+									s++;
+								}else{
+									a++;
+								}
+							}%>
 						<div id="seat_money" class="chiocemoney">
 							<div>
 								<h3>VIP석 150,000원</h3>
-								<h3>(잔여 : 매진)</h3>
+								<h3>(잔여 : <%=vip-4 ==0?"매진":vip-4+"석"%>)</h3>
 							</div>
 							<div>
 								<h3>R석 120,000원</h3>
-								<h3>(잔여 : 18석)</h3>
+								<h3>(잔여 : <%=r-4==0?"매진":r-4+"석"%>)</h3>
 							</div>
 							<div>
 								<h3>S석 90,000원</h3>
-								<h3>(잔여 : 16석)</h3>
+								<h3>(잔여 : <%=s-6==0?"매진":s-6+"석"%>)</h3>
 							</div>
 							<div>
 								<h3>A석 70,000원</h3>
-								<h3>(잔여 : 2석)</h3>
+								<h3>(잔여 : <%=a-10==0?"매진":a-10+"석"%>)</h3>
 							</div>
 						</div>
 						<%}else if(event.getEvcNo().equals("EVC2")){ %>
+						<%int stand=0;int choice=0;
+						for (Seat seat : seats){
+							if((seat.getSeatRow()=='E'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='F'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='G'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='H'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='I'&&seat.getIsReserved()=='N')){
+								choice++;
+							}else{
+								stand++;
+							}%>
+						<%} %>
 						<div id="seat_money" class="chiocemoney">
 							<div>
 								<h3>스탠딩석 : 80,000원</h3>
-								<h3>(잔여 : 매진)</h3>
+								<h3>(잔여 : <%=stand-14 ==0?"매진":stand-14+"석"%>)</h3>
 							</div>
 							<div>
 								<h3>지정석 : 80,000원</h3>
-								<h3>(잔여 : 18석)</h3>
+								<h3>(잔여 : <%=choice-10 ==0?"매진":choice-10+"석"%>)</h3>
 							</div>
 						</div>
 						<%}else if(event.getEvcNo().equals("EVC3")){ %>
+						<%int ramainSeat=0;
+						for (Seat seat : seats){
+							if(seat.getIsReserved()=='N'){
+								ramainSeat++;	
+							}
+						} %>
 						<div id="seat_money" class="chiocemoney">
 							<div>
 								<h3>전석 : 50,000원</h3>
-								<h3>(잔여 : 매진)</h3>
+								<h3>(잔여 : <%=ramainSeat-18 ==0?"매진":ramainSeat-18+"석"%>)</h3>
 							</div>
 						</div>
 						<%} %>
 						<div>
-							<button onclick="toReservationMusical();" id="res_cho" style="pointer-events:none">예매 하기</button>
+							<button onclick="toReservationMusical('<%=event.getEvcNo() %>','<%=event.getEventNo() %>');" id="res_cho" style="pointer-events:none">예매 하기</button>
 						</div>
 						<div id="pointmark">
 							<img src="<%=contextPath%>/images/joonho/pointmark.png">
@@ -363,14 +389,26 @@ List<EventTime> et = (List) request.getAttribute("et");
 			"대학로 틴틴홀" : ["37.581561", "127.003548"],
 			"올림픽공원 올림픽홀" : ["37.514626", "127.127601"],
 			"KBS 울산홀" : ["35.544506", "129.326446"],
-			"KBS아레나" : ["37.556730", "126.847916"]
+			"KBS아레나" : ["37.556730", "126.847916"],
+			"대학로 드림아트센터 3관" : ["37.583289", "127.003272"],
+			"예술의전당 오페라극장" : ["37.479288", "127.013810"],
+			"대학로 유니플렉스 2관" : ["37.581166", "127.003695"],
+			"대학로 TOM 1관" : ["37.582263", "127.003670"],
+			"대학로 바탕골 소극장" : ["37.581843", "127.002533"],
+			"대학로 아트원씨어터 3관" : ["37.580214", "127.003946"],
+			"BNK부산은행조은극장 2관" : ["35.098347", "129.032324"],
+			"상명아트센터 계당홀" : ["37.602973", "126.956398"],
+			"YES24 LIVE HALL" : ["37.580214", "127.107912"],
+			"대구 엑스코 5층 컨벤션홀" : ["35.906782", "128.613267"],
+			"전주종합경기장" : ["35.838898", "127.126406"],
+			
 	}
 	var GPSX=jsonMap["<%=event.getLocation() %>"][0]
 	var GPSY=jsonMap["<%=event.getLocation() %>"][1]
 	/* 달력 */
-	var startDay=new Date('<%=event.getEventStartDt() %>')
-	var endDay=new Date('<%=event.getEventEndDt() %>')
-
+	var startDay=new Date('<%=event.getEventStartDt() %>');
+	var endDay=new Date('<%=event.getEventEndDt() %>');
+	startDay.setDate(startDay.getDate()-1);
 	var monday=[];
 	var tuesday=[];
 	var wednesday=[];
@@ -391,28 +429,22 @@ List<EventTime> et = (List) request.getAttribute("et");
 	}
 	arrowday.push('<%=e.getEtDay()%>')
 	<%}%>
-	const days=new Set(arrowday);
-	const daysList= days.values();
-	console.log(monday);
-	console.log(tuesday);
-	console.log(saturday);
-	console.log(sunday);
-	console.log(new Set(arrowday).size);
+	var daysgo=new Set(arrowday);
 	/* 버튼 로그인 후 선택 가능 */
 	let flag=true;
-	const roundchoice=()=>{
+	const roundchoice=(e)=>{
 	<%if (loginMember == null) {%>
 		alert("로그인 후 사용 가능합니다.")
 	<%} else {%>
 			if(flag==true){
-				$("#schedule").css({ "backgroundColor": "var(--sm-brown)", "color": "white" });
+				$(e.target).css({ "backgroundColor": "var(--sm-brown)", "color": "white" });
 				$("#pointmark").css({"visibility":"hidden"});
 				$("#gold_seat").css({"color":"black"});
 				$("#res_cho").css({"border":"none","backgroundColor":"var(--sm-yellow)","color":"black","cursor":"pointer","pointer-events":"auto"});
 				$("#seat_money>div>h3:odd").css({"color":"#bc0000"});
 				flag=false;
 			}else{
-				$("#schedule").css({ "backgroundColor": "white", "color": "black" })
+				$(e.target).css({ "backgroundColor": "white", "color": "black" })
 				$("#pointmark").css({"visibility":"visible"});
 				$("#gold_seat").css({"color":"rgb(0,0,0,0.3)"});
 				$("#res_cho").css({"border":"1px solid rgb(0,0,0,0.3)","backgroundColor":"white","color":"rgb(0,0,0,0.3)","pointer-events":"none"});

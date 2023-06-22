@@ -2,20 +2,20 @@ let countSeat = 0;
 $(document).ready(function() {
 	// 좌석 맵 배열
 	var seatMap = [
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1]
+		seatA,
+		seatB,
+		seatC,
+		seatD,
+		seatE,
+		seatF,
+		seatG
 	];
 	var seatMap2 = [
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+		seatH,
+		seatI,
+		seatJ,
+		seatK,
+		seatL
 	];
 
 	// 선택한 좌석 변수
@@ -167,9 +167,24 @@ const seat_reset = () => {
 	});
 	countSeat = 0;
 };
-function prev_page() {
-	location.replace(getContextPath() + "/musicalNum1.do");
+function prev_page(eventNo) {
+	location.replace(getContextPath() + "/event/eventView.do?no="+eventNo);
 }
-function toPayment() {
-		location.replace(getContextPath() + "/event/payment.do");
+function toPayment(eventNo) {
+		const seat=$("#selectedSeat>div>div").text();
+		let choseat=seat.split(")");
+		let row=[];
+		let column=[];
+		const pattern = /(?<=.)\d+/g;
+		for(let i=0;i<choseat.length-1;i++){
+			row.push(choseat[i].charAt(3));
+			column.push(choseat[i].match(pattern))
+		}
+		console.log(row)
+		console.log(column)
+		if(seat==""){
+			alert("좌석을 선택해주세요")
+			return;
+		}
+		location.replace(getContextPath() + "/event/payment.do?no="+eventNo+"&row="+row+"&column="+column);
 	}
