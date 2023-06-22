@@ -14,22 +14,26 @@ $(".bar-num").on("click",function(e){
     let $countElement = $(this).find(".wish-count");
     let count = parseInt($countElement.text());
 	let productNo = $(this).closest(".product").find(".productDetails input[type='hidden']").val();
-  
-  	console.log(count);
-  	console.log(productNo);
   	const userId=$("#userId").val();
-    console.log(userId);
    if(userId!=""){
 	    if ($heartIcon.css("fill") === "none") {
 	      $heartIcon.css("fill", "#BC0000");
 	      count=(count+1);
-	      //$(this).off("click");
+	      $.post(getContextPath() + "/store/insertLike.do", 
+			  {
+			    productNo: productNo,
+			    userId: userId
+			  });
 	    } else {
 	      $heartIcon.css("fill", "none");
-	      count=(count-1)
+	      count=(count-1);
+	      $.post(getContextPath() + "/store/deleteLike.do", 
+			  {
+			    productNo: productNo,
+			    userId: userId
+			  });
 	    }
-	    //console.log(count);
-	    //console.log(getContextPath());
+
 	    $countElement.text(count); // 좋아요 수 업데이트
 		  $.post(getContextPath() + "/store/updateProductLikeCnt.do", 
 		  {

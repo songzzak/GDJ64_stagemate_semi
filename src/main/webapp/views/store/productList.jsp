@@ -47,7 +47,7 @@ List<StoreUpfile> files = (List) request.getAttribute("files");
 				<input type="hidden" id="userId" value="<%=loginMember==null?"":loginMember.getMemberId()%>">
 				<table>
 					<%
-					if (products.isEmpty()) {
+					if (products == null || products.isEmpty()) {
 					%>
 					<tr>
 						<td colspan="3">조회된 상품이 없습니다.</td>

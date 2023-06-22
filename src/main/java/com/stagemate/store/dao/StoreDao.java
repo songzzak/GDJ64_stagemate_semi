@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.stagemate.common.PropertiesGenerator;
 import com.stagemate.store.model.vo.Product;
+import com.stagemate.store.model.vo.StoreLike;
 import com.stagemate.store.model.vo.StoreUpfile;
 
 public class StoreDao {
@@ -313,6 +314,62 @@ public class StoreDao {
         return result;
 	}
 
+	public int insertStoreLike(Connection conn, StoreLike sl) {
+		if (isProductInWishList(conn,sl)) {
+	        return 0; // 이미 찜한 상품이므로 추가하지 않고 종료
+	    }
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertStoreLike"));
+			pstmt.setString(1, sl.getStrLikeCd());
+			pstmt.setString(2, sl.getMemberId());
+			pstmt.setInt(3, sl.getProductNo());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public int deleteStoreLike(Connection conn, int productNo, String userId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteStoreLike"));
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, productNo);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	private boolean isProductInWishList(Connection conn,  StoreLike sl) {
+		boolean result=false;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("isProductInWishList"));
+			pstmt.setString(1, sl.getStrLikeCd());
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
 
 
 
