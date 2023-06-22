@@ -2,10 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <%@ include file="/views/common/header.jsp"%>
-<link rel="stylesheet" href="<%=contextPath %>/css/nabin/notice.css">
-<link rel="stylesheet" href="<%=contextPath %>/css/nabin/media.css">
-<link rel="stylesheet"
-	href="<%=contextPath %>/css/nabin/notice_insert.css">
+<link rel = "stylesheet" href = "<%=contextPath %>/css/nabin/notice_insert.css">
+<link rel = "stylesheet" href = "<%=contextPath %>/css/nabin/notice.css">
+<link rel = "stylesheet" href = "<%=contextPath %>/css/nabin/media.css">
+	
 
 <section class="min1280px">
 	<div id="sectionContainer" class="max1280px">
