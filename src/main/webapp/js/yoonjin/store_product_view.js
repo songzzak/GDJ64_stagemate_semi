@@ -64,5 +64,36 @@ $("#product-view-btn_pay").click(e => {
 	}else{
 		alert("로그인 후 이용 가능합니다.");
 	}
+});
 	
+	$("#product-view-btn_cart").click(e => {
+    const pNo = $("#pNo").val();
+    const count = parseInt($("#product-select-count p").text());
+    const userId=$("#userId").val();
+   if(userId!=""){
+	    alert("장바구니 기능은 아직 개발중입니다....");
+	}else{
+		alert("로그인 후 이용 가능합니다.");
+	}
+});
+
+	$("#product-view-btn_wish").click(e => {
+    const pNo = $("#pNo").val();
+    const userId=$("#userId").val();
+   if (userId !== "") {
+	    $.post(getContextPath() + "/store/insertLike.do", {
+	      productNo: pNo,
+	      userId: userId
+	    })
+	    .done(function(response) {
+		//성공
+	      alert("관심상품 목록에 추가하였습니다.");
+	    })
+	    .fail(function(jqXHR, textStatus, errorThrown) {
+	      // 실패한 경우
+	      alert("이미 관심상품 목록에 있습니다.");
+	    });
+  } else {
+    alert("로그인 후 이용 가능합니다.");
+  }
 });
