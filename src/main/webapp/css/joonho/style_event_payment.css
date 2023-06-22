@@ -103,6 +103,7 @@
 
 #payment_info>div {
 	margin: 2%;
+    width: 24%;
 }
 
 #payment_info>div:last-child {
@@ -194,4 +195,7 @@
 #payment_cancel_tbl td:nth-child(3) {
 	border-left: 1px solid var(--gray);
 	width: 40%;
+}
+.payseat{
+	margin-bottom: 3%;
 }

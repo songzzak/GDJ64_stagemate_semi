@@ -267,5 +267,8 @@ function leftPad(value) {
 }
 
 function toReservationMusical(evcNo,eventNo){
-	location.assign(getContextPath() + "/event/reservation.do?evc="+evcNo+"&event="+eventNo);
+	const roundup=$("#schedule").text();
+	const round=roundup.replaceAll(' ','');
+	const choiceday=$("#calYear").text()+"."+$("#calMonth").text()+"."+$(".choiceDay").text();
+	location.assign(getContextPath() + "/event/reservation.do?evc="+evcNo+"&event="+eventNo+"&round="+round+"&choiceday="+choiceday);
 }

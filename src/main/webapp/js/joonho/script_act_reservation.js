@@ -123,6 +123,13 @@ const seat_reset = () => {
 function prev_page(eventNo) {
 	location.replace(getContextPath() + "/event/eventView.do?no="+eventNo);
 }
-function toPayment() {
-		location.replace(getContextPath() + "/event/payment.do");
+function toPayment(eventNo,round,choiceday) {
+		const seat=$("#selectedSeat>div>div").text();
+		var realseat = seat.replace(/번/g, "번()");
+		 console.log(realseat);
+		if(seat==""){
+			alert("좌석을 선택해주세요")
+			return;
+		}
+		location.replace(getContextPath() + "/event/payment.do?no="+eventNo+"&seat="+realseat+"&round="+round+"&choiceday="+choiceday);
 	}

@@ -1,6 +1,9 @@
 package com.stagemate.event.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,6 +11,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.stagemate.event.model.vo.Event;
+import com.stagemate.event.model.vo.EventUpfile;
+import com.stagemate.event.service.EventService;
 
 /**
  * Servlet implementation class Payment
@@ -29,12 +36,31 @@ public class Payment extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String eventNo=request.getParameter("no");
-		String row=request.getParameter("row");
-		String column=request.getParameter("column");
-		System.out.println(row);
-		System.out.println(column);
-
-		
+		String round=request.getParameter("round");
+		String choiceday=request.getParameter("choiceday");
+		String seats=request.getParameter("seat");
+		String[] seat=seats.split("\\)");
+		Event event=new EventService().selectEventByEventNo(eventNo);
+		List<EventUpfile> files=new EventService().selectFileByEventNo(eventNo);
+		request.setAttribute("event", event);
+		request.setAttribute("files", files);
+		request.setAttribute("round", round);
+		request.setAttribute("choiceday", choiceday);
+		request.setAttribute("seat", seat);
+		String a=choiceday.replace(".", "");
+		SimpleDateFormat input = new SimpleDateFormat("yyyyMMdd");  //dt와 형식을 맞추어 준다.
+		SimpleDateFormat output = new SimpleDateFormat("yyyy년MM월dd일"); //변환할 형식
+		Date newdt=null;
+		try{
+			newdt = input.parse(a);			//date 자료형으로 변환
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(newdt);
+		calendar.add(Calendar.DATE, -1);
+		String chkDate = output.format(calendar.getTime());
+		request.setAttribute("chkDate", chkDate);
 		request.getRequestDispatcher("/views/event/event_payment.jsp").forward(request, response);
 	}
 
