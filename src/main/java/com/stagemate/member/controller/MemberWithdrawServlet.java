@@ -21,7 +21,7 @@ public class MemberWithdrawServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		request.getRequestDispatcher("views/member/member_withdraw.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/member/member_withdraw.jsp").forward(request, response);
 		
 	}
 

@@ -14,12 +14,14 @@
     font-size: 40px;
     font-weight: bold;
     padding-top: 30px;
+    margin-left: 30px;
 }
 .ShoppingBasket_kor{
     color:var(--sm-brown);
     font-size: 30px;
     font-weight: bold;
     padding-top: 5px;
+    margin-left: 30px;
 }
 
 .deliv-txt{
