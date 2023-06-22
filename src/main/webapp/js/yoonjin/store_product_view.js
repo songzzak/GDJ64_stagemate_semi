@@ -58,5 +58,70 @@ $("#product-view-btn_pay").click(e => {
     const pNo = $("#pNo").val();
     const count = parseInt($("#product-select-count p").text());
     const userId=$("#userId").val();
-    location.assign(getContextPath() + "/store/storeOrder.do?no=" + pNo + "&count=" + count+"&userId="+userId);
+    console.log(userId);
+   if(userId!=""){
+	    location.assign(getContextPath() + "/store/storeOrder.do?no=" + pNo + "&count=" + count+"&userId="+userId);
+	}else{
+		alert("로그인 후 이용 가능합니다.");
+	}
+});
+	
+	$("#product-view-btn_cart").click(e => {
+    const pNo = $("#pNo").val();
+    const count = parseInt($("#product-select-count p").text());
+    const userId=$("#userId").val();
+   if(userId!=""){
+	    $.post(getContextPath() + "/store/insertCart.do", {
+	      productNo: pNo,
+	      userId: userId,
+	      count:count
+	    })
+	    .done(function(response) {
+			//성공
+			if(response>0){
+				if (confirm("장바구니 목록에 추가하였습니다. 장바구니로 이동하시겠습니까?")) {
+		                location.assign('<%=contextPath%>/store/selectCartList.do?no=' + userId);
+		            }
+			 }else{//실패
+					alert("이미 장바구니에 담겨있는 상품입니다. 장바구니에서 수량을 수정해주세요.");
+			}
+	    }).fail(function(jqXHR, textStatus, errorThrown) {
+	      // 실패한 경우
+	      alert("전송실패 관리자에게 문의하세요 :(");
+	    });
+	}else{
+		alert("로그인 후 이용 가능합니다.");
+	}
+});
+
+	$("#product-view-btn_wish").click(e => {
+    const pNo = $("#pNo").val();
+    const userId=$("#userId").val();
+   if (userId !== "") {
+	    $.post(getContextPath() + "/store/insertLike.do", {
+	      productNo: pNo,
+	      userId: userId
+	    })
+	    .done(function(response) {
+				if(response>0){
+					alert("관심상품 목록에 추가하였습니다.");
+				 }else{
+						 $.post(getContextPath() + "/store/deleteLike.do", {
+				      			productNo: pNo,
+				      			userId: userId
+			    		})
+			    		.done(function(response) {
+								if(response>0){
+									alert("관심상품 목록에서 삭제하였습니다.");
+								 }
+						})
+				 }
+	    })
+	    .fail(function(jqXHR, textStatus, errorThrown) {
+	      // 실패한 경우
+	      alert("전송실패 관리자에게 문의하세요 :(");
+	    });
+  } else {
+    alert("로그인 후 이용 가능합니다.");
+  }
 });

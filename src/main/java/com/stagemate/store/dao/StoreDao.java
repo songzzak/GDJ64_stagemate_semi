@@ -10,9 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.tomcat.util.digester.ArrayStack;
+
 import com.stagemate.common.PropertiesGenerator;
+import com.stagemate.store.model.vo.Cart;
 import com.stagemate.store.model.vo.Product;
+import com.stagemate.store.model.vo.StoreLike;
 import com.stagemate.store.model.vo.StoreUpfile;
+
+import oracle.jdbc.proxy.annotation.Pre;
 
 public class StoreDao {
 
@@ -313,6 +319,131 @@ public class StoreDao {
         return result;
 	}
 
+	public int insertStoreLike(Connection conn, StoreLike sl) {
+		if (isProductInWishList(conn,sl)) {
+	        return 0; // 이미 찜한 상품이므로 추가하지 않고 종료
+	    }
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertStoreLike"));
+			pstmt.setString(1, sl.getStrLikeCd());
+			pstmt.setString(2, sl.getMemberId());
+			pstmt.setInt(3, sl.getProductNo());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public int deleteStoreLike(Connection conn, int productNo, String userId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteStoreLike"));
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, productNo);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	private boolean isProductInWishList(Connection conn,  StoreLike sl) {
+		boolean result=false;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("isProductInWishList"));
+			pstmt.setString(1, sl.getStrLikeCd());
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public List<StoreLike> selectAllLike(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<StoreLike> likes=new ArrayStack<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllLike"));
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				likes.add(getLike(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return likes;
+	}
+
+	private StoreLike getLike(ResultSet rs) throws SQLException {
+		return StoreLike.builder()
+				.strLikeCd(rs.getString("str_like_cd"))
+				.memberId(rs.getString("member_id"))
+				.productNo(rs.getInt("product_no"))
+				.build();
+	}
+
+	public int insertCart(Connection conn, Cart c) {
+		if (isProductInCartList(conn,c)) {
+	        return 0; // 이미 추가한 상품이므로 추가하지 않고 종료
+	    }
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertCart"));
+			pstmt.setString(1, c.getCartCd());
+			pstmt.setString(2, c.getMemberId());
+			pstmt.setInt(3, c.getProductNo());
+			pstmt.setInt(4, c.getCartAmt());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	private boolean isProductInCartList(Connection conn, Cart c) {
+		boolean result=false;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("isProductInCartList"));
+			pstmt.setString(1, c.getCartCd());
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		//System.out.println("체크"+result);
+		return result;
+	}
 
 
 

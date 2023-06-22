@@ -23,8 +23,7 @@ public class StoreUpdateLikeCnt extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int productNo=Integer.parseInt(request.getParameter("productNo"));
 		int likeCnt=Integer.parseInt(request.getParameter("newLikeCount"));
-		System.out.println(productNo);
-		System.out.println(likeCnt);
+
 		int result=new StoreService().updateProductLikeCnt(productNo,likeCnt);
 		if(result>0)request.getRequestDispatcher("/views/store/productList.jsp").forward(request, response);
 		

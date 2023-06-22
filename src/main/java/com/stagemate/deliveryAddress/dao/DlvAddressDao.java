@@ -52,6 +52,102 @@ public class DlvAddressDao {
 				.isDefaultDlv(rs.getString("is_default_dlv").charAt(0))
 				.build();
 	}
+
+	public int insertDlvAddress(Connection conn, DlvAdress newAddress, int seqNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertDlvAddress"));
+			pstmt.setString(1, "DLV_"+seqNo+"_"+newAddress.getMemberId());
+			pstmt.setString(2, newAddress.getMemberId());
+			pstmt.setString(3, newAddress.getDlvPerson());
+			pstmt.setString(4, newAddress.getDlvNm());
+			pstmt.setString(5, newAddress.getDlvPhone());
+			pstmt.setString(6, newAddress.getDlvAddress());
+			pstmt.setString(7, String.valueOf(newAddress.getIsDefaultDlv()));
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int selectDlvSeqNo(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int seqNo=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectDlvSeqNo"));
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				seqNo=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return seqNo;
+	}
+
+	public DlvAdress selectDlvAddressByDlvId(Connection conn, String dlvId) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		DlvAdress d=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectDlvAddressByDlvId"));
+			pstmt.setString(1, dlvId);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				d=getDlv(rs);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return d;
+	}
+
+	public int updateDlvAddress(Connection conn, DlvAdress newAddress, String dlvId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("updateDlvAddress"));
+			pstmt.setString(1, newAddress.getMemberId());
+			pstmt.setString(2, newAddress.getDlvPerson());
+			pstmt.setString(3, newAddress.getDlvNm());
+			pstmt.setString(4, newAddress.getDlvPhone());
+			pstmt.setString(5, newAddress.getDlvAddress());
+			pstmt.setString(6, String.valueOf(newAddress.getIsDefaultDlv()));
+			pstmt.setString(7, dlvId);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteDlvAddress(Connection conn, String dlvId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteDlvAddress"));
+			pstmt.setString(1, dlvId);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	

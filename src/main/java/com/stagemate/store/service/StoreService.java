@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.stagemate.store.dao.StoreDao;
+import com.stagemate.store.model.vo.Cart;
 import com.stagemate.store.model.vo.Product;
+import com.stagemate.store.model.vo.StoreLike;
 import com.stagemate.store.model.vo.StoreUpfile;
 
 public class StoreService {
@@ -123,6 +125,40 @@ public class StoreService {
 	public int deleteProductByNo(int pNo) {
 		Connection conn=getConnection();
 		int result=dao.deleteProductByNo(conn, pNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int insertStoreLike(StoreLike sl) {
+		Connection conn=getConnection();
+		int result=dao.insertStoreLike(conn,sl);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int deleteStoreLike(int productNo, String userId) {
+		Connection conn=getConnection();
+		int result=dao.deleteStoreLike(conn,productNo,userId);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public List<StoreLike> selectAllLike() {
+		Connection conn=getConnection();
+		List<StoreLike> fileList=dao.selectAllLike(conn);
+		close(conn);
+		return fileList;
+	}
+
+	public int insertCart(Cart c) {
+		Connection conn=getConnection();
+		int result=dao.insertCart(conn,c);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);

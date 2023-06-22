@@ -14,25 +14,35 @@ $(".bar-num").on("click",function(e){
     let $countElement = $(this).find(".wish-count");
     let count = parseInt($countElement.text());
 	let productNo = $(this).closest(".product").find(".productDetails input[type='hidden']").val();
-  
-  	console.log(count);
-  	console.log(productNo);
-    if ($heartIcon.css("fill") === "none") {
-      $heartIcon.css("fill", "#BC0000");
-      count=(count+1);
-      //$(this).off("click");
-    } else {
-      $heartIcon.css("fill", "none");
-      count=(count-1)
-    }
-    //console.log(count);
-    //console.log(getContextPath());
-    $countElement.text(count); // 좋아요 수 업데이트
-	  $.post(getContextPath() + "/store/updateProductLikeCnt.do", 
-	  {
-	    productNo: productNo,
-	    newLikeCount: count
-	  });
+  	const userId=$("#userId").val();
+   if(userId!=""){
+	    if ($heartIcon.css("fill") === "none") {
+	      $heartIcon.css("fill", "#BC0000");
+	      count=(count+1);
+	      $.post(getContextPath() + "/store/insertLike.do", 
+			  {
+			    productNo: productNo,
+			    userId: userId
+			  });
+	    } else {
+	      $heartIcon.css("fill", "none");
+	      count=(count-1);
+	      $.post(getContextPath() + "/store/deleteLike.do", 
+			  {
+			    productNo: productNo,
+			    userId: userId
+			  });
+	    }
+
+	    $countElement.text(count); // 좋아요 수 업데이트
+		  $.post(getContextPath() + "/store/updateProductLikeCnt.do", 
+		  {
+		    productNo: productNo,
+		    newLikeCount: count
+		  });
+	}else{
+		alert("로그인 후 이용 가능합니다.");
+	}
   });
   
 $(".imageContainer").click(function(e) {

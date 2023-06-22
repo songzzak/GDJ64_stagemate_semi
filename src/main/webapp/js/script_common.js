@@ -20,7 +20,7 @@ $('.header-container-icons input').hover(event => {
 });
 
 // 우편 번호 서비스를 불러옴
-function openPostCode() {
+function openPostCode(inputZipcode, inputAddress, inputAddressDetail) {
 	new daum.Postcode({
 		oncomplete: (data) => {
 			let address = "";
@@ -41,11 +41,11 @@ function openPostCode() {
 				extraAddress += (extraAddress !== "" ? ", " + data.buildingName : data.buildingName);
 			}
 			if (extraAddress !== "") {
-				extraAddress = ` (\${extraAddress})`;
+				extraAddress = ' (' + extraAddress + ')';
 			}
-			$("#address").val(address + extraAddress);
-			$("#zipCode").val(data.zonecode);
-			$("#addressDetail").focus();
+			$(inputZipcode).val(address + extraAddress);
+			$(inputAddress).val(data.zonecode);
+			$(inputAddressDetail).focus();
 		}
 	}).open();
 }

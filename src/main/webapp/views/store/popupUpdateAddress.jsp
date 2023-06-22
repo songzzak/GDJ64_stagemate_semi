@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>배송지 추가 | StageMate</title>
+<title>배송지 수정 | StageMate</title>
 <style>
     body{width:500px;height:440px;background-color:#f5f5f5;font-family:'Inter',sans-serif;margin:0;padding:0}
     form{margin:0 auto;padding:20px;box-sizing:border-box;background-color:#fff;border-radius:5px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
@@ -26,13 +26,21 @@
     #search-input{display:flex;flex-direction:row;align-items:center;width:340px}
     #btn-search{width:50px;height:33px;z-index:10;padding:0;margin-left:-40px;border-top-left-radius:none;border-bottom-left-radius:none}
 </style>
-
+<%@page import="com.stagemate.deliveryAddress.model.vo.DlvAdress"%>
+<%
+DlvAdress d=(DlvAdress)request.getAttribute("d");
+String addr1=(String)request.getAttribute("addr1");
+String zipcode=(String)request.getAttribute("zipcode");
+String addr2=(String)request.getAttribute("addr2");
+%>
 </head>
 <body>
-    <form action="<%=request.getContextPath()%>/dlv/insertDlvAddress.do" method="post" id="delivery_form">
-    <input type="hidden" name="userId" value="<%=request.getParameter("userId") %>">
+    <form action="<%=request.getContextPath()%>/dlv/updateDlvAddressEnd.do" method="post" id="delivery_form">
+    <input type="hidden" name="dlvId" value="<%=d.getDlvId()%>">
+    <input type="hidden" name="userId" value="<%=d.getMemberId()%>">
+    <input type="hidden" name="isDefaultDlv" value="<%=d.getIsDefaultDlv()%>">
         <div>
-            <h1>신규 배송지</h1>
+            <h1>배송지 수정</h1>
             <table>
                 <colgroup>
                     <col style="width:122px">
@@ -41,26 +49,26 @@
                 <tbody>
                     <tr>
                         <th>수령인</th>
-                        <td><input name="name" type="text" class="n-input" value="" required></td>
+                        <td><input name="name" type="text" class="n-input" value="<%=d.getDlvPerson() %>" required></td>
                     </tr>
                     <tr>
                         <th>배송지명</th>
-                        <td><input name="title" type="text" class="n-input" value="" required></td>
+                        <td><input name="title" type="text" class="n-input" value="<%=d.getDlvNm() %>" required></td>
                     </tr>
                     <tr>
                         <th>연락처</th>
-                        <td><input name="phone" type="text" class="n-input" value="" required></td>
+                        <td><input name="phone" type="text" class="n-input" value="<%=d.getDlvPhone() %>" required></td>
                     </tr>
                     <tr>
                         <th>배송지 주소</th>
                         <td>
                             <div class="search">
                                 <div id="search-input">
-                                    <input id="zipcode" name="zipcode" data-name="data-zipcode" type="text" class="n-input" value="" readonly="" required>
+                                    <input id="zipcode" name="zipcode" data-name="data-zipcode" type="text" class="n-input" value="<%=zipcode %>" readonly="" required>
                                     <button type="button" id="btn-search" class="n-btn btn-sm btn-accent" onclick="openPostCode('#zipcode', '#addr1', '#addr2');">검색</button>
                                 </div>
-                                <input id="addr1" name="addr1" data-name="data-addr1" type="text" class="n-input" value="" readonly="" required>
-                                <input id="addr2" name="addr2" data-name="data-addr2" type="text" class="n-input" value="">
+                                <input id="addr1" name="addr1" data-name="data-addr1" type="text" class="n-input" value="<%=addr1 %>" readonly="" required>
+                                <input id="addr2" name="addr2" data-name="data-addr2" type="text" class="n-input" value="<%=addr2%>">
                             </div>
                         </td>
                     </tr>
