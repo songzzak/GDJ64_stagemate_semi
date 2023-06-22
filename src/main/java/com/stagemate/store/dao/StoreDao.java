@@ -10,10 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.tomcat.util.digester.ArrayStack;
+
 import com.stagemate.common.PropertiesGenerator;
 import com.stagemate.store.model.vo.Product;
 import com.stagemate.store.model.vo.StoreLike;
 import com.stagemate.store.model.vo.StoreUpfile;
+
+import oracle.jdbc.proxy.annotation.Pre;
 
 public class StoreDao {
 
@@ -369,6 +373,33 @@ public class StoreDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public List<StoreLike> selectAllLike(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<StoreLike> likes=new ArrayStack<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllLike"));
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				likes.add(getLike(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return likes;
+	}
+
+	private StoreLike getLike(ResultSet rs) throws SQLException {
+		return StoreLike.builder()
+				.strLikeCd(rs.getString("str_like_cd"))
+				.memberId(rs.getString("member_id"))
+				.productNo(rs.getInt("product_no"))
+				.build();
 	}
 
 

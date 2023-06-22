@@ -148,6 +148,13 @@ public class StoreService {
 		return result;
 	}
 
+	public List<StoreLike> selectAllLike() {
+		Connection conn=getConnection();
+		List<StoreLike> fileList=dao.selectAllLike(conn);
+		close(conn);
+		return fileList;
+	}
+
 
 
 }

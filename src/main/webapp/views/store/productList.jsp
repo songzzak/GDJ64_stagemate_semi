@@ -1,17 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
-<%@page import="java.util.List,com.stagemate.store.model.vo.Product,com.stagemate.store.model.vo.StoreUpfile"%>
+<%@page import="java.util.List,java.util.ArrayList,com.stagemate.store.model.vo.Product,com.stagemate.store.model.vo.StoreUpfile,com.stagemate.store.model.vo.StoreLike"%>
 <%
 List<Product> products = (List) request.getAttribute("products");
 List<StoreUpfile> files = (List) request.getAttribute("files");
+List<StoreLike> likes = (List) request.getAttribute("likes");
 %>
+
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/yoonjin/style_store_main.css">
 <title>Store</title>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
+	<%
+		List<StoreLike> userLike=new ArrayList<StoreLike>();
+	if(likes!=null){
+		for(StoreLike l : likes){
+			if(loginMember!=null&&l.getMemberId().equals(loginMember.getMemberId())){
+				userLike.add(l);
+			}
+		}
+	}
+		%>
 	<section class="min1280px">
 		<div id="sectionContainer" class="max1280px">
 			<div id="store_nav">
@@ -71,6 +83,19 @@ List<StoreUpfile> files = (List) request.getAttribute("files");
                                         break;
                                     }
                                 }
+                                StoreLike sl=null;
+                                for(StoreLike ul : userLike) {
+                                	if(ul.getProductNo()==(productNo)) {
+                                		sl=ul;
+                                	}
+                                }
+                                String heartColor="";
+                                if(sl!=null){
+                                	heartColor="#BC0000";
+                                }else{
+                                	heartColor="none";
+                                }
+                                
                         %>
 						<td class="prod_td1">
 							<div class="product">
@@ -92,7 +117,7 @@ List<StoreUpfile> files = (List) request.getAttribute("files");
 									<div class="flex-container">
 										<span class="price"><%=p.getProductPrice()%></span>
 										<span class="wish"> <span class="wish-count"><%=p.getProductLikeCnt()%></span>
-											<svg width="44" height="39" viewBox="0 0 44 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<svg width="44" height="39" viewBox="0 0 44 39" fill="<%=heartColor%>" xmlns="http://www.w3.org/2000/svg">
                                         		<path d="M12.9329 1.67188C6.67923 1.67188 1.60938 6.80209 1.60938 13.1302C1.60938 24.5885 14.9917 35.0052 22.1976 37.4281C29.4035 35.0052 42.7859 24.5885 42.7859 13.1302C42.7859 6.80209 37.716 1.67188 31.4623 1.67188C27.6329 1.67188 24.2461 3.59584 22.1976 6.54063C21.1535 5.03563 19.7663 3.80739 18.1536 2.95988C16.5409 2.11238 14.7501 1.67058 12.9329 1.67188Z"
 												stroke="#BC0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     	</svg>
