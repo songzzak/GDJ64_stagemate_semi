@@ -55,17 +55,13 @@ hr {
 	width: 100%;
 }
 
-td#board_view_posistion {
-	text-align: right;
-}
-
 th#board_view_posistion1 {
 	text-align: left;
 }
 
 textarea {
 	margin-left: 15%;
-	margin-top: -25%;
+	margin-top: -20%;
 }
 
 button#btn-insert {
@@ -75,7 +71,7 @@ button#btn-insert {
 	margin-right: 20%;
 	width: 50px;
 	height: 50px;
-	margin-top: -25%;
+	margin-top: -20%;
 }
 
 .board_comment_content {
@@ -98,11 +94,33 @@ a.on {
 	border: 1px solid #000;
 	border-radius: 15px;
 	margin-left: 2%;
-	margin-top: 40%;
+	margin-top: 35%;
 }
 
 a {
 	text-decoration: none;
+	color: black;
+}
+
+div#board_view_content {
+	margin-top: 8%;
+}
+
+#board_view table {
+	font-size: 25px;
+}
+td#board_view_posistion {
+    text-align: right;
+}
+img{
+	float: right;
+	width: 30px;
+	height: 30px;
+	margin-right: 1%;
+    margin-top: 1%;
+    background-color: white;
+}
+#thumbs:hover{
 	color: black;
 }
 </style>
@@ -136,17 +154,22 @@ a {
 							<td>user01</td>
 							<td id="board_view_posistion">2023.05.08</td>
 							<td id="board_view_posistion">조회수 98</td>
-							<td id="board_view_posistion">추천수98</td>
-						</tr>
-						<tr>
-							<th>내용</th>
-							<th id="board_view_posistion1">안녕하세요!! 많은 분들이 저를 도와줬어요!!</th>
+							<td id="board_view_posistion">추천수 98</td>
 						</tr>
 					</table>
+					<img id="thumbs" src="<%=request.getContextPath() %>/images/jangheum/thumbs.svg">
+					<div id="board_view_content">
+						<table>
+							<tr>
+								<th>내용</th>
+								<td>안녕하세요!! 많은 분들이 저를 도와줬어요!!</td>
+							</tr>
+						</table>
+					</div>
 					<div class="bt_wrap">
-						<a href="#" class="on">신고</a> 
-						<a href="#" onclick="window.open('boardModify.jsp')"class="on">수정</a> 
-						<a href="#" class="on">삭제</a>
+						<a href="#" class="on">신고</a> <a href="#"
+							onclick="window.open('boardModify.jsp')" class="on">수정</a> <a
+							href="#" class="on">삭제</a>
 					</div>
 				</div>
 				<div class="board_comment_content">
@@ -162,7 +185,16 @@ a {
 <script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 <script src="<%=contextPath%>/js/script_common.js"></script>
 <!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
-
+	<script>
+		$("#thumbs").click(
+			function(){
+				$(this).attr("src","<%=request.getContextPath()%>/images/jangheum/thumbs.svg");
+			},
+			function(){
+				$(this).attr("src","<%=request.getContextPath()%>/images/jangheum/done_thumbs.png");
+			}
+		);
+	</script>
 <!-------------------------------------------->
 </body>
 </html>

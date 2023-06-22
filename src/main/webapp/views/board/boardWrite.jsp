@@ -119,7 +119,8 @@ input#file-upload-button {
 						</tr>
 					</table>
 					<div class="bt_wrap">
-						<a href="#" class="on">취소</a> <a href="#" class="on">완료</a>
+						<a href="#" onclick="window.open('boardList.jsp')" class="on">취소</a> 
+						<a href="#" onclick="window.open('boardList.jsp')" class="on">완료</a>
 					</div>
 
 				</div>
