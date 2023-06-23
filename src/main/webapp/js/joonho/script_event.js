@@ -13,6 +13,7 @@ const openmap = () => {
 	open("<%=contextPath%>/map.do", "_blank", 'top=' + (window.innerHeight / 2 - 250) + ', left=' + (window.innerWidth / 2 - 250) + ', width=500, height=500')
 }
 
+
 $("#detail_information").click(e => {
 	$("#detail_information").css({ "borderBottom": "14px solid black" })
 	$("#detail_information").children().css({ "fontWeight": "bolder" })

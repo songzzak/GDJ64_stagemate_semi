@@ -20,13 +20,13 @@ import com.stagemate.event.service.EventService;
  * Servlet implementation class Payment
  */
 @WebServlet("/event/payment.do")
-public class Payment extends HttpServlet {
+public class PaymentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Payment() {
+    public PaymentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

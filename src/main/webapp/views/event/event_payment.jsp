@@ -134,6 +134,7 @@
 <!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script>
+/* 가격 */
 let allPrice=0;
 const regex = /\((.*?)\)/; // 정규표현식 패턴
 <%for(int i=0;i<seat.length;i++){ %>
@@ -159,16 +160,23 @@ for (let i = 0; i < realPrice.length; i++) {
   }
   result = realPrice[realPrice.length - 1 - i] + result;
 }
-$("#price").text(result+"원");
+var resultpay=result+"원"
+$("#price").text(resultpay);
 
+/* 결제 */
 var IMP = window.IMP; 
-IMP.init("imp13225244"); 
+IMP.init('imp13225244'); 
 
 var today = new Date();   
 var hours = today.getHours(); // 시
 var minutes = today.getMinutes();  // 분
-var makeMerchantUid = today+ hours +  minutes ;
-console.log(makeMerchantUid);
+var seconds = today.getSeconds();  // 초
+var milliseconds = today.getMilliseconds();
+var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+var years = today.getFullYear();
+var months = today.getMonth()+1;
+var dates=today.getDate();
+var payday= years+"년"+months+"월"+dates+"일 "+hours+":"+minutes;
 
 /* let row=[];
 let column=[];
@@ -195,7 +203,7 @@ function requestPay() {
         if (rsp.success) {
           var msg = '결제가 완료되었습니다.';
           alert(msg);
-          location.href = "<%=request.getContextPath()%>/musicalNum1.do?eventNo="+'<%=event.getEventNo()%>'
+          location.href = "<%=request.getContextPath()%>/event/paymentresult.do?eventNo="+'<%=event.getEventNo()%>'
         } else {
           var msg = '결제에 실패하였습니다.';
           msg += '에러내용 : ' + rsp.error_msg;
