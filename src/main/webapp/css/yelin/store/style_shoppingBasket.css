@@ -2,10 +2,11 @@
 .SB_bigchart{
     margin:auto;
     width:900px;
-    height:720px;
     /* border:0.5px solid lightgrey; */
     flex-direction: row;
     margin-top: 15px;
+/*     border: 3px solid red; */
+   
 }
 
 /* 구매상세내역 조절 */
@@ -116,6 +117,7 @@
     font-size:14px;
     /* font-weight: bold; */
     cursor:pointer;
+    /* border: 1px solid red; */
 }
 
 /* 수량 버튼 */
@@ -234,9 +236,12 @@
     cursor:pointer;
 
 }
-
 .SB-lowerbtn{
-    float:right;
-    margin-right:25px;
-    margin-top:25px;
+	margin :25px 0;
+}
+#btn-result{
+	/* border:1px solid green; */
+	display:flex;
+	justify-content: flex-end;
+	margin-right: 25px
 }

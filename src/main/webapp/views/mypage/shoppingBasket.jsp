@@ -109,16 +109,16 @@
                             <p style="margin-right: 10px"><span id="paymentTotalPrice"><%=totalPrice%></span>원</p>
                         </div>
                     </div>
-                    <div class="SB-lowerbtn">
-                        <input type="button" class="lowerbtn-basket" id="deleteCartBtn" value="장바구니 삭제">
-                        <input type="button" class="lowerbtn-purchase"  id="orderCartBtn" value="구매하기">
-                    </div>
+	                    <div class="SB-lowerbtn" id="btn-result">
+	                        <input type="button" class="lowerbtn-basket" id="deleteCartBtn" value="장바구니 삭제">
+	                        <input type="button" class="lowerbtn-purchase"  id="orderCartBtn" value="구매하기">
+	                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <%@ include file="/views/common/footer.jsp"%>
+   <%@ include file="/views/common/footer.jsp"%>
 </body>
 <script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 <script>
