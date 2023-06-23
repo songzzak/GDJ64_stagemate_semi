@@ -26,7 +26,7 @@ public class NoticeInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/notice/insertNotice.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/notice/noticeInsert.jsp").forward(request, response);
 	}
 
 	/**

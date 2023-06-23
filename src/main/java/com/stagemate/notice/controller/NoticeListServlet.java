@@ -15,7 +15,7 @@ import com.stagemate.notice.model.vo.Notice;
 /**
  * Servlet implementation class NoticeListServlet
  */
-@WebServlet("/noticeList.do")
+@WebServlet("/notice/noticeList.do")
 public class NoticeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
