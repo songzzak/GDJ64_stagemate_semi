@@ -58,7 +58,10 @@
                             %>
                             <tr>
                                 <td class="shop-bk"><input type="checkbox" class="cart-checkbox" checked></td>
-                                <td class="shop-bk" ><a href="" style="font-size: 12px"><%=p.getProductNm()%></a></td>
+                                <td class="shop-bk product_name_container">
+                                	<input type="hidden" value="<%=p.getProductNm()%>" class="product_name_input">
+                                	<input type="hidden" value="<%=p.getProductNo()%>" class="product_no_input">
+                                </td>
                                 <td class="shop-bk" ><%=p.getProductPrice()%></td>
                                 <td class="shop-bk">
                                     <div class="haha">
@@ -119,7 +122,21 @@
 <script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 <script>
 $(document).ready(function() {
-   
+
+    // 페이지 로드 시 주문 금액 및 판매가 초기화
+    updateProductPrices();
+    updateTotalPrice();
+ 	// 상품 이름 출력
+    $(".product_name_container").each(function() {
+        var productName = $(this).find(".product_name_input").val();
+        var productNo=$(this).find(".product_no_input").val();
+        const $a=$("<a>");
+        $a.attr("href", "<%=request.getContextPath()%>/store/storeView.do?no="+productNo);
+        $a.text(productName);
+        $a.css("fontSize", "12px");
+        $(this).append($a);
+    });
+ 
     $(".cart-checkbox").on("change", function() {
         updateTotalPrice();
     });
@@ -144,13 +161,27 @@ $(document).ready(function() {
         updateTotalPrice();
     });
 
+    // 주문 금액 및 판매가 초기화
+    function updateProductPrices() {
+        $(".priceByProduct, .shop-bk").each(function() {
+            var priceText = $(this).text();
+            var price = parseInt(priceText.replace(/,/g, ""));
+            if (!isNaN(price)) {
+                $(this).text(price.toLocaleString());
+            }
+        });
+    }
+
     // 주문 금액 업데이트
     function updateProductPrice(input) {
         var quantity = parseInt(input.val());
         var row = input.closest("tr");
-        var price = parseInt(row.find(".shop-bk").eq(2).text());
-        var priceByProduct = price * quantity;
-        row.find(".priceByProduct").text(priceByProduct);
+        var priceText = row.find(".shop-bk").eq(2).text();
+        var price = parseInt(priceText.replace(/,/g, ""));
+        if (!isNaN(price)) {
+            var priceByProduct = price * quantity;
+            row.find(".priceByProduct").text(priceByProduct.toLocaleString());
+        }
     }
 
     // 총 금액
@@ -159,15 +190,20 @@ $(document).ready(function() {
         $(".cart-checkbox:checked").each(function() {
             var row = $(this).closest("tr");
             var quantity = parseInt(row.find(".numBox").val());
-            var price = parseInt(row.find(".shop-bk").eq(2).text());
-            var priceByProduct = price * quantity;
-            row.find(".priceByProduct").text(priceByProduct);
-            totalPrice += priceByProduct;
+            var priceText = row.find(".shop-bk").eq(2).text();
+            var price = parseInt(priceText.replace(/,/g, ""));
+            if (!isNaN(price)) {
+                var priceByProduct = price * quantity;
+                row.find(".priceByProduct").text(priceByProduct.toLocaleString());
+                totalPrice += priceByProduct;
+            }
         });
-        $("#totalPrice").text(totalPrice);
-        $("#productTotalPrice").text(totalPrice);
-        $("#paymentTotalPrice").text(totalPrice);
+        $("#totalPrice").text(totalPrice.toLocaleString());
+        $("#productTotalPrice").text(totalPrice.toLocaleString());
+        $("#paymentTotalPrice").text(totalPrice.toLocaleString());
     }
+    
+    
 });
 
 </script>
