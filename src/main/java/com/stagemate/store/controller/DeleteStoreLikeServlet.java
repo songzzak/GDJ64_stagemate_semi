@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.stagemate.store.model.vo.Product;
 import com.stagemate.store.service.StoreService;
 
 /**
@@ -33,6 +34,9 @@ public class DeleteStoreLikeServlet extends HttpServlet {
 		String userId=request.getParameter("userId");
 
 		int result=new StoreService().deleteStoreLike(productNo,userId);
+		Product p=new StoreService().selectProductByProductNo(productNo);
+		int likeCnt=p.getProductLikeCnt()-1;
+		int result2=new StoreService().updateProductLikeCnt(productNo,likeCnt);
 		response.setContentType("application/json;charset=utf-8");
 		new Gson().toJson(result,response.getWriter());
 	}
