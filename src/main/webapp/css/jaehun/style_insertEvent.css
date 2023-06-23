@@ -1,6 +1,6 @@
 form[name="insertEventForm"] {
     margin: 4% auto;
-    padding: 5%;
+    padding: 5% 8%;
     width: 100%;
     height: 100%;
     border: 1px solid #ddd;
@@ -43,8 +43,26 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-input[type="checkbox"]:checked {
-    background-color: var(--sm-brown);
+input[type="time"]:disabled {
+    background-color: var(--gray-light);
+}
+
+input[type="file"] {
+    border-style: none;
+    padding: 0;
+    border-radius: 0px;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.w-60p {
+    width: 60%;
+}
+
+.w-90p {
+    width: 90%;
 }
 
 .link_active {
@@ -144,12 +162,11 @@ input[type="checkbox"]:checked {
     display: flex;
     align-items: center;
     width: 100%;
-    margin-bottom: 6%;
+    margin-bottom: 7%;
 }
 
 .insert-box-left {
-    width: 150px;
-    padding-right: 10px;
+    width: 130px;
 }
 
 .insert-box-left p {
@@ -183,24 +200,19 @@ fieldset.insert-box-right>label>* {
 
 .event-info {
     position: absolute;
-    top: -33%;
+    top: -30px;
     display: flex;
     align-items: center;
-    width: 50%;
+    width: 100%;
     color: var(--jh-red);
 }
 
-.input_resized {
+.input-fx-center {
     display: flex;
     align-items: center;
-    width: 40%;
 }
 
-.event-period .input_resized {
-    width: 90%;
-}
-
-.event-time {
+.event-period2, .event-time {
     align-items: flex-start;
 }
 
@@ -232,7 +244,7 @@ fieldset.insert-box-right>label>* {
 }
 
 .event-time_row {
-    width: 20%;
+    width: 45%;
     margin-left: 10px;
     display: flex;
     flex-direction: column;
@@ -244,14 +256,37 @@ fieldset.insert-box-right>label>* {
     margin-bottom: 10px;
 }
 
-.event-time_row>p {
-    margin: 0 5px;
-    font-size: 1.1rem;
-    color: var(--jh-blue);
-    cursor: pointer;
-    position: absolute;
-    top: 3%;
-    right: -89px;
-    font-weight: 900;
+.images-main_poster {
+    align-items: flex-start;
 }
 
+.images-main_poster .insert-box-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.images-main_poster input[type="file"] {
+    margin-bottom: 10px;
+}
+
+.box-right_preview {
+    width: 125px;
+    height: 175px;
+}
+
+.event-banner p {
+    line-height: 19px;
+    margin-right: 5px;
+}
+
+.display-none {
+    display: none;
+}
+
+.event-insert {
+    margin: 0 auto 3% auto;
+    margin-bottom: 3%;
+    width: 215px;
+    justify-content: space-between;
+}

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.stagemate.common.JDBCTemplate;
 import com.stagemate.member.model.vo.Member;
 
 public class AdminDao {
@@ -75,5 +76,27 @@ public class AdminDao {
 				.wthdrDate(rs.getDate("WTHDR_DATE"))
 				// .proImgNo(rs.getInt(""))
 				.build();
+	}
+
+	public List<String> selectLocation(Connection conn, String location) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> locations = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectLocation"));
+			pstmt.setString(1, "%" + location + "%");
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				locations.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return locations;
 	}
 }

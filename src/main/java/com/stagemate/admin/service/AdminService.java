@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.stagemate.admin.model.dao.AdminDao;
+import com.stagemate.common.JDBCTemplate;
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.member.model.vo.Member;
 
@@ -25,5 +26,12 @@ public class AdminService {
 		int result=dao.memberCount(conn);
 		close(conn);
 		return result;
+	}
+
+	public List<String> selectLocation(String location) {
+		Connection conn = JDBCTemplate.getConnection();
+		List<String> locations = dao.selectLocation(conn, location);
+		JDBCTemplate.close(conn);
+		return locations;
 	}
 }
