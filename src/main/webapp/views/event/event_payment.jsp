@@ -168,32 +168,40 @@ var IMP = window.IMP;
 IMP.init('imp13225244'); 
 
 var today = new Date();   
+var years = today.getFullYear();
+var months = today.getMonth()+1;
+var dates=today.getDate();
 var hours = today.getHours(); // 시
 var minutes = today.getMinutes();  // 분
 var seconds = today.getSeconds();  // 초
 var milliseconds = today.getMilliseconds();
-var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-var years = today.getFullYear();
-var months = today.getMonth()+1;
-var dates=today.getDate();
-var payday= years+"년"+months+"월"+dates+"일 "+hours+":"+minutes;
+var makeMerchantUid =years+months+dates+ hours +  minutes + seconds + milliseconds;
 
-/* let row=[];
+var imagename;
+<%for (EventUpfile f : files) {
+	if ((f.getPurposeNo().equals("PUR1"))) {
+	%> 
+		imagename='<%=f.getEuRename()%>'
+<%}} %>
+
+let row=[];
 let column=[];
 const pattern = /(?<=.)\d+/g;
-for(let i=0;i<choseat.length-1;i++){
-	row.push(choseat[i].charAt(3));
-	column.push(choseat[i].match(pattern));
+<%for(int i=0;i<seat.length;i++){ %>
+	row.push('<%=seat[i]+")" %>'.charAt(3));
+	column.push('<%=seat[i]+")" %>'.match(pattern));
 	pattern.lastIndex = 0;
-}
- */
+<%} %>
+console.log(row);
+console.log(column);
+ 
 function requestPay() {
     IMP.request_pay({
     	pg: "html5_inicis",
         pay_method : 'card',
         merchant_uid: "IMP"+makeMerchantUid, 
         name : '<%=event.getEventNm() %>',
-        amount : allPrice,
+        amount : 500,
         buyer_email : '<%=loginMember.getMemberEmail() %>',
         buyer_name : '<%=loginMember.getMemberNm() %>',
         buyer_tel : '<%=loginMember.getMemberPhone() %>',
@@ -203,7 +211,10 @@ function requestPay() {
         if (rsp.success) {
           var msg = '결제가 완료되었습니다.';
           alert(msg);
-          location.href = "<%=request.getContextPath()%>/event/paymentresult.do?eventNo="+'<%=event.getEventNo()%>'
+          location.href = '<%=request.getContextPath()%>/event/paymentresult.do?eventNo='+'<%=event.getEventNo()%>'+
+        		  	'&choiceday='+'<%=choiceday %>'+'&totalprice='+allPrice+'&row='+row+'&column='+column+'&memberId='+'<%=loginMember.getMemberId()%>'+
+        		  	'&name='+rsp.buyer_name+'&merchant_uid='+rsp.merchant_uid+'&chkDate='+'<%=chkDate %>'+'&eventName='+'<%=event.getEventNm() %>'+
+        		  	'&imagename='+imagename
         } else {
           var msg = '결제에 실패하였습니다.';
           msg += '에러내용 : ' + rsp.error_msg;
