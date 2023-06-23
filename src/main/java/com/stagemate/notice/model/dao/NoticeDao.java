@@ -12,6 +12,7 @@ import java.util.Properties;
 import static com.stagemate.common.JDBCTemplate.close;
 
 import com.stagemate.notice.model.vo.Notice;
+import com.stagemate.notice.model.vo.NoticeFileData;
 
 public class NoticeDao {
 
@@ -28,10 +29,10 @@ public class NoticeDao {
 	private Notice getNotice(ResultSet rs) throws SQLException{
 		return Notice.builder()
 				.noticeNo(rs.getInt("notice_no"))
+				.noticeInsertDt(rs.getDate("notice_insert_dt"))
 				.noticeContent(rs.getString("notice_content"))
 				.noticeTitle(rs.getString("notice_title"))
 				.noticeWriter(rs.getString("notice_writer"))
-				.noticeInsertDt(rs.getDate("notice_date"))
 				.build();
 	}
 	
@@ -72,5 +73,55 @@ public class NoticeDao {
 			
 		}
 	
+	public int insertNotice(Connection conn, Notice n) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertNotice"));
+			pstmt.setString(1,n.getNoticeContent());
+			pstmt.setString(2, n.getNoticeTitle());
+			pstmt.setString(3, n.getNoticeWriter());
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int selectNoticeSquence(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectNoticeSeqeunce"));
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
 	
+	public int insertNoticeFile(Connection conn, NoticeFileData file) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertNoticeFile"));
+			pstmt.setString(1,file.getImgFilenameOri());
+			pstmt.setString(2, file.getImgFileRename());
+			pstmt.setInt(3, file.getNoticeNo());
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

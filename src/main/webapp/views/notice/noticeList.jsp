@@ -50,7 +50,7 @@
                             <a href="#" class="bt last">>></a>
                         </div>
                    			 <div class="bt_wrap">
-                   			 <%if(loginMember!=null&&loginMember.getMemberId().equals("admin")){ %>
+                   			 <%if(loginMember!=null&&loginMember.getMemberId().equals("stageadmin")){ %>
                    			 <button class="on" onclick="location.assign('<%=request.getContextPath()%>/notice/insertForm.do')">글쓰기</button>
                    			 <%} %>
                    			 </div>

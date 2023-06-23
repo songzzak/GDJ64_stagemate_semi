@@ -12,14 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor 
 @Builder
-
-
 public class Notice {
 	private int noticeNo;
 	private String noticeWriter;
 	private String noticeContent;
 	private Date noticeInsertDt;
 	private String noticeTitle;
+	private NoticeFileData files;
 	
 
 }

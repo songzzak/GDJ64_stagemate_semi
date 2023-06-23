@@ -24,5 +24,24 @@ public int selectNoticeCount() {
 	return result;
 	
 }
-	
+	public int insertNotice(Notice n)
+	{
+		Connection conn= getConnection();
+		int result= dao.insertNotice(conn,n);
+		int noticeNo=dao.selectNoticeSquence(conn);
+		n.getFiles().setNoticeNo(noticeNo);
+		if(result>0) {
+			//공지사항이 등록이 되면....
+			//첨부파일 저장
+			result=dao.insertNoticeFile(conn,n.getFiles());
+			if(result>0) commit(conn);
+			else rollback(conn);
+		}else {
+			rollback(conn);
+		}
+//		if(result>0) commit(conn);
+//		else rollback(conn);
+		close(conn);
+		return result;
+	}
 }

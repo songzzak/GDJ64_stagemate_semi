@@ -66,7 +66,8 @@
             </div>
             <div>
                 <input type="button" value="" 
-                	style="background-image: url('<%= request.getContextPath() %>/images/common/icon_notice.svg')">
+                	style="background-image: url('<%= request.getContextPath() %>/images/common/icon_notice.svg')"
+                	onclick="location.assign('<%=request.getContextPath()%>/notice//noticeList.do');">
                 <p class="icons_text_lower fw-bold">공지사항</p> 
             </div>
         </div>
