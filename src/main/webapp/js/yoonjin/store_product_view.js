@@ -80,7 +80,7 @@ $("#product-view-btn_pay").click(e => {
 			//성공
 			if(response>0){
 				if (confirm("장바구니 목록에 추가하였습니다. 장바구니로 이동하시겠습니까?")) {
-		                location.assign('<%=contextPath%>/store/selectCartList.do?no=' + userId);
+		                location.assign(getContextPath()+"/store/selectCartList.do?id=" + userId);
 		            }
 			 }else{//실패
 					alert("이미 장바구니에 담겨있는 상품입니다. 장바구니에서 수량을 수정해주세요.");

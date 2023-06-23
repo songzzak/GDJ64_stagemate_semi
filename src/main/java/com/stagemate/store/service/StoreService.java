@@ -179,6 +179,15 @@ public class StoreService {
 		return list;
 	}
 
+	public int deleteCart(int pNo) {
+		Connection conn=getConnection();
+		int result=dao.deleteCart(conn, pNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
 
 
 }

@@ -236,7 +236,7 @@ $(document).ready(function() {
 			chk_arr.push($(this).val()); 
 		});
 		if(confirm("선택 상품 모두 장바구니에서 삭제하시겠습니까?")){
-		location.assign("<%=request.getContextPath()%>/store/deleteCart.do?chk_arr="+chk_arr);
+		location.assign("<%=request.getContextPath()%>/store/deleteCart.do?chk_arr="+chk_arr+"&id=<%=loginMember.getMemberId()%>");
 		}else{
 			alert("삭제하기 취소");
 		}

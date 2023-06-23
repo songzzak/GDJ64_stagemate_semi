@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.stagemate.store.service.StoreService;
+
 /**
  * Servlet implementation class DeleteCartServlet
  */
@@ -27,6 +29,7 @@ public class DeleteCartServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String chkArrParam = request.getParameter("chk_arr");
+		String id=request.getParameter("id");
 		String[] chkArrStr = chkArrParam.split(",");
 	    int[] chkArr = new int[chkArrStr.length];
 	    for (int i = 0; i < chkArrStr.length; i++) {
@@ -34,7 +37,10 @@ public class DeleteCartServlet extends HttpServlet {
 	    }
 	    for (int pNo : chkArr) {
 	        System.out.println(pNo);
+	        int result=new StoreService().deleteCart(pNo);
 	    }
+	    request.getRequestDispatcher("/store/selectCartList.do?id="+id).forward(request, response);
+	    
 	}
 
 	/**
