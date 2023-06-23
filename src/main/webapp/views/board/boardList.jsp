@@ -7,7 +7,6 @@ List<Board> boards = (List<Board>) request.getAttribute("board");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <style>
-
 .board_head_list {
 	margin-left: -0.2%;
 }
@@ -102,7 +101,10 @@ div.num {
 
 .board_list .num {
 	width: 10%;
-	margin-left: 2%;
+	margin-left: 3%;
+}
+.title.a {
+    margin-left: 16px;
 }
 
 .board_list .title {
@@ -269,8 +271,12 @@ select {
 	text-align: center;
 	color: #828282;
 }
+
 span {
-    font-size: 25px;
+	font-size: 30px;
+}
+.num.a {
+    margin-left: 1%;
 }
 </style>
 <!---------------------------------------->
@@ -308,16 +314,18 @@ span {
 							<td colspan="6">조회된 데이터가 없습니다</td>
 						</tr>
 						<%
-						} else {%>
+						} else {
+						%>
 						<hr>
-						<% for (Board b : boards) {
+						<%
+						for (Board b : boards) {
 						%>
 						<div class="board_list">
-							<div class="num">
-								<button>인기글</button>
-							</div>
+							<div class="num"><%=b.getBoardNo() %></div>
 							<div class="title">
-								<a href="#"><%=b.getBoardTitle()%></a>
+								<a href="<%=request.getContextPath()%>/board/boardView.do?=<%=b.getBoardNo()%>">
+								<%=b.getBoardTitle()%>
+								</a>
 							</div>
 							<div class="count"><%=b.getBoardViewCNT()%></div>
 							<div class="rec_num"><%=b.getBoardLikeCNT()%></div>
@@ -325,16 +333,18 @@ span {
 							<div class="date"><%=b.getBoardDate()%></div>
 						</div>
 						<%
-						}%>
+						}
+						%>
 						<hr>
 					</div>
-					<% }
-						%>
-
-
+					<%
+					}
+					%>
 				</div>
+
+
 				<div class="bt_wrap">
-					<a href="#" onclick="window.open('boardWrite.jsp')" class="on">작성</a>
+					<a href="<%=request.getContextPath()%>/board/boardWrite.do" class="on">작성</a>
 				</div>
 				<div class="extracontainer">
 					<form action="">
@@ -361,7 +371,7 @@ span {
 				</div>
 				<div class="page-bar">
 					<%=request.getAttribute("pageBar")%>
-					
+
 				</div>
 		</div>
 </body>

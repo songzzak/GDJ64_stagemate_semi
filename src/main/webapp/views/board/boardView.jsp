@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.stagemate.board.model.vo.Board"%>
+<%
+	Board b=(Board)request.getAttribute("board");
+%>  	
 <%@ include file="/views/common/top.jsp"%>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <style>
@@ -144,7 +148,7 @@ img{
 					<table>
 						<tr>
 							<th>제목</th>
-							<td>많은 분들이 저를 도와줬어요</td>
+							<td><%=b.getBoardTitle() %></td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -152,9 +156,9 @@ img{
 						<tr>
 							<th>작성자</th>
 							<td>user01</td>
-							<td id="board_view_posistion">2023.05.08</td>
-							<td id="board_view_posistion">조회수 98</td>
-							<td id="board_view_posistion">추천수 98</td>
+							<td id="board_view_posistion"><%=b.getBoardDate() %></td>
+							<td id="board_view_posistion"><%=b.getBoardViewCNT() %></td>
+							<td id="board_view_posistion"><%=b.getBoardLikeCNT() %></td>
 						</tr>
 					</table>
 					<img id="thumbs" src="<%=request.getContextPath() %>/images/jangheum/thumbs.svg">

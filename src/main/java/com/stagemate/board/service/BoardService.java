@@ -24,7 +24,7 @@ public class BoardService {
 		return result;
 	}
 	
-	public Board selectBoardByBo(int no) {
+	public Board selectBoardByNo(int no) {
 		Connection conn=getConnection();
 		Board b=dao.selectBoardByNo(conn,no);
 		close(conn);
