@@ -58,7 +58,7 @@
                                             totalPrice += priceByProduct; // 총 금액 누적
                             %>
                             <tr>
-                                <td class="shop-bk"><input type="checkbox" class="cart-checkbox" checked></td>
+                                <td class="shop-bk"><input type="checkbox" class="cart-checkbox" name="cart-checkbox" value="<%=p.getProductNo() %>" checked></td>
                                 <td class="shop-bk product_name_container">
                                 	<input type="hidden" value="<%=p.getProductNm()%>" class="product_name_input">
                                 	<input type="hidden" value="<%=p.getProductNo()%>" class="product_no_input">
@@ -110,8 +110,8 @@
                         </div>
                     </div>
                     <div class="SB-lowerbtn">
-                        <input type="button" class="lowerbtn-basket" value="장바구니 삭제">
-                        <input type="button" class="lowerbtn-purchase" value="구매하기">
+                        <input type="button" class="lowerbtn-basket" id="deleteCartBtn" value="장바구니 삭제">
+                        <input type="button" class="lowerbtn-purchase"  id="orderCartBtn" value="구매하기">
                     </div>
                 </div>
             </div>
@@ -124,9 +124,27 @@
 <script>
 $(document).ready(function() {
 
+	// 전체선택 체크박스 클릭 시
+    $("#selectAll").on("change", function() {
+        var isChecked = $(this).prop("checked");
+        $(".cart-checkbox").prop("checked", isChecked);
+        updateTotalPrice();
+    });
+
+    // 개별 체크박스 클릭 시
+    $(".cart-checkbox").on("change", function() {
+        if ($(".cart-checkbox:checked").length === $(".cart-checkbox").length) {
+        	$("#selectAll").prop("checked", true);
+        } else {
+        	$("#selectAll").prop("checked", false);
+        }
+        updateTotalPrice();
+    });
+    
     // 페이지 로드 시 주문 금액 및 판매가 초기화
     updateProductPrices();
     updateTotalPrice();
+    
  	// 상품 이름 출력
     $(".product_name_container").each(function() {
         var productName = $(this).find(".product_name_input").val();
@@ -212,6 +230,18 @@ $(document).ready(function() {
     	location.assign("<%=request.getContextPath()%>/store/storeOrder.do?no=" + pNo + "&count=" + count+"&userId="+userId);
     });
     
+    $("#deleteCartBtn").click(function () {
+		let chk_arr=[];
+		$(".cart-checkbox:checked").each(function(){
+			chk_arr.push($(this).val()); 
+		});
+		if(confirm("선택 상품 모두 장바구니에서 삭제하시겠습니까?")){
+		location.assign("<%=request.getContextPath()%>/store/deleteCart.do?chk_arr="+chk_arr);
+		}else{
+			alert("삭제하기 취소");
+		}
+		reload();
+	})
 });
 
 </script>
