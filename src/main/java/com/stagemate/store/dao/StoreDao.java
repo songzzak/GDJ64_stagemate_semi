@@ -474,6 +474,33 @@ public class StoreDao {
 				.build();
 	}
 
+	public List<Product> selectAllProductOrderBySort(Connection conn, int cPage, int numPerPage, String sort) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Product> list=new ArrayList<>();
+		try {
+			switch (sort) {
+			case "popular":pstmt=conn.prepareStatement(sql.getProperty("productOrderByPopular")); break;
+			case "price_low":pstmt=conn.prepareStatement(sql.getProperty("productOrderByPriceLow")); break;
+			case "price_high":pstmt=conn.prepareStatement(sql.getProperty("productOrderByPriceHigh")); break;
+			case "review_high":pstmt=conn.prepareStatement(sql.getProperty("productOrderByReviewHigh")); break;
+			}
+			pstmt.setInt(1, ((cPage-1)*numPerPage+1));
+			pstmt.setInt(2, cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(getProduct(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+
 
 
 }

@@ -1,8 +1,20 @@
+$(document).ready(function() {
+  var sortFilterValue = $("#sortFilter").val();
 
+  $("#store_nav_menu li").each(function() {
+    var liId = $(this).attr("id")
+    if (sortFilterValue === liId) {
+	$("#store_nav_menu").find("span").removeClass("select-store-menu");
+      $(this).find("span").addClass("select-store-menu");
+    }
+  });
+  
+});
 
 $("#store_nav_menu span").on("click",function(e){
-    $("#store_nav_menu").find("span").removeClass("select-store-menu");
-    $(e.target).addClass("select-store-menu");
+    var sort = $(e.target).parent().attr("id");
+    console.log(sort);
+    location.assign(getContextPath() + "/store/productList.do?sort=" + sort);
 })
 $(".bar-num").on("click",function(e){
   $(".bar-num").find("span").removeClass("select-store-menu");
