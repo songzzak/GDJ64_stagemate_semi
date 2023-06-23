@@ -60,7 +60,7 @@
             <% } %>
 	        </div>
             <div>
-                <input type="button" value="" 
+                <input type="button" value="" onclick="myCart();"
                 	style="background-image: url('<%= request.getContextPath() %>/images/common/icon_cart.svg')">
                 <p class="icons_text_lower fw-bold">장바구니</p>
             </div>
@@ -102,5 +102,13 @@ function showModalLogOut() {
 function closeModalLogOut() {
 	$(".modal-logout-container").css("transition", "")
 						.removeClass("modal-logout-show");
+}
+function myCart(){
+ <% if(loginMember != null) {%>
+	 location.assign('<%=request.getContextPath()%>/store/selectCartList.do?id=<%=loginMember.getMemberId()%>');
+ <% } else { %>
+ 	alert("로그인 후 이용가능한 서비스입니다.");
+	location.assign('<%=request.getContextPath()%>/login.do');
+ <% } %>
 }
 </script>

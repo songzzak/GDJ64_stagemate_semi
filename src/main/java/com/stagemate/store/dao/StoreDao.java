@@ -379,7 +379,7 @@ public class StoreDao {
 	public List<StoreLike> selectAllLike(Connection conn) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		List<StoreLike> likes=new ArrayStack<>();
+		List<StoreLike> likes=new ArrayList<>();
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("selectAllLike"));
 			rs=pstmt.executeQuery();
@@ -443,6 +443,35 @@ public class StoreDao {
 		}
 		//System.out.println("체크"+result);
 		return result;
+	}
+
+	public List<Cart> selectCartByUserId(Connection conn, String id) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Cart> carts=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectCartByUserId"));
+			pstmt.setString(1, id);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				carts.add(getCart(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return carts;
+	}
+
+	private Cart getCart(ResultSet rs) throws SQLException {
+		return Cart.builder()
+				.cartCd(rs.getString("cart_cd"))
+				.memberId(rs.getString("member_id"))
+				.productNo(rs.getInt("product_no"))
+				.cartAmt(rs.getInt("cart_amt"))
+				.build();
 	}
 
 
