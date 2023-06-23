@@ -33,7 +33,11 @@ public class ReservationEventServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String evcNo=request.getParameter("evc");
 		String eventNo=request.getParameter("event");
+		String round=request.getParameter("round");
+		String choiceday=request.getParameter("choiceday");
 		request.setAttribute("eventNo", eventNo);
+		request.setAttribute("round", round);
+		request.setAttribute("choiceday", choiceday);
 		if(evcNo.equals("EVC1")) {
 			List<Seat> seats=new EventService().selectSeatByEvnNoMusical(eventNo);
 			request.setAttribute("seats", seats);

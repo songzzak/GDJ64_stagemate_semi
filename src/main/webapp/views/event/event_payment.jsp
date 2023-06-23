@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp" %>
+<%@ page
+	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile"%>
+<%
+	Event event = (Event) request.getAttribute("event");
+	List<EventUpfile> files = (List) request.getAttribute("files");
+	String round = (String)request.getAttribute("round");
+	String choiceday = (String)request.getAttribute("choiceday");
+	String chkDate = (String)request.getAttribute("chkDate");
+	String[] seat = (String[])request.getAttribute("seat");
+%>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet" href="<%=contextPath%>/css/joonho/style_event_payment.css">
 <!---------------------------------------->
@@ -23,13 +33,18 @@
 		<div id="payment_info">
 			<!-- 결제하려는 행사 이미지 -->
 			<div>
-				<img src="<%=contextPath%>/images/joonho/Narcissus_and_Goldmund.png">
+			<%for (EventUpfile f : files) {
+						if ((f.getPurposeNo().equals("PUR1"))) {
+						%> 
+				<img src="<%=contextPath%>/upload/joonho/<%=f.getEuRename()%>"
+							width="250" height="350">
+			<%}} %>
 			</div>
 			<!-- 결제하려는 행사 예약대기정보 -->
 			<div>
 				<!-- 제목 -->
 				<div id="payment_title">
-					<h2>나르치스와 골드문트</h2>
+					<h2><%=event.getEventNm() %></h2>
 				</div>
 				<div id="payment_detail">
 					<!-- 상세소제목 -->
@@ -41,13 +56,12 @@
 					</div>
 					<!-- 상세내용 -->
 					<div>
-						<h3>2023.05.24(수)</h3>
-						<h3>1회 | 19시 30분</h3>
-						<h3>4매</h3>
-						<h3>1층 A열 10번(VIP석)</h3>
-						<h3>1층 C열 6번(R석)</h3>
-						<h3>1층 C열 2번(S석)</h3>
-						<h3>1층 E열 6번(A석)</h3>
+						<h3><%=choiceday %></h3>
+						<h3><%=round %></h3>
+						<h3><%=seat.length %>매</h3>
+						<%for(int i=0;i<seat.length;i++){ %>
+						<h3 class="payseat"><%=seat[i]+")" %></h3>
+						<%} %>
 					</div>
 				</div>
 			</div>
@@ -55,14 +69,14 @@
 				<!-- 주문자 정보 -->
 				<div id="payment_buyer">
 					<h2>주문자 정보</h2>
-					<h3>곽철용</h3>
-					<h3>01012345678</h3>
-					<h3>irondragon@gmail.com</h3>
+					<h3><%=loginMember.getMemberNm() %></h3>
+					<h3><%=loginMember.getMemberPhone() %></h3>
+					<h3><%=loginMember.getMemberEmail() %></h3>
 				</div>
 				<!-- 최종 결제금액 -->
 				<div id="payment_final">
 					<h1>최종결제 금액</h1>
-					<h1>427,000원</h1>
+					<h1 id="price"></h1>
 				</div>
 				<div id="payment_button">
 					<button>이전 단계</button>
@@ -73,7 +87,7 @@
 		<hr>
 		<!-- 취소 관련 안내사항 -->
 		<div id="payment_cancel_info">
-			<h1>취소 가능 마감 시간 : 2023년 5월 23일</h1>
+			<h1>취소 가능 마감 시간 : <%=chkDate %></h1>
 			<div><h3>취소 수수료 및 취소기한을 확인하였으며, 이에 동의합니다.</h3><input type="checkbox"></div>
 			<table id="payment_cancel_tbl">
 				<tr>
@@ -120,8 +134,38 @@
 <!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script>
+/* 가격 */
+let allPrice=0;
+const regex = /\((.*?)\)/; // 정규표현식 패턴
+<%for(int i=0;i<seat.length;i++){ %>
+	 var price='<%=seat[i]+")" %>'
+	var realprice=price.match(regex);
+	regex.lastIndex = 0; 
+	switch(realprice[1]) {
+		case 'VIP석' : allPrice+=150000;break;
+		case "R석" : allPrice+=120000;break;
+		case "S석" : allPrice+=90000;break;
+		case "A석" : allPrice+=70000;break;
+		case "스탠딩석" : allPrice+=80000;break;
+		case "지정석" : allPrice+=80000;break;
+		default : allPrice+=50000;break;
+	} 
+<%} %>
+let realPrice = allPrice.toString();
+let result = '';
+
+for (let i = 0; i < realPrice.length; i++) {
+  if (i > 0 && i % 3 === 0) {
+    result = ',' + result;
+  }
+  result = realPrice[realPrice.length - 1 - i] + result;
+}
+var resultpay=result+"원"
+$("#price").text(resultpay);
+
+/* 결제 */
 var IMP = window.IMP; 
-IMP.init("imp13225244"); 
+IMP.init('imp13225244'); 
 
 var today = new Date();   
 var hours = today.getHours(); // 시
@@ -129,25 +173,37 @@ var minutes = today.getMinutes();  // 분
 var seconds = today.getSeconds();  // 초
 var milliseconds = today.getMilliseconds();
 var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+var years = today.getFullYear();
+var months = today.getMonth()+1;
+var dates=today.getDate();
+var payday= years+"년"+months+"월"+dates+"일 "+hours+":"+minutes;
 
-
+/* let row=[];
+let column=[];
+const pattern = /(?<=.)\d+/g;
+for(let i=0;i<choseat.length-1;i++){
+	row.push(choseat[i].charAt(3));
+	column.push(choseat[i].match(pattern));
+	pattern.lastIndex = 0;
+}
+ */
 function requestPay() {
     IMP.request_pay({
     	pg: "html5_inicis",
         pay_method : 'card',
         merchant_uid: "IMP"+makeMerchantUid, 
-        name : '당근 10kg',
-        amount : 100,
-        buyer_email : 'Iamport@chai.finance',
-        buyer_name : '아임포트 기술지원팀',
-        buyer_tel : '010-1234-5678',
-        buyer_addr : '서울특별시 강남구 삼성동',
+        name : '<%=event.getEventNm() %>',
+        amount : allPrice,
+        buyer_email : '<%=loginMember.getMemberEmail() %>',
+        buyer_name : '<%=loginMember.getMemberNm() %>',
+        buyer_tel : '<%=loginMember.getMemberPhone() %>',
+        buyer_addr : '<%=loginMember.getMemberAddress() %>',
     }, function (rsp) {
         console.log(rsp);
         if (rsp.success) {
           var msg = '결제가 완료되었습니다.';
           alert(msg);
-          location.href = "<%=request.getContextPath()%>/musicalNum1.do"
+          location.href = "<%=request.getContextPath()%>/event/paymentresult.do?eventNo="+'<%=event.getEventNo()%>'
         } else {
           var msg = '결제에 실패하였습니다.';
           msg += '에러내용 : ' + rsp.error_msg;
@@ -163,7 +219,6 @@ function checkAll() {
 		$("input[name=check]").prop("checked", false);
 	}
 }
-
 </script>
 <!-------------------------------------------->
 </body>

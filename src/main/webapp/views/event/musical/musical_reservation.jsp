@@ -6,6 +6,8 @@
 <%
 	List<Seat> seats = (List) request.getAttribute("seats");
 	String eventNo = (String)request.getAttribute("eventNo");
+	String round = (String)request.getAttribute("round");
+	String choiceday = (String)request.getAttribute("choiceday");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -116,7 +118,7 @@
 						<button onclick="prev_page('<%=eventNo%>');">이전 단계</button>
 						<button onclick="seat_reset();">좌석 초기화</button>
 					</div>
-					<button onclick="toPayment('<%=eventNo%>')">좌석선택 완료</button>
+					<button onclick="toPayment('<%=eventNo%>','<%=round%>','<%=choiceday%>')">좌석선택 완료</button>
 				</div>
 			</div>
 		</div>

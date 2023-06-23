@@ -170,21 +170,20 @@ const seat_reset = () => {
 function prev_page(eventNo) {
 	location.replace(getContextPath() + "/event/eventView.do?no="+eventNo);
 }
-function toPayment(eventNo) {
+function toPayment(eventNo,round,choiceday) {
 		const seat=$("#selectedSeat>div>div").text();
-		let choseat=seat.split(")");
+		/*let choseat=seat.split(")");
 		let row=[];
 		let column=[];
 		const pattern = /(?<=.)\d+/g;
 		for(let i=0;i<choseat.length-1;i++){
 			row.push(choseat[i].charAt(3));
-			column.push(choseat[i].match(pattern))
-		}
-		console.log(row)
-		console.log(column)
+			column.push(choseat[i].match(pattern));
+			pattern.lastIndex = 0;
+		}*/
 		if(seat==""){
 			alert("좌석을 선택해주세요")
 			return;
 		}
-		location.replace(getContextPath() + "/event/payment.do?no="+eventNo+"&row="+row+"&column="+column);
+		location.replace(getContextPath() + "/event/payment.do?no="+eventNo+"&seat="+seat+"&round="+round+"&choiceday="+choiceday);
 	}

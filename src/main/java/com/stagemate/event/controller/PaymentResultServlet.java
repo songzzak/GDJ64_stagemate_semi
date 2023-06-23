@@ -1,8 +1,6 @@
 package com.stagemate.event.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Payment
+ * Servlet implementation class PaymentResultServlet
  */
-@WebServlet("/event/payment.do")
-public class Payment extends HttpServlet {
+@WebServlet("/event/paymentresult.do")
+public class PaymentResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Payment() {
+    public PaymentResultServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,14 +26,13 @@ public class Payment extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String eventNo=request.getParameter("no");
-		String row=request.getParameter("row");
-		String column=request.getParameter("column");
-		System.out.println(row);
-		System.out.println(column);
-
-		
-		request.getRequestDispatcher("/views/event/event_payment.jsp").forward(request, response);
+		String imp_uid=request.getParameter("imp_uid");
+		String merchant_uid=request.getParameter("merchant_uid");
+		String imp_success=request.getParameter("imp_success");
+		System.out.println(imp_uid);
+		System.out.println(merchant_uid);
+		System.out.println(imp_success);
+		//request.getRequestDispatcher("/views/event/event_payment_final.jsp").forward(request, response);
 	}
 
 	/**
