@@ -1,6 +1,7 @@
 package com.stagemate.store.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -24,6 +25,7 @@ public class StoreProductList extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		
 		//페이징처리
 		int cPage;
@@ -40,10 +42,20 @@ public class StoreProductList extends HttpServlet {
 		}
 		
 		//1. DB에 있는 데이터 가져오기
-		List<Product> products=new StoreService().selectAllProduct(cPage,numPerPage);
+		//정렬기준 확인
+		String sort=request.getParameter("sort");
+		List<Product> products=new ArrayList<>();
+		if (sort == null || sort.isEmpty()||sort.equals("new")) {
+		    // 기본 정렬방식
+			products=new StoreService().selectAllProduct(cPage,numPerPage);
+		} else {
+			//정렬 기준 매개변수로 가지는 메소드
+			products=new StoreService().selectAllProductOrderBySort(cPage,numPerPage,sort);
+		}
 		List<StoreUpfile> files=new StoreService().selectAllFile();
 		List<StoreLike> likes=new StoreService().selectAllLike();
 		//2.DB에서 가져온 데이터 저장(화면출력)
+		request.setAttribute("sortFilter", sort);
 		request.setAttribute("products", products);
 		request.setAttribute("files", files);
 		request.setAttribute("likes", likes);

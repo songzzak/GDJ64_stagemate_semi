@@ -6,6 +6,10 @@
 List<Product> products = (List) request.getAttribute("products");
 List<StoreUpfile> files = (List) request.getAttribute("files");
 List<StoreLike> likes = (List) request.getAttribute("likes");
+String sortFilter=(String)request.getAttribute("sortFilter");
+if (sortFilter == null || sortFilter.isEmpty()) {
+    sortFilter = "new"; // 값이 없을 경우 "new"로 고정
+}
 %>
 
 <link rel="stylesheet"
@@ -29,18 +33,19 @@ List<StoreLike> likes = (List) request.getAttribute("likes");
 			<div id="store_nav">
 				<div id="store_nav_title">
 					<p>전체상품</p>
+					<input type="hidden" id="sortFilter" value="<%=sortFilter%>">
 				</div>
 				<nav id="store_nav_menu">
 					<ul>
-						<li class="menu_style"><span class="select-store-menu">최신등록순</span></li>
+						<li class="menu_style" id="new"><span class="select-store-menu">최신등록순</span></li>
 						<li class="bar">|</li>
-						<li class="menu_style"><span class="">인기순</span></li>
+						<li class="menu_style" id="popular"><span class="">인기순</span></li>
 						<li class="bar">|</li>
-						<li class="menu_style"><span class="">낮은가격순</span></li>
+						<li class="menu_style"  id="price_low"><span class="">낮은가격순</span></li>
 						<li class="bar">|</li>
-						<li class="menu_style"><span class="">높은가격순</span></li>
+						<li class="menu_style"  id="price_high"><span class="">높은가격순</span></li>
 						<li class="bar">|</li>
-						<li class="menu_style"><span class="">리뷰많은순</span></li>
+						<li class="menu_style"  id="review_high"><span class="">리뷰많은순</span></li>
 					</ul>
 				</nav>
 				<div id="store_search">

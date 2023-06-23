@@ -172,6 +172,13 @@ public class StoreService {
 		return cartList;
 	}
 
+	public List<Product> selectAllProductOrderBySort(int cPage, int numPerPage, String sort) {
+		Connection conn=getConnection();
+		List<Product> list=dao.selectAllProductOrderBySort(conn,cPage,numPerPage,sort);
+		close(conn);
+		return list;
+	}
+
 
 
 }
