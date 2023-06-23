@@ -26,15 +26,17 @@
                         <colgroup>
                             <col style="width: 50px">
                             <col style="width: 170px">
-                            <col style="width: 250px">
+                            <col style="width: 130px">
+                            <col style="width: 200px">
                             <col style="width: 135px">
                         </colgroup>
                         <thead>
                             <tr>
                                 <th scope="col"><input type="checkbox" value="전체선택" id="selectAll"></th>
                                 <th scope="col">상품 정보</th>
+                                 <th scope="col">판매가</th>
                                 <th scope="col">수량</th>
-                                <th scope="col">상품 금액</th>
+                                <th scope="col">주문 금액</th>
                                 <th scope="col">주문</th>
                             </tr>
                         </thead>
@@ -43,7 +45,7 @@
                             if (carts == null) {
                             %>
                             <tr>
-                                <td colspan="5">조회된 장바구니 목록이 없습니다.</td>
+                                <td colspan="6">조회된 장바구니 목록이 없습니다.</td>
                             </tr>
                             <%
                             } else {
@@ -56,7 +58,8 @@
                             %>
                             <tr>
                                 <td class="shop-bk"><input type="checkbox" class="cart-checkbox" checked></td>
-                                <td class="shop-bk" id="product-name"><a href=""><%=p.getProductNm()%></a></td>
+                                <td class="shop-bk" ><a href="" style="font-size: 12px"><%=p.getProductNm()%></a></td>
+                                <td class="shop-bk" ><%=p.getProductPrice()%></td>
                                 <td class="shop-bk">
                                     <div class="haha">
                                         <button type="button" class="minus">-</button>
@@ -74,7 +77,7 @@
                                 }
                             %>
                             <tr>
-                                <td colspan="5" class="SBT-txt">
+                                <td colspan="6" class="SBT-txt">
                                     <p>
                                         총 합계 : <span id="totalPrice"><%=totalPrice%></span>원
                                     </p>
@@ -116,12 +119,12 @@
 <script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 <script>
 $(document).ready(function() {
-    // 체크박스 변경 시 이벤트
+   
     $(".cart-checkbox").on("change", function() {
         updateTotalPrice();
     });
 
-    // 수량 변경 시 이벤트
+    // 수량 변경
     $(".minus").on("click", function() {
         var input = $(this).siblings(".numBox");
         var quantity = parseInt(input.val());
@@ -132,7 +135,6 @@ $(document).ready(function() {
             updateTotalPrice();
         }
     });
-
     $(".plus").on("click", function() {
         var input = $(this).siblings(".numBox");
         var quantity = parseInt(input.val());
@@ -142,28 +144,31 @@ $(document).ready(function() {
         updateTotalPrice();
     });
 
-    // 상품 금액 업데이트 함수
+    // 주문 금액 업데이트
     function updateProductPrice(input) {
         var quantity = parseInt(input.val());
         var row = input.closest("tr");
-        var priceByProduct = parseInt(row.find(".priceByProduct").text());
-        var newPriceByProduct = priceByProduct * quantity;
-        row.find(".priceByProduct").text(newPriceByProduct);
+        var price = parseInt(row.find(".shop-bk").eq(2).text());
+        var priceByProduct = price * quantity;
+        row.find(".priceByProduct").text(priceByProduct);
     }
 
-    // 총 금액 업데이트 함수
+    // 총 금액
     function updateTotalPrice() {
         var totalPrice = 0;
         $(".cart-checkbox:checked").each(function() {
             var row = $(this).closest("tr");
             var quantity = parseInt(row.find(".numBox").val());
-            var priceByProduct = parseInt(row.find(".priceByProduct").text());
-            totalPrice += priceByProduct * quantity;
+            var price = parseInt(row.find(".shop-bk").eq(2).text());
+            var priceByProduct = price * quantity;
+            row.find(".priceByProduct").text(priceByProduct);
+            totalPrice += priceByProduct;
         });
         $("#totalPrice").text(totalPrice);
         $("#productTotalPrice").text(totalPrice);
         $("#paymentTotalPrice").text(totalPrice);
     }
 });
+
 </script>
 </html>
