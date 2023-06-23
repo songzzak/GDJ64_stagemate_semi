@@ -22,6 +22,7 @@
                 </div>
                 <!-- 장바구니 내역 -->
                 <div class="ShoppingBasket_List">
+                <input type="hidden" id="userId" value="<%=loginMember.getMemberId()%>">
                     <table class="ShoppingBasket-table" style="margin: 3px auto; margin-right: auto;">
                         <colgroup>
                             <col style="width: 50px">
@@ -203,6 +204,13 @@ $(document).ready(function() {
         $("#paymentTotalPrice").text(totalPrice.toLocaleString());
     }
     
+    $(".SBOrder-btn").click(function() {
+    	var row = $(this).closest("tr");
+        var pNo = row.find(".product_no_input").val();
+        var count = parseInt(row.find(".numBox").val());
+        var userId = $("#userId").val();
+    	location.assign("<%=request.getContextPath()%>/store/storeOrder.do?no=" + pNo + "&count=" + count+"&userId="+userId);
+    });
     
 });
 
