@@ -4,8 +4,11 @@ import static com.stagemate.common.JDBCTemplate.close;
 import static com.stagemate.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
+import com.stagemate.common.JDBCTemplate;
 import com.stagemate.event.dao.EventDao;
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventTime;
@@ -120,6 +123,29 @@ public class EventService {
 		return seats;
 	}
 	
-	
-
+	public int insertEvent(Map<String, String> info, 
+							List<String> casting,
+							String category,
+							Map<Date, String> eventSchedule,
+							Map<String, List<String>> eventFiles) 
+	{
+		Connection conn = JDBCTemplate.getConnection();
+		int resultTotal = 0;
+		int resultOfInfo = dao.insertEventInfo(conn, info);
+		int resultOfCasting = dao.insertEventCasting(conn, casting);
+		int resultOfSchedule = dao.insertEventSchedule(conn, category, eventSchedule);
+		int resultOfFiles = dao.insertEventFiles(conn, eventFiles);
+		
+		if (resultOfInfo == 0 || resultOfCasting == 0 
+			|| resultOfFiles == 0 || resultOfSchedule == 0) 
+		{
+			JDBCTemplate.rollback(conn);
+		} else {
+			resultTotal = 1;
+			JDBCTemplate.commit(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		return resultTotal;
+	}
 }

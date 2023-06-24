@@ -62,7 +62,8 @@ input[type="checkbox"]:checked {
 					<p>등록</p>
 				</nav>
 				<hr>
-				<form name="insertEventForm">
+				<form name="insertEventForm" method="post" enctype="multipart/form-data"
+						action="<%= contextPath %>/admin/insertEventEnd.do">
 					<div class="event-title insert-box">
 						<div class="insert-box-left">
 	                        <p class="fw-bold">행사명</p>
@@ -135,7 +136,7 @@ input[type="checkbox"]:checked {
 							</div>
 							<div class="insert-box-right">
 								<div class="input-fx-center w-60p">
-									<input type="number" name="eventPeriod" id="eventPeriod" required>
+									<input type="number" name="eventInter" id="eventInter" required>
 									<span>분</span>
 								</div>
 							</div>
@@ -182,64 +183,64 @@ input[type="checkbox"]:checked {
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>월</span>
-										<input type="checkbox" name="eventTime" value="월">
+										<input type="checkbox" name="eventDay" value="월">
 									</div>
 									<div class="event-time_row">
-										<input type="time" name="startTimeMon" id="startTimeMon" disabled>
+										<input type="time" name="startTime" disabled>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>화</span>
-										<input type="checkbox" name="eventTime" value="화">
+										<input type="checkbox" name="eventDay" value="화">
 									</div>
 									<div class="event-time_row">
-										<input type="time" name="startTimeTue" id="startTimeTue" disabled>
+										<input type="time" name="startTime" disabled>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>수</span>
-										<input type="checkbox" name="eventTime" value="수">
+										<input type="checkbox" name="eventDay" value="수">
 									</div>
 									<div class="event-time_row">
-										<input type="time" name="startTimeWed" id="startTimeWed" disabled>
+										<input type="time" name="startTime" disabled>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>목</span>
-										<input type="checkbox" name="eventTime" value="목">
+										<input type="checkbox" name="eventDay" value="목">
 									</div>
 									<div class="event-time_row">
-										<input type="time" name="startTimeThu" id="startTimeThu" disabled>
+										<input type="time" name="startTime" disabled>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>금</span>
-										<input type="checkbox" name="eventTime" value="금">
+										<input type="checkbox" name="eventDay" value="금">
 									</div>
 									<div class="event-time_row">
-										<input type="time" name="startTimeFri" id="startTimeFri" disabled>
+										<input type="time" name="startTime" disabled>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>토</span>
-										<input type="checkbox" name="eventTime" value="토">
+										<input type="checkbox" name="eventDay" value="토">
 									</div>
 									<div class="event-time_row">
-										<input type="time" name="startTimeSat" id="startTimeSat" disabled>
+										<input type="time" name="startTime" disabled>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>일</span>
-										<input type="checkbox" name="eventTime" value="일">
+										<input type="checkbox" name="eventDay" value="일">
 									</div>
 									<div class="event-time_row">
-										<input type="time" name="startTimeSun" id="startTimeSun" disabled>
+										<input type="time" name="startTime" disabled>
 									</div>
 								</div>
 							</fieldset>
@@ -253,7 +254,7 @@ input[type="checkbox"]:checked {
 							<div class="insert-box-right">
 								<div class="input-fx-center w-90p">
 									<input type="search" name="eventLocation" id="eventLocation" list="locations" required>
-								<datalist id="locations"></datalist>
+									<datalist id="locations"></datalist>
 								</div>
 							</div>
 						</div>
@@ -283,9 +284,6 @@ input[type="checkbox"]:checked {
 							</div>
 							<div class="insert-box-right">
 								<input type="file" name="eventMainPoster" id="eventMainPoster" required>
-								<div class="box-right_preview">
-									<img src="<%= contextPath %>/images/jaehun/page_insert_event/preview.svg">
-								</div>
 							</div>
 						</div>
 						<div class="images-main_poster insert-box position-relative">
@@ -293,7 +291,7 @@ input[type="checkbox"]:checked {
 								<p class="fw-bold">상세 이미지</p>
 							</div>
 							<div class="insert-box-right">
-								<input type="file" name="eventMainPoster" id="eventMainPoster" required>
+								<input type="file" name="eventImageDetail" id="eventImageDetail" required>
 							</div>
 						</div>
 					</div>
@@ -310,7 +308,8 @@ input[type="checkbox"]:checked {
 					</div>
 					<div class="event-insert insert-box">
 						<div>
-							<input type="button" class="btn-layout btn-brown" value="등록">
+							<input type="submit" id="btnInsert" class="btn-layout btn-brown"
+							onclick="return sendFormData();" value="등록">
 						</div>
 						<div>
 							<input type="reset" class="btn-layout btn-white" value="리셋">
@@ -329,6 +328,17 @@ input[type="checkbox"]:checked {
 			$("input[type=date]").prop("min", startDate.toISOString().split('T')[0]);
 		});
 
+		function sendFormData() {
+			if ($("#eventStartDt").attr("inorder") === "false") {
+				alert("종료 일자는 시작 일자보다 뒤에 와야 합니다.");
+				return false;
+			}
+
+			if (confirm("입력한 정보로 행사를 등록하겠습니까?") === false) {
+				return false;
+			}
+		}
+		
 		function setRsvDt(element) {
 			if ($(element).val() != '') {
 				const theDayBefore = $(element).prop("valueAsDate");
@@ -345,7 +355,7 @@ input[type="checkbox"]:checked {
 			return Date.parse(startDate.val()) > Date.parse(endDate.val());
 		}
 
-		$("#eventStartDt, #eventEndDt").blur(event => {
+		$("#eventStartDt, #eventEndDt").change(event => {
 			setRsvDt("#eventStartDt");
 
 			const startDate = $("#eventStartDt");
@@ -365,7 +375,7 @@ input[type="checkbox"]:checked {
 			startDate.attr("inorder", "true");
 		});
 
-		$("input[name=eventTime]").change(event => {
+		$("input[name=eventDay]").change(event => {
 			const timeRow = $(event.target).parent().next().find("input[type=time]");
 
 			if ($(event.target).is(":checked")) {
@@ -385,6 +395,16 @@ input[type="checkbox"]:checked {
 						});
 					}
 				);
+		});
+		
+		$("input[name=eventCategory]").change(event => {
+			$("input[name=eventCategory]").attr("checked", false);
+			$(event.target).attr("checked", true);
+		});
+
+		$("input[name=eventAge]").change(event => {
+			$("input[name=eventAge]").attr("checked", false);
+			$(event.target).attr("checked", true);
 		});
 
 		$("input[name=bannerCheckBox]").change(event => {

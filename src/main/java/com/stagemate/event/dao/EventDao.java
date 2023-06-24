@@ -3,13 +3,16 @@ package com.stagemate.event.dao;
 import static com.stagemate.common.JDBCTemplate.close;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
+import com.stagemate.common.JDBCTemplate;
 import com.stagemate.common.PropertiesGenerator;
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventTime;
@@ -18,6 +21,8 @@ import com.stagemate.event.model.vo.Seat;
 import com.stagemate.store.dao.StoreDao;
 
 public class EventDao {
+	private static final int FILE_ORIGINAL_NAME = 0;
+	private static final int FILE_RENAME = 1;
 	
 	String path=StoreDao.class.getResource("/sql/event/eventsql.properties").getPath();
 	private final Properties sql;
@@ -400,5 +405,94 @@ public class EventDao {
 			close(rs);
 			close(pstmt);
 		}return seats;
+	}
+
+	public int insertEventInfo(Connection conn, Map<String, String> eventInfo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertEventInfo"));
+			pstmt.setString(1, eventInfo.get("eventTitle"));
+			pstmt.setDate(2, Date.valueOf(eventInfo.get("eventStartDt")));
+			pstmt.setDate(3, Date.valueOf(eventInfo.get("eventEndDt")));
+			pstmt.setDate(4, Date.valueOf(eventInfo.get("eventRsvDt")));
+			pstmt.setString(5, eventInfo.get("eventCategory"));
+			pstmt.setString(6, eventInfo.get("eventLocation"));
+			pstmt.setInt(7, Integer.parseInt(eventInfo.get("eventAge")));
+			pstmt.setInt(8, Integer.parseInt(eventInfo.get("eventDuration")));
+			pstmt.setInt(9, Integer.parseInt(eventInfo.get("eventInter")));
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertEventCasting(Connection conn, List<String> casting) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertEventCasting"));
+			for (String artist : casting) {
+				pstmt.setString(1, artist);
+				result = pstmt.executeUpdate();
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertEventSchedule(Connection conn, String category, Map<Date, String> eventSchedule) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertEventSchedule"));
+			for (Map.Entry<Date, String> schedule : eventSchedule.entrySet()) {
+				Date eventDate = schedule.getKey();
+				String eventTime = schedule.getValue();
+				
+				pstmt.setString(1, category);
+				pstmt.setDate(2, eventDate);
+				pstmt.setDate(3, eventDate);
+				pstmt.setString(4, eventTime);
+				result = pstmt.executeUpdate();
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertEventFiles(Connection conn, Map<String, List<String>> eventFiles) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertEventFiles"));
+			for (Map.Entry<String, List<String>> file : eventFiles.entrySet()) {
+				String filePurpose = file.getKey();
+				List<String> fileNames = file.getValue();
+				
+				pstmt.setString(1, fileNames.get(FILE_ORIGINAL_NAME));
+				pstmt.setString(2, fileNames.get(FILE_RENAME));
+				pstmt.setString(3, filePurpose);
+				result = pstmt.executeUpdate();
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
 	}
 }
