@@ -22,7 +22,8 @@
                 </div>
                 <!-- 장바구니 내역 -->
                 <div class="ShoppingBasket_List">
-                <input type="hidden" id="userId" value="<%=loginMember.getMemberId()%>">
+                 <form id="orderForm" method="post" action="<%=request.getContextPath()%>/store/storeOrder.do">
+                <input type="hidden" id="userId" name="userId" value="<%=loginMember.getMemberId()%>">
                     <table class="ShoppingBasket-table" style="margin: 3px auto; margin-right: auto;">
                         <colgroup>
                             <col style="width: 50px">
@@ -67,7 +68,7 @@
                                 <td class="shop-bk">
                                     <div class="haha">
                                         <button type="button" class="minus">-</button>
-                                        <input type="number" class="numBox" min="1" max="" value="<%=c.getCartAmt()%>" readonly/>
+                                        <input type="number" name="numBox" class="numBox" min="1" max="" value="<%=c.getCartAmt()%>" readonly/>
                                         <button type="button" class="plus">+</button>
                                     </div>
                                 </td>
@@ -111,8 +112,9 @@
                     </div>
 	                    <div class="SB-lowerbtn" id="btn-result">
 	                        <input type="button" class="lowerbtn-basket" id="deleteCartBtn" value="장바구니 삭제">
-	                        <input type="button" class="lowerbtn-purchase"  id="orderCartBtn" value="구매하기">
+	                        <input type="submit" class="lowerbtn-purchase"  id="orderCartBtn" value="구매하기">
 	                    </div>
+	                 </form>
                 </div>
             </div>
         </div>
@@ -221,13 +223,22 @@ $(document).ready(function() {
         $("#productTotalPrice").text(totalPrice.toLocaleString());
         $("#paymentTotalPrice").text(totalPrice.toLocaleString());
     }
-    
+ // 단일 상품 주문하기 클릭
     $(".SBOrder-btn").click(function() {
-    	var row = $(this).closest("tr");
+        var row = $(this).closest("tr");
         var pNo = row.find(".product_no_input").val();
         var count = parseInt(row.find(".numBox").val());
         var userId = $("#userId").val();
-    	location.assign("<%=request.getContextPath()%>/store/storeOrder.do?no=" + pNo + "&count=" + count+"&userId="+userId);
+        
+        // 폼 생성
+        var form = $('<form action="<%=request.getContextPath()%>/store/storeOrder.do" method="post"></form>');
+        form.append('<input type="hidden" name="productNos" value="' + pNo + '">');
+        form.append('<input type="hidden" name="quantities" value="' + count + '">');
+        form.append('<input type="hidden" name="userId" value="' + userId + '">');
+        
+        // 폼을 body에 추가하고 submit
+        $('body').append(form);
+        form.submit();
     });
     
     $("#deleteCartBtn").click(function () {
@@ -241,7 +252,8 @@ $(document).ready(function() {
 			alert("삭제하기 취소");
 		}
 		reload();
-	})
+	});
+            
 });
 
 </script>
