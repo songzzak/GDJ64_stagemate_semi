@@ -1,6 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, com.stagemate.event.model.vo.Event, com.stagemate.event.model.vo.EventUpfile" %>
 <%@ include file="/views/common/top.jsp"%>
+<%
+	String eventNo = (String) request.getAttribute("eventNo");
+	
+	Object eventInfoUncast = request.getAttribute("eventInfo");
+	Event eventInfo = null;
+	if (eventInfoUncast != null && eventInfoUncast instanceof Event) {
+		eventInfo = Event.class.cast(eventInfoUncast);
+	}
+	
+	String casting = (String) request.getAttribute("casting");
+	
+	Object fileRenamesUncast = request.getAttribute("fileRenames");
+	String[] fileRenames = null;
+	if (fileRenamesUncast != null && fileRenamesUncast instanceof ArrayList<?>) {
+		fileRenames = ((List<?>) fileRenamesUncast).stream().toArray(String[]::new);
+	}
+	
+	Object eventScheduleUncast = request.getAttribute("eventSchedule");
+	Map<String, String> eventSchedule = new HashMap<>();
+	if (eventScheduleUncast != null && eventScheduleUncast instanceof HashMap<?, ?>) {
+		for (Map.Entry<?, ?> entry : ((Map<?, ?>) eventScheduleUncast).entrySet()) {
+			eventSchedule.put(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()));
+		}
+	}
+%>
 <link rel="stylesheet"
 	href="<%= contextPath %>/css/jaehun/style_insertEvent.css">
 <style>
@@ -28,7 +54,7 @@ input[type="checkbox"]:checked {
     cursor:pointer;
 }
 </style>
-<title>행사 등록</title>
+<title>행사 수정</title>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
@@ -75,18 +101,20 @@ input[type="checkbox"]:checked {
 					<div>
 						<img src="<%=contextPath %>/images/jaehun/page_insert_event/arrow.svg" alt="">
 					</div>
-					<p>등록</p>
+					<p>수정</p>
 				</nav>
 				<hr>
 				<form name="insertEventForm" method="post" enctype="multipart/form-data"
-						action="<%= contextPath %>/admin/insertEventEnd.do">
+						action="<%= contextPath %>/admin/updateEventEnd.do">
 					<div class="event-title insert-box">
 						<div class="insert-box-left">
 	                        <p class="fw-bold">행사명</p>
 	                    </div>
 						<div class="insert-box-right">
 							<div class="input-fx-center">
-								<input type="text" name="eventTitle" id="eventTitle" required>
+								<input type="text" name="eventTitle" id="eventTitle" 
+										value='<%= (eventInfo != null) ? eventInfo.getEventNm() : "" %>'
+										required>
 							</div>
 						</div>
 					</div>
@@ -97,15 +125,18 @@ input[type="checkbox"]:checked {
 						<fieldset class="insert-box-right">
 							<label>
 								<span>뮤지컬</span>
-								<input type="radio" name="eventCategory" value="EVC1" checked>
+								<input type="radio" name="eventCategory" value="EVC1" 
+								<%= (eventInfo != null && eventInfo.getEvcNo().equals("EVC1")) ? "checked" : "" %>>
 							</label>
 							<label>
 								<span>콘서트</span>
-								<input type="radio" name="eventCategory" value="EVC2">
+								<input type="radio" name="eventCategory" value="EVC2"
+								<%= (eventInfo != null && eventInfo.getEvcNo().equals("EVC2")) ? "checked" : "" %>>
 							</label>
 							<label>
 								<span>연극</span>
-								<input type="radio" name="eventCategory" value="EVC3">
+								<input type="radio" name="eventCategory" value="EVC3"
+								<%= (eventInfo != null && eventInfo.getEvcNo().equals("EVC3")) ? "checked" : "" %>>
 							</label>
 						</fieldset>
 					</div>
@@ -116,15 +147,18 @@ input[type="checkbox"]:checked {
 						<fieldset class="insert-box-right">
 							<label>
 								<span>8세 이상</span>
-								<input type="radio" name="eventAge" value="8" checked>
+								<input type="radio" name="eventAge" value="8"
+								<%= (eventInfo != null && eventInfo.getEventAge() == 8) ? "checked" : "" %>>
 							</label>
 							<label>
 								<span>12세 이상</span>
-								<input type="radio" name="eventAge" value="12">
+								<input type="radio" name="eventAge" value="12"
+								<%= (eventInfo != null && eventInfo.getEventAge() == 12) ? "checked" : "" %>>
 							</label>
 							<label>
 								<span>15세 이상</span>
-								<input type="radio" name="eventAge" value="15">
+								<input type="radio" name="eventAge" value="15"
+								<%= (eventInfo != null && eventInfo.getEventAge() == 15) ? "checked" : "" %>>
 							</label>
 						</fieldset>
 					</div>
@@ -141,7 +175,9 @@ input[type="checkbox"]:checked {
 							</div>
 							<div class="insert-box-right">
 								<div class="input-fx-center w-60p">
-									<input type="number" name="eventDuration" id="eventDuration" required>
+									<input type="number" name="eventDuration" id="eventDuration" 
+											value='<%= (eventInfo != null) ? eventInfo.getEventDuration() : "" %>' 
+											required>
 									<span>분</span>
 								</div>
 							</div>
@@ -152,7 +188,9 @@ input[type="checkbox"]:checked {
 							</div>
 							<div class="insert-box-right">
 								<div class="input-fx-center w-60p">
-									<input type="number" name="eventInter" id="eventInter" required>
+									<input type="number" name="eventInter" id="eventInter" 
+											value='<%= (eventInfo != null) ? eventInfo.getEventInter() : "" %>'
+											required>
 									<span>분</span>
 								</div>
 							</div>
@@ -165,7 +203,9 @@ input[type="checkbox"]:checked {
 							</div>
 							<div class="insert-box-right">
 								<div class="input-fx-center w-60p">
-									<input type="date" name="eventStartDt" id="eventStartDt" inorder="false" required>
+									<input type="date" name="eventStartDt" id="eventStartDt" inorder="true" 
+											value='<%= (eventInfo != null) ? eventInfo.getEventStartDt() : "" %>'
+											required>
 								</div>
 							</div>
 						</div>
@@ -175,7 +215,9 @@ input[type="checkbox"]:checked {
 							</div>
 							<div class="insert-box-right">
 								<div class="input-fx-center w-60p">
-									<input type="date" name="eventEndDt" id="eventEndDt" required>
+									<input type="date" name="eventEndDt" id="eventEndDt" 
+											value='<%= (eventInfo != null) ? eventInfo.getEventEndDt() : "" %>'
+											required>
 								</div>
 							</div>
 						</div>
@@ -187,7 +229,9 @@ input[type="checkbox"]:checked {
 							</div>
 							<div class="insert-box-right">
 								<div class="input-fx-center w-60p">
-									<input type="date" name="eventRsvDt" id="eventRsvDt" required>
+									<input type="date" name="eventRsvDt" id="eventRsvDt" 
+											value='<%= (eventInfo != null) ? eventInfo.getRsvOpenDt() : "" %>'
+											required>
 								</div>
 							</div>
 						</div>
@@ -199,64 +243,78 @@ input[type="checkbox"]:checked {
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>월</span>
-										<input type="checkbox" name="eventDay" value="월">
+										<input type="checkbox" name="eventDay" value="월"
+										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("월")) ? "checked" : "" %>>
 									</div>
 									<div class="event-time_row">
-										<input type="time" name="startTime" disabled>
+										<input type="time" name="startTime"
+										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("월")) ? "value=" + eventSchedule.get("월") : "disabled" %>>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>화</span>
-										<input type="checkbox" name="eventDay" value="화">
+										<input type="checkbox" name="eventDay" value="화"
+										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("화")) ? "checked" : "" %>>
 									</div>
 									<div class="event-time_row">
-										<input type="time" name="startTime" disabled>
+										<input type="time" name="startTime"
+										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("화")) ? "value=" + eventSchedule.get("화") : "disabled" %>>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>수</span>
-										<input type="checkbox" name="eventDay" value="수">
+										<input type="checkbox" name="eventDay" value="수"
+										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("수")) ? "checked" : "" %>>
 									</div>
 									<div class="event-time_row">
-										<input type="time" name="startTime" disabled>
+										<input type="time" name="startTime"
+										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("수")) ? "value=" + eventSchedule.get("수") : "disabled" %>>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>목</span>
-										<input type="checkbox" name="eventDay" value="목">
+										<input type="checkbox" name="eventDay" value="목"
+										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("목")) ? "checked" : "" %>>
 									</div>
 									<div class="event-time_row">
-										<input type="time" name="startTime" disabled>
+										<input type="time" name="startTime"
+										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("목")) ? "value=" + eventSchedule.get("목") : "disabled" %>>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>금</span>
-										<input type="checkbox" name="eventDay" value="금">
+										<input type="checkbox" name="eventDay" value="금"
+										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("금")) ? "checked" : "" %>>
 									</div>
 									<div class="event-time_row">
-										<input type="time" name="startTime" disabled>
+										<input type="time" name="startTime"
+										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("금")) ? "value=" + eventSchedule.get("금") : "disabled" %>>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>토</span>
-										<input type="checkbox" name="eventDay" value="토">
+										<input type="checkbox" name="eventDay" value="토"
+										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("토")) ? "checked" : "" %>>
 									</div>
 									<div class="event-time_row">
-										<input type="time" name="startTime" disabled>
+										<input type="time" name="startTime"
+										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("토")) ? "value=" + eventSchedule.get("토") : "disabled" %>>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>일</span>
-										<input type="checkbox" name="eventDay" value="일">
+										<input type="checkbox" name="eventDay" value="일"
+										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("일")) ? "checked" : "" %>>
 									</div>
 									<div class="event-time_row">
-										<input type="time" name="startTime" disabled>
+										<input type="time" name="startTime"
+										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("일")) ? "value=" + eventSchedule.get("일") : "disabled" %>>
 									</div>
 								</div>
 							</fieldset>
@@ -269,7 +327,8 @@ input[type="checkbox"]:checked {
 							</div>
 							<div class="insert-box-right">
 								<div class="input-fx-center w-90p">
-									<input type="search" name="eventLocation" id="eventLocation" list="locations" required>
+									<input type="search" name="eventLocation" id="eventLocation" list="locations" 
+											value='<%= (eventInfo != null) ? eventInfo.getLocation() : "" %>' required>
 									<datalist id="locations"></datalist>
 								</div>
 							</div>
@@ -280,9 +339,9 @@ input[type="checkbox"]:checked {
 							</div>
 							<div class="insert-box-right">
 								<div class="input-fx-center w-90p">
-									<input type="text" name="eventCasting" id="eventCasting" placeholder="쉼표(,)로 구분해서 입력" 
-								onfocus="this.placeholder = ''" 
-								onblur="this.placeholder = '쉼표(,)로 구분해서 입력'" required>
+									<input type="text" name="eventCasting" id="eventCasting" 
+											value='<%= casting.isEmpty() ? "조회된 아티스트가 없습니다." : casting %>'
+											required>
 								</div>
 							</div>
 						</div>
@@ -299,7 +358,10 @@ input[type="checkbox"]:checked {
 								<p class="fw-bold">메인 포스터</p>
 							</div>
 							<div class="insert-box-right">
-								<input type="file" name="eventMainPoster" id="eventMainPoster" required>
+								<% if (fileRenames != null) { %>
+									<input type="button" id="PUR1" class="btn-preview_original btn-white" value="수정 전">
+								<% } %>
+								<input type="file" name="eventMainPoster" id="eventMainPoster">
 								<button type="button" class="btn-preview btn-white display-none">미리보기</button>
 							</div>
 						</div>
@@ -308,7 +370,10 @@ input[type="checkbox"]:checked {
 								<p class="fw-bold">상세 이미지</p>
 							</div>
 							<div class="insert-box-right">
-								<input type="file" name="eventImageDetail" id="eventImageDetail" required>
+								<% if (fileRenames != null) { %>
+									<input type="button" id="PUR2" class="btn-preview_original btn-white" value="수정 전">
+								<% } %>
+								<input type="file" name="eventImageDetail" id="eventImageDetail">
 								<button type="button" class="btn-preview btn-white display-none">미리보기</button>
 							</div>
 						</div>
@@ -317,9 +382,13 @@ input[type="checkbox"]:checked {
 						<div class="event-banner insert-box">
 							<div class="insert-box-left input-fx-center">
 								<p class="fw-bold">배너</p>
-								<input type="checkbox" name="bannerCheckBox">
+								<input type="checkbox" name="bannerCheckBox"
+								<%= (fileRenames != null && fileRenames.length == 3) ? "checked" : "" %>>
 							</div>
 							<div class="insert-box-right display-none">
+								<% if (fileRenames != null && fileRenames.length == 3) { %>
+									<input type="button" id="PUR3" class="btn-preview_original btn-white" value="수정 전">
+								<% } %>
 								<input type="file" name="eventBanner" id="eventBanner" disabled>
 								<button type="button" class="btn-preview btn-white display-none">미리보기</button>
 							</div>
@@ -330,7 +399,7 @@ input[type="checkbox"]:checked {
 					<div class="event-insert insert-box">
 						<div>
 							<input type="submit" id="btnInsert" class="btn-layout btn-brown"
-							onclick="return sendFormData();" value="등록">
+							onclick="return sendFormData();" value="수정">
 						</div>
 						<div>
 							<input type="reset" class="btn-layout btn-white" 
@@ -360,6 +429,8 @@ input[type="checkbox"]:checked {
 		$(() => {
 			const startDate = new Date();
 			$("input[type=date]").prop("min", startDate.toISOString().split('T')[0]);
+
+			$("input[name=bannerCheckBox]").change();
 		});
 
 		function sendFormData() {
@@ -373,7 +444,7 @@ input[type="checkbox"]:checked {
 				return false;
 			}
 
-			if (confirm("입력한 정보로 행사를 등록하겠습니까?") === false) {
+			if (confirm("입력한 정보로 행사를 수정하겠습니까?") === false) {
 				return false;
 			}
 		}
@@ -451,13 +522,13 @@ input[type="checkbox"]:checked {
 			$("input[name=eventAge]").attr("checked", false);
 			$(event.target).attr("checked", true);
 		});
-
+		
 		$("input[name=bannerCheckBox]").change(event => {
 			if ($(event.target).is(":checked")) {
-				$("input[name=eventBanner]").parent().toggleClass("display-none");
+				$("input[name=eventBanner]").parent().removeClass("display-none");
 				$("input[name=eventBanner]").attr("disabled", false);
 			} else {
-				$("input[name=eventBanner]").parent().toggleClass("display-none");
+				$("input[name=eventBanner]").parent().addClass("display-none");
 				$("input[name=eventBanner]").attr("disabled", true);
 			}
 		});
@@ -488,6 +559,13 @@ input[type="checkbox"]:checked {
 			$(".preview-bg").css("transition", "")
 							.removeClass("preview-show");
 		}
+		
+		$("input[id^=PUR]").click(event => {
+			const fileRenames = '<%= String.join(",", fileRenames) %>'.split(",");
+			$(".preview-content img").attr("src", "");
+			$(".preview-content img").attr("src", "<%= contextPath %>/upload/joonho/" + fileRenames[$(event.target).attr("id").substring(3) - 1]);
+			showPreview();
+		});
 	</script>
 </body>
 </html>

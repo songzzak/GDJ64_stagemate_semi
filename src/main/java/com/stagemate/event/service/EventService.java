@@ -123,18 +123,23 @@ public class EventService {
 		return seats;
 	}
 	
-	public int insertEvent(Map<String, String> info, 
-							List<String> casting,
-							String category,
-							Map<Date, String> eventSchedule,
-							Map<String, List<String>> eventFiles) 
+	// ------------------------- jaehun -------------------------
+	public List<String> selectLocation(String location) {
+		Connection conn = JDBCTemplate.getConnection();
+		List<String> locations = dao.selectLocation(conn, location);
+		JDBCTemplate.close(conn);
+		return locations;
+	}
+	
+	public int insertEvent(Event eventInfo, List<String> casting,
+							Map<Date, String> eventSchedule, List<EventUpfile> upfiles) 
 	{
 		Connection conn = JDBCTemplate.getConnection();
 		int resultTotal = 0;
-		int resultOfInfo = dao.insertEventInfo(conn, info);
+		int resultOfInfo = dao.insertEventInfo(conn, eventInfo);
 		int resultOfCasting = dao.insertEventCasting(conn, casting);
-		int resultOfSchedule = dao.insertEventSchedule(conn, category, eventSchedule);
-		int resultOfFiles = dao.insertEventFiles(conn, eventFiles);
+		int resultOfSchedule = dao.insertEventSchedule(conn, eventSchedule);
+		int resultOfFiles = dao.insertEventFiles(conn, upfiles);
 		
 		if (resultOfInfo == 0 || resultOfCasting == 0 
 			|| resultOfFiles == 0 || resultOfSchedule == 0) 
@@ -148,4 +153,19 @@ public class EventService {
 		JDBCTemplate.close(conn);
 		return resultTotal;
 	}
+	
+	public String selectCastingByEventNo(String eventNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		String casting = dao.selectCastingByEventNo(conn, eventNo);
+		JDBCTemplate.close(conn);
+		return casting;
+	}
+	
+	public Map<String, String> selectScheduleByEventNo(String eventNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Map<String, String> schedule = dao.selectScheduleByEventNo(conn, eventNo);
+		JDBCTemplate.close(conn);
+		return schedule;
+	}
+	
 }

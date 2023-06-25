@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stagemate.admin.service.AdminService;
+import com.stagemate.event.service.EventService;
 
 @WebServlet("/admin/searchLocation.do")
 public class SearchLocationServlet extends HttpServlet {
@@ -22,7 +22,7 @@ public class SearchLocationServlet extends HttpServlet {
 			throws ServletException, IOException 
 	{
 		String location = request.getParameter("location");
-		List<String> locations = new AdminService().selectLocation(location);
+		List<String> locations = new EventService().selectLocation(location);
 		
 		StringBuilder data = new StringBuilder();
 		IntStream.range(0, locations.size()).forEach(index -> {

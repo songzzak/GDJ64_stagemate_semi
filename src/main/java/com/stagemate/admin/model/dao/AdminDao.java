@@ -78,25 +78,4 @@ public class AdminDao {
 				.build();
 	}
 
-	public List<String> selectLocation(Connection conn, String location) {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<String> locations = new ArrayList<>();
-		
-		try {
-			pstmt = conn.prepareStatement(sql.getProperty("selectLocation"));
-			pstmt.setString(1, "%" + location + "%");
-			rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				locations.add(rs.getString(1));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JDBCTemplate.close(rs);
-			JDBCTemplate.close(pstmt);
-		}
-		return locations;
-	}
 }

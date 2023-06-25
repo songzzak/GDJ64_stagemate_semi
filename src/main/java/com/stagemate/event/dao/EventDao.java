@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -21,8 +22,6 @@ import com.stagemate.event.model.vo.Seat;
 import com.stagemate.store.dao.StoreDao;
 
 public class EventDao {
-	private static final int FILE_ORIGINAL_NAME = 0;
-	private static final int FILE_RENAME = 1;
 	
 	String path=StoreDao.class.getResource("/sql/event/eventsql.properties").getPath();
 	private final Properties sql;
@@ -407,21 +406,44 @@ public class EventDao {
 		}return seats;
 	}
 
-	public int insertEventInfo(Connection conn, Map<String, String> eventInfo) {
+	// ------------------------- jaehun -------------------------
+	public List<String> selectLocation(Connection conn, String location) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> locations = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectLocation"));
+			pstmt.setString(1, "%" + location + "%");
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				locations.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return locations;
+	}
+	
+	public int insertEventInfo(Connection conn, Event eventInfo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("insertEventInfo"));
-			pstmt.setString(1, eventInfo.get("eventTitle"));
-			pstmt.setDate(2, Date.valueOf(eventInfo.get("eventStartDt")));
-			pstmt.setDate(3, Date.valueOf(eventInfo.get("eventEndDt")));
-			pstmt.setDate(4, Date.valueOf(eventInfo.get("eventRsvDt")));
-			pstmt.setString(5, eventInfo.get("eventCategory"));
-			pstmt.setString(6, eventInfo.get("eventLocation"));
-			pstmt.setInt(7, Integer.parseInt(eventInfo.get("eventAge")));
-			pstmt.setInt(8, Integer.parseInt(eventInfo.get("eventDuration")));
-			pstmt.setInt(9, Integer.parseInt(eventInfo.get("eventInter")));
+			pstmt.setString(1, eventInfo.getEventNm());
+			pstmt.setDate(2, eventInfo.getEventStartDt());
+			pstmt.setDate(3, eventInfo.getEventEndDt());
+			pstmt.setDate(4, eventInfo.getRsvOpenDt());
+			pstmt.setString(5, eventInfo.getEvcNo());
+			pstmt.setString(6, eventInfo.getLocation());
+			pstmt.setInt(7, eventInfo.getEventAge());
+			pstmt.setInt(8, eventInfo.getEventDuration());
+			pstmt.setInt(9, eventInfo.getEventInter());
 			result = pstmt.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -449,7 +471,7 @@ public class EventDao {
 		return result;
 	}
 	
-	public int insertEventSchedule(Connection conn, String category, Map<Date, String> eventSchedule) {
+	public int insertEventSchedule(Connection conn, Map<Date, String> eventSchedule) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -472,19 +494,16 @@ public class EventDao {
 		return result;
 	}
 
-	public int insertEventFiles(Connection conn, Map<String, List<String>> eventFiles) {
+	public int insertEventFiles(Connection conn, List<EventUpfile> upfiles) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("insertEventFiles"));
-			for (Map.Entry<String, List<String>> file : eventFiles.entrySet()) {
-				String filePurpose = file.getKey();
-				List<String> fileNames = file.getValue();
-				
-				pstmt.setString(1, fileNames.get(FILE_ORIGINAL_NAME));
-				pstmt.setString(2, fileNames.get(FILE_RENAME));
-				pstmt.setString(3, filePurpose);
+			for (EventUpfile upfile : upfiles) {
+				pstmt.setString(1, upfile.getEuNameOriginal());
+				pstmt.setString(2, upfile.getEuRename());
+				pstmt.setString(3, upfile.getPurposeNo());
 				result = pstmt.executeUpdate();
 			}
 		} catch(SQLException e) {
@@ -493,5 +512,71 @@ public class EventDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return result;
+	}
+
+	public String selectCategoryByEventNo(Connection conn, String eventNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String eventCategory = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectCategoryByEventNo"));
+			pstmt.setString(1, eventNo);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				eventCategory = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return eventCategory;
+	}
+
+	public String selectCastingByEventNo(Connection conn, String eventNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> artists = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectCastingByEventNo"));
+			pstmt.setString(1, eventNo);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				artists.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return String.join(",", artists.stream().toArray(String[]::new));
+	}
+
+	public Map<String, String> selectScheduleByEventNo(Connection conn, String eventNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<String, String> schedule = new HashMap<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectScheduleByEventNo"));
+			pstmt.setString(1, eventNo);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				schedule.put(rs.getString("ES_DAY"), rs.getString("ES_START_TIME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return schedule;
 	}
 }

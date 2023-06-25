@@ -300,6 +300,19 @@ fieldset.insert-box-right>label>* {
     cursor:pointer;
 }
 
+.btn-preview_original {
+    display: inline-block;
+    width: 80%;
+    padding: 6px;
+    margin-bottom: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.8rem;
+    border-radius: 10px;
+    font-weight: 900;
+    cursor:pointer;
+}
+
 .preview-bg {
 	position: fixed;
   	top: 0;

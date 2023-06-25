@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,8 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.stagemate.event.model.vo.Event;
+import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.service.EventService;
 
 @WebServlet("/admin/insertEventEnd.do")
@@ -42,30 +45,36 @@ public class InsertEventEndServlet extends HttpServlet {
 		DefaultFileRenamePolicy dfrp = new DefaultFileRenamePolicy();
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, encode, dfrp);
 
-		Map<String, String> info = new HashMap<>();
-		info.put("eventTitle", mr.getParameter("eventTitle"));
-		info.put("eventStartDt", mr.getParameter("eventStartDt"));
-		info.put("eventEndDt", mr.getParameter("eventEndDt"));
-		info.put("eventRsvDt", mr.getParameter("eventRsvDt"));
-		info.put("eventCategory", mr.getParameter("eventCategory"));
-		info.put("eventLocation", mr.getParameter("eventLocation"));
-		info.put("eventAge", mr.getParameter("eventAge"));
-		info.put("eventDuration", mr.getParameter("eventDuration"));
-		info.put("eventInter", mr.getParameter("eventInter"));
-		
+		Event eventInfo = Event.builder()
+							.eventNm(mr.getParameter("eventTitle"))
+							.eventStartDt(Date.valueOf(mr.getParameter("eventStartDt")))
+							.eventEndDt(Date.valueOf(mr.getParameter("eventEndDt")))
+							.rsvOpenDt(Date.valueOf(mr.getParameter("eventRsvDt")))
+							.evcNo(mr.getParameter("eventCategory"))
+							.location(mr.getParameter("eventLocation"))
+							.eventAge(Integer.parseInt(mr.getParameter("eventAge")))
+							.eventDuration(Integer.parseInt(mr.getParameter("eventDuration")))
+							.eventInter(Integer.parseInt(mr.getParameter("eventInter")))
+							.build();
+				
 		List<String> casting = Arrays.asList(mr.getParameter("eventCasting").split(","));
 		
-		Map<String, List<String>> eventFiles = new HashMap<>();
-		eventFiles.put("PUR1", List.of(mr.getOriginalFileName("eventMainPoster"), mr.getFilesystemName("eventMainPoster")));
-		eventFiles.put("PUR2", List.of(mr.getOriginalFileName("eventImageDetail"), mr.getFilesystemName("eventImageDetail")));
-		
+		List<EventUpfile> upfiles = new ArrayList<>();
+		upfiles.add(getUpFileBy(mr.getOriginalFileName("eventMainPoster"),
+								mr.getFilesystemName("eventMainPoster"),
+								"PUR1"));
+		upfiles.add(getUpFileBy(mr.getOriginalFileName("eventImageDetail"),
+								mr.getFilesystemName("eventImageDetail"),
+								"PUR2"));
 		if (mr.getOriginalFileName("eventBanner") != null) {
-			eventFiles.put("PUR3", List.of(mr.getOriginalFileName("eventBanner"), mr.getFilesystemName("eventBanner")));
+			upfiles.add(getUpFileBy(mr.getOriginalFileName("eventBanner"),
+									mr.getFilesystemName("eventBanner"),
+									"PUR3"));
 		}
 		
 		Map<Date, String> eventSchedule = getSchedule(mr.getParameter("eventStartDt"), mr.getParameter("eventEndDt"), mr.getParameterValues("eventDay"), mr.getParameterValues("startTime"));
 		
-		int result = new EventService().insertEvent(info, casting, mr.getParameter("eventCategory"), eventSchedule, eventFiles);
+		int result = new EventService().insertEvent(eventInfo, casting, eventSchedule, upfiles);
 		
 		String msg = "행사가 성공적으로 등록되었습니다.";
 		String loc = "/admin/eventlist";
@@ -98,5 +107,13 @@ public class InsertEventEndServlet extends HttpServlet {
 			}
 		}
 		return schedule;
+	}
+	
+	private EventUpfile getUpFileBy(String originalFileName, String fileRename, String purposeNo) {
+		return EventUpfile.builder()
+						.euNameOriginal(originalFileName)
+						.euRename(fileRename)
+						.purposeNo(purposeNo)
+						.build();
 	}
 }

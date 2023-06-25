@@ -27,11 +27,4 @@ public class AdminService {
 		close(conn);
 		return result;
 	}
-
-	public List<String> selectLocation(String location) {
-		Connection conn = JDBCTemplate.getConnection();
-		List<String> locations = dao.selectLocation(conn, location);
-		JDBCTemplate.close(conn);
-		return locations;
-	}
 }
