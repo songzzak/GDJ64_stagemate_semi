@@ -112,7 +112,7 @@
                     </div>
 	                    <div class="SB-lowerbtn" id="btn-result">
 	                        <input type="button" class="lowerbtn-basket" id="deleteCartBtn" value="장바구니 삭제">
-	                        <input type="submit" class="lowerbtn-purchase"  id="orderCartBtn" value="구매하기">
+	                        <input type="button" class="lowerbtn-purchase"  id="orderCartBtn" value="구매하기">
 	                    </div>
 	                 </form>
                 </div>
@@ -253,7 +253,24 @@ $(document).ready(function() {
 		}
 		reload();
 	});
-            
+    
+    $("#orderCartBtn").click(function() {
+        if (!checkSelectedProducts()) {
+          return;
+        }
+        $("#orderForm").submit();
+      });
+
+      // 선택된 상품 체크 여부 확인
+      function checkSelectedProducts() {
+        var checkedProducts = $(".cart-checkbox:checked");
+        if (checkedProducts.length === 0) {
+          alert("주문할 상품을 선택해주세요.");
+          return false;
+        }
+        return true;
+      }
+ 
 });
 
 </script>
