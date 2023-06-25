@@ -33,17 +33,8 @@
                 <li><a href="#">커뮤니티</a></li>
             </ul>
         </nav>
-        <form class="header-container-search">
-            <div>
-                <input type="text" class="fw-light" placeholder="이거 누르면 지워짐" 
-                	onfocus="this.placeholder = ''"
-                    onblur="this.placeholder = '이거 누르면 지워짐'">
-            </div>
-            <div class="search_submit">
-                <input type="submit" value="" 
-                	style="background-image: url('<%= request.getContextPath() %>/images/common/icon_search.svg')">
-            </div>
-        </form>
+        <div class="w-20p">
+        </div>
         <div class="header-container-icons">
 	        <div>
 	        <% if (loginMember == null) { %>
