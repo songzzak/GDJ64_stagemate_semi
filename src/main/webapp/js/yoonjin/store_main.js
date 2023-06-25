@@ -46,12 +46,13 @@ $(".bar-num").on("click",function(e){
 			  });
 	    }
 
-	    $countElement.text(count); // 좋아요 수 업데이트
-		  $.post(getContextPath() + "/store/updateProductLikeCnt.do", 
+	    $countElement.text(count); 
+	    // 상품테이블에 좋아요 수 업데이트
+/*		  $.post(getContextPath() + "/store/updateProductLikeCnt.do", 
 		  {
 		    productNo: productNo,
 		    newLikeCount: count
-		  });
+		  });*/
 	}else{
 		alert("로그인 후 이용 가능합니다.");
 	}
