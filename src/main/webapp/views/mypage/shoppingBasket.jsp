@@ -232,8 +232,8 @@ $(document).ready(function() {
         
         // 폼 생성
         var form = $('<form action="<%=request.getContextPath()%>/store/storeOrder.do" method="post"></form>');
-        form.append('<input type="hidden" name="productNos" value="' + pNo + '">');
-        form.append('<input type="hidden" name="quantities" value="' + count + '">');
+        form.append('<input type="hidden" name="cart-checkbox" value="' + pNo + '">');
+        form.append('<input type="hidden" name="numBox" value="' + count + '">');
         form.append('<input type="hidden" name="userId" value="' + userId + '">');
         
         // 폼을 body에 추가하고 submit
