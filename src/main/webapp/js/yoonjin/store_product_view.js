@@ -55,12 +55,16 @@
             });
             
 $("#product-view-btn_pay").click(e => {
-    const pNo = $("#pNo").val();
-    const count = parseInt($("#product-select-count p").text());
-    const userId=$("#userId").val();
-    console.log(userId);
    if(userId!=""){
-	    location.assign(getContextPath() + "/store/storeOrder.do?no=" + pNo + "&count=" + count+"&userId="+userId);
+        const pNo = $("#pNo").val();
+    	const count = parseInt($("#product-select-count p").text());
+    	const userId=$("#userId").val();
+        var form = $('<form action="' + getContextPath() + '/store/storeOrder.do" method="post"></form>');
+        form.append('<input type="hidden" name="cart-checkbox" value="' + pNo + '">');
+        form.append('<input type="hidden" name="numBox" value="' + count + '">');
+        form.append('<input type="hidden" name="userId" value="' + userId + '">');
+        $('body').append(form);
+        form.submit();
 	}else{
 		alert("로그인 후 이용 가능합니다.");
 	}
