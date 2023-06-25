@@ -11,6 +11,22 @@ input[type="checkbox"]:checked {
 	background-repeat: no-repeat;
 	background-size: 60%;
 }
+
+.preview-container button {
+	position: fixed;
+  	top: 20px;
+  	left: 20px;
+
+	background-image: url("<%= contextPath %>/images/jaehun/page_insert_event/btn-close_preview.svg");
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 28px;
+    height: 28px;
+    border: 0px;
+    cursor:pointer;
+}
 </style>
 <title>행사 등록</title>
 </head>
@@ -271,7 +287,7 @@ input[type="checkbox"]:checked {
 							</div>
 						</div>
 					</div>
-					<div class="event-images insert-combo position-relative">
+					<div class="event-images_upper insert-combo position-relative">
 						<div class="images-main_poster insert-box">
 							<div class="event-info">
 								<div>
@@ -284,6 +300,7 @@ input[type="checkbox"]:checked {
 							</div>
 							<div class="insert-box-right">
 								<input type="file" name="eventMainPoster" id="eventMainPoster" required>
+								<button type="button" class="btn-preview btn-white display-none">미리보기</button>
 							</div>
 						</div>
 						<div class="images-main_poster insert-box position-relative">
@@ -292,10 +309,11 @@ input[type="checkbox"]:checked {
 							</div>
 							<div class="insert-box-right">
 								<input type="file" name="eventImageDetail" id="eventImageDetail" required>
+								<button type="button" class="btn-preview btn-white display-none">미리보기</button>
 							</div>
 						</div>
 					</div>
-					<div class="insert-combo">
+					<div class="event-images_lower insert-combo">
 						<div class="event-banner insert-box">
 							<div class="insert-box-left input-fx-center">
 								<p class="fw-bold">배너</p>
@@ -303,7 +321,10 @@ input[type="checkbox"]:checked {
 							</div>
 							<div class="insert-box-right display-none">
 								<input type="file" name="eventBanner" id="eventBanner" disabled>
+								<button type="button" class="btn-preview btn-white display-none">미리보기</button>
 							</div>
+						</div>
+						<div class="insert-box">
 						</div>
 					</div>
 					<div class="event-insert insert-box">
@@ -319,6 +340,16 @@ input[type="checkbox"]:checked {
 			</article>
 		</div>
 	</section>
+	<section class="preview-bg">
+		<article class="preview-container">
+			<div class="preview-content">
+				<div class="preview-wrapper">
+					<img src="">
+					<button type="button" onclick="closePreview();"></button>
+				</div>
+			</div>
+		</article>
+	</section>
 	<%@ include file="/views/common/footer.jsp"%>
 	<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 	<script src="<%=contextPath%>/js/script_common.js"></script>
@@ -331,6 +362,11 @@ input[type="checkbox"]:checked {
 		function sendFormData() {
 			if ($("#eventStartDt").attr("inorder") === "false") {
 				alert("종료 일자는 시작 일자보다 뒤에 와야 합니다.");
+				return false;
+			}
+
+			if ($("input[name=bannerCheckBox]").is(":checked") && $("#eventBanner")[0].files.length == 0) {
+				alert("등록된 배너가 없습니다. 배너를 등록하지 않는다면 체크박스를 해제해주세요.");
 				return false;
 			}
 
@@ -416,6 +452,33 @@ input[type="checkbox"]:checked {
 				$("input[name=eventBanner]").attr("disabled", true);
 			}
 		});
+
+		$("input[type=file]").change(event => {
+			$(event.target).siblings(".btn-preview").removeClass("display-none");
+		})
+
+		$(".btn-preview").click(event => {
+			$(".preview-content>img").attr("src", "");
+
+			const reader = new FileReader();
+			reader.onload = event => {
+                $(".preview-content img").attr("src", event.target.result);
+				showPreview();
+            }
+
+			const file = $(event.target).siblings("input")[0].files[0];
+            reader.readAsDataURL(file);
+		})
+
+		function showPreview() {
+    	$(".preview-bg").css("transition", "all 0.8s")
+    					.addClass("preview-show");
+    }
+
+    function closePreview() {
+    	$(".preview-bg").css("transition", "")
+    					.removeClass("preview-show");
+    }
 	</script>
 </body>
 </html>

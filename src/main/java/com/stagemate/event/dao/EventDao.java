@@ -438,7 +438,7 @@ public class EventDao {
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("insertEventCasting"));
 			for (String artist : casting) {
-				pstmt.setString(1, artist);
+				pstmt.setString(1, artist.trim());
 				result = pstmt.executeUpdate();
 			}
 		} catch(SQLException e) {
@@ -459,10 +459,9 @@ public class EventDao {
 				Date eventDate = schedule.getKey();
 				String eventTime = schedule.getValue();
 				
-				pstmt.setString(1, category);
+				pstmt.setDate(1, eventDate);
 				pstmt.setDate(2, eventDate);
-				pstmt.setDate(3, eventDate);
-				pstmt.setString(4, eventTime);
+				pstmt.setString(3, eventTime);
 				result = pstmt.executeUpdate();
 			}
 		} catch(SQLException e) {
