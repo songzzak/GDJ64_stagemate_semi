@@ -115,6 +115,7 @@ input[type="checkbox"]:checked {
 								<input type="text" name="eventTitle" id="eventTitle" 
 										value='<%= (eventInfo != null) ? eventInfo.getEventNm() : "" %>'
 										required>
+								<input type="hidden" name="eventNo" value='<%= eventNo %>'>
 							</div>
 						</div>
 					</div>
@@ -360,6 +361,7 @@ input[type="checkbox"]:checked {
 							<div class="insert-box-right">
 								<% if (fileRenames != null) { %>
 									<input type="button" id="PUR1" class="btn-preview_original btn-white" value="수정 전">
+									<input type="hidden" name="eventMainPosterOriginal" value='<%= fileRenames[0] %>'>
 								<% } %>
 								<input type="file" name="eventMainPoster" id="eventMainPoster">
 								<button type="button" class="btn-preview btn-white display-none">미리보기</button>
@@ -372,6 +374,7 @@ input[type="checkbox"]:checked {
 							<div class="insert-box-right">
 								<% if (fileRenames != null) { %>
 									<input type="button" id="PUR2" class="btn-preview_original btn-white" value="수정 전">
+									<input type="hidden" name="eventImageDetailOriginal" value='<%= fileRenames[1] %>'>
 								<% } %>
 								<input type="file" name="eventImageDetail" id="eventImageDetail">
 								<button type="button" class="btn-preview btn-white display-none">미리보기</button>
@@ -388,6 +391,7 @@ input[type="checkbox"]:checked {
 							<div class="insert-box-right display-none">
 								<% if (fileRenames != null && fileRenames.length == 3) { %>
 									<input type="button" id="PUR3" class="btn-preview_original btn-white" value="수정 전">
+									<input type="hidden" name="eventBannerOriginal" value='<%= fileRenames[2] %>'>
 								<% } %>
 								<input type="file" name="eventBanner" id="eventBanner" disabled>
 								<button type="button" class="btn-preview btn-white display-none">미리보기</button>
@@ -436,11 +440,6 @@ input[type="checkbox"]:checked {
 		function sendFormData() {
 			if ($("#eventStartDt").attr("inorder") === "false") {
 				alert("종료 일자는 시작 일자보다 뒤에 와야 합니다.");
-				return false;
-			}
-
-			if ($("input[name=bannerCheckBox]").is(":checked") && $("#eventBanner")[0].files.length == 0) {
-				alert("등록된 배너가 없습니다. 배너를 등록하지 않는다면 체크박스를 해제해주세요.");
 				return false;
 			}
 
@@ -545,8 +544,7 @@ input[type="checkbox"]:checked {
                 $(".preview-content img").attr("src", event.target.result);
 				showPreview();
             }
-
-			const file = $(event.target).siblings("input")[0].files[0];
+			const file = $(event.target).siblings("input[type=file]")[0].files[0];
             reader.readAsDataURL(file);
 		})
 

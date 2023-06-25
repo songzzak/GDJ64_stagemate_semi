@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.stagemate.common.JDBCTemplate;
 import com.stagemate.event.dao.EventDao;
+import com.stagemate.event.model.vo.Casting;
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventTime;
 import com.stagemate.event.model.vo.EventUpfile;
@@ -131,13 +132,13 @@ public class EventService {
 		return locations;
 	}
 	
-	public int insertEvent(Event eventInfo, List<String> casting,
+	public int insertEvent(Event eventInfo, List<Casting> castings,
 							Map<Date, String> eventSchedule, List<EventUpfile> upfiles) 
 	{
 		Connection conn = JDBCTemplate.getConnection();
 		int resultTotal = 0;
 		int resultOfInfo = dao.insertEventInfo(conn, eventInfo);
-		int resultOfCasting = dao.insertEventCasting(conn, casting);
+		int resultOfCasting = dao.insertEventCasting(conn, castings);
 		int resultOfSchedule = dao.insertEventSchedule(conn, eventSchedule);
 		int resultOfFiles = dao.insertEventFiles(conn, upfiles);
 		
@@ -166,6 +167,29 @@ public class EventService {
 		Map<String, String> schedule = dao.selectScheduleByEventNo(conn, eventNo);
 		JDBCTemplate.close(conn);
 		return schedule;
+	}
+	
+	public int updateEvent(Event eventInfo, List<Casting> castings, List<EventUpfile> upfiles) 
+	{
+		Connection conn = JDBCTemplate.getConnection();
+		int resultTotal = 0;
+		int resultOfInfo = dao.updateEventInfo(conn, eventInfo);
+		int resultOfCastingDelete = dao.deleteEventCastingByEventNo(conn, eventInfo.getEventNo());
+		int resultOfCastingInsert = dao.reInsertEventCasting(conn, castings);
+		int resultOfFilesDelete = dao.deleteEventFilesByEventNo(conn, eventInfo.getEventNo());
+		int resultOfFilesInsert = dao.reInsertEventFiles(conn, upfiles);
+		
+		if (resultOfInfo == 0 || resultOfCastingDelete == 0 || resultOfCastingInsert == 0 
+				|| resultOfFilesDelete == 0 || resultOfFilesInsert == 0) 
+		{
+			JDBCTemplate.rollback(conn);
+		} else {
+			resultTotal = 1;
+			JDBCTemplate.commit(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		return resultTotal;
 	}
 	
 }

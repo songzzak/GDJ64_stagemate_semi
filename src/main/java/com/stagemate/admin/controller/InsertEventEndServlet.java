@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +22,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.stagemate.event.model.vo.Casting;
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.service.EventService;
@@ -57,7 +59,9 @@ public class InsertEventEndServlet extends HttpServlet {
 							.eventInter(Integer.parseInt(mr.getParameter("eventInter")))
 							.build();
 				
-		List<String> casting = Arrays.asList(mr.getParameter("eventCasting").split(","));
+		List<Casting> castings = Arrays.asList(mr.getParameter("eventCasting").split(","))
+										.stream().map(castingNm -> getCastingBy(castingNm))
+										.collect(Collectors.toList());
 		
 		List<EventUpfile> upfiles = new ArrayList<>();
 		upfiles.add(getUpFileBy(mr.getOriginalFileName("eventMainPoster"),
@@ -74,7 +78,7 @@ public class InsertEventEndServlet extends HttpServlet {
 		
 		Map<Date, String> eventSchedule = getSchedule(mr.getParameter("eventStartDt"), mr.getParameter("eventEndDt"), mr.getParameterValues("eventDay"), mr.getParameterValues("startTime"));
 		
-		int result = new EventService().insertEvent(eventInfo, casting, eventSchedule, upfiles);
+		int result = new EventService().insertEvent(eventInfo, castings, eventSchedule, upfiles);
 		
 		String msg = "행사가 성공적으로 등록되었습니다.";
 		String loc = "/admin/eventlist";
@@ -115,5 +119,11 @@ public class InsertEventEndServlet extends HttpServlet {
 						.euRename(fileRename)
 						.purposeNo(purposeNo)
 						.build();
+	}
+	
+	private Casting getCastingBy(String castingNm) {
+		return Casting.builder()
+					.castingNm(castingNm)
+					.build();
 	}
 }

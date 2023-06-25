@@ -475,7 +475,7 @@ input[type="checkbox"]:checked {
 				showPreview();
             }
 
-			const file = $(event.target).siblings("input")[0].files[0];
+			const file = $(event.target).siblings("input[type=file]")[0].files[0];
             reader.readAsDataURL(file);
 		})
 
