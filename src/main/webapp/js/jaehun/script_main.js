@@ -1,3 +1,103 @@
+$(() => {
+    const week = ["일", "월", "화", "수", "목", "금", "토"];
+    const today = new Date();
+    const rsvDays = $(".reservation-calandar-days");
+
+    week.forEach((element, index) => {
+        const $li = $("<li>").addClass("btn-layout");
+        const day = $("<p>").text(index == 0 ? "오늘" : week[(today.getDay() + index) % 7]);
+
+        const theDayAfter = new Date();
+        theDayAfter.setDate((today.getDate() + index));
+        const date = $("<p>").text(theDayAfter.getDate());
+
+        rsvDays.append($li.append(day).append(date));
+        rsvDays.children().eq(0).addClass("btn-brown");
+    });
+
+    rsvDays.on("click", (event) => {
+        rsvDays.children().removeClass("btn-brown");
+        if ($(event.target).prop("tagName") === "P") {
+            $(event.target).parent().addClass("btn-brown");
+        } else {
+            $(event.target).addClass("btn-brown");
+        }
+    });
+});
+
+window.onload = () => {
+    $.post(getContextPath() + "/eventForMainPage.do", 
+            {
+                date: formatDate(new Date())
+            }, 
+            data => {
+                data.sort((a, b) => {
+                    if (new Date(a.rsvOpenDt) < new Date(b.rsvOpenDt)) {
+                        return -1;
+                    }
+
+                    if (new Date(a.rsvOpenDt) > new Date(b.rsvOpenDt)) {
+                        return 1;
+                    }
+
+                    return 0;
+                });
+
+                const lineup = $(".reservation-calendar-lineup");
+                lineup.html("");
+                lineup.width($(".reservation-calendar-wrapper").width() * data.length);
+                
+                data.forEach(event => {
+                    lineup.append(generatePoster(event));
+                });
+            }
+    );
+}
+
+function formatDate(date) {
+    return date.getFullYear() 
+            + "-" 
+            + ((date.getMonth() + 1) < 9 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1)) 
+            + "-" 
+            + (date.getDate() < 9 ? "0" + date.getDate() : date.getDate());
+}
+
+function formatDateWithoutYear(date) {
+    return (date.getMonth() + 1) + "/" + date.getDate();
+}
+
+function generatePoster(event) {
+    const poster = $("<div>").addClass("calendar-lineup_poster");
+    const rsvOpenDt = $("<p>").text(formatDateWithoutYear(new Date(event.rsvOpenDt))).css({
+        border: "2px solid var(--sm-brown)",
+        color: "white",
+        backgroundColor: "var(--sm-brown)",
+        borderTopLeftRadius: "10px",
+        borderTopRightRadius: "10px",
+        borderBottom: "none",
+        width: "100%",
+        textAlign: "center",
+        padding: "13px 0"
+    });
+    const relative = $("<div>").addClass("pos-relative");
+    const $img = $("<img>").attr("src", getContextPath() + "/upload/joonho/" + event.euRename);
+    const posterOverlay = $("<div>").addClass("lineup_poster_overlay");
+    const eventNm = $("<h3>").text(event.eventNm);
+    const eventStartDt = $("<p>").text(event.eventStartDt);
+    const wave = $("<p>").text("~");
+    const eventEndDt = $("<p>").text(event.eventEndDt);
+    const location = $("<p>").text(event.location);
+
+    posterOverlay.append(eventNm)
+                .append(eventStartDt)
+                .append(wave)
+                .append(eventEndDt)
+                .append(location);
+
+    relative.append($img).append(posterOverlay);
+    return poster.append(rsvOpenDt).append(relative);
+}
+
 const slideBanners = (() => {
     const wrapper = $('.banners-wrapper');
     const container = $('.banners-container');
@@ -88,13 +188,19 @@ const slideBanners = (() => {
 });
 slideBanners();
 
-$('.calandar-lineup_poster').each((index, selector) => {
-    $(selector).hover(() => {
-        $(selector).children('div').children().first().css('opacity', 1);
-    }, () => {
-        $(selector).children('div').children().first().css('opacity', 0);
-    });
+$(document).on("mouseenter", ".pos-relative", event => {
+    console.log($(event.target));
+    if ($(event.target).hasClass("lineup_poster_overlay")) {
+        $(event.target).css("opacity", 1);
+    }
 });
+
+$(document).on("mouseleave", ".pos-relative", event => {
+    if ($(event.target).hasClass("lineup_poster_overlay")) {
+        $(event.target).css("opacity", 0);
+    }
+});
+
 
 $('.lineup_btn_prev').click(() => {
     alert('개발 중');
@@ -104,14 +210,6 @@ $('.lineup_btn_next').click(() => {
     alert('개발 중');
 })
 
-const days = $('.reservation-calandar-days>li');
-days.each(function() {
-    $(this).click(() => {
-        days.removeClass("btn-brown");
-        $(this).addClass("btn-brown");
-    });
-});
-
 const resizeGoods = () => {
     const goods = $('.goods-lineup_item>div:first-child');
 
@@ -119,3 +217,4 @@ const resizeGoods = () => {
     goods.height(goods.width());
 };
 resizeGoods();
+

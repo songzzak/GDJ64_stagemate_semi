@@ -382,4 +382,11 @@ public class EventService {
 		return list;
 	}
 	
+	public Map<Event, String> selectEventAndFileByDate(String date) {
+		Connection conn = JDBCTemplate.getConnection();
+		Map<Event, String> events = dao.selectEventAndFileByDate(conn, date);
+		JDBCTemplate.close(conn);
+		return events;
+	}
+	
 }

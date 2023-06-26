@@ -30,8 +30,7 @@ public class EnrollEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException 
 	{
-		final String address = String.format("%s|%s|%s", 
-											request.getParameter("zipCode"),
+		final String address = String.format("%s %s", 
 											request.getParameter("address"),
 											request.getParameter("addressDetail"));	
 		

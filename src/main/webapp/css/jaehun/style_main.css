@@ -1,5 +1,9 @@
 @import url("../style_init.css");
 
+.pos-relative {
+    position: relative;
+}
+
 .banners img, .reservation img, .goods_and_board img {
     display: block;
     width: 100%;
@@ -13,7 +17,7 @@
 div.banners-wrapper {
 	overflow: hidden;
     position: relative;
-    width: 100vw;
+    width: 100%;
     margin-bottom: 60px;
 }
 
@@ -37,7 +41,7 @@ ul.banners-indicator {
 
 /* reservation */
 .reservation-container {
-    width: 100%;
+    min-width: 1160px;
     margin-bottom: 120px;
 }
 
@@ -47,8 +51,16 @@ ul.banners-indicator {
     justify-content: center;
 }
 
+.title-absolute {
+    position: absolute;
+    top: 0;
+    left: 57%;
+}
+
 .reservation-calandar {
     margin-top: 2%;
+    width: 100%;
+    position: relative;
 }
 
 .reservation-calandar>ul {
@@ -56,7 +68,7 @@ ul.banners-indicator {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 2%;
+    margin-bottom: 60px;
 }
 
 .reservation-calandar>ul>li {
@@ -67,51 +79,79 @@ ul.banners-indicator {
     padding: 8px 5px;
 }
 
-.reservation-calandar-lineup {
+.reservation-calendar-wrapper {
+    overflow: hidden;
     width: 100%;
-    margin-top: 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin-bottom: 90px;
 }
 
-.lineup_btn_prev, .lineup_btn_next {
+.calendar_btn_prev, .calendar_btn_next {
+    position: absolute;
+    top: 68%;
     cursor: pointer;
 }
 
-.calandar-lineup_poster {
+.calendar_btn_prev {
+    left: -8%;
+}
+
+.calendar_btn_next {
+    right: -8%;
+}
+
+.reservation-calendar-lineup {
+    display: flex;
+    align-items: center;
+}
+
+.calendar-lineup_poster {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: var(--green);
-    width: 12%;
+    max-width: 180px;
+    margin-right: 65px;
     cursor: pointer;
 }
 
-.calandar-lineup_poster>div {
-    margin-top: 15%;
-    width: 100%;
-    position: relative;
+.calendar-lineup_poster>p {
+    font-size: 1.3rem;
+    color: var(--sm-brown);
+    font-weight: 900;
 }
 
-.calandar-lineup_poster>div>img {
-    border-radius: 10px;
+.calendar-lineup_poster img {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
-.overlay-absolute {
+.lineup_poster_overlay {
     position: absolute;
+    top: 0;
+
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.3);
     color: white;
-    z-index: 10;
+    text-align: center;
     border-radius: 10px;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
+    z-index: 10;
     opacity: 0;
     transition: opacity 0.3s;
+}
+
+.lineup_poster_overlay h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.lineup_poster_overlay p {
+    font-size: 0.8rem;
 }
 
 /* goods & board */

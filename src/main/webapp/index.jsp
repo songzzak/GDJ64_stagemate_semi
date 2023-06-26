@@ -31,101 +31,40 @@
 
 <section class="reservation min1280px">
     <div class="reservation-container max1280px">
-        <div class="reservation-title">
-            <h2 class="fw-bold">곧 만나요!</h2>
-            <div>
+        <div class="reservation-title pos-relative">
+            <h2 class="fw-bold">곧 예매 오픈!</h2>
+            <div class="title-absolute">
                 <img src="<%= contextPath %>/images/jaehun/main_page/hello.svg" alt="손_흔드는_아이콘">
             </div>
         </div>
         <div class="reservation-calandar">
             <ul class="reservation-calandar-days">
-                <li class="btn-layout btn-brown">
-                    <p>오늘</p>
-                    <p>10</p>
-                </li>
-                <li class="btn-layout">
-                    <p>목</p>
-                    <p>11</p>
-                </li>
-                <li class="btn-layout">
-                    <p>금</p>
-                    <p>12</p>
-                </li>
-                <li class="btn-layout">
-                    <p>토</p>
-                    <p>13</p>
-                </li>
-                <li class="btn-layout">
-                    <p>일</p>
-                    <p>14</p>
-                </li>
-                <li class="btn-layout">
-                    <p>월</p>
-                    <p>15</p>
-                </li>
-                <li class="btn-layout">
-                    <p>화</p>
-                    <p>16</p>
-                </li>
             </ul>
-            <div class="reservation-calandar-lineup">
-                <div class="lineup_btn_prev">
-                    <img src="<%= contextPath %>/images/jaehun/main_page/lineup_btn_prev.svg" alt="이전버튼">
-                </div>
-                <div class="calandar-lineup_poster">
-                    <p>5월 10일</p>
-                    <p>14:00 예매 오픈</p>
-                    <div>
-                        <div class="overlay-absolute">
-                            <p>개발 중</p>
-                        </div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/poster1.jpg" alt="포스터1">
-                    </div>
-                </div>
-                <div class="calandar-lineup_poster">
-                    <p>5월 10일</p>
-                    <p>14:00 예매 오픈</p>
-                    <div>
-                        <div class="overlay-absolute">
-                            <p>개발 중</p>
-                        </div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/poster1.jpg" alt="포스터1">
-                    </div>
-                </div>
-                <div class="calandar-lineup_poster">
-                    <p>5월 10일</p>
-                    <p>14:00 예매 오픈</p>
-                    <div>
-                        <div class="overlay-absolute">
-                            <p>개발 중</p>
-                        </div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/poster1.jpg" alt="포스터1">
-                    </div>
-                </div>
-                <div class="calandar-lineup_poster">
-                    <p>5월 10일</p>
-                    <p>14:00 예매 오픈</p>
-                    <div>
-                        <div class="overlay-absolute">
-                            <p>개발 중</p>
-                        </div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/poster1.jpg" alt="포스터1">
-                    </div>
-                </div>
-                <div class="calandar-lineup_poster">
-                    <p>5월 10일</p>
-                    <p>14:00 예매 오픈</p>
-                    <div>
-                        <div class="overlay-absolute">
-                            <p>개발 중</p>
-                        </div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/poster1.jpg" alt="포스터1">
-                    </div>
-                </div>
-                <div class="lineup_btn_prev">
-                    <img src="<%= contextPath %>/images/jaehun/main_page/lineup_btn_next.svg" alt="다음버튼">
-                </div>
+            <div class="calendar_btn_prev">
+                <img src="<%= contextPath %>/images/jaehun/main_page/lineup_btn_prev.svg" alt="이전버튼">
             </div>
+            <div class="calendar_btn_next">
+                <img src="<%= contextPath %>/images/jaehun/main_page/lineup_btn_next.svg" alt="다음버튼">
+            </div>
+            <article class="reservation-calendar-wrapper">
+                <div class="reservation-calendar-lineup">
+                    <div class="calendar-lineup_poster">
+                        <img src="<%= contextPath %>/images/jaehun/main_page/loading_lineup.gif">
+                    </div>
+                    <div class="calendar-lineup_poster">
+                        <img src="<%= contextPath %>/images/jaehun/main_page/loading_lineup.gif">
+                    </div>
+                    <div class="calendar-lineup_poster">
+                        <img src="<%= contextPath %>/images/jaehun/main_page/loading_lineup.gif">
+                    </div>
+                    <div class="calendar-lineup_poster">
+                        <img src="<%= contextPath %>/images/jaehun/main_page/loading_lineup.gif">
+                    </div>
+                    <div class="calendar-lineup_poster">
+                        <img src="<%= contextPath %>/images/jaehun/main_page/loading_lineup.gif">
+                    </div>
+                </div>
+            </article>
         </div>
     </div>
 </section>
