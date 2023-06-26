@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <link rel="stylesheet" href="<%=contextPath%>/css/yelin/store/style_shoppingBasket.css">
+<link rel="stylesheet" href="<%=contextPath%>/css/yoonjin/style_mypage_nav.css">
 <%@ page import="java.util.List,com.stagemate.store.model.vo.Cart,com.stagemate.store.model.vo.Product"%>
 <%
     List<Cart> carts = (List) request.getAttribute("carts");
@@ -15,38 +16,38 @@
         <div id="sectionContainer" class="max1280px" style="min-height: 720px;">
         	<div class=mypageContainer>
         	<div id="mypage_nav">
-        		<div>
-                    <img src="<%=contextPath%>/images/yoonjin/information/default_profile.png" alt="user_profile_img">
-                    <img src="<%=contextPath%>/images/yoonjin/information/icon_gear.png" alt="gear_img">
-        			<h5><%=loginMember.getMemberNm() %> 님</h5>
+        		<div id="user_profile">
+                    <img src="<%=contextPath%>/images/yoonjin/information/default_profile.png" alt="user_profile_img" id="img_profile">
+                    <img src="<%=contextPath%>/images/yoonjin/information/icon_gear.png" alt="gear_img" id="img_gear">
+        			<h5><%=loginMember.getMemberId() %> 님</h5>
         			<p><%=loginMember.getMemberEmail() %><p>
         		</div>
         		<hr>
-        		<div>
+        		<div id="user_nav">
 					<nav>   
-						<ul id="mypage_nav_nav_ul">
-							<li><a href="#">내 정보 관리</a></li>
-							<li><a href="#">관심목록</a></li>
-							<li><a href="#">장바구니</a></li>
-							<li>구매내역
+						<ul id="mypage_nav_ul">
+							<li class="li1"><a href="#">내 정보 관리</a></li>
+							<li class="li1"><a href="#">관심목록</a></li>
+							<li class="li1"><a href="#">장바구니</a></li>
+							<li class="li1">구매내역
 								<ul>
-									<li><a href="#">구매상세내역</a></li>
-									<li><a href="#">리뷰 작성</a></li>
-									<li><a href="#">취소/반품</a></li>
+									<li class="li2"><a href="#">구매상세내역</a></li>
+									<li class="li2"><a href="#">리뷰 작성</a></li>
+									<li class="li2"><a href="#">취소/반품</a></li>
 								</ul>
 							</li>
-							<li>내가 쓴 글
+							<li class="li1">내가 쓴 글
 								<ul>
-									<li><a href="#">커뮤니티</a></li>
-									<li><a href="#">1:1문의</a></li>
+									<li class="li2"><a href="#">커뮤니티</a></li>
+									<li class="li2"><a href="#">1:1문의</a></li>
 								</ul>
-							</li>
-							<li><a href="#">회원 탈퇴</a></li>
+							</li class="li1">
+							<li class="li1"><a href="#">회원 탈퇴</a></li>
 						</ul>
 					</nav>
         		</div>
-        		<div>
-        			<button>로그아웃</button>
+        		<div id="nav_btn_logout">
+        			<button id="logout_btn_mypage">로그아웃</button>
         		</div>
 			</div>
             <div class="SB_bigchart">
