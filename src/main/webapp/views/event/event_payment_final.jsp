@@ -10,6 +10,8 @@
 	String round = (String)request.getAttribute("round");
 	String choiceday = (String)request.getAttribute("choiceday");
 	String chkDate = (String)request.getAttribute("chkDate");
+	String totalprice = (String)request.getAttribute("totalprice");
+	String seats = (String)request.getAttribute("seats");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -55,15 +57,15 @@
 						</tr>
 						<tr>
 							<td>관람일시</td>
-							<td>2023년 5월 24일 (수) 19:30</td>
+							<td><%=choiceday %> <%=round %></td>
 						</tr>
 						<tr>
 							<td>장소</td>
-							<td>광림아트센터 BBCH홀</td>
+							<td><%=event.getLocation() %></td>
 						</tr>
 						<tr>
 							<td>좌석</td>
-							<td>1층 VIP석 A열 10번, 1층 R석 C열 6번, 1층 S석 C열 2번, 2층 E열 6번</td>
+							<td><%=seats %></td>
 						</tr>
 						<tr>
 							<td>티켓 수령방법</td>
@@ -77,25 +79,25 @@
 					<table>
 						<tr>
 							<td>예매일</td>
-							<td>2023.05 15 14:01</td>
+							<td><%=eventOrder.getRsvDate() %></td>
 						</tr>
 						<tr>
 							<td>총 결제 금액</td>
-							<td>427,000원</td>
+							<td><%=totalprice %>원</td>
 						</tr>
 						<tr>
 							<td>결제수단</td>
-							<td>신용카드[신한카드]</td>
+							<td>카드</td>
 						</tr>
 					</table>
 				</div>
 				<!-- 취소 안내 -->
 				<div id="res_pay_fin_cancel_info">
-					<h1>취소 가능 마감 시간 : 2023년 5월 23일 17:00까지</h1>
+					<h1>취소 가능 마감 시간 : <%=chkDate %> 까지</h1>
 					<div>
 						<h3>예매 취소 안내</h3>
 						<hr>
-						<p>취소 마감시간 : 2023.06.03 (금) 17:00 까지</p>
+						<p>취소 마감시간 : <%=chkDate %></p>
 						<p>취소 관련 기타 자세한 내용은 공연 별별 상세페이지 안내를 이용해주세요. </p>
 						<p>신용카드 결제의 경우, 일반적으로 당사의 취소처리 완료 후, 영업일기준 3~4일 뒤에 카드사의 승인취소가 확인됩니다. (체크카드 동일)- 기존 결제금액을 취소한 뒤, 동일카드로 취소시점에 따른 취소수수료를 재승인합니다.(※ 예매취소시점과 해당 카드사의 환불 처리기준에 따라 환급방법과 환급일자는 다소 차이가 있을 수 있습니다.) </p>
 						<p>취소마감시간 : 공연일 1일 전 오후 5시 / 공연일이 일요일, 월요일인 경우 토요일 낮 12시(단, 공연일 1일 전이 공휴일인 경우 공휴일 전 평일 오후 5시, 토요일 낮 12시)- 예매수수료는 예매한 당일 취소 시에만 환불되며, 이후 취소 시에는 환불되지 않습니다.- 취소 마감시간 이후 또는 관람일 당일 예매하신 건에 대해서는 취소/변경/환불이 불가합니다.</p>

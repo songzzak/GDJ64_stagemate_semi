@@ -81,11 +81,45 @@ public class PaymentDao {
 		return result;
 	}
 	
-	public int updateSeatRes(Connection conn,String row,int col,String eventNo,String choiceday) {
+	public int updateMusicalSeatRes(Connection conn,String row,int col,String eventNo,String choiceday) {
 		PreparedStatement pstmt=null;
 		int result=0;
 		try {
-			pstmt=conn.prepareStatement(sql.getProperty("updateSeatRes"));
+			pstmt=conn.prepareStatement(sql.getProperty("updateMusicalSeatRes"));
+			pstmt.setString(1, eventNo);
+			pstmt.setString(2, choiceday);
+			pstmt.setString(3, row);
+			pstmt.setInt(4, col);
+			result=pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int updateActSeatRes(Connection conn,String row,int col,String eventNo,String choiceday) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("updateActSeatRes"));
+			pstmt.setString(1, eventNo);
+			pstmt.setString(2, choiceday);
+			pstmt.setString(3, row);
+			pstmt.setInt(4, col);
+			result=pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int updateConcertSeatRes(Connection conn,String row,int col,String eventNo,String choiceday) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("updateConcertSeatRes"));
 			pstmt.setString(1, eventNo);
 			pstmt.setString(2, choiceday);
 			pstmt.setString(3, row);
@@ -119,12 +153,56 @@ public class PaymentDao {
 		return eventOrder;
 	}
 	
-	public Seat selectSeatNo(Connection conn,String row,int col,String eventNo,String esNo) {
+	public Seat selectMusicalSeatNo(Connection conn,String row,int col,String eventNo,String esNo) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		Seat seat=null;
 		try {
-			pstmt=conn.prepareStatement(sql.getProperty("selectSeatNo"));
+			pstmt=conn.prepareStatement(sql.getProperty("selectMusicalSeatNo"));
+			pstmt.setString(1, eventNo);
+			pstmt.setString(2, row);
+			pstmt.setInt(3, col);
+			pstmt.setString(4, esNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				seat=getSeat(rs);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return seat;
+	}
+	public Seat selectActSeatNo(Connection conn,String row,int col,String eventNo,String esNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Seat seat=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectActSeatNo"));
+			pstmt.setString(1, eventNo);
+			pstmt.setString(2, row);
+			pstmt.setInt(3, col);
+			pstmt.setString(4, esNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				seat=getSeat(rs);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return seat;
+	}
+	public Seat selectConcertSeatNo(Connection conn,String row,int col,String eventNo,String esNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Seat seat=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectConcertSeatNo"));
 			pstmt.setString(1, eventNo);
 			pstmt.setString(2, row);
 			pstmt.setInt(3, col);

@@ -34,9 +34,25 @@ public class PaymentService {
 		return result;
 	}
 	
-	public int updateSeatRes(String row,int col,String eventNo,String choiceday) {
+	public int updateMusicalSeatRes(String row,int col,String eventNo,String choiceday) {
 		Connection conn=getConnection();
-		int result=dao.updateSeatRes(conn,row,col,eventNo,choiceday);
+		int result=dao.updateMusicalSeatRes(conn,row,col,eventNo,choiceday);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	public int updateActSeatRes(String row,int col,String eventNo,String choiceday) {
+		Connection conn=getConnection();
+		int result=dao.updateActSeatRes(conn,row,col,eventNo,choiceday);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	public int updateConcertSeatRes(String row,int col,String eventNo,String choiceday) {
+		Connection conn=getConnection();
+		int result=dao.updateConcertSeatRes(conn,row,col,eventNo,choiceday);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);
@@ -50,9 +66,21 @@ public class PaymentService {
 		return eventOrder;
 	}
 	
-	public Seat selectSeatNo(String row,int col,String eventNo,String esNo) {
+	public Seat selectMusicalSeatNo(String row,int col,String eventNo,String esNo) {
 		Connection conn=getConnection();
-		Seat SeatNo=dao.selectSeatNo(conn,row,col,eventNo,esNo);
+		Seat SeatNo=dao.selectMusicalSeatNo(conn,row,col,eventNo,esNo);
+		close(conn);
+		return SeatNo;
+	}
+	public Seat selectActSeatNo(String row,int col,String eventNo,String esNo) {
+		Connection conn=getConnection();
+		Seat SeatNo=dao.selectActSeatNo(conn,row,col,eventNo,esNo);
+		close(conn);
+		return SeatNo;
+	}
+	public Seat selectConcertSeatNo(String row,int col,String eventNo,String esNo) {
+		Connection conn=getConnection();
+		Seat SeatNo=dao.selectConcertSeatNo(conn,row,col,eventNo,esNo);
 		close(conn);
 		return SeatNo;
 	}
