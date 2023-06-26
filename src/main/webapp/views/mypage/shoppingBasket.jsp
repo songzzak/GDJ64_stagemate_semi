@@ -13,6 +13,42 @@
     <%@ include file="/views/common/header.jsp"%>
     <section class="min1280px">
         <div id="sectionContainer" class="max1280px" style="min-height: 720px;">
+        	<div class=mypageContainer>
+        	<div id="mypage_nav">
+        		<div>
+                    <img src="<%=contextPath%>/images/yoonjin/information/default_profile.png" alt="user_profile_img">
+                    <img src="<%=contextPath%>/images/yoonjin/information/icon_gear.png" alt="gear_img">
+        			<h5><%=loginMember.getMemberNm() %> 님</h5>
+        			<p><%=loginMember.getMemberEmail() %><p>
+        		</div>
+        		<hr>
+        		<div>
+					<nav>   
+						<ul id="mypage_nav_nav_ul">
+							<li><a href="#">내 정보 관리</a></li>
+							<li><a href="#">관심목록</a></li>
+							<li><a href="#">장바구니</a></li>
+							<li>구매내역
+								<ul>
+									<li><a href="#">구매상세내역</a></li>
+									<li><a href="#">리뷰 작성</a></li>
+									<li><a href="#">취소/반품</a></li>
+								</ul>
+							</li>
+							<li>내가 쓴 글
+								<ul>
+									<li><a href="#">커뮤니티</a></li>
+									<li><a href="#">1:1문의</a></li>
+								</ul>
+							</li>
+							<li><a href="#">회원 탈퇴</a></li>
+						</ul>
+					</nav>
+        		</div>
+        		<div>
+        			<button>로그아웃</button>
+        		</div>
+			</div>
             <div class="SB_bigchart">
                 <p class="ShoppingBasket_eng">My Page</p>
                 <p class="ShoppingBasket_kor">장바구니</p>
@@ -116,6 +152,7 @@
 	                    </div>
 	                 </form>
                 </div>
+            </div>
             </div>
         </div>
     </section>
