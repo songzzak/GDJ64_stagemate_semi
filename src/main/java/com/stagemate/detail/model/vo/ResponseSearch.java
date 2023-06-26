@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ResponseSearch {
-	  private int totalCount;
-	  private List<Detail> detailList;
-	  private List<StoreDetail> storeList;
-	  private String pageBar;
+     private int totalCount;
+     private List<Detail> detailList;
+     private List<StoreDetail> storeList;
+     private String pageBar;
 }

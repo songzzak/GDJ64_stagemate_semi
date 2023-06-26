@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Detail {
-	private String rsvNo;
-	private String eventName;
-	private String rsvDate;
-	private String orderStatus;
+   private String rsvNo;
+   private String eventName;
+   private String rsvDate;
+   private String orderStatus;
 }
