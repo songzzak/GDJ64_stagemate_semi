@@ -72,6 +72,7 @@ public class UpdateEventEndServlet extends HttpServlet {
 								mr.getFilesystemName("eventImageDetail") == null ? mr.getParameter("eventImageDetailOriginal") : mr.getFilesystemName("eventImageDetail"),
 								"PUR2",
 								mr.getParameter("eventNo")));
+		
 		if (mr.getParameter("bannerCheckBox") != null) {
 			System.out.println("PUR3 진입");
 			upfiles.add(getUpFileBy(mr.getOriginalFileName("eventBanner") == null ? mr.getParameter("eventBannerOriginal") : mr.getOriginalFileName("eventBanner"),
@@ -97,12 +98,24 @@ public class UpdateEventEndServlet extends HttpServlet {
 			});
 		} else {
 			System.out.println("수정 성공! 이전 파일을 삭제합니다.");
-			deleteFile(mr.getParameter("eventMainPosterOriginal"));
-			deleteFile(mr.getParameter("eventImageDetailOriginal"));
+			int count = 0;
 			
-			if (mr.getParameter("bannerCheckBox") != null) {
-				deleteFile(mr.getParameter("eventBannerOriginal"));
+			if (mr.getOriginalFileName("eventMainPoster") != null) {
+				deleteFile(mr.getParameter("eventMainPosterOriginal"));
+				count++;
 			}
+			
+			if (mr.getOriginalFileName("eventImageDetail") != null) {
+				deleteFile(mr.getParameter("eventImageDetailOriginal"));
+				count++;
+			}
+			
+			if ((mr.getParameter("bannerCheckBox") == null && mr.getParameter("eventBannerOriginal") != null) 
+					|| (mr.getOriginalFileName("eventBanner") != null && mr.getParameter("eventBannerOriginal") != null)) {
+				deleteFile(mr.getParameter("eventBannerOriginal"));
+				count++;
+			}
+			System.out.println(String.format("총 %d개의 이전 파일을 삭제했습니다.", count));
 		}
 		
 		request.setAttribute("msg", msg);

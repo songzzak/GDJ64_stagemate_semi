@@ -282,7 +282,7 @@ input[type="checkbox"]:checked {
 								<div class="input-fx-center w-90p">
 									<input type="text" name="eventCasting" id="eventCasting" placeholder="쉼표(,)로 구분해서 입력" 
 								onfocus="this.placeholder = ''" 
-								onblur="this.placeholder = '쉼표(,)로 구분해서 입력'" required>
+								onblur="this.placeholder = '쉼표(,)로 구분해서 입력'">
 								</div>
 							</div>
 						</div>
@@ -359,7 +359,7 @@ input[type="checkbox"]:checked {
 		// 라디오 체크 여부 확인하기 
 		$(() => {
 			const startDate = new Date();
-			$("input[type=date]").prop("min", startDate.toISOString().split('T')[0]);
+			$("input[name=eventStartDt]").prop("min", startDate.toISOString().split('T')[0]);
 		});
 
 		function sendFormData() {

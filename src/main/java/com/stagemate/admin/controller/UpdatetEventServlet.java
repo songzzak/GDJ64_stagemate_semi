@@ -27,17 +27,19 @@ public class UpdatetEventServlet extends HttpServlet {
 		
 		Event eventInfo = new EventService().selectEventByEventNo(eventNo);
 		String casting = String.join(",", new EventService().selectCastingByEventNo(eventNo));
+		
 		List<String> fileRenames = new EventService().selectFileByEventNo(eventNo)
 													.stream()
 													.map(eventFile -> eventFile.getEuRename())
 													.collect(Collectors.toList());
-		Map<String, String> eventSchedule = new EventService().selectScheduleByEventNo(eventNo);
+		
+		Map<String, String> eventDays = new EventService().selectDaysByEventNo(eventNo);
 		
 		request.setAttribute("eventNo", eventNo);
 		request.setAttribute("eventInfo", eventInfo);
 		request.setAttribute("casting", casting);
 		request.setAttribute("fileRenames", fileRenames);
-		request.setAttribute("eventSchedule", eventSchedule);
+		request.setAttribute("eventDays", eventDays);
 		request.getRequestDispatcher("/views/admin/admin_updateEvent.jsp").forward(request, response);
 	}
 

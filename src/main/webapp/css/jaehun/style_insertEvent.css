@@ -70,7 +70,7 @@ input[type="file"] {
     color: black;
 }
 
-.link_active li:first-of-type {
+.link_active li:last-of-type {
     color: #959595;
 }
 
