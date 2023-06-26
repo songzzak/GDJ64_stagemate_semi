@@ -1,6 +1,6 @@
 package com.stagemate.event.model.vo;
 
-import java.sql.Time;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class EventTime {
-	private String etNo;
+public class EventSchedule {
+	private String esNo;
 	private String eventNo;
-	private String etDay;
-	private String etStartTime;
+	private Date esDate;
+	private String esDay;
+	private String esStartTime;
 
 }

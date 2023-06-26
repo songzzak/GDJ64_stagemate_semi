@@ -1,5 +1,7 @@
 package com.stagemate.event.model.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,10 +13,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Seat {
 	private String seatNo;
+	private String esNo;
 	private char isReserved;
 	private String slvNo;
 	private char seatRow;
 	private int seatCol;
 	private String eventNo;
-	private String evcNo;
+	private Date esDate;
+	private String esStartTime;
 }

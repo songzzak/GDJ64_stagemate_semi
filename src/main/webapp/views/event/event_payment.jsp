@@ -175,7 +175,8 @@ var hours = today.getHours(); // 시
 var minutes = today.getMinutes();  // 분
 var seconds = today.getSeconds();  // 초
 var milliseconds = today.getMilliseconds();
-var makeMerchantUid =years+months+dates+ hours +  minutes + seconds + milliseconds;
+var makeMerchantUid = ""+ milliseconds + months+ seconds+dates+years + hours +  minutes  ;
+console.log(makeMerchantUid)
 
 var imagename;
 <%for (EventUpfile f : files) {
@@ -201,7 +202,7 @@ function requestPay() {
         pay_method : 'card',
         merchant_uid: "IMP"+makeMerchantUid, 
         name : '<%=event.getEventNm() %>',
-        amount : 500,
+        amount : 1,
         buyer_email : '<%=loginMember.getMemberEmail() %>',
         buyer_name : '<%=loginMember.getMemberNm() %>',
         buyer_tel : '<%=loginMember.getMemberPhone() %>',
@@ -211,7 +212,7 @@ function requestPay() {
         if (rsp.success) {
           var msg = '결제가 완료되었습니다.';
           alert(msg);
-          location.href = '<%=request.getContextPath()%>/event/paymentresult.do?eventNo='+'<%=event.getEventNo()%>'+
+          location.href = '<%=request.getContextPath()%>/event/paymentresult.do?eventNo='+'<%=event.getEventNo()%>'+'&evnNo='+'<%=event.getEvcNo() %>'+
         		  	'&choiceday='+'<%=choiceday %>'+'&totalprice='+allPrice+'&row='+row+'&column='+column+'&memberId='+'<%=loginMember.getMemberId()%>'+
         		  	'&name='+rsp.buyer_name+'&merchant_uid='+rsp.merchant_uid+'&chkDate='+'<%=chkDate %>'+'&eventName='+'<%=event.getEventNm() %>'+
         		  	'&imagename='+imagename

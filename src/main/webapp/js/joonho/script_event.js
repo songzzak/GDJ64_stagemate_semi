@@ -2,8 +2,7 @@ const urlcopy = () => {
 	var url = '';
 	var textarea = document.createElement("textarea");
 	document.body.appendChild(textarea);
-	url = 'http://localhost:9090/SemiProject/musicalNum1.do';
-	textarea.value = url;
+	textarea.value = pagecopy;
 	textarea.select();
 	document.execCommand("copy");
 	document.body.removeChild(textarea);
@@ -206,46 +205,48 @@ function buildCalendar() {
 
 // 날짜 선택
 function choiceDate(newDIV) {
-	if (document.getElementsByClassName("choiceDay")[0]) {                              // 기존에 선택한 날짜가 있으면
-		document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
-	}
-	var choiceButton=$("#gold_button").html("");
-	for(let i=0;i<6;i++){
-		if(newDIV==$(".Calendar>tbody>tr>td:nth-child(2)>p:not(.pastDay)")[i]){
-			monday.length>0?choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+monday[0])):"";
-		}else if(newDIV==$(".Calendar>tbody>tr>td:nth-child(3)>p:not(.pastDay)")[i]){
-			tuesday.length>0?choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+tuesday[0])):"";
-		}else if(newDIV==$(".Calendar>tbody>tr>td:nth-child(4)>p:not(.pastDay)")[i]){
-			wednesday.length>0?choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+wednesday[0])):"";
-		}else if(newDIV==$(".Calendar>tbody>tr>td:nth-child(5)>p:not(.pastDay)")[i]){
-			thursday.length>0?choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+thursday[0])):"";
-		}else if(newDIV==$(".Calendar>tbody>tr>td:nth-child(6)>p:not(.pastDay)")[i]){
-			friday.length>0?choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+friday[0])):"";
-		}else if(newDIV==$(".Calendar>tbody>tr>td:nth-child(7)>p:not(.pastDay)")[i]){
-			if(saturday.length==2){
-				choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+saturday[0]));
-				choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("2회 "+saturday[1]))
-			}else if(saturday.length==1){
-				choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+saturday[0]));
-			}else{
-				choiceButton=""
-			}
-		}else if(newDIV==$(".Calendar>tbody>tr>td:nth-child(1)>p:not(.pastDay)")[i]){
-			if(sunday.length==2){
-				choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+sunday[0]));
-				choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("2회 "+sunday[1]))
-			}else if(saturday.length==1){
-				choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+sunday[0]));
-			}else{
-				choiceButton=""
+	/*if(openday>todays){
+		alert(opendays+" 이후에 예매 가능합니다");
+	}else{*/
+		if (document.getElementsByClassName("choiceDay")[0]) {                              // 기존에 선택한 날짜가 있으면
+			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
+		}
+		var choiceButton=$("#gold_button").html("");
+		for(let i=0;i<6;i++){
+			if(newDIV==$(".Calendar>tbody>tr>td:nth-child(2)>p:not(.pastDay)")[i]){
+				monday.length>0?choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+monday[0])):"";
+			}else if(newDIV==$(".Calendar>tbody>tr>td:nth-child(3)>p:not(.pastDay)")[i]){
+				tuesday.length>0?choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+tuesday[0])):"";
+			}else if(newDIV==$(".Calendar>tbody>tr>td:nth-child(4)>p:not(.pastDay)")[i]){
+				wednesday.length>0?choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+wednesday[0])):"";
+			}else if(newDIV==$(".Calendar>tbody>tr>td:nth-child(5)>p:not(.pastDay)")[i]){
+				thursday.length>0?choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+thursday[0])):"";
+			}else if(newDIV==$(".Calendar>tbody>tr>td:nth-child(6)>p:not(.pastDay)")[i]){
+				friday.length>0?choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+friday[0])):"";
+			}else if(newDIV==$(".Calendar>tbody>tr>td:nth-child(7)>p:not(.pastDay)")[i]){
+				if(saturday.length==2){
+					choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+saturday[0]));
+					choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("2회 "+saturday[1]))
+				}else if(saturday.length==1){
+					choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+saturday[0]));
+				}else{
+					choiceButton=""
+				}
+			}else if(newDIV==$(".Calendar>tbody>tr>td:nth-child(1)>p:not(.pastDay)")[i]){
+				if(sunday.length==2){
+					choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+sunday[0]));
+					choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("2회 "+sunday[1]))
+				}else if(saturday.length==1){
+					choiceButton=$("#gold_button").append($("<button id='schedule'>").addClass('schedule').css({"cursor":"pointer"}).text("1회 "+sunday[0]));
+				}else{
+					choiceButton=""
+				}
 			}
 		}
-	}
-	newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
+		newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
+	/*}*/
 }
-$(document).on("click","#schedule",function(e){
-		roundchoice(e);
-});
+
 
 // 이전달 버튼 클릭
 function prevCalendar() {

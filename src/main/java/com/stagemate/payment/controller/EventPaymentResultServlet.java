@@ -1,6 +1,11 @@
 package com.stagemate.payment.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,44 +36,67 @@ public class EventPaymentResultServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		Payment p=Payment.builder()
 				.paymentNo(request.getParameter("merchant_uid"))
 				.paymentPrice(Integer.parseInt(request.getParameter("totalprice")))
 				.build();
 		
-		int eventPayment=new PaymentService().insertPayment(p);
+		int paymentResult=new PaymentService().insertPayment(p);
+		String paymentNo=request.getParameter("merchant_uid");
+		String eventNo=request.getParameter("eventNo");
 		EventOrder eo=EventOrder.builder()
-				.eventNo(request.getParameter("eventNo"))
+				.eventNo(eventNo)
 				.whatchDt(request.getParameter("choiceday"))
 				.rsvPrice(Integer.parseInt(request.getParameter("totalprice")))
 				.memberId(request.getParameter("memberId"))
-				.paymentNo(request.getParameter("merchant_uid"))
+				.paymentNo(paymentNo)
 				.build();
+		
+		int eventOrderResult=new PaymentService().insertEventOrder(eo);
+		String evnNo=request.getParameter("evnNo");
 		String row=request.getParameter("row");
 		String column=request.getParameter("column");
-//		String[] rows=row.split(",");
-//		int[] columns=column.split(",");
-//		for(int i=0;i<rows.length;i++) {
-//			if(rows[i].equals("A")) {
-//				column[i]
-//			}
-//		}
-//		
-//		for(int i=0;i<rows.length;i++) {
-//			Seat s=Seat.builder()
-//				.seatRow(rows[i].charAt(0))
-//				.seatCol(Integer.parseInt(columns[i]))
-//				.eventNo(request.getParameter("eventNo"))
-//				.build();
-//		}
-				
-				
+		String[] rows=row.split(",");
+		List<Integer> col = new ArrayList<>();
+        String[] columns = column.split(",");
+		for(int i=0;i<rows.length;i++) {
+			 if(evnNo.equals("EVC1")) {
+				 int number = Integer.parseInt(columns[i]);
+				 if((rows[i].equals("A")||rows[i].equals("B"))&&number>2) {
+					 number += 1;
+				 }else if(number>4) {
+					 number += 1;
+				 }
+				 if((rows[i].equals("A")||rows[i].equals("B"))&&number>14) {
+					 number += 1;
+				 }else if(number>16) {
+					 number += 1;
+				 }
+				 col.add(number);
+			 }else {
+				 int number = Integer.parseInt(columns[i]);
+				 if(number>5) {
+					 number += 1;
+				 }
+				 if(number>13) {
+					 number += 1;
+				 }
+				 col.add(number);
+			 }
+		}
+		
+		EventOrder eventOrder=new PaymentService().selectEventOrder(paymentNo);
+		for(int i=0;i<rows.length;i++) {
+			int updateSeatResult=new PaymentService().updateSeatRes(rows[i],col.get(i),eventNo);
+			Seat SeatNo=new PaymentService().selectSeatNo(rows[i],col.get(i),eventNo);
+			int eventOrderDetailResult=new PaymentService().insertEventOrderDetail(eventOrder.getRsvNo(),SeatNo.getSeatNo());
+		}
+		
+		
+
 		String name=request.getParameter("name");
 		String chkDate=request.getParameter("chkDate");
-		
-		
-		
 		//request.getRequestDispatcher("/views/event/event_payment_final.jsp").forward(request, response);
 	}
 
