@@ -516,6 +516,47 @@ public class StoreDao {
 		return result;
 	}
 
+	public List<StoreLike> selectLikeById(Connection conn, String userId, int cPage, int numPerPage) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<StoreLike> likes=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectLikeById"));
+			pstmt.setString(1,userId);
+			pstmt.setInt(2, ((cPage-1)*numPerPage+1));
+			pstmt.setInt(3, cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				likes.add(getLike(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return likes;
+	}
+
+	public int selectStoreLikeCountById(Connection conn, String userId) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectStoreLikeCountById"));
+			pstmt.setString(1, userId);
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+
+
 
 
 }

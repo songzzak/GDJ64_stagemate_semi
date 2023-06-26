@@ -20,13 +20,14 @@
                     <img src="<%=contextPath%>/images/yoonjin/information/default_profile.png" alt="user_profile_img" id="img_profile">
         			<h5><%=loginMember.getMemberId() %> 님</h5>
         			<p><%=loginMember.getMemberEmail() %><p>
+                <input type="hidden" id="userId" name="userId" value="<%=loginMember.getMemberId()%>">
         		</div>
         		<hr>
         		<div id="user_nav">
 					<nav>   
 						<ul id="mypage_nav_ul">
 							<li class="li1"><a href="#">내 정보 관리</a></li>
-							<li class="li1"><a href="#">관심목록</a></li>
+							<li class="li1"><a href="<%= request.getContextPath() %>/mypage/wishList.do?userId=<%=loginMember.getMemberId()%>">관심목록</a></li>
 							<li class="li1"><a href="#">장바구니</a></li>
 							<li class="li1">구매내역
 								<ul>
@@ -58,7 +59,6 @@
                 <!-- 장바구니 내역 -->
                 <div class="ShoppingBasket_List">
                  <form id="orderForm" method="post" action="<%=request.getContextPath()%>/store/storeOrder.do">
-                <input type="hidden" id="userId" name="userId" value="<%=loginMember.getMemberId()%>">
                     <table class="ShoppingBasket-table" style="margin: 3px auto; margin-right: auto;">
                         <colgroup>
                             <col style="width: 50px">

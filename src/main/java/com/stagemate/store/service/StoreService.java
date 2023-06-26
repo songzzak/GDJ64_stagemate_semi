@@ -188,6 +188,20 @@ public class StoreService {
 		return result;
 	}
 
+	public List<StoreLike> selectLikeById(int cPage, int numPerPage, String userId) {
+		Connection conn=getConnection();
+		List<StoreLike> list=dao.selectLikeById(conn,userId,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+
+	public int selectStoreLikeCountById(String userId) {
+		Connection conn=getConnection();
+		int result=dao.selectStoreLikeCountById(conn,userId);
+		close(conn);
+		return result;
+	}
+
 
 
 }
