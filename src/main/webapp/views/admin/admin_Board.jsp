@@ -9,7 +9,7 @@
 	width: 400px;
 	height: 40px;
 	left: 50%;
-	top: 170px;
+	top: 170px;	
 	transform: translateX(-50%);
 	display: flex;
 	align-items: center;

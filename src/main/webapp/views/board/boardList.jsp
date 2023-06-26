@@ -323,7 +323,7 @@ span {
 						<div class="board_list">
 							<div class="num"><%=b.getBoardNo() %></div>
 							<div class="title">
-								<a href="<%=request.getContextPath()%>/board/boardView.do?=<%=b.getBoardNo()%>">
+								<a href='<%=request.getContextPath()%>/board/boardView.do?no=<%=b.getBoardNo()%>'>
 								<%=b.getBoardTitle()%>
 								</a>
 							</div>

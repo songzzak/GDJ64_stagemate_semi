@@ -1,6 +1,10 @@
 package com.stagemate.board.service;
 
-import static com.stagemate.common.JDBCTemplate.*;
+import static com.stagemate.common.JDBCTemplate.close;
+import static com.stagemate.common.JDBCTemplate.commit;
+import static com.stagemate.common.JDBCTemplate.getConnection;
+import static com.stagemate.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.List;
 
