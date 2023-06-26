@@ -20,7 +20,6 @@
                     <img src="<%=contextPath%>/images/yoonjin/information/default_profile.png" alt="user_profile_img" id="img_profile">
         			<h5><%=loginMember.getMemberId() %> 님</h5>
         			<p><%=loginMember.getMemberEmail() %><p>
-                <input type="hidden" id="userId" name="userId" value="<%=loginMember.getMemberId()%>">
         		</div>
         		<hr>
         		<div id="user_nav">
@@ -59,6 +58,7 @@
                 <!-- 장바구니 내역 -->
                 <div class="ShoppingBasket_List">
                  <form id="orderForm" method="post" action="<%=request.getContextPath()%>/store/storeOrder.do">
+                    <input type="hidden" id="userId" name="userId" value="<%=loginMember.getMemberId()%>">
                     <table class="ShoppingBasket-table" style="margin: 3px auto; margin-right: auto;">
                         <colgroup>
                             <col style="width: 50px">

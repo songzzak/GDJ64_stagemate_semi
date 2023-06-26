@@ -30,6 +30,7 @@ public class StoreOrderServlet extends HttpServlet {
         String[] productNos = request.getParameterValues("cart-checkbox");
         String[] quantities = request.getParameterValues("numBox");
         String memberId = request.getParameter("userId");
+        System.out.println(memberId);
         //System.out.println("아이디:"+memberId);
         // 주문 정보 설정
         List<Product> productList = new ArrayList<>();
@@ -46,22 +47,22 @@ public class StoreOrderServlet extends HttpServlet {
      // 기타 정보 설정
         List<StoreUpfile> filelist = new ArrayList<>();
         List<DlvAdress> dlvList = new DlvAddressService().selectDlvAddressById(memberId);
-       // System.out.println("배송지리스트:"+dlvList);
-        DlvAdress defaultAddress = null;
+        System.out.println("배송지리스트:"+dlvList);
 
         for (Product p : productList) {
         	//첨부파일
             int pNo = p.getProductNo();
             List<StoreUpfile> files = new StoreService().selectFileByProductNo(pNo);
             filelist.addAll(files);
-            //기본배송지
-            for (DlvAdress d : dlvList) {
-                if (d.getIsDefaultDlv() == 'Y') {
-                    defaultAddress = d;
-                    //System.out.println(defaultAddress);
-                    break;
-                }
-            }
+        }
+        //기본배송지
+        DlvAdress defaultAddress = null;
+        for (DlvAdress d : dlvList) {
+        	if (d.getIsDefaultDlv() == 'Y') {
+        		defaultAddress = d;
+        		//System.out.println(defaultAddress);
+        		break;
+        	}
         }
 
         // 필요한 정보를 request에 attribute로 설정

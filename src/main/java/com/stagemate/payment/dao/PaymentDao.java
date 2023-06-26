@@ -12,6 +12,8 @@ import com.stagemate.common.PropertiesGenerator;
 import com.stagemate.event.model.vo.Seat;
 import com.stagemate.payment.model.vo.EventOrder;
 import com.stagemate.payment.model.vo.Payment;
+import com.stagemate.payment.model.vo.PrdOrder;
+import com.stagemate.payment.model.vo.PrdOrderDetail;
 import com.stagemate.store.dao.StoreDao;
 
 public class PaymentDao {
@@ -234,6 +236,61 @@ public class PaymentDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int insertPrdOrder(Connection conn, PrdOrder po) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertPrdOrder"));
+			pstmt.setString(1, po.getDlvId());
+			pstmt.setString(2, po.getPaymentNo());
+			pstmt.setString(3, po.getMemberId());
+			pstmt.setString(4, po.getShipMsg());
+			pstmt.setInt(5, po.getTotalPrice());
+			result=pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertPrdOrderDetail(Connection conn, PrdOrderDetail pod) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertPrdOrderDetail"));
+			pstmt.setString(1, pod.getOrderNo());
+			pstmt.setInt(2, pod.getProductNo());
+			pstmt.setInt(3, pod.getOrderAmt());
+			result=pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public String selectOrderNo(Connection conn) {
+		 PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    String orderNo = null;
+		    try {
+		        pstmt = conn.prepareStatement(sql.getProperty("selectOrderNo"));
+		        rs = pstmt.executeQuery();
+		        if (rs.next()) {
+		            orderNo = rs.getString("order_no");
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    } finally {
+		        close(rs);
+		        close(pstmt);
+		    }
+		    return orderNo;
 	}
 	
 	
