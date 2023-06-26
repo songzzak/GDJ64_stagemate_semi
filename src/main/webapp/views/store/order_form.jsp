@@ -36,7 +36,7 @@ String firstProductNm=productList.get(0).getProductNm();
 	                            <input type="hidden" name="dlvId" value="<%=d.getDlvId()%>">
 	                            <div>
 	                                <span id="dlvName"><%=d.getDlvNm() %></span>
-	                                <button class="btn-layout2 btn-brown" onclick="openPopup('<%=contextPath%>/dlv/selectDlvAddress.do?userId=<%=loginMember.getMemberId()%>')">배송지변경</button>
+	                                <button type="button" class="btn-layout2 btn-brown" id="btn_Popup_dlv">배송지변경</button>
 	                            </div>
 	                        </li>
 	                        <li>
@@ -131,8 +131,15 @@ String firstProductNm=productList.get(0).getProductNm();
             </div>
         </div>
 </section>
+<script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script>
+$(document).ready(function() {
+	  $("#btn_Popup_dlv").click(function() {
+	    var url = "<%=request.getContextPath()%>/dlv/selectDlvAddress.do?userId=<%=loginMember.getMemberId()%>";
+	    window.open(url, '_blank', 'width=500, height=700');
+	  });
+	});
 	var IMP = window.IMP; 
 	IMP.init("imp13225244"); 
 
@@ -185,7 +192,7 @@ String firstProductNm=productList.get(0).getProductNm();
 	}
 </script>
 <%@ include file="/views/common/footer.jsp" %>
-<script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>
+
 <script src="<%= contextPath %>/js/script_common.js"></script>
 <script src="<%= contextPath %>/js/yoonjin/store_order_form.js"></script>
 </body>
