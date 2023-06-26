@@ -3,7 +3,6 @@ package com.stagemate.event.dao;
 import static com.stagemate.common.JDBCTemplate.close;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -461,6 +460,10 @@ public class EventDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
+		if (castings.isEmpty()) {
+			return 1;
+		}
+		
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("insertEventCasting"));
 			for (Casting casting : castings) {
@@ -475,19 +478,16 @@ public class EventDao {
 		return result;
 	}
 	
-	public int insertEventSchedule(Connection conn, Map<Date, String> eventSchedule) {
+	public int insertEventSchedule(Connection conn, List<EventSchedule> eventSchedule) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("insertEventSchedule"));
-			for (Map.Entry<Date, String> schedule : eventSchedule.entrySet()) {
-				Date eventDate = schedule.getKey();
-				String eventTime = schedule.getValue();
-				
-				pstmt.setDate(1, eventDate);
-				pstmt.setDate(2, eventDate);
-				pstmt.setString(3, eventTime);
+			for (EventSchedule schedule : eventSchedule) {
+				pstmt.setDate(1, schedule.getEsDate());
+				pstmt.setDate(2, schedule.getEsDate());
+				pstmt.setString(3, schedule.getEsStartTime());
 				result = pstmt.executeUpdate();
 			}
 		} catch(SQLException e) {
@@ -562,13 +562,13 @@ public class EventDao {
 		return String.join(",", castings.stream().toArray(String[]::new));
 	}
 
-	public Map<String, String> selectScheduleByEventNo(Connection conn, String eventNo) {
+	public Map<String, String> selectDaysByEventNo(Connection conn, String eventNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Map<String, String> schedule = new HashMap<>();
 		
 		try {
-			pstmt = conn.prepareStatement(sql.getProperty("selectScheduleByEventNo"));
+			pstmt = conn.prepareStatement(sql.getProperty("selectDaysByEventNo"));
 			pstmt.setString(1, eventNo);
 			rs = pstmt.executeQuery();
 			

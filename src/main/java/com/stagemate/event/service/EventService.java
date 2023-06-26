@@ -4,7 +4,6 @@ import static com.stagemate.common.JDBCTemplate.close;
 import static com.stagemate.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -133,7 +132,7 @@ public class EventService {
 	}
 	
 	public int insertEvent(Event eventInfo, List<Casting> castings,
-							Map<Date, String> eventSchedule, List<EventUpfile> upfiles) 
+						List<EventSchedule> eventSchedule, List<EventUpfile> upfiles) 
 	{
 		Connection conn = JDBCTemplate.getConnection();
 		int resultTotal = 0;
@@ -162,9 +161,9 @@ public class EventService {
 		return casting;
 	}
 	
-	public Map<String, String> selectScheduleByEventNo(String eventNo) {
+	public Map<String, String> selectDaysByEventNo(String eventNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		Map<String, String> schedule = dao.selectScheduleByEventNo(conn, eventNo);
+		Map<String, String> schedule = dao.selectDaysByEventNo(conn, eventNo);
 		JDBCTemplate.close(conn);
 		return schedule;
 	}

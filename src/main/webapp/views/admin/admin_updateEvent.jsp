@@ -19,11 +19,11 @@
 		fileRenames = ((List<?>) fileRenamesUncast).stream().toArray(String[]::new);
 	}
 	
-	Object eventScheduleUncast = request.getAttribute("eventSchedule");
-	Map<String, String> eventSchedule = new HashMap<>();
-	if (eventScheduleUncast != null && eventScheduleUncast instanceof HashMap<?, ?>) {
-		for (Map.Entry<?, ?> entry : ((Map<?, ?>) eventScheduleUncast).entrySet()) {
-			eventSchedule.put(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()));
+	Object eventDaysUncast = request.getAttribute("eventDays");
+	Map<String, String> eventDays = new HashMap<>();
+	if (eventDaysUncast != null && eventDaysUncast instanceof HashMap<?, ?>) {
+		for (Map.Entry<?, ?> entry : ((Map<?, ?>) eventDaysUncast).entrySet()) {
+			eventDays.put(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()));
 		}
 	}
 %>
@@ -65,7 +65,7 @@ input[type="checkbox"]:checked {
 					<li><a href="">회원 관리</a></li>
 					<li class="link_active"><a href="">상품 관리</a>
 						<ul class="insertEvent-sidebar_small">
-							<li><a href="">예매</a></li>
+							<li><a href="<%=contextPath%>/admin/eventlist">행사</a></li>
 							<li><a
 								href="<%=contextPath%>/admin/selectAllProduct.do">스토어</a></li>
 						</ul>
@@ -101,7 +101,7 @@ input[type="checkbox"]:checked {
 					<div>
 						<img src="<%=contextPath %>/images/jaehun/page_insert_event/arrow.svg" alt="">
 					</div>
-					<p>수정</p>
+					<p>상세보기</p>
 				</nav>
 				<hr>
 				<form name="insertEventForm" method="post" enctype="multipart/form-data"
@@ -245,77 +245,77 @@ input[type="checkbox"]:checked {
 									<div class="event-time_day">
 										<span>월</span>
 										<input type="checkbox" name="eventDay" value="월"
-										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("월")) ? "checked" : "" %>>
+										<%= (!eventDays.isEmpty() && eventDays.containsKey("월")) ? "checked" : "" %>>
 									</div>
 									<div class="event-time_row">
 										<input type="time" name="startTime"
-										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("월")) ? "value=" + eventSchedule.get("월") : "disabled" %>>
+										<%= (!eventDays.isEmpty() && eventDays.containsKey("월")) ? "value=" + eventDays.get("월") : "disabled" %>>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>화</span>
 										<input type="checkbox" name="eventDay" value="화"
-										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("화")) ? "checked" : "" %>>
+										<%= (!eventDays.isEmpty() && eventDays.containsKey("화")) ? "checked" : "" %>>
 									</div>
 									<div class="event-time_row">
 										<input type="time" name="startTime"
-										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("화")) ? "value=" + eventSchedule.get("화") : "disabled" %>>
+										<%= (!eventDays.isEmpty() && eventDays.containsKey("화")) ? "value=" + eventDays.get("화") : "disabled" %>>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>수</span>
 										<input type="checkbox" name="eventDay" value="수"
-										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("수")) ? "checked" : "" %>>
+										<%= (!eventDays.isEmpty() && eventDays.containsKey("수")) ? "checked" : "" %>>
 									</div>
 									<div class="event-time_row">
 										<input type="time" name="startTime"
-										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("수")) ? "value=" + eventSchedule.get("수") : "disabled" %>>
+										<%= (!eventDays.isEmpty() && eventDays.containsKey("수")) ? "value=" + eventDays.get("수") : "disabled" %>>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>목</span>
 										<input type="checkbox" name="eventDay" value="목"
-										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("목")) ? "checked" : "" %>>
+										<%= (!eventDays.isEmpty() && eventDays.containsKey("목")) ? "checked" : "" %>>
 									</div>
 									<div class="event-time_row">
 										<input type="time" name="startTime"
-										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("목")) ? "value=" + eventSchedule.get("목") : "disabled" %>>
+										<%= (!eventDays.isEmpty() && eventDays.containsKey("목")) ? "value=" + eventDays.get("목") : "disabled" %>>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>금</span>
 										<input type="checkbox" name="eventDay" value="금"
-										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("금")) ? "checked" : "" %>>
+										<%= (!eventDays.isEmpty() && eventDays.containsKey("금")) ? "checked" : "" %>>
 									</div>
 									<div class="event-time_row">
 										<input type="time" name="startTime"
-										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("금")) ? "value=" + eventSchedule.get("금") : "disabled" %>>
+										<%= (!eventDays.isEmpty() && eventDays.containsKey("금")) ? "value=" + eventDays.get("금") : "disabled" %>>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>토</span>
 										<input type="checkbox" name="eventDay" value="토"
-										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("토")) ? "checked" : "" %>>
+										<%= (!eventDays.isEmpty() && eventDays.containsKey("토")) ? "checked" : "" %>>
 									</div>
 									<div class="event-time_row">
 										<input type="time" name="startTime"
-										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("토")) ? "value=" + eventSchedule.get("토") : "disabled" %>>
+										<%= (!eventDays.isEmpty() && eventDays.containsKey("토")) ? "value=" + eventDays.get("토") : "disabled" %>>
 									</div>
 								</div>
 								<div class="event-time_table">
 									<div class="event-time_day">
 										<span>일</span>
 										<input type="checkbox" name="eventDay" value="일"
-										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("일")) ? "checked" : "" %>>
+										<%= (!eventDays.isEmpty() && eventDays.containsKey("일")) ? "checked" : "" %>>
 									</div>
 									<div class="event-time_row">
 										<input type="time" name="startTime"
-										<%= (!eventSchedule.isEmpty() && eventSchedule.containsKey("일")) ? "value=" + eventSchedule.get("일") : "disabled" %>>
+										<%= (!eventDays.isEmpty() && eventDays.containsKey("일")) ? "value=" + eventDays.get("일") : "disabled" %>>
 									</div>
 								</div>
 							</fieldset>

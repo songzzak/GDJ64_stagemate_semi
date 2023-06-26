@@ -6,10 +6,8 @@ import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -24,6 +22,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.stagemate.event.model.vo.Casting;
 import com.stagemate.event.model.vo.Event;
+import com.stagemate.event.model.vo.EventSchedule;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.service.EventService;
 
@@ -59,9 +58,12 @@ public class InsertEventEndServlet extends HttpServlet {
 							.eventInter(Integer.parseInt(mr.getParameter("eventInter")))
 							.build();
 				
-		List<Casting> castings = Arrays.asList(mr.getParameter("eventCasting").split(","))
-										.stream().map(castingNm -> getCastingBy(castingNm))
-										.collect(Collectors.toList());
+		List<Casting> castings = new ArrayList<>();
+		if (!mr.getParameter("eventCasting").equals("")) {
+			castings = Arrays.asList(mr.getParameter("eventCasting").split(","))
+					.stream().map(castingNm -> getCastingBy(castingNm))
+					.collect(Collectors.toList());
+		}
 		
 		List<EventUpfile> upfiles = new ArrayList<>();
 		upfiles.add(getUpFileBy(mr.getOriginalFileName("eventMainPoster"),
@@ -76,7 +78,7 @@ public class InsertEventEndServlet extends HttpServlet {
 									"PUR3"));
 		}
 		
-		Map<Date, String> eventSchedule = getSchedule(mr.getParameter("eventStartDt"), mr.getParameter("eventEndDt"), mr.getParameterValues("eventDay"), mr.getParameterValues("startTime"));
+		List<EventSchedule> eventSchedule = getEventSchedule(mr.getParameter("eventStartDt"), mr.getParameter("eventEndDt"), mr.getParameterValues("eventDay"), mr.getParameterValues("startTime"));
 		
 		int result = new EventService().insertEvent(eventInfo, castings, eventSchedule, upfiles);
 		
@@ -99,18 +101,18 @@ public class InsertEventEndServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private Map<Date, String> getSchedule(String startDate, String EndDate, String[] days, String[] times) {
-		Map<Date, String> schedule = new HashMap<>();
+	private List<EventSchedule> getEventSchedule(String startDate, String EndDate, String[] days, String[] times) {
+		List<EventSchedule> eventSchedule = new ArrayList<>();
 		
 		LocalDate startDt = LocalDate.parse(startDate);
 		LocalDate endDt = LocalDate.parse(EndDate);
 		
 		for (LocalDate date = startDt; date.isBefore(endDt.plusDays(1)); date = date.plusDays(1)) {
 			if (Arrays.asList(days).contains(date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN))) {
-				schedule.put(Date.valueOf(date), Arrays.asList(times).get(Arrays.asList(days).indexOf(date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN))));
+				eventSchedule.add(EventSchedule.builder().esDate(Date.valueOf(date)).esStartTime(Arrays.asList(times).get(Arrays.asList(days).indexOf(date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN)))).build());
 			}
 		}
-		return schedule;
+		return eventSchedule;
 	}
 	
 	private EventUpfile getUpFileBy(String originalFileName, String fileRename, String purposeNo) {
