@@ -74,7 +74,7 @@ List<EventUpfile> files = (List) request.getAttribute("files");
 						%> 
 						<div class="musical_product">
 							<img src="<%=contextPath%>/upload/joonho/<%=u.getEuRename()%>"
-								onclick="openprev('<%=e.getRsvOpenDt()%>','<%=e.getEventNo()%>')" width="250" height="350">
+								onclick="openprev('<%=e.getEventNo()%>')" width="250" height="350">
 							<h4><%=e.getEventNm()%></h4>
 							<h5><%=e.getLocation()%></h5>
 							<div>
@@ -117,14 +117,8 @@ List<EventUpfile> files = (List) request.getAttribute("files");
 	<script src="<%=contextPath%>/js/script_common.js"></script>
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 	<script>
-	const openprev=(e,n)=>{
-		let today=new Date();
-		var openday=new Date(e);
-		if(openday>today){
-			alert(e+" 이후에 예매 가능합니다");
-		}else{
-			location.assign(getContextPath() + "/event/eventView.do?no=" + n);
-		}
+	const openprev=(n)=>{
+		location.assign(getContextPath() + "/event/eventView.do?no=" + n);
 	}
 	</script>
 	<!-------------------------------------------->

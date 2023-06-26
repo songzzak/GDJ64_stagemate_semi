@@ -12,7 +12,7 @@ import com.stagemate.common.JDBCTemplate;
 import com.stagemate.event.dao.EventDao;
 import com.stagemate.event.model.vo.Casting;
 import com.stagemate.event.model.vo.Event;
-import com.stagemate.event.model.vo.EventTime;
+import com.stagemate.event.model.vo.EventSchedule;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.model.vo.Seat;
 
@@ -78,9 +78,9 @@ public class EventService {
 		
 	}
 	
-	public List<EventTime> selectTimeByEvent(String eventNo){
+	public List<EventSchedule> selectTimeByEvent(String eventNo){
 		Connection conn=getConnection();
-		List<EventTime> et=dao.selectTimeByEvent(conn,eventNo);
+		List<EventSchedule> et=dao.selectTimeByEvent(conn,eventNo);
 		close(conn);
 		return et;
 		

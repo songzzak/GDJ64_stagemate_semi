@@ -1,134 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
+<%@ page
+	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile,com.stagemate.payment.model.vo.EventOrder"%>
+<%
+	Event event = (Event) request.getAttribute("event");
+	List<EventUpfile> files = (List) request.getAttribute("files");
+	EventOrder eventOrder = (EventOrder) request.getAttribute("eventOrder");
+	String round = (String)request.getAttribute("round");
+	String choiceday = (String)request.getAttribute("choiceday");
+	String chkDate = (String)request.getAttribute("chkDate");
+%>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
-<style>
-#seat_title * {
-	margin-right: 2%;
-}
-
-#seat_title {
-	display: flex;
-	align-items: center;
-	font-size: 30px;
-	margin-top: 5%;
-	margin-bottom: 3%;
-}
-
-#seat_title>h2:nth-child(5), #seat_title>h3:nth-child(4) {
-	color: var(--sm-brown);
-	font-weight: bold;
-}
-
-#seat_title>h2:not(:nth-child(5)), #seat_title>h3:not(:nth-child(4)) {
-	color: var(--gray-light);
-	font-weight: bold;
-}
-
-#res_pay_fin {
-	margin-top:3%;
-	display:flex;
-    flex-direction: column;
-    align-items: center;
-}
-#res_pay_fin_title{
-	width:80%;
-	height:60px;
-	background-color: var(--sm-brown);
-	display:flex;
-	align-items: center;
-	margin-bottom: 1%;
-}
-#res_pay_fin_title>h2{
-	color:white;
-	margin-left: 3%;
-	font-size: 30px;
-	font-weight: bolder;
-}
-#res_pay_fin_detail{
-	width:80%;
-	display:flex;
-	justify-content:space-between;
-	margin-bottom: 5%;
-}
-#res_pay_fin_detail>table{
-	border-collapse: collapse;
-}
-#res_pay_fin_detail>table tr>td{
-	border: 1px solid var(--gray-light);
-}
-#res_pay_fin_detail>table tr>td:first-child{
-	width:20%;
-	text-align: center;
-	font-weight: bolder;
-}
-#res_pay_fin_detail>table tr>td:last-child{
-	padding-left: 15px;
-}
-#res_pay_fin_detail>table tr:first-child>td{
-	border-top: 1px solid black;
-}
-#res_pay_fin_detail>table tr:last-child>td{
-	border-bottom: 1px solid black;
-}
-#res_pay_fin_payment{
-	width:80%;
-	display:flex;
-	flex-direction: column;
-	margin-bottom: 5%;
-}
-#res_pay_fin_payment>h2{
-	font-weight: bolder;
-	margin-bottom: 1.5%;
-}
-#res_pay_fin_payment>table{
-	border-collapse: collapse;
-}
-#res_pay_fin_payment>table td:first-child{
-	background-color: var(--gray-light);
-	width:20%;
-	text-align: center;
-	font-weight: bolder;
-}
-#res_pay_fin_payment>table td:last-child{
-	padding-left: 15px;
-}
-#res_pay_fin_payment>table tr:first-child>td{
-	border-top: 1px solid var(--gray);
-}
-#res_pay_fin_payment>table td{
-	border-bottom: 1px solid var(--gray);
-	height:40px;
-}
-#res_pay_fin_cancel_info{
-	width:80%;
-}
-#res_pay_fin_cancel_info>h1{
-	color: var( --jh-red);
-	font-weight: bolder;
-	margin-bottom: 2%;
-}
-#res_pay_fin_cancel_info>div *{
-	margin-bottom: 2%;
-}
-#res_pay_fin_button{
-	width:50%;
-	display:flex;
-	justify-content: space-around;
-	margin-top: 5%;
-	margin-bottom: 5%;
-}
-#res_pay_fin_button>button{
-	width:40%;
-	height:56px;
-	border-radius: 15px;
-	background-color: var(--sm-brown);
-	color: white;
-	font-size: 23px;
-	font-weight: bolder;
-	cursor: pointer;
-}
-</style>
+<link rel="stylesheet"
+	href="<%=contextPath%>/css/joonho/style_event_payment_final.css">
 <!---------------------------------------->
 <title>STAGEMATE/결제</title>
 </head>
@@ -149,19 +34,24 @@
 			<div id="res_pay_fin">
 				<!-- 제목 -->
 				<div id="res_pay_fin_title">
-					<h2>나르치스와 골드문트</h2>
+					<h2><%=event.getEventNm() %></h2>
 				</div>
 				<!-- 예약 사항 -->
 				<div id="res_pay_fin_detail">
-					<div><img src="<%=contextPath%>/images/joonho/Narcissus_and_Goldmund.png"></div>
+					<%for (EventUpfile f : files) {
+						if ((f.getPurposeNo().equals("PUR1"))) {
+						%> 
+						<img src="<%=contextPath%>/upload/joonho/<%=f.getEuRename()%>"
+									width="250" height="350">
+					<%}} %>
 					<table>
 						<tr>
 							<td>예매자</td>
-							<td>곽철용</td>
+							<td><%=loginMember.getMemberNm() %></td>
 						</tr>
 						<tr>
 							<td>예매번호</td>
-							<td>S120329133</td>
+							<td><%=eventOrder.getRsvNo() %></td>
 						</tr>
 						<tr>
 							<td>관람일시</td>

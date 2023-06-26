@@ -17,7 +17,7 @@ import com.stagemate.common.JDBCTemplate;
 import com.stagemate.common.PropertiesGenerator;
 import com.stagemate.event.model.vo.Casting;
 import com.stagemate.event.model.vo.Event;
-import com.stagemate.event.model.vo.EventTime;
+import com.stagemate.event.model.vo.EventSchedule;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.model.vo.Seat;
 import com.stagemate.store.dao.StoreDao;
@@ -60,12 +60,14 @@ public class EventDao {
 	private Seat getSeat(ResultSet rs) throws SQLException {
 		return Seat.builder()
 				.seatNo(rs.getString("SEAT_NO"))
+				.esNo(rs.getString("ES_NO"))
 				.isReserved(rs.getString("IS_RESERVED").charAt(0))
 				.slvNo(rs.getString("SLV_NO"))
 				.seatRow(rs.getString("SEAT_ROW").charAt(0))
 				.seatCol(rs.getInt("SEAT_COL"))
 				.eventNo(rs.getString("EVENT_NO"))
-				.evcNo(rs.getString("EVC_NO"))
+				.esDate(rs.getDate("ES_DATE"))
+				.esStartTime(rs.getString("ES_START_TIME"))
 				.build();
 	}
 	private Seat getSeatAll(ResultSet rs) throws SQLException {
@@ -79,12 +81,13 @@ public class EventDao {
 				.build();
 	}
 	
-	private EventTime getEventTime(ResultSet rs) throws SQLException{
-		return EventTime.builder()
-				.etNo(rs.getString("ET_NO"))
+	private EventSchedule getEventSchedule(ResultSet rs) throws SQLException{
+		return EventSchedule.builder()
+				.esNo(rs.getString("ES_NO"))
 				.eventNo(rs.getString("EVENT_NO"))
-				.etDay(rs.getString("ET_DAY"))
-				.etStartTime(rs.getString("ET_START_TIME"))
+				.esDate(rs.getDate("ES_DATE"))
+				.esDay(rs.getString("ES_DAY"))
+				.esStartTime(rs.getString("ES_START_TIME"))
 				.build();
 	}
 	
@@ -270,16 +273,16 @@ public class EventDao {
 		
 	}
 	
-	public List<EventTime> selectTimeByEvent(Connection conn, String eventNo){
+	public List<EventSchedule> selectTimeByEvent(Connection conn, String eventNo){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		List<EventTime> et=new ArrayList<>();
+		List<EventSchedule> et=new ArrayList<>();
 		try {
-			pstmt=conn.prepareStatement(sql.getProperty("selectTimeByEventNo"));
+			pstmt=conn.prepareStatement(sql.getProperty("selectScheduleByEventNo"));
 			pstmt.setString(1, eventNo);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				EventTime e=getEventTime(rs);
+				EventSchedule e=getEventSchedule(rs);
 				et.add(e);
 			}
 		}catch(SQLException e) {
@@ -396,7 +399,7 @@ public class EventDao {
 			pstmt.setString(1, eventNo);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				Seat s=getSeatAll(rs);
+				Seat s=getSeat(rs);
 				seats.add(s);
 			}
 		}catch(SQLException e) {

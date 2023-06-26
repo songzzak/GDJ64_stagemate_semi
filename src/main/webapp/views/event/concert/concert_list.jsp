@@ -117,13 +117,7 @@ List<EventUpfile> files = (List) request.getAttribute("files");
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 	<script>
 	const openprev=(e,n)=>{
-		let today=new Date();
-		var openday=new Date(e);
-		if(openday>today){
-			alert(e+" 이후에 예매 가능합니다");
-		}else{
-			location.assign(getContextPath() + "/event/eventView.do?no=" + n);
-		}
+		location.assign(getContextPath() + "/event/eventView.do?no=" + n);
 	}
 	</script>
 	<!-------------------------------------------->

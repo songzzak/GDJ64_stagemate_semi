@@ -2,18 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <%@ page
-	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile,com.stagemate.event.model.vo.EventTime,com.stagemate.event.model.vo.Seat"%>
+	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile,com.stagemate.event.model.vo.EventSchedule,com.stagemate.event.model.vo.Seat"%>
 <%
 	List<Seat> seats = (List) request.getAttribute("seats");
 	Event event = (Event) request.getAttribute("event");
 	List<EventUpfile> files = (List) request.getAttribute("files");
-	List<EventTime> et = (List) request.getAttribute("et");
+	List<EventSchedule> es = (List) request.getAttribute("es");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/joonho/style_event.css">
 <!---------------------------------------->
-<title>STAGEMATE/<%=event.getEventNm() %></title>
+<title>STAGEMATE/<%=event.getEventNm()%></title>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
@@ -23,11 +23,11 @@
 			<div id="gold_maincontainer">
 				<!-- 제목장소등 -->
 				<div id="gold_title">
-					<h1><%=event.getEventNm() %></h1>
+					<h1><%=event.getEventNm()%></h1>
 					<div>
-						<h4><%=event.getEventStartDt() %>~<%=event.getEventEndDt() %></h4>
+						<h4><%=event.getEventStartDt()%>~<%=event.getEventEndDt()%></h4>
 						<h3>|</h3>
-						<h4><%=event.getLocation() %></h4>
+						<h4><%=event.getLocation()%></h4>
 						<img id="movemap" src="<%=contextPath%>/images/joonho/map.png"
 							width="24" height="24">
 					</div>
@@ -37,13 +37,15 @@
 				<div id="gold_poster">
 					<!-- 포스터 -->
 					<div>
-						<%for (EventUpfile f : files) {
-						if ((f.getPurposeNo().equals("PUR1"))) {
-						%> 
-						<img
-							src="<%=contextPath%>/upload/joonho/<%=f.getEuRename()%>"
+						<%
+						for (EventUpfile f : files) {
+										if ((f.getPurposeNo().equals("PUR1"))) {
+						%>
+						<img src="<%=contextPath%>/upload/joonho/<%=f.getEuRename()%>"
 							width="320" height="450">
-						<%}} %>
+						<%
+						}}
+						%>
 					</div>
 					<!-- 간단내용 -->
 					<div id="gold_content">
@@ -53,7 +55,8 @@
 								<h3>등급</h3>
 							</div>
 							<div>
-								<h3><%=event.getEventAge() %>세 이상 관람가</h3>
+								<h3><%=event.getEventAge()%>세 이상 관람가
+								</h3>
 							</div>
 						</div>
 						<!-- 관람시간 -->
@@ -62,7 +65,13 @@
 								<h3>관람시간</h3>
 							</div>
 							<div>
-								<h3><%=event.getEventDuration() %>분<%if(event.getEventInter()>0){ %>(인터미션 <%=event.getEventInter() %>분 포함)<%} %></h3>
+								<h3><%=event.getEventDuration()%>분<%
+								if(event.getEventInter()>0){
+								%>(인터미션
+									<%=event.getEventInter()%>분 포함)<%
+								}
+								%>
+								</h3>
 							</div>
 						</div>
 						<!-- 가격 -->
@@ -70,7 +79,9 @@
 							<div>
 								<h3>가격</h3>
 							</div>
-							<%if(event.getEvcNo().equals("EVC1")){ %>
+							<%
+							if(event.getEvcNo().equals("EVC1")){
+							%>
 							<div id="money" class="money">
 								<div>
 									<h3>VIP석</h3>
@@ -89,7 +100,9 @@
 									<h3>70,000원</h3>
 								</div>
 							</div>
-							<%}else if(event.getEvcNo().equals("EVC2")){ %>
+							<%
+							}else if(event.getEvcNo().equals("EVC2")){
+							%>
 							<div id="money" class="money">
 								<div>
 									<h3>스탠딩석</h3>
@@ -100,14 +113,18 @@
 									<h3>80,000원</h3>
 								</div>
 							</div>
-							<%}else if(event.getEvcNo().equals("EVC3")){ %>
+							<%
+							}else if(event.getEvcNo().equals("EVC3")){
+							%>
 							<div id="money" class="money">
-									<div>
-										<h3>전석</h3>
-										<h3>50,000원</h3>
-									</div>
+								<div>
+									<h3>전석</h3>
+									<h3>50,000원</h3>
+								</div>
 							</div>
-							<%} %>
+							<%
+							}
+							%>
 						</div>
 					</div>
 					<!-- 아이콘 -->
@@ -160,8 +177,7 @@
 								</div>
 								<div id="gold_bar"></div>
 								<div>
-									<div id="gold_button">
-									</div>
+									<div id="gold_button"></div>
 								</div>
 							</div>
 						</div>
@@ -172,73 +188,60 @@
 							<h2 class="gold_h2">예매 가능좌석</h2>
 						</div>
 						<hr>
-						<%if(event.getEvcNo().equals("EVC1")){ 
-						int vip=0;int r=0;int s=0;int a=0;
-							for (Seat seat : seats){
-								
-								if((seat.getSeatRow()=='A'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='B'&&seat.getIsReserved()=='N')){
-									vip++;
-								}else if((seat.getSeatRow()=='C'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='D'&&seat.getIsReserved()=='N')){
-									r++;
-								}else if((seat.getSeatRow()=='E'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='F'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='G'&&seat.getIsReserved()=='N')){
-									s++;
-								}else{
-									a++;
-								}
-							}%>
+						<%
+							if(event.getEvcNo().equals("EVC1")){
+						%>
 						<div id="seat_money" class="chiocemoney">
 							<div>
 								<h3>VIP석 150,000원</h3>
-								<h3>(잔여 : <%=vip-4 ==0?"매진":vip-4+"석"%>)</h3>
+								<h3></h3>
 							</div>
 							<div>
 								<h3>R석 120,000원</h3>
-								<h3>(잔여 : <%=r-4==0?"매진":r-4+"석"%>)</h3>
+								<h3>
+									
+								</h3>
 							</div>
 							<div>
 								<h3>S석 90,000원</h3>
-								<h3>(잔여 : <%=s-6==0?"매진":s-6+"석"%>)</h3>
+								<h3>
+									
+								</h3>
 							</div>
 							<div>
 								<h3>A석 70,000원</h3>
-								<h3>(잔여 : <%=a-10==0?"매진":a-10+"석"%>)</h3>
+								<h3>
+									
+								</h3>
 							</div>
 						</div>
-						<%}else if(event.getEvcNo().equals("EVC2")){ %>
-						<%int stand=0;int choice=0;
-						for (Seat seat : seats){
-							if((seat.getSeatRow()=='E'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='F'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='G'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='H'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='I'&&seat.getIsReserved()=='N')){
-								choice++;
-							}else{
-								stand++;
-							}%>
-						<%} %>
+						<%
+							}else if(event.getEvcNo().equals("EVC2")){
+						%>
 						<div id="seat_money" class="chiocemoney">
 							<div>
 								<h3>스탠딩석 : 80,000원</h3>
-								<h3>(잔여 : <%=stand-14 ==0?"매진":stand-14+"석"%>)</h3>
+								<h3></h3>
 							</div>
 							<div>
 								<h3>지정석 : 80,000원</h3>
-								<h3>(잔여 : <%=choice-10 ==0?"매진":choice-10+"석"%>)</h3>
+								<h3></h3>
 							</div>
 						</div>
-						<%}else if(event.getEvcNo().equals("EVC3")){ %>
-						<%int ramainSeat=0;
-						for (Seat seat : seats){
-							if(seat.getIsReserved()=='N'){
-								ramainSeat++;	
-							}
-						} %>
+						<%
+							}else if(event.getEvcNo().equals("EVC3")){
+						%>
 						<div id="seat_money" class="chiocemoney">
 							<div>
-								<h3>전석 : 50,000원</h3>
-								<h3>(잔여 : <%=ramainSeat-18 ==0?"매진":ramainSeat-18+"석"%>)</h3>
+								<h3>전석 : 80,000원</h3>
+								<h3></h3>
 							</div>
 						</div>
 						<%} %>
 						<div>
-							<button onclick="toReservationMusical('<%=event.getEvcNo() %>','<%=event.getEventNo() %>');" id="res_cho" style="pointer-events:none">예매 하기</button>
+							<button
+								onclick="toReservationMusical('<%=event.getEvcNo()%>','<%=event.getEventNo()%>');"
+								id="res_cho" style="pointer-events: none">예매 하기</button>
 						</div>
 						<div id="pointmark">
 							<img src="<%=contextPath%>/images/joonho/pointmark.png">
@@ -266,14 +269,17 @@
 					</div>
 					<hr>
 					<div class="gold_info">
-					<%for (EventUpfile f : files) {
-						if ((f.getPurposeNo().equals("PUR2"))) {
-						%>
+						<%
+					for (EventUpfile f : files) {
+									if ((f.getPurposeNo().equals("PUR2"))) {
+					%>
 						<div id="detail_information_img"
 							style="display: inline-flex; flex-direction: column; align-items: center;">
-							<img src="<%=contextPath%>/upload/joonho/<%=f.getEuRename()%>"> 
+							<img src="<%=contextPath%>/upload/joonho/<%=f.getEuRename()%>">
 						</div>
-						<%}} %>
+						<%
+						}}
+						%>
 						<div id="reservation_cancel_info" style="display: none">
 							<div id="reservation_info" class="info">
 								<div>
@@ -359,7 +365,7 @@
 						</div>
 						<div id="gold_details_map" style="display: none">
 							<div>
-								<h1><%=event.getLocation() %></h1>
+								<h1><%=event.getLocation()%></h1>
 							</div>
 							<div id="map" style="width: 80%; height: 650px;"></div>
 						</div>
@@ -373,8 +379,8 @@
 	<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 	<script src="<%=contextPath%>/js/script_common.js"></script>
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
-	<script src="<%=contextPath%>/js/js_security.js"></script>
-	<script id="script" type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51321917c05ca5a38fbce7ed8b6a981c"></script>
+	<script id="script" type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51321917c05ca5a38fbce7ed8b6a981c"></script>
 	<script src="<%=contextPath%>/js/joonho/script_event.js"></script>
 	<script>
 	/* 지도 위치 지정 */
@@ -403,11 +409,11 @@
 			"전주종합경기장" : ["35.838898", "127.126406"],
 			
 	}
-	var GPSX=jsonMap["<%=event.getLocation() %>"][0]
-	var GPSY=jsonMap["<%=event.getLocation() %>"][1]
+	var GPSX=jsonMap["<%=event.getLocation()%>"][0]
+	var GPSY=jsonMap["<%=event.getLocation()%>"][1]
 	/* 달력 */
-	var startDay=new Date('<%=event.getEventStartDt() %>');
-	var endDay=new Date('<%=event.getEventEndDt() %>');
+	var startDay=new Date('<%=event.getEventStartDt()%>');
+	var endDay=new Date('<%=event.getEventEndDt()%>');
 	startDay.setDate(startDay.getDate()-1);
 	var monday=[];
 	var tuesday=[];
@@ -417,25 +423,34 @@
 	var saturday=[];
 	var sunday=[];
 	var arrowday=[]
-	<%for(EventTime e:et){%>
-	switch('<%=e.getEtDay()%>'){
-		case '월' : monday.push('<%=e.getEtStartTime() %>'); break;
-		case '화' : tuesday.push('<%=e.getEtStartTime() %>'); break;
-		case '수' : wednesday.push('<%=e.getEtStartTime() %>'); break;
-		case '목' : thursday.push('<%=e.getEtStartTime() %>'); break;
-		case '금' : friday.push('<%=e.getEtStartTime() %>'); break;
-		case '토' : saturday.push('<%=e.getEtStartTime() %>'); break;
-		case '일' : sunday.push('<%=e.getEtStartTime() %>');break;
+	<%for(EventSchedule e:es){%>
+	switch('<%=e.getEsDay()%>'){
+		case '월' : monday.push('<%=e.getEsStartTime() %>'); break;
+		case '화' : tuesday.push('<%=e.getEsStartTime() %>'); break;
+		case '수' : wednesday.push('<%=e.getEsStartTime() %>'); break;
+		case '목' : thursday.push('<%=e.getEsStartTime() %>'); break;
+		case '금' : friday.push('<%=e.getEsStartTime() %>'); break;
+		case '토' : if(saturday[0]==null){ 
+						saturday.push('<%=e.getEsStartTime() %>'); break;
+					 }else if(saturday[0]!=null&&saturday[0]!='<%=e.getEsStartTime() %>'){
+						saturday.push('<%=e.getEsStartTime() %>'); break;
+					} 
+		case '일' : if(sunday[0]==null){ 
+						sunday.push('<%=e.getEsStartTime() %>');break;
+					}else if(saturday[0]!=null&&sunday[0]!='<%=e.getEsStartTime() %>'){
+						sunday.push('<%=e.getEsStartTime() %>'); break;
+					} 
+		
 	}
-	arrowday.push('<%=e.getEtDay()%>')
+	arrowday.push('<%=e.getEsDay()%>')
 	<%}%>
 	var daysgo=new Set(arrowday);
 	/* 버튼 로그인 후 선택 가능 */
 	let flag=true;
 	const roundchoice=(e)=>{
-	<%if (loginMember == null) {%>
+	<%-- <%if (loginMember == null) {%>
 		alert("로그인 후 사용 가능합니다.")
-	<%} else {%>
+	<%} else {%> --%>
 			if(flag==true){
 				$(e.target).css({ "backgroundColor": "var(--sm-brown)", "color": "white" });
 				$("#pointmark").css({"visibility":"hidden"});
@@ -451,8 +466,83 @@
 				$("#seat_money>div>h3:odd").css({"color":"rgb(0,0,0,0.3)"});
 				flag=true;
 			}
-	 <% } %>
+<%-- 	 <% } %> --%>
 	}
+	var todays=new Date();
+	var openday=new Date('<%=event.getRsvOpenDt()%>');
+	var opendays=openday.getFullYear()+'년'+(openday.getMonth() + 1)+'월'+openday.getDate()+'일';
+	var pagecopy="<%=contextPath%>/event/eventView.do?no=<%=event.getEventNo()%>"
+	
+	let esdatecheck=new Date();
+	var esNo="";
+	$(document).on("click","#schedule",function(e){
+		<%for(EventSchedule e:es){%>
+			scheduledate=new Date('<%=e.getEsDate()%>')
+			if(scheduledate.getDate()==$(".choiceDay").text()){
+				esNo='<%=e.getEsNo()%>'
+			}
+		<%}%>
+		<%int vip=0;int r=0;int s=0;int a=0; int f1=0; int f2=0;
+		for(Seat seat:seats){%>
+			esdatecheck=new Date('<%=seat.getEsDate()%>')
+			if(esdatecheck.getDate()==$(".choiceDay").text()){
+				switch('<%=seat.getSeatRow()%>'){
+					case 'A' : if('<%=seat.getIsReserved()%>'=='N'){
+									<%vip++;%>;break;
+								}
+					case 'B' : if('<%=seat.getIsReserved()%>'=='N'){
+									<%vip++;%>;break;
+								}
+					case 'C' : if('<%=seat.getIsReserved()%>'=='N'){
+						<%r++;%>;break;
+								}
+					case 'D' : if('<%=seat.getIsReserved()%>'=='N'){
+						<%r++;%>;break;
+								}
+					case 'E' : if('<%=seat.getIsReserved()%>'=='N'){
+						<%s++;%>;break;
+								}
+					case 'F' : if('<%=seat.getIsReserved()%>'=='N'){
+						<%s++;%>;break;
+								}
+					case 'G' : if('<%=seat.getIsReserved()%>'=='N'){
+						<%s++;%>;break;
+								}
+					case 'H' : if('<%=seat.getIsReserved()%>'=='N'){
+						<%a++;%>;break;
+								}
+					case 'I' : if('<%=seat.getIsReserved()%>'=='N'){
+						<%a++;%>;break;
+								}
+					case 'J' : if('<%=seat.getIsReserved()%>'=='N'){
+						<%a++;%>;break;
+								}
+					case 'K' : if('<%=seat.getIsReserved()%>'=='N'){
+						<%a++;%>;break;
+								}
+					case 'L' : if('<%=seat.getIsReserved()%>'=='N'){
+						<%a++;%>;break;
+								}
+				}
+				$("#seat_money>div:first-child>h3:last-child").text('(잔여 : <%=vip-4 ==0?"매진":vip-4+"석"%>)')
+				$("#seat_money>div:nth-child(2)>h3:last-child").text('(잔여 : <%=r-4 ==0?"매진":r-4+"석"%>)')
+				$("#seat_money>div:nth-child(3)>h3:last-child").text('(잔여 : <%=s-4 ==0?"매진":s-4+"석"%>)')
+				$("#seat_money>div:last-child>h3:last-child").text('(잔여 : <%=a-4 ==0?"매진":a-4+"석"%>)')
+			}
+		<%}%>
+				<%-- <%}else if(event.getEvcNo().equals("EVC2")){%>
+				if((seat.getSeatRow()=='E'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='F'&&seat.getIsReserved()=='N'||(seat.getSeatRow()=='G'&&seat.getIsReserved()=='N'||(seat.getSeatRow()=='H'&&seat.getIsReserved()=='N'||(seat.getSeatRow()=='I'&&seat.getIsReserved()=='N')){
+					f2++;
+				}else{
+					f1++;
+				}
+				
+				<%}else{%>
+					
+				<%}%> --%>
+		roundchoice(e);
+	});
+	
 </script>
 	<!-------------------------------------------->
 </body>

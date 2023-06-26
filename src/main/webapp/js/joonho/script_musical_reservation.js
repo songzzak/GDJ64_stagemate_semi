@@ -170,7 +170,7 @@ const seat_reset = () => {
 function prev_page(eventNo) {
 	location.replace(getContextPath() + "/event/eventView.do?no="+eventNo);
 }
-function toPayment(eventNo,round,choiceday) {
+function toPayment(eventNo,round,choiceday,esNo) {
 		const seat=$("#selectedSeat>div>div").text();
 		/*let choseat=seat.split(")");
 		let row=[];
@@ -185,5 +185,5 @@ function toPayment(eventNo,round,choiceday) {
 			alert("좌석을 선택해주세요")
 			return;
 		}
-		location.replace(getContextPath() + "/event/payment.do?no="+eventNo+"&seat="+seat+"&round="+round+"&choiceday="+choiceday);
+		location.replace(getContextPath() + "/event/payment.do?no="+eventNo+"&seat="+seat+"&round="+round+"&choiceday="+choiceday+"&esNo="+esNo);
 	}
