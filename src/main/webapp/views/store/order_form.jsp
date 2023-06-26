@@ -11,7 +11,7 @@ int productCount=productList.size();
 String firstProductNm=productList.get(0).getProductNm();
 %>
 <link rel="stylesheet" href="<%=contextPath %>/css/yoonjin/style_store_order_form.css">
-<title>Order Form</title>
+<title>StageMate | 배송정보입력</title>
 </head>
 <body>
 <%@ include file="/views/common/header.jsp" %>

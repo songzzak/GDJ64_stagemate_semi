@@ -3,7 +3,6 @@ package com.stagemate.payment.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.stagemate.deliveryAddress.model.vo.DlvAdress;
+import com.stagemate.deliveryAddress.service.DlvAddressService;
 import com.stagemate.payment.model.vo.Payment;
 import com.stagemate.payment.model.vo.PrdOrder;
 import com.stagemate.payment.model.vo.PrdOrderDetail;
@@ -41,9 +42,8 @@ public class StorePaymentResultServlet extends HttpServlet {
 				.totalPrice(Integer.parseInt(request.getParameter("totalprice")))
 				.build();
 		
-		PaymentService paymentService = new PaymentService();
-		int prdOrderResult  = paymentService.insertPrdOrder(po);
-		String orderNo = paymentService.selectOrderNo();
+		int prdOrderResult  = new PaymentService().insertPrdOrder(po);
+		String orderNo = new PaymentService().selectOrderNo();
 		System.out.println("prdOrderNo:"+orderNo);
 		//PrdOrderDetail객체 생성
 		String[] productNoList=request.getParameterValues("productNoList");
@@ -74,8 +74,16 @@ public class StorePaymentResultServlet extends HttpServlet {
 		    int prdOrderDetailresult=new PaymentService().insertPrdOrderDetail(pod);
 		}
 		//System.out.println("podList:"+podList);
+		//배송지불러오기
+		DlvAdress d=new DlvAddressService().selectDlvAddressByDlvId(request.getParameter("dlvId"));
+		//주문정보 다시 불러오기
+		PrdOrder po2=new PaymentService().selectPrdOrderByOrderNo(orderNo);
+		//System.out.println(po);
+		System.out.println(po2);
 		//데이터 저장
-		request.setAttribute("po", po);
+		//request.setAttribute("po", po);
+		request.setAttribute("po", po2);
+		request.setAttribute("d", d);
 		//완료페이지로 포워딩
 		request.getRequestDispatcher("/views/store/store_order_complete.jsp").forward(request, response);
 	}

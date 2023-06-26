@@ -292,6 +292,40 @@ public class PaymentDao {
 		    }
 		    return orderNo;
 	}
+
+	public PrdOrder selectPrdOrderByOrderNo(Connection conn, String orderNo) {
+		 PreparedStatement pstmt = null;
+		 ResultSet rs = null;
+		 PrdOrder po = null;
+		 System.out.println("dao에서 출력하는 orderNo:"+orderNo);
+		    try {
+		        pstmt = conn.prepareStatement(sql.getProperty("selectPrdOrderByOrderNo"));
+		        pstmt.setString(1, orderNo);
+		        rs = pstmt.executeQuery();
+		        if (rs.next()) {
+		        	po=getPrdOrder(rs);
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    } finally {
+		        close(rs);
+		        close(pstmt);
+		    }
+		    return po;
+	}
+
+	private PrdOrder getPrdOrder(ResultSet rs) throws SQLException {
+		return PrdOrder.builder()
+        		.orderNo(rs.getString("ORDER_NO"))
+        		.dlvId(rs.getString("DLV_ID"))
+        		.paymentNo(rs.getString("PAYMENT_NO"))
+        		.memberId(rs.getString("MEMBER_ID"))
+        		.shipMsg(rs.getString("SHIP_MSG"))
+        		.totalPrice(rs.getInt("TOTAL_PRICE"))
+        		.orderStatus(rs.getString("ORDER_STATUS"))
+        		.orderDate(rs.getDate("ORDER_DATE"))
+        		.build();
+	}
 	
 	
 }

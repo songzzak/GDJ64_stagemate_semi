@@ -127,4 +127,11 @@ public class PaymentService {
 		return orderNo;
 	}
 
+	public PrdOrder selectPrdOrderByOrderNo(String orderNo) {
+		Connection conn=getConnection();
+		PrdOrder po=dao.selectPrdOrderByOrderNo(conn, orderNo);
+		close(conn);
+		return po;
+	}
+
 }
