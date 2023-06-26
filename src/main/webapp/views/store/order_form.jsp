@@ -3,9 +3,9 @@
 <%@ include file="/views/common/top.jsp" %>
 <%@page import="java.util.List,com.stagemate.store.model.vo.Product,com.stagemate.store.model.vo.StoreUpfile,com.stagemate.deliveryAddress.model.vo.DlvAdress"%>
 <%
-Product p = (Product)request.getAttribute("p");
-StoreUpfile main = (StoreUpfile)request.getAttribute("main");
-int count = (int)request.getAttribute("count");
+List<Product>productList=(List)request.getAttribute("productList");
+List<Integer> quantityList=(List)request.getAttribute("quantityList");
+List<StoreUpfile>filelist=(List)request.getAttribute("filelist");
 DlvAdress d=(DlvAdress)request.getAttribute("defaultAddress");
 %>
 <link rel="stylesheet" href="<%=contextPath %>/css/yoonjin/style_store_order_form.css">
@@ -76,19 +76,38 @@ DlvAdress d=(DlvAdress)request.getAttribute("defaultAddress");
                             <th>주문금액</th>
                         </thead>
                         <tbody>
+                              <%
+                            if (productList == null || productList.isEmpty()) {
+                            %>
                             <tr>
-                                <td>
-                                    <div class="horizontal-list">
-                                        <img src="<%=contextPath+"/upload/yoonjin/"+main.getImgFileRename()%>" alt="" width="60px">
-                                        <h3 class="orderform_product_name"><%=p.getProductNm() %></h3>
-                                    </div>
-                                </td>
-                                <td><%=count %>개</td>
-                                <td><%=p.getProductPrice() %></td>
-                                <td>무료</td>
-                                <td><%=(count*p.getProductPrice()) %></td>
+                                <td colspan="6">조회된 주문 목록이 없습니다.</td>
                             </tr>
-                        </tbody>
+					      <% } else {
+					        for (int i = 0; i < productList.size(); i++) {
+					            Product product = productList.get(i);
+					            StoreUpfile file = filelist.get(i);
+					            for(StoreUpfile f:filelist){
+					            	if(f.getProductNo()==product.getProductNo()&&f.getIsMainImg()=='Y'){
+					            		file=f;
+					            	}
+					            }
+					            int quantity = quantityList.get(i);
+					    %>
+					        <tr>
+					            <td>
+					                <div class="horizontal-list">
+					                    <img src="<%= contextPath + "/upload/yoonjin/" + file.getImgFileRename() %>" alt="" width="60px">
+					                    <h3 class="orderform_product_name"><%= product.getProductNm() %></h3>
+					                </div>
+					            </td>
+					            <td><%= quantity %>개</td>
+					            <td><%= product.getProductPrice() %></td>
+					            <td>무료</td>
+					            <td><%= (quantity * product.getProductPrice()) %></td>
+					        </tr>
+					    <% }
+					    } %>
+					</tbody>
                     </table>
                 </div>
             </div>
@@ -116,7 +135,7 @@ DlvAdress d=(DlvAdress)request.getAttribute("defaultAddress");
 	    	pg: "html5_inicis",
 	        pay_method : 'card',
 	        merchant_uid: "IMP"+makeMerchantUid, 
-	        name : '<%=p.getProductTitle()+p.getProductNm() %>',
+	        name : 'test',
 	        amount : 1,
 	        buyer_email : 'Iamport@chai.finance',
 	        buyer_name : '아임포트 기술지원팀',

@@ -501,6 +501,21 @@ public class StoreDao {
 		return list;
 	}
 
+	public int deleteCart(Connection conn, int pNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteCart"));
+			pstmt.setInt(1, pNo);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 
 
 }

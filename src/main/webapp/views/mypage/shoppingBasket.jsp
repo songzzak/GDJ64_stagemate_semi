@@ -13,6 +13,42 @@
     <%@ include file="/views/common/header.jsp"%>
     <section class="min1280px">
         <div id="sectionContainer" class="max1280px" style="min-height: 720px;">
+        	<div class=mypageContainer>
+        	<div id="mypage_nav">
+        		<div>
+                    <img src="<%=contextPath%>/images/yoonjin/information/default_profile.png" alt="user_profile_img">
+                    <img src="<%=contextPath%>/images/yoonjin/information/icon_gear.png" alt="gear_img">
+        			<h5><%=loginMember.getMemberNm() %> 님</h5>
+        			<p><%=loginMember.getMemberEmail() %><p>
+        		</div>
+        		<hr>
+        		<div>
+					<nav>   
+						<ul id="mypage_nav_nav_ul">
+							<li><a href="#">내 정보 관리</a></li>
+							<li><a href="#">관심목록</a></li>
+							<li><a href="#">장바구니</a></li>
+							<li>구매내역
+								<ul>
+									<li><a href="#">구매상세내역</a></li>
+									<li><a href="#">리뷰 작성</a></li>
+									<li><a href="#">취소/반품</a></li>
+								</ul>
+							</li>
+							<li>내가 쓴 글
+								<ul>
+									<li><a href="#">커뮤니티</a></li>
+									<li><a href="#">1:1문의</a></li>
+								</ul>
+							</li>
+							<li><a href="#">회원 탈퇴</a></li>
+						</ul>
+					</nav>
+        		</div>
+        		<div>
+        			<button>로그아웃</button>
+        		</div>
+			</div>
             <div class="SB_bigchart">
                 <p class="ShoppingBasket_eng">My Page</p>
                 <p class="ShoppingBasket_kor">장바구니</p>
@@ -22,7 +58,8 @@
                 </div>
                 <!-- 장바구니 내역 -->
                 <div class="ShoppingBasket_List">
-                <input type="hidden" id="userId" value="<%=loginMember.getMemberId()%>">
+                 <form id="orderForm" method="post" action="<%=request.getContextPath()%>/store/storeOrder.do">
+                <input type="hidden" id="userId" name="userId" value="<%=loginMember.getMemberId()%>">
                     <table class="ShoppingBasket-table" style="margin: 3px auto; margin-right: auto;">
                         <colgroup>
                             <col style="width: 50px">
@@ -58,7 +95,7 @@
                                             totalPrice += priceByProduct; // 총 금액 누적
                             %>
                             <tr>
-                                <td class="shop-bk"><input type="checkbox" class="cart-checkbox" checked></td>
+                                <td class="shop-bk"><input type="checkbox" class="cart-checkbox" name="cart-checkbox" value="<%=p.getProductNo() %>" checked></td>
                                 <td class="shop-bk product_name_container">
                                 	<input type="hidden" value="<%=p.getProductNm()%>" class="product_name_input">
                                 	<input type="hidden" value="<%=p.getProductNo()%>" class="product_no_input">
@@ -67,7 +104,7 @@
                                 <td class="shop-bk">
                                     <div class="haha">
                                         <button type="button" class="minus">-</button>
-                                        <input type="number" class="numBox" min="1" max="" value="<%=c.getCartAmt()%>" readonly/>
+                                        <input type="number" name="numBox" class="numBox" min="1" max="" value="<%=c.getCartAmt()%>" readonly/>
                                         <button type="button" class="plus">+</button>
                                     </div>
                                 </td>
@@ -109,24 +146,44 @@
                             <p style="margin-right: 10px"><span id="paymentTotalPrice"><%=totalPrice%></span>원</p>
                         </div>
                     </div>
-                    <div class="SB-lowerbtn">
-                        <input type="button" class="lowerbtn-basket" value="장바구니 삭제">
-                        <input type="button" class="lowerbtn-purchase" value="구매하기">
-                    </div>
+	                    <div class="SB-lowerbtn" id="btn-result">
+	                        <input type="button" class="lowerbtn-basket" id="deleteCartBtn" value="장바구니 삭제">
+	                        <input type="button" class="lowerbtn-purchase"  id="orderCartBtn" value="구매하기">
+	                    </div>
+	                 </form>
                 </div>
+            </div>
             </div>
         </div>
     </section>
 
-    <%@ include file="/views/common/footer.jsp"%>
+   <%@ include file="/views/common/footer.jsp"%>
 </body>
 <script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 <script>
 $(document).ready(function() {
 
+	// 전체선택 체크박스 클릭 시
+    $("#selectAll").on("change", function() {
+        var isChecked = $(this).prop("checked");
+        $(".cart-checkbox").prop("checked", isChecked);
+        updateTotalPrice();
+    });
+
+    // 개별 체크박스 클릭 시
+    $(".cart-checkbox").on("change", function() {
+        if ($(".cart-checkbox:checked").length === $(".cart-checkbox").length) {
+        	$("#selectAll").prop("checked", true);
+        } else {
+        	$("#selectAll").prop("checked", false);
+        }
+        updateTotalPrice();
+    });
+    
     // 페이지 로드 시 주문 금액 및 판매가 초기화
     updateProductPrices();
     updateTotalPrice();
+    
  	// 상품 이름 출력
     $(".product_name_container").each(function() {
         var productName = $(this).find(".product_name_input").val();
@@ -203,15 +260,54 @@ $(document).ready(function() {
         $("#productTotalPrice").text(totalPrice.toLocaleString());
         $("#paymentTotalPrice").text(totalPrice.toLocaleString());
     }
-    
+ // 단일 상품 주문하기 클릭
     $(".SBOrder-btn").click(function() {
-    	var row = $(this).closest("tr");
+        var row = $(this).closest("tr");
         var pNo = row.find(".product_no_input").val();
         var count = parseInt(row.find(".numBox").val());
         var userId = $("#userId").val();
-    	location.assign("<%=request.getContextPath()%>/store/storeOrder.do?no=" + pNo + "&count=" + count+"&userId="+userId);
+        
+        // 폼 생성
+        var form = $('<form action="<%=request.getContextPath()%>/store/storeOrder.do" method="post"></form>');
+        form.append('<input type="hidden" name="cart-checkbox" value="' + pNo + '">');
+        form.append('<input type="hidden" name="numBox" value="' + count + '">');
+        form.append('<input type="hidden" name="userId" value="' + userId + '">');
+        
+        // 폼을 body에 추가하고 submit
+        $('body').append(form);
+        form.submit();
     });
     
+    $("#deleteCartBtn").click(function () {
+		let chk_arr=[];
+		$(".cart-checkbox:checked").each(function(){
+			chk_arr.push($(this).val()); 
+		});
+		if(confirm("선택 상품 모두 장바구니에서 삭제하시겠습니까?")){
+		location.assign("<%=request.getContextPath()%>/store/deleteCart.do?chk_arr="+chk_arr+"&id=<%=loginMember.getMemberId()%>");
+		}else{
+			alert("삭제하기 취소");
+		}
+		reload();
+	});
+    
+    $("#orderCartBtn").click(function() {
+        if (!checkSelectedProducts()) {
+          return;
+        }
+        $("#orderForm").submit();
+      });
+
+      // 선택된 상품 체크 여부 확인
+      function checkSelectedProducts() {
+        var checkedProducts = $(".cart-checkbox:checked");
+        if (checkedProducts.length === 0) {
+          alert("주문할 상품을 선택해주세요.");
+          return false;
+        }
+        return true;
+      }
+ 
 });
 
 </script>

@@ -55,12 +55,16 @@
             });
             
 $("#product-view-btn_pay").click(e => {
-    const pNo = $("#pNo").val();
-    const count = parseInt($("#product-select-count p").text());
-    const userId=$("#userId").val();
-    console.log(userId);
    if(userId!=""){
-	    location.assign(getContextPath() + "/store/storeOrder.do?no=" + pNo + "&count=" + count+"&userId="+userId);
+        const pNo = $("#pNo").val();
+    	const count = parseInt($("#product-select-count p").text());
+    	const userId=$("#userId").val();
+        var form = $('<form action="' + getContextPath() + '/store/storeOrder.do" method="post"></form>');
+        form.append('<input type="hidden" name="cart-checkbox" value="' + pNo + '">');
+        form.append('<input type="hidden" name="numBox" value="' + count + '">');
+        form.append('<input type="hidden" name="userId" value="' + userId + '">');
+        $('body').append(form);
+        form.submit();
 	}else{
 		alert("로그인 후 이용 가능합니다.");
 	}
@@ -80,7 +84,7 @@ $("#product-view-btn_pay").click(e => {
 			//성공
 			if(response>0){
 				if (confirm("장바구니 목록에 추가하였습니다. 장바구니로 이동하시겠습니까?")) {
-		                location.assign('<%=contextPath%>/store/selectCartList.do?no=' + userId);
+		                location.assign(getContextPath()+"/store/selectCartList.do?id=" + userId);
 		            }
 			 }else{//실패
 					alert("이미 장바구니에 담겨있는 상품입니다. 장바구니에서 수량을 수정해주세요.");
