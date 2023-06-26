@@ -7,6 +7,8 @@ List<Product>productList=(List)request.getAttribute("productList");
 List<Integer> quantityList=(List)request.getAttribute("quantityList");
 List<StoreUpfile>filelist=(List)request.getAttribute("filelist");
 DlvAdress d=(DlvAdress)request.getAttribute("defaultAddress");
+int productCount=productList.size();
+String firstProductNm=productList.get(0).getProductNm();
 %>
 <link rel="stylesheet" href="<%=contextPath %>/css/yoonjin/style_store_order_form.css">
 <title>Order Form</title>
@@ -135,37 +137,18 @@ DlvAdress d=(DlvAdress)request.getAttribute("defaultAddress");
 	    	pg: "html5_inicis",
 	        pay_method : 'card',
 	        merchant_uid: "IMP"+makeMerchantUid, 
-	        name : 'test',
+	        name : <%=firstProductNm%>,
 	        amount : 1,
-	        buyer_email : 'Iamport@chai.finance',
-	        buyer_name : '아임포트 기술지원팀',
-	        buyer_tel : '010-1234-5678',
-	        buyer_addr : '서울특별시 강남구 삼성동',
+	        buyer_email : <%=loginMember.getMemberEmail() %>,
+	        buyer_name : <%=d.getDlvPerson() %>,
+	        buyer_tel :<%=d.getDlvPhone()%>,
+	        buyer_addr : <%=d.getDlvAddress() %>,
 	    }, function (rsp) {
 	        console.log(rsp);
 	        if (rsp.success) {
 	          var msg = '결제가 완료되었습니다.';
 	          alert(msg);
-	     	<%--   // 결제 완료 후 서블릿으로 데이터 전송
-	            var xhr = new XMLHttpRequest();
-	            xhr.open("POST", "<%=request.getContextPath()%>/store/orderComplete.do", true);
-	            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	            xhr.onreadystatechange = function () {
-	                if (xhr.readyState === 4 && xhr.status === 200) {
-	                    console.log(xhr.responseText);
-	                    // 서블릿에서 orderComplete.jsp로 이동
-	                    location.href = "<%=request.getContextPath()%>/store/orderComplete.jsp";
-	                }
-	            };
-	            // 전송할 데이터 설정 (주문자 정보, 배송지 정보 등)
-	            var data = "paymentNo=" + encodeURIComponent(rsp.merchant_uid) +
-	                "&paymentPrice=" + encodeURIComponent(rsp.paid_amount) +
-	                "&paymentMeans=" + encodeURIComponent(rsp.pay_method) +
-	                "&memberId=" + encodeURIComponent('<%=loginMember.getMemberId() %>') +
-	                "&dlvId=" + encodeURIComponent('<%=dlvId %>') +
-	                "&shipMsg=" + encodeURIComponent('<%=shipMsg %>') +
-	                "&totalPrice=" + encodeURIComponent('<%=(count*p.getProductPrice()) %>');	            
-	            xhr.send(data); --%>
+	     	location.href="<%= contextPath %>/payment/orderend.do";
 	        } else {
 	          var msg = '결제에 실패하였습니다.';
 	          msg += '에러내용 : ' + rsp.error_msg;

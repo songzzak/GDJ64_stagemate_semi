@@ -31,16 +31,16 @@
 					<li class="underline-gray">
 						<span class="bgc-gray">이름</span>
 						<div>
-							<span class="vertical-center"><%=loginMember.getMemberNm() %></span>
+							<span class="vertical-center"></span>
 						</div>
 					</li>
 					<li class="underline-gray">
 						<span class="bgc-gray">연락처</span>
-						<span class="vertical-center"><%=loginMember.getMemberPhone() %></span>
+						<span class="vertical-center"></span>
 					</li>
 					<li class="underline-gray">
 						<span class="bgc-gray">주소</span>
-						<div class="vertical-center"><%=loginMember.getMemberAddress() %></div>
+						<div class="vertical-center"></div>
 					</li>
 					<li class="underline-gray">
 						<span class="bgc-gray">배송 요청사항</span>
@@ -65,7 +65,7 @@
 					</li>
 					<li class="underline-gray">
 						<span class="bgc-gray">결제수단</span>
-						<span class="vertical-center">신용카드[신한카드]</span>
+						<span class="vertical-center">신용카드</span>
 					</li>
 				</ul>
 			</div>
