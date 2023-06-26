@@ -44,22 +44,22 @@ public class MyWishListServlet extends HttpServlet {
 		//1. DB에 있는 데이터 가져오기
 		//회원의 관심목록 테이블
 		String userId=request.getParameter("userId");
-		System.out.println("아이디"+userId);
+		//System.out.println("아이디"+userId);
 		List<StoreLike>likes=new StoreService().selectLikeById(cPage,numPerPage,userId);
-		System.out.println("관심리스트"+likes);
+		//System.out.println("관심리스트"+likes);
 		//해당 관심목록의 상품목록
 		List<Integer>productNumbers=new ArrayList<>();
 		for(StoreLike l:likes) {
 			productNumbers.add(l.getProductNo());
 		}
-		System.out.println("고유번호"+productNumbers);
+		//System.out.println("고유번호"+productNumbers);
 		List<Product> products=new ArrayList<>();
 		for(Integer pNo:productNumbers) {
 			products.add(new StoreService().selectProductByProductNo(pNo));
 		}
-		System.out.println("상품리스트"+products);
+		//System.out.println("상품리스트"+products);
 		List<StoreUpfile> files=new StoreService().selectAllFile();
-		System.out.println("파일리스트"+files);
+		//System.out.println("파일리스트"+files);
 		//2.DB에서 가져온 데이터 저장(화면출력)
 
 		request.setAttribute("products", products);

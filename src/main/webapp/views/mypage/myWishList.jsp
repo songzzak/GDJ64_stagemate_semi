@@ -21,6 +21,7 @@
                     <img src="<%=contextPath%>/images/yoonjin/information/default_profile.png" alt="user_profile_img" id="img_profile">
         			<h5><%=loginMember.getMemberId() %> 님</h5>
         			<p><%=loginMember.getMemberEmail() %><p>
+        			                <input type="hidden" id="userId" name="userId" value="<%=loginMember.getMemberId()%>">
         		</div>
         		<hr>
         		<div id="user_nav">
@@ -249,25 +250,44 @@ $(document).ready(function() {
 
 	  // 공연 버튼 클릭 시
 	  $("#wish_event_btn").click(function() {
-	    // 버튼 클래스 설정
 	    $(this).addClass("btn_selected");
 	    $("#wish_store_btn").removeClass("btn_selected");
 
-	    // 컨테이너 출력 설정
 	    $("#eventWishList-container").show();
 	    $("#storeWishList-container").hide();
 	  });
 
 	  // 스토어 버튼 클릭 시
 	  $("#wish_store_btn").click(function() {
-	    // 버튼 클래스 설정
 	    $(this).addClass("btn_selected");
 	    $("#wish_event_btn").removeClass("btn_selected");
 
-	    // 컨테이너 출력 설정
 	    $("#eventWishList-container").hide();
 	    $("#storeWishList-container").show();
 	  });
+	  
+	  
+	  $(".wish").on("click", function(e) {
+		    let $heartIcon = $(this).find("svg");
+			let productNo = $(this).closest(".product").find(".productDetails input[type='hidden']").val();
+			const userId=$("#userId").val();
+			console.log(productNo);
+			console.log(userId);
+		      $heartIcon.css("fill", "none");
+		      $.post("<%=request.getContextPath()%>/store/deleteLike.do", 
+				  {
+				    productNo: productNo,
+				    userId: userId
+				  })
+				  .done(function(response) {
+			            alert("관심목록에서 삭제되었습니다.");
+			            location.reload();
+			        })
+			        .fail(function(error) {
+			            alert("오류가 발생했습니다. 관리자에게 문의해주세요.");
+			            location.reload();
+			        });
+		  });
 	});
 
 </script>
