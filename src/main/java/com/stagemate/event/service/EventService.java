@@ -4,9 +4,13 @@ import static com.stagemate.common.JDBCTemplate.close;
 import static com.stagemate.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
+import com.stagemate.common.JDBCTemplate;
 import com.stagemate.event.dao.EventDao;
+import com.stagemate.event.model.vo.Casting;
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventTime;
 import com.stagemate.event.model.vo.EventUpfile;
@@ -120,6 +124,72 @@ public class EventService {
 		return seats;
 	}
 	
+	// ------------------------- jaehun -------------------------
+	public List<String> selectLocation(String location) {
+		Connection conn = JDBCTemplate.getConnection();
+		List<String> locations = dao.selectLocation(conn, location);
+		JDBCTemplate.close(conn);
+		return locations;
+	}
 	
-
+	public int insertEvent(Event eventInfo, List<Casting> castings,
+							Map<Date, String> eventSchedule, List<EventUpfile> upfiles) 
+	{
+		Connection conn = JDBCTemplate.getConnection();
+		int resultTotal = 0;
+		int resultOfInfo = dao.insertEventInfo(conn, eventInfo);
+		int resultOfCasting = dao.insertEventCasting(conn, castings);
+		int resultOfSchedule = dao.insertEventSchedule(conn, eventSchedule);
+		int resultOfFiles = dao.insertEventFiles(conn, upfiles);
+		
+		if (resultOfInfo == 0 || resultOfCasting == 0 
+			|| resultOfFiles == 0 || resultOfSchedule == 0) 
+		{
+			JDBCTemplate.rollback(conn);
+		} else {
+			resultTotal = 1;
+			JDBCTemplate.commit(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		return resultTotal;
+	}
+	
+	public String selectCastingByEventNo(String eventNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		String casting = dao.selectCastingByEventNo(conn, eventNo);
+		JDBCTemplate.close(conn);
+		return casting;
+	}
+	
+	public Map<String, String> selectScheduleByEventNo(String eventNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Map<String, String> schedule = dao.selectScheduleByEventNo(conn, eventNo);
+		JDBCTemplate.close(conn);
+		return schedule;
+	}
+	
+	public int updateEvent(Event eventInfo, List<Casting> castings, List<EventUpfile> upfiles) 
+	{
+		Connection conn = JDBCTemplate.getConnection();
+		int resultTotal = 0;
+		int resultOfInfo = dao.updateEventInfo(conn, eventInfo);
+		int resultOfCastingDelete = dao.deleteEventCastingByEventNo(conn, eventInfo.getEventNo());
+		int resultOfCastingInsert = dao.reInsertEventCasting(conn, castings);
+		int resultOfFilesDelete = dao.deleteEventFilesByEventNo(conn, eventInfo.getEventNo());
+		int resultOfFilesInsert = dao.reInsertEventFiles(conn, upfiles);
+		
+		if (resultOfInfo == 0 || resultOfCastingDelete == 0 || resultOfCastingInsert == 0 
+				|| resultOfFilesDelete == 0 || resultOfFilesInsert == 0) 
+		{
+			JDBCTemplate.rollback(conn);
+		} else {
+			resultTotal = 1;
+			JDBCTemplate.commit(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		return resultTotal;
+	}
+	
 }

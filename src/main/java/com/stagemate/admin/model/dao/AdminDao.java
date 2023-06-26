@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.stagemate.common.JDBCTemplate;
 import com.stagemate.member.model.vo.Member;
 
 public class AdminDao {
@@ -76,4 +77,5 @@ public class AdminDao {
 				// .proImgNo(rs.getInt(""))
 				.build();
 	}
+
 }

@@ -3,14 +3,19 @@ package com.stagemate.event.dao;
 import static com.stagemate.common.JDBCTemplate.close;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
+import com.stagemate.common.JDBCTemplate;
 import com.stagemate.common.PropertiesGenerator;
+import com.stagemate.event.model.vo.Casting;
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventTime;
 import com.stagemate.event.model.vo.EventUpfile;
@@ -401,4 +406,277 @@ public class EventDao {
 			close(pstmt);
 		}return seats;
 	}
+
+	// ------------------------- jaehun -------------------------
+	public List<String> selectLocation(Connection conn, String location) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> locations = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectLocation"));
+			pstmt.setString(1, "%" + location + "%");
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				locations.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return locations;
+	}
+	
+	public int insertEventInfo(Connection conn, Event eventInfo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertEventInfo"));
+			pstmt.setString(1, eventInfo.getEventNm());
+			pstmt.setDate(2, eventInfo.getEventStartDt());
+			pstmt.setDate(3, eventInfo.getEventEndDt());
+			pstmt.setDate(4, eventInfo.getRsvOpenDt());
+			pstmt.setString(5, eventInfo.getEvcNo());
+			pstmt.setString(6, eventInfo.getLocation());
+			pstmt.setInt(7, eventInfo.getEventAge());
+			pstmt.setInt(8, eventInfo.getEventDuration());
+			pstmt.setInt(9, eventInfo.getEventInter());
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertEventCasting(Connection conn, List<Casting> castings) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertEventCasting"));
+			for (Casting casting : castings) {
+				pstmt.setString(1, casting.getCastingNm().trim());
+				result = pstmt.executeUpdate();
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertEventSchedule(Connection conn, Map<Date, String> eventSchedule) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertEventSchedule"));
+			for (Map.Entry<Date, String> schedule : eventSchedule.entrySet()) {
+				Date eventDate = schedule.getKey();
+				String eventTime = schedule.getValue();
+				
+				pstmt.setDate(1, eventDate);
+				pstmt.setDate(2, eventDate);
+				pstmt.setString(3, eventTime);
+				result = pstmt.executeUpdate();
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertEventFiles(Connection conn, List<EventUpfile> upfiles) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertEventFiles"));
+			for (EventUpfile upfile : upfiles) {
+				pstmt.setString(1, upfile.getEuNameOriginal());
+				pstmt.setString(2, upfile.getEuRename());
+				pstmt.setString(3, upfile.getPurposeNo());
+				result = pstmt.executeUpdate();
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public String selectCategoryByEventNo(Connection conn, String eventNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String eventCategory = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectCategoryByEventNo"));
+			pstmt.setString(1, eventNo);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				eventCategory = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return eventCategory;
+	}
+
+	public String selectCastingByEventNo(Connection conn, String eventNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> castings = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectCastingByEventNo"));
+			pstmt.setString(1, eventNo);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				castings.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return String.join(",", castings.stream().toArray(String[]::new));
+	}
+
+	public Map<String, String> selectScheduleByEventNo(Connection conn, String eventNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<String, String> schedule = new HashMap<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectScheduleByEventNo"));
+			pstmt.setString(1, eventNo);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				schedule.put(rs.getString("ES_DAY"), rs.getString("ES_START_TIME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return schedule;
+	}
+
+	public int updateEventInfo(Connection conn, Event eventInfo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("updateEventInfo"));
+			pstmt.setString(1, eventInfo.getEventNm());
+			pstmt.setDate(2, eventInfo.getEventStartDt());
+			pstmt.setDate(3, eventInfo.getEventEndDt());
+			pstmt.setDate(4, eventInfo.getRsvOpenDt());
+			pstmt.setString(5, eventInfo.getEvcNo());
+			pstmt.setString(6, eventInfo.getLocation());
+			pstmt.setInt(7, eventInfo.getEventAge());
+			pstmt.setInt(8, eventInfo.getEventDuration());
+			pstmt.setInt(9, eventInfo.getEventInter());
+			pstmt.setString(10, eventInfo.getEventNo());
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteEventCastingByEventNo(Connection conn, String eventNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("deleteEventCastingByEventNo"));
+			pstmt.setString(1, eventNo);
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int reInsertEventCasting(Connection conn, List<Casting> castings) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("reInsertEventCasting"));
+			for (Casting casting : castings) {
+				pstmt.setString(1, casting.getCastingNm().trim());
+				pstmt.setString(2, casting.getEventNo());
+				result = pstmt.executeUpdate();
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteEventFilesByEventNo(Connection conn, String eventNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("deleteEventFilesByEventNo"));
+			pstmt.setString(1, eventNo);
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int reInsertEventFiles(Connection conn, List<EventUpfile> upfiles) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("reInsertEventFiles"));
+			for (EventUpfile upfile : upfiles) {
+				pstmt.setString(1, upfile.getEuNameOriginal());
+				pstmt.setString(2, upfile.getEuRename());
+				pstmt.setString(3, upfile.getEventNo());
+				pstmt.setString(4, upfile.getPurposeNo());
+				result = pstmt.executeUpdate();
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
+	
 }
