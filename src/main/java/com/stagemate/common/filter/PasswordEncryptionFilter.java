@@ -12,10 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 // 필터 적용할 서블릿 추후 수정
-@WebFilter(
-		urlPatterns={"/member/*"}, 
-		servletNames= {"login"}
-		)
+@WebFilter(urlPatterns={"/loginEnd.do", "/member/enrollEnd.do"})
 public class PasswordEncryptionFilter extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 2958115529336001142L;
 
