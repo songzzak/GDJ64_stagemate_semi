@@ -48,6 +48,8 @@ public class PaymentServlet extends HttpServlet {
 		request.setAttribute("round", round);
 		request.setAttribute("choiceday", choiceday);
 		request.setAttribute("seat", seat);
+		request.setAttribute("seats", seats);
+		request.setAttribute("seat", seat);
 		request.setAttribute("esNo", esNo);
 		String a=choiceday.replace(".", "");
 		SimpleDateFormat input = new SimpleDateFormat("yyyyMMdd");  //dt와 형식을 맞추어 준다.

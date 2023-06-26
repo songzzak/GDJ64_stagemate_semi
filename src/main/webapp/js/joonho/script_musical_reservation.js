@@ -172,15 +172,6 @@ function prev_page(eventNo) {
 }
 function toPayment(eventNo,round,choiceday,esNo) {
 		const seat=$("#selectedSeat>div>div").text();
-		/*let choseat=seat.split(")");
-		let row=[];
-		let column=[];
-		const pattern = /(?<=.)\d+/g;
-		for(let i=0;i<choseat.length-1;i++){
-			row.push(choseat[i].charAt(3));
-			column.push(choseat[i].match(pattern));
-			pattern.lastIndex = 0;
-		}*/
 		if(seat==""){
 			alert("좌석을 선택해주세요")
 			return;

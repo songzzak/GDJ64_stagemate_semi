@@ -52,6 +52,7 @@
 
 #res_pay_fin_detail>table {
 	border-collapse: collapse;
+	width: 70%;
 }
 
 #res_pay_fin_detail>table tr>td {

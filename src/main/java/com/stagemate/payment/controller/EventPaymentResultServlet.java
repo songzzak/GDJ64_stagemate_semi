@@ -40,9 +40,10 @@ public class EventPaymentResultServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		String totalprice=request.getParameter("totalprice");
 		Payment p=Payment.builder()
 				.paymentNo(request.getParameter("merchant_uid"))
-				.paymentPrice(Integer.parseInt(request.getParameter("totalprice")))
+				.paymentPrice(Integer.parseInt(totalprice))
 				.build();
 		
 		int paymentResult=new PaymentService().insertPayment(p);
@@ -51,13 +52,13 @@ public class EventPaymentResultServlet extends HttpServlet {
 		String esNo=request.getParameter("esNo");
 		EventOrder eo=EventOrder.builder()
 				.esNo(esNo)
-				.rsvPrice(Integer.parseInt(request.getParameter("totalprice")))
+				.rsvPrice(Integer.parseInt(totalprice))
 				.memberId(request.getParameter("memberId"))
 				.paymentNo(paymentNo)
 				.build();
 		
 		int eventOrderResult=new PaymentService().insertEventOrder(eo);
-		String evnNo=request.getParameter("evnNo");
+		String evcNo=request.getParameter("evcNo");
 		String row=request.getParameter("row");
 		String column=request.getParameter("column");
 		String choiceday=request.getParameter("choiceday");
@@ -66,7 +67,7 @@ public class EventPaymentResultServlet extends HttpServlet {
 		List<Integer> col = new ArrayList<>();
         String[] columns = column.split(",");
 		for(int i=0;i<rows.length;i++) {
-			 if(evnNo.equals("EVC1")) {
+			 if(evcNo.equals("EVC1")) {
 				 int number = Integer.parseInt(columns[i]);
 				 if((rows[i].equals("A")||rows[i].equals("B"))&&number>2) {
 					 number += 1;
@@ -90,20 +91,40 @@ public class EventPaymentResultServlet extends HttpServlet {
 				 col.add(number);
 			 }
 		}
-		
 		EventOrder eventOrder=new PaymentService().selectEventOrder(paymentNo);
-		for(int i=0;i<rows.length;i++) {
-			int updateSeatResult=new PaymentService().updateSeatRes(rows[i],col.get(i),eventNo,choicedays);
-			Seat SeatNo=new PaymentService().selectSeatNo(rows[i],col.get(i),eventNo,esNo);
-			int eventOrderDetailResult=new PaymentService().insertEventOrderDetail(eventOrder.getRsvNo(),SeatNo.getSeatNo());
+		if(evcNo.equals("EVC1")) {
+			for(int i=0;i<rows.length;i++) {
+				int updateSeatResult=new PaymentService().updateMusicalSeatRes(rows[i],col.get(i),eventNo,choicedays);
+				Seat SeatNo=new PaymentService().selectMusicalSeatNo(rows[i],col.get(i),eventNo,esNo);
+				int eventOrderDetailResult=new PaymentService().insertEventOrderDetail(eventOrder.getRsvNo(),SeatNo.getSeatNo());
+			}
+		}else if(evcNo.equals("EVC2")) {
+			for(int i=0;i<rows.length;i++) {
+				int updateSeatResult=new PaymentService().updateConcertSeatRes(rows[i],col.get(i),eventNo,choicedays);
+				Seat SeatNo=new PaymentService().selectConcertSeatNo(rows[i],col.get(i),eventNo,esNo);
+				int eventOrderDetailResult=new PaymentService().insertEventOrderDetail(eventOrder.getRsvNo(),SeatNo.getSeatNo());
+			}
+		}else {
+			for(int i=0;i<rows.length;i++) {
+				int updateSeatResult=new PaymentService().updateActSeatRes(rows[i],col.get(i),eventNo,choicedays);
+				Seat SeatNo=new PaymentService().selectActSeatNo(rows[i],col.get(i),eventNo,esNo);
+				int eventOrderDetailResult=new PaymentService().insertEventOrderDetail(eventOrder.getRsvNo(),SeatNo.getSeatNo());
+			}
 		}
 		Event event=new EventService().selectEventByEventNo(eventNo);
 		List<EventUpfile> files=new EventService().selectFileByEventNo(eventNo);
-		request.setAttribute("event", event);
-		request.setAttribute("files", files);
-		request.setAttribute("eventOrder", eventOrder);
 		String name=request.getParameter("name");
 		String chkDate=request.getParameter("chkDate");
+		String round=request.getParameter("round");
+		String seats=request.getParameter("seats");
+		request.setAttribute("event", event);
+		request.setAttribute("seats", seats);
+		request.setAttribute("choiceday", choiceday);
+		request.setAttribute("round", round);
+		request.setAttribute("totalprice", totalprice);
+		request.setAttribute("files", files);
+		request.setAttribute("eventOrder", eventOrder);
+		request.setAttribute("chkDate", chkDate);
 		request.getRequestDispatcher("/views/event/event_payment_final.jsp").forward(request, response);
 	}
 

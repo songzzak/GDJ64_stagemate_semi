@@ -11,6 +11,7 @@
 	String chkDate = (String)request.getAttribute("chkDate");
 	String esNo = (String)request.getAttribute("esNo");
 	String[] seat = (String[])request.getAttribute("seat");
+	String seats = (String)request.getAttribute("seats");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet" href="<%=contextPath%>/css/joonho/style_event_payment.css">
@@ -189,11 +190,19 @@ var imagename;
 let row=[];
 let column=[];
 const pattern = /(?<=.)\d+/g;
-<%for(int i=0;i<seat.length;i++){ %>
-	row.push('<%=seat[i]+")" %>'.charAt(3));
+if(<%=event.getEvcNo().equals("EVC3")%>){
+	<%for(int i=0;i<seat.length;i++){ %>
+	row.push('<%=seat[i]+")" %>'.charAt(0));
 	column.push('<%=seat[i]+")" %>'.match(pattern));
 	pattern.lastIndex = 0;
 <%} %>
+}else{
+	<%for(int i=0;i<seat.length;i++){ %>
+		row.push('<%=seat[i]+")" %>'.charAt(3));
+		column.push('<%=seat[i]+")" %>'.match(pattern));
+		pattern.lastIndex = 0;
+	<%} %>
+}
 console.log(row);
 console.log(column);
  
@@ -213,10 +222,10 @@ function requestPay() {
         if (rsp.success) {
           var msg = '결제가 완료되었습니다.';
           alert(msg);
-          location.href = '<%=request.getContextPath()%>/event/paymentresult.do?eventNo='+'<%=event.getEventNo()%>'+'&evnNo='+'<%=event.getEvcNo() %>'+
+          location.href = '<%=request.getContextPath()%>/event/paymentresult.do?eventNo='+'<%=event.getEventNo()%>'+'&evcNo='+'<%=event.getEvcNo() %>'+
         		  	'&choiceday='+'<%=choiceday %>'+'&totalprice='+allPrice+'&row='+row+'&column='+column+'&memberId='+'<%=loginMember.getMemberId()%>'+
         		  	'&name='+rsp.buyer_name+'&merchant_uid='+rsp.merchant_uid+'&chkDate='+'<%=chkDate %>'+'&eventName='+'<%=event.getEventNm() %>'+
-        		  	'&imagename='+imagename+'&esNo='+'<%=esNo %>'
+        		  	'&imagename='+imagename+'&esNo='+'<%=esNo %>'+'&round='+'<%=round %>'+'&seats='+'<%=seats %>'
         } else {
           var msg = '결제에 실패하였습니다.';
           msg += '에러내용 : ' + rsp.error_msg;
