@@ -9,6 +9,7 @@
 	String round = (String)request.getAttribute("round");
 	String choiceday = (String)request.getAttribute("choiceday");
 	String chkDate = (String)request.getAttribute("chkDate");
+	String esNo = (String)request.getAttribute("esNo");
 	String[] seat = (String[])request.getAttribute("seat");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
@@ -175,7 +176,7 @@ var hours = today.getHours(); // 시
 var minutes = today.getMinutes();  // 분
 var seconds = today.getSeconds();  // 초
 var milliseconds = today.getMilliseconds();
-var makeMerchantUid = ""+ milliseconds + months+ seconds+dates+years + hours +  minutes  ;
+var makeMerchantUid = ""+ milliseconds + months+years;
 console.log(makeMerchantUid)
 
 var imagename;
@@ -200,7 +201,7 @@ function requestPay() {
     IMP.request_pay({
     	pg: "html5_inicis",
         pay_method : 'card',
-        merchant_uid: "IMP"+makeMerchantUid, 
+        merchant_uid: "E"+makeMerchantUid, 
         name : '<%=event.getEventNm() %>',
         amount : 1,
         buyer_email : '<%=loginMember.getMemberEmail() %>',
@@ -215,7 +216,7 @@ function requestPay() {
           location.href = '<%=request.getContextPath()%>/event/paymentresult.do?eventNo='+'<%=event.getEventNo()%>'+'&evnNo='+'<%=event.getEvcNo() %>'+
         		  	'&choiceday='+'<%=choiceday %>'+'&totalprice='+allPrice+'&row='+row+'&column='+column+'&memberId='+'<%=loginMember.getMemberId()%>'+
         		  	'&name='+rsp.buyer_name+'&merchant_uid='+rsp.merchant_uid+'&chkDate='+'<%=chkDate %>'+'&eventName='+'<%=event.getEventNm() %>'+
-        		  	'&imagename='+imagename
+        		  	'&imagename='+imagename+'&esNo='+'<%=esNo %>'
         } else {
           var msg = '결제에 실패하였습니다.';
           msg += '에러내용 : ' + rsp.error_msg;

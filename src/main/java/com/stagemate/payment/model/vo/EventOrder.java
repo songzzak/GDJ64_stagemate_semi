@@ -15,9 +15,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class EventOrder {
 	private String rsvNo;
-	private String eventNo;
+	private String esNo;
 	private Date rsvDate;
-	private String whatchDt;
 	private int rsvPrice;
 	private String memberId;
 	private String paymentNo;

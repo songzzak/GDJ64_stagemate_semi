@@ -8,6 +8,7 @@
 	String eventNo = (String)request.getAttribute("eventNo");
 	String round = (String)request.getAttribute("round");
 	String choiceday = (String)request.getAttribute("choiceday");
+	String esNo = (String)request.getAttribute("esNo");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -118,7 +119,7 @@
 						<button onclick="prev_page('<%=eventNo%>');">이전 단계</button>
 						<button onclick="seat_reset();">좌석 초기화</button>
 					</div>
-					<button onclick="toPayment('<%=eventNo%>','<%=round%>','<%=choiceday%>')">좌석선택 완료</button>
+					<button onclick="toPayment('<%=eventNo%>','<%=round%>','<%=choiceday%>','<%=esNo%>')">좌석선택 완료</button>
 				</div>
 			</div>
 		</div>
@@ -143,67 +144,71 @@
 		var seatK=[];
 		var seatL=[];
 		<%for (Seat seat : seats) {%>
-			switch('<%=seat.getSeatRow()%>'){
-				case 'A' : if('<%=seat.getIsReserved()%>'=='N'){
-								seatA.push(1);break;
-							}else{
-								seatA.push(0);break;
-							}
-				case 'B' : if('<%=seat.getIsReserved()%>'=='N'){
-								seatB.push(1);break;
-							}else{
-								seatB.push(0);break;
-							}
-				case 'C' : if('<%=seat.getIsReserved()%>'=='N'){
-								seatC.push(1);break;
-							}else{
-								seatC.push(0);break;
-							}
-				case 'D' : if('<%=seat.getIsReserved()%>'=='N'){
-								seatD.push(1);break;
-							}else{
-								seatD.push(0);break;
-							}
-				case 'E' : if('<%=seat.getIsReserved()%>'=='N'){
-								seatE.push(1);break;
-							}else{
-								seatE.push(0);break;
-							}
-				case 'F' : if('<%=seat.getIsReserved()%>'=='N'){
-								seatF.push(1);break;
-							}else{
-								seatF.push(0);break;
-							}
-				case 'G' : if('<%=seat.getIsReserved()%>'=='N'){
-								seatG.push(1);break;
-							}else{
-								seatG.push(0);break;
-							}
-				case 'H' : if('<%=seat.getIsReserved()%>'=='N'){
-								seatH.push(1);break;
-							}else{
-								seatH.push(0);break;
-							}
-				case 'I' : if('<%=seat.getIsReserved()%>'=='N'){
-								seatI.push(1);break;
-							}else{
-								seatI.push(0);break;
-							}
-				case 'J' : if('<%=seat.getIsReserved()%>'=='N'){
-								seatJ.push(1);break;
-							}else{
-								seatJ.push(0);break;
-							}
-				case 'K' : if('<%=seat.getIsReserved()%>'=='N'){
-								seatK.push(1);break;
-							}else{
-								seatK.push(0);break;
-							}
-				case 'L' : if('<%=seat.getIsReserved()%>'=='N'){
-								seatL.push(1);break;
-							}else{
-								seatL.push(0);break;
-							}
+			esdatecheck=new Date('<%=seat.getEsDate()%>')
+			esdatechoice=new Date('<%=choiceday%>')
+			if(esdatecheck.getDate()==esdatechoice.getDate()){
+				switch('<%=seat.getSeatRow()%>'){
+					case 'A' : if('<%=seat.getIsReserved()%>'=='N'){
+									seatA.push(1);break;
+								}else{
+									seatA.push(0);break;
+								}
+					case 'B' : if('<%=seat.getIsReserved()%>'=='N'){
+									seatB.push(1);break;
+								}else{
+									seatB.push(0);break;
+								}
+					case 'C' : if('<%=seat.getIsReserved()%>'=='N'){
+									seatC.push(1);break;
+								}else{
+									seatC.push(0);break;
+								}
+					case 'D' : if('<%=seat.getIsReserved()%>'=='N'){
+									seatD.push(1);break;
+								}else{
+									seatD.push(0);break;
+								}
+					case 'E' : if('<%=seat.getIsReserved()%>'=='N'){
+									seatE.push(1);break;
+								}else{
+									seatE.push(0);break;
+								}
+					case 'F' : if('<%=seat.getIsReserved()%>'=='N'){
+									seatF.push(1);break;
+								}else{
+									seatF.push(0);break;
+								}
+					case 'G' : if('<%=seat.getIsReserved()%>'=='N'){
+									seatG.push(1);break;
+								}else{
+									seatG.push(0);break;
+								}
+					case 'H' : if('<%=seat.getIsReserved()%>'=='N'){
+									seatH.push(1);break;
+								}else{
+									seatH.push(0);break;
+								}
+					case 'I' : if('<%=seat.getIsReserved()%>'=='N'){
+									seatI.push(1);break;
+								}else{
+									seatI.push(0);break;
+								}
+					case 'J' : if('<%=seat.getIsReserved()%>'=='N'){
+									seatJ.push(1);break;
+								}else{
+									seatJ.push(0);break;
+								}
+					case 'K' : if('<%=seat.getIsReserved()%>'=='N'){
+									seatK.push(1);break;
+								}else{
+									seatK.push(0);break;
+								}
+					case 'L' : if('<%=seat.getIsReserved()%>'=='N'){
+									seatL.push(1);break;
+								}else{
+									seatL.push(0);break;
+								}
+				}
 			}
 		<%}%>
 	</script>

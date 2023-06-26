@@ -26,9 +26,8 @@ public class PaymentDao {
 	private EventOrder getEventOrder(ResultSet rs) throws SQLException{
 		return EventOrder.builder()
 			.rsvNo(rs.getString("RSV_NO"))
-			.eventNo(rs.getString("EVENT_NO"))
+			.esNo(rs.getString("ES_NO"))
 			.rsvDate(rs.getDate("RSV_DATE"))
-			.whatchDt(rs.getString("WATCH_DT"))
 			.rsvPrice(rs.getInt("RSV_PRICE"))
 			.memberId(rs.getString("MEMBER_ID"))
 			.paymentNo(rs.getString("PAYMENT_NO"))
@@ -69,11 +68,10 @@ public class PaymentDao {
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("insertEventOrder"));
-			pstmt.setString(1, eo.getEventNo());
-			pstmt.setString(2, eo.getWhatchDt());
-			pstmt.setInt(3, eo.getRsvPrice());
-			pstmt.setString(4, eo.getMemberId());
-			pstmt.setString(5, eo.getPaymentNo());
+			pstmt.setString(1, eo.getEsNo());
+			pstmt.setInt(2, eo.getRsvPrice());
+			pstmt.setString(3, eo.getMemberId());
+			pstmt.setString(4, eo.getPaymentNo());
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -83,14 +81,15 @@ public class PaymentDao {
 		return result;
 	}
 	
-	public int updateSeatRes(Connection conn,String row,int col,String eventNo) {
+	public int updateSeatRes(Connection conn,String row,int col,String eventNo,String choiceday) {
 		PreparedStatement pstmt=null;
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("updateSeatRes"));
 			pstmt.setString(1, eventNo);
-			pstmt.setString(2, row);
-			pstmt.setInt(3, col);
+			pstmt.setString(2, choiceday);
+			pstmt.setString(3, row);
+			pstmt.setInt(4, col);
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -120,7 +119,7 @@ public class PaymentDao {
 		return eventOrder;
 	}
 	
-	public Seat selectSeatNo(Connection conn,String row,int col,String eventNo) {
+	public Seat selectSeatNo(Connection conn,String row,int col,String eventNo,String esNo) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		Seat seat=null;
@@ -129,6 +128,7 @@ public class PaymentDao {
 			pstmt.setString(1, eventNo);
 			pstmt.setString(2, row);
 			pstmt.setInt(3, col);
+			pstmt.setString(4, esNo);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				seat=getSeat(rs);

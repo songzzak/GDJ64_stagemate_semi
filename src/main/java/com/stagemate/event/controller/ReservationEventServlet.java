@@ -31,10 +31,12 @@ public class ReservationEventServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String esNo=request.getParameter("esNo");
 		String evcNo=request.getParameter("evc");
 		String eventNo=request.getParameter("event");
 		String round=request.getParameter("round");
 		String choiceday=request.getParameter("choiceday");
+		request.setAttribute("esNo", esNo);
 		request.setAttribute("eventNo", eventNo);
 		request.setAttribute("round", round);
 		request.setAttribute("choiceday", choiceday);

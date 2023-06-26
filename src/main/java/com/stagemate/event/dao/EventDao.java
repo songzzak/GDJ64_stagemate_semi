@@ -81,7 +81,7 @@ public class EventDao {
 				.build();
 	}
 	
-	private EventSchedule getEventTime(ResultSet rs) throws SQLException{
+	private EventSchedule getEventSchedule(ResultSet rs) throws SQLException{
 		return EventSchedule.builder()
 				.esNo(rs.getString("ES_NO"))
 				.eventNo(rs.getString("EVENT_NO"))
@@ -282,7 +282,7 @@ public class EventDao {
 			pstmt.setString(1, eventNo);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				EventSchedule e=getEventTime(rs);
+				EventSchedule e=getEventSchedule(rs);
 				et.add(e);
 			}
 		}catch(SQLException e) {

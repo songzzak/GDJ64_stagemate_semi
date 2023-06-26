@@ -13,7 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.stagemate.event.model.vo.Event;
+import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.model.vo.Seat;
+import com.stagemate.event.service.EventService;
 import com.stagemate.payment.model.vo.EventOrder;
 import com.stagemate.payment.model.vo.Payment;
 import com.stagemate.payment.service.PaymentService;
@@ -45,9 +48,9 @@ public class EventPaymentResultServlet extends HttpServlet {
 		int paymentResult=new PaymentService().insertPayment(p);
 		String paymentNo=request.getParameter("merchant_uid");
 		String eventNo=request.getParameter("eventNo");
+		String esNo=request.getParameter("esNo");
 		EventOrder eo=EventOrder.builder()
-				.eventNo(eventNo)
-				.whatchDt(request.getParameter("choiceday"))
+				.esNo(esNo)
 				.rsvPrice(Integer.parseInt(request.getParameter("totalprice")))
 				.memberId(request.getParameter("memberId"))
 				.paymentNo(paymentNo)
@@ -57,6 +60,8 @@ public class EventPaymentResultServlet extends HttpServlet {
 		String evnNo=request.getParameter("evnNo");
 		String row=request.getParameter("row");
 		String column=request.getParameter("column");
+		String choiceday=request.getParameter("choiceday");
+		String choicedays=choiceday.replace(".", "");
 		String[] rows=row.split(",");
 		List<Integer> col = new ArrayList<>();
         String[] columns = column.split(",");
@@ -88,16 +93,18 @@ public class EventPaymentResultServlet extends HttpServlet {
 		
 		EventOrder eventOrder=new PaymentService().selectEventOrder(paymentNo);
 		for(int i=0;i<rows.length;i++) {
-			int updateSeatResult=new PaymentService().updateSeatRes(rows[i],col.get(i),eventNo);
-			Seat SeatNo=new PaymentService().selectSeatNo(rows[i],col.get(i),eventNo);
+			int updateSeatResult=new PaymentService().updateSeatRes(rows[i],col.get(i),eventNo,choicedays);
+			Seat SeatNo=new PaymentService().selectSeatNo(rows[i],col.get(i),eventNo,esNo);
 			int eventOrderDetailResult=new PaymentService().insertEventOrderDetail(eventOrder.getRsvNo(),SeatNo.getSeatNo());
 		}
-		
-		
-
+		Event event=new EventService().selectEventByEventNo(eventNo);
+		List<EventUpfile> files=new EventService().selectFileByEventNo(eventNo);
+		request.setAttribute("event", event);
+		request.setAttribute("files", files);
+		request.setAttribute("eventOrder", eventOrder);
 		String name=request.getParameter("name");
 		String chkDate=request.getParameter("chkDate");
-		//request.getRequestDispatcher("/views/event/event_payment_final.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/event/event_payment_final.jsp").forward(request, response);
 	}
 
 	/**

@@ -175,8 +175,7 @@ function buildCalendar() {
 			nowRow = tbody_Calendar.insertRow();    // 새로운 행 추가
 		}
 		
-
-		if (nowDay < today || nowDay<startDay) {                       // 지난날인 경우
+		if (nowDay<startDay || nowDay < today) {                       // 지난날인 경우
 			newDIV.className = "pastDay";
 		}
 		else if (nowDay.getFullYear() == today.getFullYear() && nowDay.getMonth() == today.getMonth() && nowDay.getDate() == today.getDate()) { // 오늘인 경우           
@@ -244,6 +243,16 @@ function choiceDate(newDIV) {
 			}
 		}
 		newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
+		$("#schedule").css({ "backgroundColor": "white", "color": "black" })
+		$("#pointmark").css({"visibility":"visible"});
+		$("#gold_seat").css({"color":"rgb(0,0,0,0.3)"});
+		$("#res_cho").css({"border":"1px solid rgb(0,0,0,0.3)","backgroundColor":"white","color":"rgb(0,0,0,0.3)","pointer-events":"none"});
+		$("#seat_money>div>h3:odd").css({"color":"rgb(0,0,0,0.3)"});
+		$("#seat_money>div:first-child>h3:last-child").html('')
+		$("#seat_money>div:nth-child(2)>h3:last-child").html('')
+		$("#seat_money>div:nth-child(3)>h3:last-child").html('')
+		$("#seat_money>div:last-child>h3:last-child").html('')
+		flag=true;
 	/*}*/
 }
 
@@ -272,5 +281,5 @@ function toReservationMusical(evcNo,eventNo){
 	const roundup=$("#schedule").text();
 	const round=roundup.replaceAll(' ','');
 	const choiceday=$("#calYear").text()+"."+$("#calMonth").text()+"."+$(".choiceDay").text();
-	location.assign(getContextPath() + "/event/reservation.do?evc="+evcNo+"&event="+eventNo+"&round="+round+"&choiceday="+choiceday);
+	location.assign(getContextPath() + "/event/reservation.do?evc="+evcNo+"&event="+eventNo+"&round="+round+"&choiceday="+choiceday+"&esNo="+esNo);
 }

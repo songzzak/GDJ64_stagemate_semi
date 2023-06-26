@@ -39,6 +39,7 @@ public class PaymentServlet extends HttpServlet {
 		String round=request.getParameter("round");
 		String choiceday=request.getParameter("choiceday");
 		String seats=request.getParameter("seat");
+		String esNo=request.getParameter("esNo");
 		String[] seat=seats.split("\\)");
 		Event event=new EventService().selectEventByEventNo(eventNo);
 		List<EventUpfile> files=new EventService().selectFileByEventNo(eventNo);
@@ -47,6 +48,7 @@ public class PaymentServlet extends HttpServlet {
 		request.setAttribute("round", round);
 		request.setAttribute("choiceday", choiceday);
 		request.setAttribute("seat", seat);
+		request.setAttribute("esNo", esNo);
 		String a=choiceday.replace(".", "");
 		SimpleDateFormat input = new SimpleDateFormat("yyyyMMdd");  //dt와 형식을 맞추어 준다.
 		SimpleDateFormat output = new SimpleDateFormat("yyyy년MM월dd일"); //변환할 형식
