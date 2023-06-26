@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <link rel="stylesheet" href="<%=contextPath%>/css/yelin/style_updateMember.css">
- <%@ page import="java.util.List,com.stagemate.review.model.vo.ReviewPlay" %>  
+ <%@ page import="java.util.List,com.stagemate.review.model.vo.EventReview" %>  
 <title>STAGEMATE</title>
 </head>
 <body>

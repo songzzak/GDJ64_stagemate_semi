@@ -6,7 +6,7 @@
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/yelin/style_member_withdraw.css">
 <%@ page
-	import="java.util.List,com.stagemate.review.model.vo.ReviewPlay"%>
+	import="java.util.List,com.stagemate.review.model.vo.EventReview"%>
 <title>STAGEMATE</title>
 </head>
 <body>

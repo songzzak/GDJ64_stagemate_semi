@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stagemate.review.model.vo.ReviewPlay;
+import com.stagemate.review.model.vo.EventReview;
 
 
 @WebServlet("/Review/ReviewListServlet.do")
@@ -38,7 +38,7 @@ public class ReviewListServlet extends HttpServlet {
 		Connection conn=null; 
 		PreparedStatement pstmt=null; 
 		ResultSet rs=null;
-		List<ReviewPlay> list=new ArrayList(); //만들어놓은 Review 클래스에 있는 값만 들어가는 새로운 List를 만드는 것. 
+		List<EventReview> list=new ArrayList(); //만들어놓은 Review 클래스에 있는 값만 들어가는 새로운 List를 만드는 것. 
 		try {
 			conn=getConnection();  //DB 접속
 			String sql= "SELECT EVENT_REVIEW_TB.*,MEMBER.MEMBER_NM, EVENT.EVENT_NAME,EVENT_ORDER_TB.WATCH_DT "
@@ -72,8 +72,8 @@ public class ReviewListServlet extends HttpServlet {
 		
 	}
 	
-	private ReviewPlay getReviewList(ResultSet rs) throws SQLException{
-		return ReviewPlay.builder()
+	private EventReview getReviewList(ResultSet rs) throws SQLException{
+		return EventReview.builder()
 				.eventName(rs.getString("EVENT_NAME"))
 				.rpNo(rs.getInt("RP_NO"))
 				.rpContent(rs.getString("RP_CONTENT"))

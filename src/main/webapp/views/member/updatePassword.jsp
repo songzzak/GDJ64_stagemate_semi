@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
- <%@ page import="java.util.List,com.stagemate.review.model.vo.ReviewPlay" %>  
+ <%@ page import="java.util.List,com.stagemate.review.model.vo.EventReview" %>  
 <title>패스워드 변경</title>
 </head>
 <body>
