@@ -9,6 +9,7 @@
 	String round = (String)request.getAttribute("round");
 	String choiceday = (String)request.getAttribute("choiceday");
 	String esNo = (String)request.getAttribute("esNo");
+	int allseat = (int)request.getAttribute("allseat");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -66,14 +67,8 @@
 					<hr>
 					<div>
 						<div class="seat unavailable" style="background-color: #008B2F"></div>
-						<%int ramainSeat=0;
-						for (Seat seat : seats){
-							if(seat.getIsReserved()=='N'){
-								ramainSeat++;	
-							}
-						} %>
 						<h3>전석 : 50,000원</h3>
-						<h3>(잔여 : <%=ramainSeat-18 ==0?"매진":ramainSeat-18+"석"%>)</h3>
+						<h3>(잔여 : <%=allseat-18 ==0?"매진":allseat-18+"석"%>)</h3>
 					</div>
 				</div>
 				<!-- 선택한좌석 -->

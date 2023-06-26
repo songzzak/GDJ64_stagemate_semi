@@ -116,13 +116,6 @@ public class EventService {
 		return seats;
 	}
 	
-	public List<Seat> selectSeatAllByEvnNo(String eventNo){
-		Connection conn=getConnection();
-		List<Seat> seats=dao.selectSeatAllByEvnNo(conn,eventNo);
-		close(conn);
-		return seats;
-	}
-	
 	// ------------------------- jaehun -------------------------
 	public List<String> selectLocation(String location) {
 		Connection conn = JDBCTemplate.getConnection();

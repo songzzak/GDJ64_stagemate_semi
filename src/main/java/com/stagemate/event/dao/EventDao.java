@@ -69,16 +69,6 @@ public class EventDao {
 				.esStartTime(rs.getString("ES_START_TIME"))
 				.build();
 	}
-	private Seat getSeatAll(ResultSet rs) throws SQLException {
-		return Seat.builder()
-				.seatNo(rs.getString("SEAT_NO"))
-				.isReserved(rs.getString("IS_RESERVED").charAt(0))
-				.slvNo(rs.getString("SLV_NO"))
-				.seatRow(rs.getString("SEAT_ROW").charAt(0))
-				.seatCol(rs.getInt("SEAT_COL"))
-				.eventNo(rs.getString("EVENT_NO"))
-				.build();
-	}
 	
 	private EventSchedule getEventSchedule(ResultSet rs) throws SQLException{
 		return EventSchedule.builder()
@@ -376,25 +366,6 @@ public class EventDao {
 		List<Seat> seats=new ArrayList<>();
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("selectSeatByEvnNoMusical"));
-			pstmt.setString(1, eventNo);
-			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				Seat s=getSeat(rs);
-				seats.add(s);
-			}
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rs);
-			close(pstmt);
-		}return seats;
-	}
-	public List<Seat> selectSeatAllByEvnNo(Connection conn,String eventNo){
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		List<Seat> seats=new ArrayList<>();
-		try {
-			pstmt=conn.prepareStatement(sql.getProperty("selectAllSeatByEvnNo"));
 			pstmt.setString(1, eventNo);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {

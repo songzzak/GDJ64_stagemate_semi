@@ -475,13 +475,14 @@
 	
 	let esdatecheck=new Date();
 	var esNo="";
+	let vip=0;
+	let r=0;
+	let s=0;
+	let a=0;
+	let f1=0;
+	let f2=0;
+	let allseat=0;
 	$(document).on("click","#schedule",function(e){
-		let vip=0;
-		let r=0;
-		let s=0;
-		let a=0;
-		let f1=0;
-		let f2=0;
 		<%for(Seat seat:seats){%>
 			esdatecheck=new Date('<%=seat.getEsDate()%>')
 			if('<%=event.getEvcNo()%>'=="EVC1"){
@@ -530,62 +531,57 @@
 				$("#seat_money>div:nth-child(2)>h3:last-child").text('(잔여 : '+((r-4) ==0?"매진":(r-4)+"석)"))
 				$("#seat_money>div:nth-child(3)>h3:last-child").text('(잔여 : '+((s-6) ==0?"매진":(s-6)+"석)"))
 				$("#seat_money>div:last-child>h3:last-child").text('(잔여 : '+((a-10) ==0?"매진":(a-10)+"석)"))
-			}else if('<%=event.getEvcNo()%>'=="EVC3"){
+			}else if('<%=event.getEvcNo()%>'=="EVC2"){
 				if(esdatecheck.getDate()==$(".choiceDay").text()){
 					switch('<%=seat.getSeatRow()%>'){
-					case 'A' : if('<%=seat.getIsReserved()%>'=='N'){
-									f1++;break;
-								}
-					case 'B' : if('<%=seat.getIsReserved()%>'=='N'){
-									f1++;break;
-								}
-					case 'C' : if('<%=seat.getIsReserved()%>'=='N'){
-									f1++;break;
-								}
-					case 'D' : if('<%=seat.getIsReserved()%>'=='N'){
-									f1++;break;
-								}
-					case 'E' : if('<%=seat.getIsReserved()%>'=='N'){
-									f1++;break;
-								}
-					case 'F' : if('<%=seat.getIsReserved()%>'=='N'){
-									f1++;break;
-								}
-					case 'G' : if('<%=seat.getIsReserved()%>'=='N'){
-									f1++;break;
-								}
-					case 'H' : if('<%=seat.getIsReserved()%>'=='N'){
-									f2++;break;
-								}
-					case 'I' : if('<%=seat.getIsReserved()%>'=='N'){
-									f2++;break;
-								}
-					case 'J' : if('<%=seat.getIsReserved()%>'=='N'){
-									f2++;break;
-								}
-					case 'K' : if('<%=seat.getIsReserved()%>'=='N'){
-									f2++;break;
-								}
-					case 'L' : if('<%=seat.getIsReserved()%>'=='N'){
-									f2++;break;
-								}
-				}
+						case 'A' : if('<%=seat.getIsReserved()%>'=='N'){
+										f1++;break;
+									}
+						case 'B' : if('<%=seat.getIsReserved()%>'=='N'){
+										f1++;break;
+									}
+						case 'C' : if('<%=seat.getIsReserved()%>'=='N'){
+										f1++;break;
+									}
+						case 'D' : if('<%=seat.getIsReserved()%>'=='N'){
+										f1++;break;
+									}
+						case 'E' : if('<%=seat.getIsReserved()%>'=='N'){
+										f1++;break;
+									}
+						case 'F' : if('<%=seat.getIsReserved()%>'=='N'){
+										f1++;break;
+									}
+						case 'G' : if('<%=seat.getIsReserved()%>'=='N'){
+										f1++;break;
+									}
+						case 'H' : if('<%=seat.getIsReserved()%>'=='N'){
+										f2++;break;
+									}
+						case 'I' : if('<%=seat.getIsReserved()%>'=='N'){
+										f2++;break;
+									}
+						case 'J' : if('<%=seat.getIsReserved()%>'=='N'){
+										f2++;break;
+									}
+						case 'K' : if('<%=seat.getIsReserved()%>'=='N'){
+										f2++;break;
+									}
+						case 'L' : if('<%=seat.getIsReserved()%>'=='N'){
+										f2++;break;
+									}
+					}
 						
 				}
 				$("#seat_money>div:first-child>h3:last-child").text('(잔여 : '+((f1-14) ==0?"매진":(f1-14)+"석)"))
 				$("#seat_money>div:last-child>h3:last-child").text('(잔여 : '+((f2-10) ==0?"매진":(f2-10)+"석)"))
+			}else{
+				if(esdatecheck.getDate()==$(".choiceDay").text()){
+					allseat++;
+				}
+				$("#seat_money>div:first-child>h3:last-child").text('(잔여 : '+((allseat-18) ==0?"매진":(allseat-18)+"석)"))
 			}
 		<%}%>
-				<%-- <%}else if(event.getEvcNo().equals("EVC2")){%>
-				if((seat.getSeatRow()=='E'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='F'&&seat.getIsReserved()=='N'||(seat.getSeatRow()=='G'&&seat.getIsReserved()=='N'||(seat.getSeatRow()=='H'&&seat.getIsReserved()=='N'||(seat.getSeatRow()=='I'&&seat.getIsReserved()=='N')){
-					f2++;
-				}else{
-					f1++;
-				}
-				
-				<%}else{%>
-					
-				<%}%> --%>
 		roundchoice(e);
 	});
 	
