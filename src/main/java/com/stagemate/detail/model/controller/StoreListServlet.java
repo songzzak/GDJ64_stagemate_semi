@@ -31,10 +31,10 @@ public class StoreListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		List<StoreDetail> detail = new StoreListService().selectStoreDetail();
-		request.setAttribute("StoreList", detail);
-		
-		request.getRequestDispatcher("/views/detail/detailList.jsp").forward(request, response);
+//		List<StoreDetail> detail = new StoreListService().selectStoreDetailCondition();
+//		request.setAttribute("StoreList", detail);
+//		
+//		request.getRequestDispatcher("/views/detail/detailList.jsp").forward(request, response);
 		
 		
 

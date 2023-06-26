@@ -2,6 +2,8 @@ package com.stagemate.review.model.vo;
 
 import java.sql.Date;
 
+import com.stagemate.store.model.vo.Product;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,16 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
-public class ReviewPlay {
-	private String eventName;
-	private int rpNo;
-	private String rpContent;
-	private Date rpDate;
-	private String rsvNo;
-	private int imojiCd;
-	private String memberId;
-	private Date watchDt;
-	
-	
+public class Imoji {
+	private String imojiNo;
+	private String imojiNm;
 }

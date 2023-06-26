@@ -10,11 +10,11 @@
 <body>
 	<%
 	//PlayDetail 정보 가져와야 한다. 
-	List<Detail> details = (List) request.getAttribute("DetailList");
+			List<Detail> details = (List) request.getAttribute("DetailList");
 	%>
 	<%
 	//StoreDetail 정보 가져와야 한다. 
-	List<StoreDetail> stores = (List) request.getAttribute("StoreList");
+			List<StoreDetail> stores = (List) request.getAttribute("StoreList");
 	%>
 	<%@ include file="/views/common/header.jsp"%>
 
@@ -58,11 +58,11 @@
 						<div class="termsearchbox" style="margin-right: 30px;">
 
 							기간별 조회
-							<button name="filterDate" class="perbtn active" value="1"
+							<button name="filterDate1" class="perbtn active" value="1"
 								onclick="search_btn(event)">7일</button>
-							<button name="filterDate" class="perbtn" value="2"
+							<button name="filterDate1" class="perbtn" value="2"
 								onclick="search_btn(event)">1개월</button>
-							<button name="filterDate" class="perbtn" value="3"
+							<button name="filterDate1" class="perbtn" value="3"
 								onclick="search_btn(event)">3개월</button>
 
 							<!-- 기간검색 : 시작일 종료일로 리스트 조회  -->
@@ -78,14 +78,15 @@
 						<div class="datebox">
 							예매일자별 조회 <select class="btnbox btnbox-white" id="year1"
 								name="year"></select> <select class="btnbox btnbox-white"
-								id="month1" name="month"></select> <input type="submit"
-								class="btnbox btnbox-brown" value="조회">
+								id="month1" name="month"></select> <input type="button"
+								class="btnbox btnbox-brown" value="조회" onclick="searchList('1', 1, 10)">
 						</div>
 					</div>
 
 					<script>
 						function search_btn(e) {
-							var btns = document.querySelectorAll(".perbtn");
+							var name = e.target.name;
+							var btns = document.querySelectorAll('button[name="' + name + '"].perbtn');
 							btns.forEach(function(btn, i) {
 								if (e.currentTarget == btn) {
 									btn.classList.add("active");
@@ -99,11 +100,11 @@
 
 					<div class="BLP-radio" align="right"
 						style="padding: 20px 0px 20px 700px;">
-						<p class="txt">총 3건의 예매내역이 있습니다</p>
+						<p class="txt">총 <label id="searchCount1"><%=request.getAttribute("TotalCount")%></label>건의 예매내역이 있습니다</p>
 						<div class="stateP-btn" style="float: right">
-							예매상태별 조회 <input type="radio" name="gender" value="M">전체 <input
-								type="radio" name="gender" value="F">예매 <input
-								type="radio" name="gender" value="F">취소
+							예매상태별 조회 <input type="radio" name="status1" value="1" checked="checked">전체 <input
+								type="radio" name="status1" value="2">예매 <input
+								type="radio" name="status1" value="3">취소
 						</div>
 					</div>
 				</div>
@@ -128,7 +129,7 @@
 							<tr>
 								<th scope="col">예매번호</th>
 								<th scope="col">티켓명</th>
-								<th scope="col">관람일시</th>
+								<th scope="col">예매 일자</th>
 								<th scope="col">매수</th>
 								<th scope="col">취소가능일</th>
 								<th scope="col">상태</th>
@@ -143,10 +144,10 @@
 								<td class="book_no"><a href="" style="color: gray"><%=d.getRsvNo()%></a></td>
 								<td class="book_no"><a href=""
 									style="text-decoration: none; color: black"><%=d.getEventName()%></a></td>
-								<td class="book_no">2023-06-04 18:00</td>
+								<td class="book_no"><%=d.getRsvDate()%></td>
 								<td class="book_no">1매</td>
 								<td class="book_no">2023-06-03 17:00</td>
-								<td class="book_no">예매</td>
+								<td class="book_no"><%=d.getOrderStatus()%></td>
 								<td class="book_no"><a href="">리뷰작성</a></td>
 							</tr>
 							<%
@@ -160,9 +161,7 @@
 				</div>
 				<p class="Play_guidetxt" style="padding: 5px 0px 30px 60px">예매번호를
 					클릭하면 예매 상세 정보를 확인할 수 있습니다.</p>
-
-
-
+				
 			</div>
 			<!--스토어내역 -->
 			<div class="StoreBookingList">
@@ -170,28 +169,30 @@
 					<div class="search-btn"
 						style="padding: 60px 0px 0px 0px; float: right;">
 						<div class="termsearchbox" style="margin-right: 30px;">
-							기간별 조회 <input type="button" class="perbtn active" value="7일"
-								onclick="search_btn(event)"> <input type="button"
-								class="perbtn" value="1개월" onclick="search_btn(event)">
-							<input type="button" class="perbtn" value="3개월"
-								onclick="search_btn(event)">
+							기간별 조회
+							<button name="filterDate2" class="perbtn active" value="1"
+								onclick="search_btn(event)">7일</button>
+							<button name="filterDate2" class="perbtn" value="2"
+								onclick="search_btn(event)">1개월</button>
+							<button name="filterDate2" class="perbtn" value="3"
+								onclick="search_btn(event)">3개월</button>
 						</div>
 						<div class="datebox">
-							배송일자별 조회 <select class="btnbox btnbox-white" id="year"
+							배송일자별 조회 <select class="btnbox btnbox-white" id="year2"
 								name="year"></select> <select class="btnbox btnbox-white"
-								id="month" name="month"></select> <input type="submit"
-								class="btnbox btnbox-brown" value="조회">
+								id="month2" name="month"></select> <input type="button"
+								class="btnbox btnbox-brown" value="조회" onclick="searchList('2', 1, 10)">
 						</div>
 					</div>
-
+					
 
 					<div class="BLS-radio" align="right"
 						style="padding: 20px 0px 0px 700px;">
-						<p class="txt">총 3건의 주문내역이 있습니다</p>
+						<p class="txt">총 <label id="searchCount2"><%=request.getAttribute("TotalCount")%></label>건의 주문내역이 있습니다</p>
 						<div class="stateS-btn" style="float: right">
-							배송 조회 <input type="radio" name="gender" value="M">배송 중 <input
-								type="radio" name="gender" value="F">배송 전 <input
-								type="radio" name="gender" value="F">배송 완료
+							배송 조회 <input type="radio" name="status2" value="1" checked="checked">배송 중 <input
+								type="radio" name="status2" value="2">배송 전 <input
+								type="radio" name="status2" value="3">배송 완료
 						</div>
 					</div>
 
@@ -199,7 +200,7 @@
 						<input type="button" class="ordersearch-btn" value="정상주문조회">
 					</div>
 					<div class="Storedb" style="padding: 0px 0px 5px 60px">
-						날짜별 조회 <select class="btnbox btnbox-white" id="date" name="date">
+						날짜별 조회 <select class="btnbox btnbox-white" id="order" name="date">
 							<option value="lately">최근 순</option>
 							<option value="old">오래된 순</option>
 						</select>
@@ -251,15 +252,20 @@
 				</div>
 
 			</div>
-
+			<div id="page">
+				<div class="pageBar">
+					<%=request.getAttribute("pageBar") %>
+				</div>
+			</div>
 		</div>
-
+		
 
 		
 
 	</div>
 	<%@ include file="/views/common/footer.jsp"%>
 	<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
+	<script src="<%= contextPath %>/js/script_common.js"></script>
 	<script src="<%=contextPath%>/js/yelin/detailList.js"></script>
 </body>
 
