@@ -18,7 +18,6 @@
         	<div id="mypage_nav">
         		<div id="user_profile">
                     <img src="<%=contextPath%>/images/yoonjin/information/default_profile.png" alt="user_profile_img" id="img_profile">
-                    <img src="<%=contextPath%>/images/yoonjin/information/icon_gear.png" alt="gear_img" id="img_gear">
         			<h5><%=loginMember.getMemberId() %> 님</h5>
         			<p><%=loginMember.getMemberEmail() %><p>
         		</div>
@@ -33,7 +32,6 @@
 								<ul>
 									<li class="li2"><a href="#">구매상세내역</a></li>
 									<li class="li2"><a href="#">리뷰 작성</a></li>
-									<li class="li2"><a href="#">취소/반품</a></li>
 								</ul>
 							</li>
 							<li class="li1">내가 쓴 글
@@ -47,7 +45,7 @@
 					</nav>
         		</div>
         		<div id="nav_btn_logout">
-        			<button id="logout_btn_mypage">로그아웃</button>
+        			<a href="<%= request.getContextPath() %>/member/logout.do" id="logout_btn_mypage">로그아웃</a>
         		</div>
 			</div>
             <div class="SB_bigchart">
