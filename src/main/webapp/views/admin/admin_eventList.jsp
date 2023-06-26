@@ -147,7 +147,7 @@ String evcNo = (String) request.getAttribute("evcNo");
 			if ($(event.target).val() === "ALL") {
 				location.replace("<%= contextPath %>/admin/eventlist");
 			} else {
-				location.replace("<%= contextPath %>/admin/SelectEventByCategory.do?evcNo=" + $(event.target).val());
+				location.replace("<%= contextPath %>/admin/selectEventByCategory.do?evcNo=" + $(event.target).val());
 			}
 		});
 	</script>
