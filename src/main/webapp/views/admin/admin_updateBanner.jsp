@@ -26,17 +26,18 @@
 </head>
 <body>
 	<section class="banners_update">
-		<article class="banners_update-options">
-			<h2 class="fw-bold">저장된 배너</h2>
-			<div class="banners_update-wrapper">
-				<ul class="banners_update-lineup">
+		<article class="banners-options">
+			<h3 class="fw-bold">저장된 배너</h3>
+			<div class="banners-wrapper">
+				<ul class="banners-storage">
 					<% if (banners.isEmpty()) { %>
 						<li>저장된 배너가 없습니다.</li>
 					<% } else { 
 						for (Map.Entry<String, EventUpfile> banner : banners.entrySet()) { %>
-						<li>
+						<li draggable="true">
 		                    <div>
-		                        <img src="<%= request.getContextPath() %>/upload/joonho/<%= banner.getValue().getEuRename() %>">
+		                        <img src="<%= request.getContextPath() %>/upload/joonho/<%= banner.getValue().getEuRename() %>"
+									rename="<%= banner.getValue().getEuRename() %>">
 		                    </div>
 		                    <h5 class="fw-bold"><%= banner.getKey() %></h5>
 		                    <input name="euNo" type="hidden" value="<%= banner.getValue().getEuNo() %>">
@@ -47,39 +48,34 @@
 				</ul>
 			</div>
 		</article>
-		<article class="banners_update-selected">
-			<h2 class="fw-bold">메인 페이지용 배너</h2>
-			<ul class="banners_update-lineup_main">
+		<article class="banners-selected">
+			<h3 class="fw-bold">메인 페이지용 배너</h3>
+			<ul class="banners_main-container">
 				<li>
-					<div class="number-order"><span>1</span></div>
 					<img src='<%= contextPath %>/images/jaehun/main_page/loading_poster.gif' style='width: 64px;'>
 				</li>
 				<li>
-					<div class="number-order"><span>2</span></div>
 					<img src='<%= contextPath %>/images/jaehun/main_page/loading_poster.gif' style='width: 64px;'>
 				</li>
 				<li>
-					<div class="number-order"><span>3</span></div>
 					<img src='<%= contextPath %>/images/jaehun/main_page/loading_poster.gif' style='width: 64px;'>
 				</li>
 				<li>
-					<div class="number-order"><span>4</span></div>
 					<img src='<%= contextPath %>/images/jaehun/main_page/loading_poster.gif' style='width: 64px;'>
 				</li>
 				<li>
-					<div class="number-order"><span>5</span></div>
 					<img src='<%= contextPath %>/images/jaehun/main_page/loading_poster.gif' style='width: 64px;'>
 				</li>
 			</ul>
 		</article>
-		<article class="banners_update-btn">
+		<article class="banners-btn">
 			<div>
 				<input type="button" class="btn-layout btn-brown " value="저장"
-						onclick="alert('테스트')">
+						onclick="updateBanners()">
 			</div>
 			<div>
 				<input type="button" class="btn-layout btn-white " value="닫기"
-						onclick="closePopupBanners();">
+						onclick="closePage();">
 			</div>
 		</article>
 	</section>

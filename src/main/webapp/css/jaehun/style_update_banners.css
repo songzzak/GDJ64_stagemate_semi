@@ -1,6 +1,6 @@
 @import url("../style_init.css");
 
-.banners_update-lineup_main input[type="button"] {
+.banners_main-container input[type="button"] {
     display: inline-block;
     width: 70%;
     font-size: 0.8rem;
@@ -32,52 +32,39 @@
 
 .banners_update {
     width: 100%;
-    padding: 5%;
+    padding: 2%;
+    padding-top: 0;
 }
 
-.banners_update h2 {
-    margin: 15px 3%;
+.banners_update h3 {
+    margin: 15px 1%;
 }
 
-.banners_update-wrapper, .banners_update-lineup_main {
+.banners-wrapper, .banners_main-container {
     border: 1px solid var(--gray-light);
     border-radius: 15px;
     width: 100%;
     height: 180px;
 }
 
-.banners_update-wrapper {
+.banners-wrapper {
     overflow-x: scroll;
-    margin-bottom: 60px;
+    margin-bottom: 35px;
     border-bottom: none;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-.banners_update-lineup {
-    display: flex;
-    align-items: center;
-    width: 300vw;
-    height: 100%;
-}
-
-.banners_update-lineup>li {
-    width: 140px;
-    height: 50%;
-    margin: 0 20px;
-}
-
-.banners_update-lineup_main {
+.banners_main-container {
     padding: 0 20px;
     margin-bottom: 20px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
-.banners_update-lineup_main>li {
+.banners_main-container>li {
     position: relative;
-    width: 140px;
+    width: 122px;
     height: 100px;
     display: flex;
     flex-direction: column;
@@ -86,13 +73,17 @@
     text-align: center;
 }
 
-.banners_update-btn {
+.banners_main-container>li:not(:last-child) {
+    margin-right: 30px;
+}
+
+.banners-btn {
     margin: 0 auto;
     margin-top: 20px;
     display: flex;
     justify-content: center;
 }
 
-.banners_update-btn>div {
+.banners-btn>div {
     margin: 0 20px;
 }

@@ -154,7 +154,7 @@ String evcNo = (String) request.getAttribute("evcNo");
 
 		function updateBanner() {
 			const width = 800;
-    		const height = 550;
+    		const height = 580;
     		const left = (window.screen.width / 2) - (width / 2);
     		const top = (window.screen.height / 2) - (height / 2);
 			const url = getContextPath() + "/admin/updateBanner.do";
