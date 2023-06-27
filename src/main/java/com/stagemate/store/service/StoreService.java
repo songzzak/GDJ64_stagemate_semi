@@ -179,9 +179,9 @@ public class StoreService {
 		return list;
 	}
 
-	public int deleteCart(int pNo) {
+	public int deleteCart(int pNo, String id) {
 		Connection conn=getConnection();
-		int result=dao.deleteCart(conn, pNo);
+		int result=dao.deleteCart(conn, pNo,id);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);

@@ -501,12 +501,13 @@ public class StoreDao {
 		return list;
 	}
 
-	public int deleteCart(Connection conn, int pNo) {
+	public int deleteCart(Connection conn, int pNo, String id) {
 		PreparedStatement pstmt=null;
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("deleteCart"));
 			pstmt.setInt(1, pNo);
+			pstmt.setString(2, id);
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
