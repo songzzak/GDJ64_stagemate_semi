@@ -103,8 +103,9 @@ div.num {
 	width: 10%;
 	margin-left: 3%;
 }
+
 .title.a {
-    margin-left: 16px;
+	margin-left: 16px;
 }
 
 .board_list .title {
@@ -275,8 +276,9 @@ select {
 span {
 	font-size: 30px;
 }
+
 .num.a {
-    margin-left: 1%;
+	margin-left: 1%;
 }
 </style>
 <!---------------------------------------->
@@ -321,10 +323,11 @@ span {
 						for (Board b : boards) {
 						%>
 						<div class="board_list">
-							<div class="num"><%=b.getBoardNo() %></div>
+							<div class="num"><%=b.getBoardNo()%></div>
 							<div class="title">
-								<a href='<%=request.getContextPath()%>/board/boardView.do?no=<%=b.getBoardNo()%>'>
-								<%=b.getBoardTitle()%>
+								<a
+									href='<%=request.getContextPath()%>/board/boardView.do?no=<%=b.getBoardNo()%>'>
+									<%=b.getBoardTitle()%>
 								</a>
 							</div>
 							<div class="count"><%=b.getBoardViewCNT()%></div>
@@ -344,7 +347,8 @@ span {
 
 
 				<div class="bt_wrap">
-					<a href="<%=request.getContextPath() %>/board/boardWriteform.do" class="on">작성</a>
+					<a href="<%=request.getContextPath()%>/board/boardWriteform.do"
+						class="on">작성</a>
 				</div>
 				<div class="extracontainer">
 					<form action="">
@@ -383,7 +387,14 @@ span {
 <script src="<%=contextPath%>/js/script_common.js"></script>
 <!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 <script>
-	
+$("#search_button").click(function(){
+	var keyword = $("#input_search_text").val();
+	var option = $("select[name='searchKeyword']").val();
+	var url = '<%=request.getContextPath()%>
+	/board/boardList.do?searchKeyword='
+								+ option + '&searchText=' + keyword;
+						location.href = url;
+					});
 </script>
 <!-------------------------------------------->
 </body>

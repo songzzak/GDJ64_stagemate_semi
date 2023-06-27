@@ -97,7 +97,7 @@ input#file-upload-button {
 	<!-----------   아래에서 HTML 작업  ----------->
 	<section class="min1280px">
 		<div class="max1280px">
-			<form action="<%=request.getContextPath()%>/board/boardWrite.do"">
+			<form action="<%=request.getContextPath()%>/board/boardWrite.do">
 				<div class="board_title">
 					<strong>STAGEMATE</strong>
 					<hr>

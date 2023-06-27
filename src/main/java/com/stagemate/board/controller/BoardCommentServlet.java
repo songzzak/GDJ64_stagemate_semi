@@ -1,7 +1,6 @@
 package com.stagemate.board.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stagemate.board.model.vo.Board;
 import com.stagemate.board.model.vo.BoardComment;
 import com.stagemate.board.service.BoardService;
 
 /**
- * Servlet implementation class BoardViewServlet
+ * Servlet implementation class BoardCommentServlet
  */
-@WebServlet("/board/boardView.do")
-public class BoardViewServlet extends HttpServlet {
+@WebServlet("/board/insertComment.do")
+public class BoardCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardViewServlet() {
+    public BoardCommentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +30,27 @@ public class BoardViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardNo=Integer.parseInt(request.getParameter("no"));
-		Board b=new BoardService().selectBoardByNo(boardNo);
+		BoardComment bc=BoardComment.builder()
+				.boardRef(Integer.parseInt(request.getParameter("boardRef")))
+				.level(Integer.parseInt(request.getParameter("level")))
+				.cmtWriter(request.getParameter("cmtWriter"))
+				.cmtContent(request.getParameter("cmtContent"))
+				.cmtRef(Integer.parseInt(request.getParameter("cmtRef")))
+				.build();
 		
-		List<BoardComment> comments=new BoardService().selectBoardComment(boardNo);
+		int result=new BoardService().insertBoardComment(bc);
 		
-		request.setAttribute("comments", comments);
+		String view;
+		if(result>0) {
+			view=request.getContextPath()+"/board/boardView.do?no="+bc.getBoardRef();
+			response.sendRedirect(view);
+		}else {
+			request.setAttribute("msg", "댓글등록 실패하셨습니다!");
+			request.setAttribute("loc", "/board/boardView.do?no="+bc.getBoardRef());
+			view="/views/common/msg.jsp";
+			response.sendRedirect(request.getContextPath()+"/board/boardView.do?no="+bc.getBoardRef());
+		}
 		
-		request.setAttribute("board", b);
-		
-		request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
 	}
 
 	/**
