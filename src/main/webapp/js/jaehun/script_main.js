@@ -30,13 +30,16 @@ $(() => {
             targetDate = $(event.target).find("input[type=hidden]").val();
         }
 
-        getLineup(new Date(targetDate));
+        getPosters(new Date(targetDate));
     });
 });
 
-window.onload = getLineup(new Date());
+$(window).on("load", () => {
+    getPosters(new Date());
+    getProducts();
+});
 
-function getLineup(date) {
+function getPosters(date) {
     let currentIndex = 0;
 
     $.ajax({
@@ -45,7 +48,7 @@ function getLineup(date) {
         data: {
             targetDate: formatDate(date)
         },
-        beforeSend: loading,
+        beforeSend: loadingForPoster,
         success: data => {
             data.sort((a, b) => {
                 if (new Date(a.rsvOpenDt) < new Date(b.rsvOpenDt)) {
@@ -91,7 +94,6 @@ function getLineup(date) {
                 }
             });
         }
-
     });
 }
 
@@ -144,7 +146,58 @@ function generatePoster(event) {
                 .append(relative);
 }
 
-function loading() {
+function getProducts() {
+    $.ajax({
+        type: "get",
+        url: getContextPath() + "/productForMainPage.do",
+        beforeSend: loadingForProduct,
+        success: data => {
+            console.log("성공");
+            const lineup = $(".goods-lineup");
+            lineup.html("");
+            
+            data.forEach(product => {
+                lineup.append(generateProduct(product));
+            });
+            resizeGoods();
+
+            const unit = $(".goods-lineup_unit");
+            unit.click((event) => {
+                const productNo = $(event.target).closest(unit).find("input[type=hidden]").val();
+                location.assign(getContextPath() + "/store/storeView.do?no=" + productNo);
+            })
+        },
+        error: (request, status, error) => {
+            console.log("실패");
+            console.log(request.status);
+            console.log(status);
+        }
+    });
+}
+
+function generateProduct(product) {
+    const unit = $("<div>").addClass("goods-lineup_unit");
+    const $divUpper = $("<div>");
+    const $img = $("<img>").attr("src", getContextPath() + "/upload/yoonjin/" + product.euRename);
+    const $hidden = $("<input>").attr("type", "hidden").val(product.productNo);
+    const $divLower = $("<div>");
+    const exhibitionTitle = $("<p>").text(product.productTitle);
+    const productName = $("<h4>").text(product.productNm).addClass("fw-bold");
+    const productPrice = $("<h4>").text(product.productPrice.toLocaleString('ko-KR') + "원")
+                                .addClass("fw-bold");
+
+    $divUpper.append($img)
+            .append($hidden);
+
+    $divLower.append(exhibitionTitle)
+            .append(productName)
+            .append(productPrice);
+
+    return unit.append($divUpper)
+                .append($divLower);
+}
+
+function loadingForPoster() {
     const loading = `
     <div class="calendar-lineup_poster" style="height: 298px; display: flex; justify-content: center; align-items: center;">
         <img src='${getContextPath()}/images/jaehun/main_page/loading_poster.gif' style='width: 64px;'>
@@ -154,6 +207,19 @@ function loading() {
     $(".reservation-calendar-lineup").html("");
     for (let i = 0; i < 5; i++) {
         $(".reservation-calendar-lineup").append(loading);
+    }
+}
+
+function loadingForProduct() {
+    const loading = `
+    <div class="goods-lineup_unit" style="height: 219px; display: flex; justify-content: center; align-items: center;">
+        <img src='${getContextPath()}/images/jaehun/main_page/loading_poster.gif' style='width: 64px;'>
+    </div>
+    `;
+
+    $(".goods-lineup").html("");
+    for (let i = 0; i < 3; i++) {
+        $(".goods-lineup").append(loading);
     }
 }
 
@@ -266,9 +332,9 @@ $(document).on("mouseleave", ".pos-relative", event => {
 });
 
 const resizeGoods = () => {
-    const goods = $('.goods-lineup_item>div:first-child');
+    const goods = $('.goods-lineup_unit>div:first-child');
 
-    goods.width("95%");
+    goods.width("90%");
     goods.height(goods.width());
 };
 resizeGoods();

@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="goods-lineup">
-                <div class="goods-lineup_item">
+                <div class="goods-lineup_unit">
                     <div>
                         <img src="<%= contextPath %>/images/jaehun/main_page/goods.png" alt="아이템">
                     </div>
@@ -74,7 +74,7 @@
                         <h4 class="fw-bold">￦7,000</h4>
                     </div>
                 </div>
-                <div class="goods-lineup_item">
+                <div class="goods-lineup_unit">
                     <div>
                         <img src="<%= contextPath %>/images/jaehun/main_page/goods.png" alt="아이템">
                     </div>
@@ -84,7 +84,7 @@
                         <h4 class="fw-bold">￦7,000</h4>
                     </div>
                 </div>
-                <div class="goods-lineup_item">
+                <div class="goods-lineup_unit">
                     <div>
                         <img src="<%= contextPath %>/images/jaehun/main_page/goods.png" alt="아이템">
                     </div>

@@ -1,24 +1,22 @@
 package com.stagemate.store.dao;
 
 import static com.stagemate.common.JDBCTemplate.*;
-import java.io.Closeable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
-import org.apache.tomcat.util.digester.ArrayStack;
-
+import com.stagemate.common.JDBCTemplate;
 import com.stagemate.common.PropertiesGenerator;
 import com.stagemate.store.model.vo.Cart;
 import com.stagemate.store.model.vo.Product;
 import com.stagemate.store.model.vo.StoreLike;
 import com.stagemate.store.model.vo.StoreUpfile;
-
-import oracle.jdbc.proxy.annotation.Pre;
 
 public class StoreDao {
 
@@ -555,7 +553,25 @@ public class StoreDao {
 		return result;
 	}
 
-
-
-
+	// --------------------- jaehun ---------------------
+	public Map<Product, String> selectProductAndFile(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<Product, String> products = new HashMap<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectRandomProduct"));
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				products.put(getProduct(rs), rs.getString("IMG_FILE_RENAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return products;
+	}
 }

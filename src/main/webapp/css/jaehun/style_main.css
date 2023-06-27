@@ -87,7 +87,7 @@ ul.banners-indicator {
 
 .calendar_btn_prev, .calendar_btn_next {
     position: absolute;
-    top: 68%;
+    top: 60%;
     cursor: pointer;
 }
 
@@ -183,25 +183,20 @@ ul.banners-indicator {
 .goods-lineup {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
 }
 
-.goods-lineup_item {
+.goods-lineup_unit {
     margin-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: start;
     position: relative;
     width: 30%;
+    cursor: pointer;
 }
 
-.goods_rank {
-    position: absolute;
-    left: 65%;
-}
-
-.goods-lineup_item>div:first-child {
+.goods-lineup_unit>div:first-child {
     border: 2px solid var(--gray-darker);
     border-radius: 10px;
     margin-bottom: 5%;
@@ -212,14 +207,14 @@ ul.banners-indicator {
     align-items: center;
 }
 
-.goods-lineup_item>div:first-child img {
-    width: 70%;
+.goods-lineup_unit>div:first-child img {
+    width: 60%;
 }
 
-.goods-lineup_item p {
-    color: var(--gray-light);
-    font-size: 0.8rem;
-    margin-bottom: 5%;
+.goods-lineup_unit p {
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
 }
 
 /* board */

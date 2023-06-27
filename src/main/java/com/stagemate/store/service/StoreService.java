@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.stagemate.common.JDBCTemplate;
 import com.stagemate.store.dao.StoreDao;
 import com.stagemate.store.model.vo.Cart;
 import com.stagemate.store.model.vo.Product;
@@ -201,7 +202,13 @@ public class StoreService {
 		close(conn);
 		return result;
 	}
-
-
+		
+	// --------------------- jaehun ---------------------
+	public Map<Product, String> selectProductAndFile() {
+		Connection conn = JDBCTemplate.getConnection();
+		Map<Product, String> products = dao.selectProductAndFile(conn);
+		JDBCTemplate.close(conn);
+		return products;
+	}
 
 }
