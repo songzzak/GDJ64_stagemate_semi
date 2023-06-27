@@ -1,29 +1,23 @@
 package com.stagemate.board.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stagemate.board.model.vo.Board;
-import com.stagemate.board.model.vo.BoardComment;
-import com.stagemate.board.service.BoardService;
-
 /**
- * Servlet implementation class BoardViewServlet
+ * Servlet implementation class BoardDeleteServlet
  */
-@WebServlet("/board/boardView.do")
-public class BoardViewServlet extends HttpServlet {
+@WebServlet("/board/boardDelete.do")
+public class BoardDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardViewServlet() {
+    public BoardDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +26,8 @@ public class BoardViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardNo=Integer.parseInt(request.getParameter("no"));
-		Board b=new BoardService().selectBoardByNo(boardNo);
-		
-		List<BoardComment> comments=new BoardService().selectBoardComment(boardNo);
-		
-		request.setAttribute("comments", comments);
-		
-		request.setAttribute("board", b);
-		
-		request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
