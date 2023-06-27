@@ -36,6 +36,13 @@ public class ReservationEventServlet extends HttpServlet {
 		String eventNo=request.getParameter("event");
 		String round=request.getParameter("round");
 		String choiceday=request.getParameter("choiceday");
+		int vip=Integer.parseInt(request.getParameter("vip"));
+		int r=Integer.parseInt(request.getParameter("r"));
+		int s=Integer.parseInt(request.getParameter("s"));
+		int a=Integer.parseInt(request.getParameter("a"));
+		int f1=Integer.parseInt(request.getParameter("f1"));
+		int f2=Integer.parseInt(request.getParameter("f2"));
+		int allseat=Integer.parseInt(request.getParameter("allseat"));
 		request.setAttribute("esNo", esNo);
 		request.setAttribute("eventNo", eventNo);
 		request.setAttribute("round", round);
@@ -43,14 +50,21 @@ public class ReservationEventServlet extends HttpServlet {
 		if(evcNo.equals("EVC1")) {
 			List<Seat> seats=new EventService().selectSeatByEvnNoMusical(eventNo);
 			request.setAttribute("seats", seats);
+			request.setAttribute("vip", vip);
+			request.setAttribute("r", r);
+			request.setAttribute("s", s);
+			request.setAttribute("a", a);
 			request.getRequestDispatcher("/views/event/musical/musical_reservation.jsp").forward(request, response);
 		}else if(evcNo.equals("EVC2")) {
 			List<Seat> seats=new EventService().selectSeatByEvnNoConcert(eventNo);
 			request.setAttribute("seats", seats);
+			request.setAttribute("f1", f1);
+			request.setAttribute("f2", f2);
 			request.getRequestDispatcher("/views/event/concert/concert_reservation.jsp").forward(request, response);
 		}else{
 			List<Seat> seats=new EventService().selectSeatByEvnNoAct(eventNo);
 			request.setAttribute("seats", seats);
+			request.setAttribute("allseat", allseat);
 			request.getRequestDispatcher("/views/event/act/act_reservation.jsp").forward(request, response);
 		}
 	}

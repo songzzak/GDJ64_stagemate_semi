@@ -9,6 +9,10 @@
 	String round = (String)request.getAttribute("round");
 	String choiceday = (String)request.getAttribute("choiceday");
 	String esNo = (String)request.getAttribute("esNo");
+	int vip = (int)request.getAttribute("vip");
+	int r = (int)request.getAttribute("r");
+	int s = (int)request.getAttribute("s");
+	int a = (int)request.getAttribute("a");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -71,40 +75,27 @@
 			<div id="seat_choice">
 				<!-- 좌석등급/가격 -->
 				<div id="seat_class_price">
-				<%int vip=0;int r=0;int s=0;int a=0;
-				for (Seat seat : seats){
-					
-					if((seat.getSeatRow()=='A'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='B'&&seat.getIsReserved()=='N')){
-						vip++;
-					}else if((seat.getSeatRow()=='C'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='D'&&seat.getIsReserved()=='N')){
-						r++;
-					}else if((seat.getSeatRow()=='E'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='F'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='G'&&seat.getIsReserved()=='N')){
-						s++;
-					}else{
-						a++;
-					}%>
-				<%} %>
 					<h2>좌석등급/가격</h2>
 					<hr>
 					<div>
 						<div class="seat unavailable" style="background-color: #CE3500"></div>
 						<h3>VIP석 150,000원</h3>
-						<h3>(잔여 : <%=vip-4 ==0?"매진":vip-4+"석"%>)</h3>
+						<h3>(잔여 : <%=vip-4==0?"매진":vip-4+"석)" %></h3>
 					</div>
 					<div>
 						<div class="seat unavailable" style="background-color: #9900C9"></div>
 						<h3>R석 120,000원</h3>
-						<h3>(잔여 : <%=r-4==0?"매진":r-4+"석"%>)</h3>
+						<h3>(잔여 : <%=r-4==0?"매진":r-4+"석)" %></h3>
 					</div>
 					<div>
 						<div class="seat unavailable" style="background-color: #00CCCC"></div>
 						<h3>S석 90,000원</h3>
-						<h3>(잔여 : <%=s-6==0?"매진":s-4+"석"%>)</h3>
+						<h3>(잔여 : <%=s-6==0?"매진":s-6+"석)" %></h3>
 					</div>
 					<div>
 						<div class="seat unavailable" style="background-color: #5529DD"></div>
 						<h3>A석 70,000원</h3>
-						<h3>(잔여 : <%=a-10==0?"매진":a-4+"석"%>)</h3>
+						<h3>(잔여 : <%=a-10==0?"매진":a-10+"석)" %></h3>
 					</div>
 				</div>
 				<!-- 선택한좌석 -->

@@ -83,6 +83,7 @@ div#cancel_info {
 	width: 300px;
 	justify-content: center;
 	height: 70px;
+	cursor:pointer;
 }
 
 #gold_seat>div:last-child {

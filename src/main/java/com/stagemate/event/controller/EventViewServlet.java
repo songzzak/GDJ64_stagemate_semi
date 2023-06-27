@@ -38,8 +38,16 @@ public class EventViewServlet extends HttpServlet {
 		Event event=new EventService().selectEventByEventNo(eventNo);
 		List<EventUpfile> files=new EventService().selectFileByEventNo(eventNo);
 		List<EventSchedule> es=new EventService().selectTimeByEvent(eventNo);
-		List<Seat> seats=new EventService().selectSeatAllByEvnNo(eventNo);
-		request.setAttribute("seats", seats);
+		if(event.getEvcNo().equals("EVC1")) {
+			List<Seat> seats=new EventService().selectSeatByEvnNoMusical(eventNo);
+			request.setAttribute("seats", seats);
+		}else if(event.getEvcNo().equals("EVC2")) {
+			List<Seat> seats=new EventService().selectSeatByEvnNoConcert(eventNo);
+			request.setAttribute("seats", seats);
+		}else{
+			List<Seat> seats=new EventService().selectSeatByEvnNoAct(eventNo);
+			request.setAttribute("seats", seats);
+		}
 		request.setAttribute("event", event);
 		request.setAttribute("files", files);
 		request.setAttribute("es", es);

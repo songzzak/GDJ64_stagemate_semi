@@ -2,10 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <%@ page
-	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile"%>
+	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile,com.stagemate.event.model.vo.EventWish"%>
 <%
 List<Event> acts = (List) request.getAttribute("act");
 List<EventUpfile> files = (List) request.getAttribute("files");
+List<EventWish> ew = (List) request.getAttribute("ew");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -78,11 +79,27 @@ List<EventUpfile> files = (List) request.getAttribute("files");
 							<h5><%=a.getLocation()%></h5>
 							<div>
 								<div class="like">
-									<div>
-										<object id="svgElement" type="image/svg+xml"
-											data="<%=contextPath%>/images/joonho/heart.svg"></object>
+									<%String hearthave="heart";String classheart="empty";int ewsize=0;
+									if(ew!=null){
+									for(EventWish ews : ew){ %> 
+										<%
+										if(loginMember!=null&&a.getEventNo().equals(ews.getEventNo())&&loginMember.getMemberId().equals(ews.getMemberId())){ 
+											hearthave="fillheart"; classheart="fill";
+										}
+										%>
+									<%
+										if(a.getEventNo().equals(ews.getEventNo()))
+										{ewsize++;}%>
+									<%}}else{ %> 
+									<div id="likeheart">
+										<img onclick="switchheart(event,'<%=a.getEventNo() %>');" src="<%=contextPath%>/images/joonho/heart.svg" class="empty">
 									</div>
-									<p>13</p>
+									<p>0</p>
+									<%} %>
+									<div id="likeheart">
+											<img onclick="switchheart(event,'<%=a.getEventNo() %>');" src="<%=contextPath%>/images/joonho/<%=hearthave %>.svg" class="<%=classheart%>"> 
+									</div>
+									<p><%=ewsize %></p>
 								</div>
 								<div class="like">
 									<div>
@@ -116,6 +133,52 @@ List<EventUpfile> files = (List) request.getAttribute("files");
 	<script src="<%= contextPath %>/js/script_common.js"></script>
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 	<script>
+	const switchheart=(e,eventNo)=>{
+		if(<%=loginMember==null%>){
+			alert("로그인 후 관심등록이 가능합니다.")
+		}else{
+			let countheart=parseInt($(e.target).parent().next().text())
+			if ($(e.target).hasClass("empty")) {
+		      $(e.target)
+		        .attr("src", "<%=contextPath%>/images/joonho/fillheart.svg")
+		        .addClass("fill")
+		        .removeClass("empty");
+		      $(e.target).parent().next().text(countheart + 1);
+		      
+		      $.ajax({
+		        url: "<%=contextPath%>/event/addHeart.do", 
+		        method: "POST",
+		        data: {eventNo:eventNo , memberId:'<%=loginMember!=null?loginMember.getMemberId():""%>' }, 
+		        success: function(response) {
+		          console.log("데이터 등록 성공!");
+		        },
+		        error: function(xhr, status, error) {
+		          console.error("데이터 등록 실패: " + error);
+		        }
+		      });
+		
+		    } else {
+		      $(e.target)
+		        .attr("src", "<%=contextPath%>/images/joonho/heart.svg")
+		        .addClass("empty")
+		        .removeClass("fill");
+		      $(e.target).parent().next().text(countheart - 1);
+		
+		      $.ajax({
+		        url: "<%=contextPath%>/event/removeHeart.do", 
+		        method: "POST", 
+		        data: { eventNo:eventNo , memberId:'<%=loginMember!=null?loginMember.getMemberId():""%>' }, 
+		        success: function(response) {
+		          console.log("데이터 삭제 성공!");
+		        },
+		        error: function(xhr, status, error) {
+		          // 요청이 실패한 경우의 처리
+		          console.error("데이터 삭제 실패: " + error);
+		        }
+		      });
+		    } 
+		}
+	}
 	const openprev=(e,n)=>{
 		location.assign(getContextPath() + "/event/eventView.do?no=" + n);
 	}

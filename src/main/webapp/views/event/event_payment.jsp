@@ -121,10 +121,10 @@
 					<td>티켓금액의 30%</td>
 				</tr>
 			</table>
-			<div><h2>모두 동의합니다.</h2><input type="checkbox" class="checkall" onclick="checkAll();"></div>
+			<div><h2>모두 동의합니다.</h2><input type="checkbox" id="checkbox1" class="checkall" onclick="checkAll();"></div>
 			<div>
-				<div><h3>개인정보 수집 및 이용에 동의합니다.</h3><input type="checkbox" name="check"><button>[상세보기]</button></div>
-				<div><h3>제3자 정보제공 내용에 동의합니다.</h3><input type="checkbox" name="check"><button>[상세보기]</button></div>
+				<div><h3>개인정보 수집 및 이용에 동의합니다.</h3><input type="checkbox" id="checkbox2" name="check"><button>[상세보기]</button></div>
+				<div><h3>제3자 정보제공 내용에 동의합니다.</h3><input type="checkbox" id="checkbox3" name="check"><button>[상세보기]</button></div>
 			</div>
 		</div>
     </div>
@@ -178,7 +178,6 @@ var minutes = today.getMinutes();  // 분
 var seconds = today.getSeconds();  // 초
 var milliseconds = today.getMilliseconds();
 var makeMerchantUid = ""+ milliseconds + months+years;
-console.log(makeMerchantUid)
 
 var imagename;
 <%for (EventUpfile f : files) {
@@ -203,35 +202,36 @@ if(<%=event.getEvcNo().equals("EVC3")%>){
 		pattern.lastIndex = 0;
 	<%} %>
 }
-console.log(row);
-console.log(column);
- 
 function requestPay() {
-    IMP.request_pay({
-    	pg: "html5_inicis",
-        pay_method : 'card',
-        merchant_uid: "E"+makeMerchantUid, 
-        name : '<%=event.getEventNm() %>',
-        amount : 1,
-        buyer_email : '<%=loginMember.getMemberEmail() %>',
-        buyer_name : '<%=loginMember.getMemberNm() %>',
-        buyer_tel : '<%=loginMember.getMemberPhone() %>',
-        buyer_addr : '<%=loginMember.getMemberAddress() %>',
-    }, function (rsp) {
-        console.log(rsp);
-        if (rsp.success) {
-          var msg = '결제가 완료되었습니다.';
-          alert(msg);
-          location.href = '<%=request.getContextPath()%>/event/paymentresult.do?eventNo='+'<%=event.getEventNo()%>'+'&evcNo='+'<%=event.getEvcNo() %>'+
-        		  	'&choiceday='+'<%=choiceday %>'+'&totalprice='+allPrice+'&row='+row+'&column='+column+'&memberId='+'<%=loginMember.getMemberId()%>'+
-        		  	'&name='+rsp.buyer_name+'&merchant_uid='+rsp.merchant_uid+'&chkDate='+'<%=chkDate %>'+'&eventName='+'<%=event.getEventNm() %>'+
-        		  	'&imagename='+imagename+'&esNo='+'<%=esNo %>'+'&round='+'<%=round %>'+'&seats='+'<%=seats %>'
-        } else {
-          var msg = '결제에 실패하였습니다.';
-          msg += '에러내용 : ' + rsp.error_msg;
-          alert(msg);
-        }
-      });
+	if($("input[type='checkbox']:checked").length!=4){
+		alert("안내사항에 모두 동의하셔야 결제가 가능합니다.")
+	}else{
+	    IMP.request_pay({
+	    	pg: "html5_inicis",
+	        pay_method : 'card',
+	        merchant_uid: "E"+makeMerchantUid, 
+	        name : '<%=event.getEventNm() %>',
+	        amount : 1,
+	        buyer_email : '<%=loginMember.getMemberEmail() %>',
+	        buyer_name : '<%=loginMember.getMemberNm() %>',
+	        buyer_tel : '<%=loginMember.getMemberPhone() %>',
+	        buyer_addr : '<%=loginMember.getMemberAddress() %>',
+	    }, function (rsp) {
+	        console.log(rsp);
+	        if (rsp.success) {
+	          var msg = '결제가 완료되었습니다.';
+	          alert(msg);
+	          location.href = '<%=request.getContextPath()%>/event/paymentresult.do?eventNo='+'<%=event.getEventNo()%>'+'&evcNo='+'<%=event.getEvcNo() %>'+
+	        		  	'&choiceday='+'<%=choiceday %>'+'&totalprice='+allPrice+'&row='+row+'&column='+column+'&memberId='+'<%=loginMember.getMemberId()%>'+
+	        		  	'&name='+rsp.buyer_name+'&merchant_uid='+rsp.merchant_uid+'&chkDate='+'<%=chkDate %>'+'&eventName='+'<%=event.getEventNm() %>'+
+	        		  	'&imagename='+imagename+'&esNo='+'<%=esNo %>'+'&round='+'<%=round %>'+'&seats='+'<%=seats %>'
+	        } else {
+	          var msg = '결제에 실패하였습니다.';
+	          msg += '에러내용 : ' + rsp.error_msg;
+	          alert(msg);
+	        }
+	      });
+	}
 }
 
 function checkAll() {
@@ -241,6 +241,19 @@ function checkAll() {
 		$("input[name=check]").prop("checked", false);
 	}
 }
+$(document).ready(function() {
+	  $("input[type='checkbox']").change(function() {
+	    var checkbox2Checked = $("#checkbox2").is(":checked");
+	    var checkbox3Checked = $("#checkbox3").is(":checked");
+	    
+	    if (checkbox2Checked && checkbox3Checked) {
+	      $("#checkbox1").prop("checked", true);
+	    } else {
+	      $("#checkbox1").prop("checked", false);
+	    }
+	  });
+	});
+
 </script>
 <!-------------------------------------------->
 </body>

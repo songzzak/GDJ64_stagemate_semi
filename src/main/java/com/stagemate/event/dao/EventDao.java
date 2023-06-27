@@ -18,7 +18,9 @@ import com.stagemate.event.model.vo.Casting;
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventSchedule;
 import com.stagemate.event.model.vo.EventUpfile;
+import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.model.vo.Seat;
+import com.stagemate.payment.model.vo.Payment;
 import com.stagemate.store.dao.StoreDao;
 
 public class EventDao {
@@ -69,16 +71,6 @@ public class EventDao {
 				.esStartTime(rs.getString("ES_START_TIME"))
 				.build();
 	}
-	private Seat getSeatAll(ResultSet rs) throws SQLException {
-		return Seat.builder()
-				.seatNo(rs.getString("SEAT_NO"))
-				.isReserved(rs.getString("IS_RESERVED").charAt(0))
-				.slvNo(rs.getString("SLV_NO"))
-				.seatRow(rs.getString("SEAT_ROW").charAt(0))
-				.seatCol(rs.getInt("SEAT_COL"))
-				.eventNo(rs.getString("EVENT_NO"))
-				.build();
-	}
 	
 	private EventSchedule getEventSchedule(ResultSet rs) throws SQLException{
 		return EventSchedule.builder()
@@ -87,6 +79,14 @@ public class EventDao {
 				.esDate(rs.getDate("ES_DATE"))
 				.esDay(rs.getString("ES_DAY"))
 				.esStartTime(rs.getString("ES_START_TIME"))
+				.build();
+	}
+	
+	private EventWish getEventWish(ResultSet rs) throws SQLException{
+		return EventWish.builder()
+				.eventWishCode(rs.getString("EVENT_WISH_CD"))
+				.eventNo(rs.getString("EVENT_NO"))
+				.memberId(rs.getString("MEMBER_ID"))
 				.build();
 	}
 	
@@ -171,6 +171,26 @@ public class EventDao {
 			close(pstmt);
 		}return events;
 		
+	}
+	
+	public List<EventWish> selectAllEventWish(Connection conn){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<EventWish> ews=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllEventWish"));
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				EventWish ew=getEventWish(rs);
+				ews.add(ew);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return ews;
 	}
 	
 	public int selectEventCountConcert(Connection conn) {
@@ -389,24 +409,36 @@ public class EventDao {
 			close(pstmt);
 		}return seats;
 	}
-	public List<Seat> selectSeatAllByEvnNo(Connection conn,String eventNo){
+	
+	public int insertEventWish(Connection conn,String eventNo,String memberId) {
 		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		List<Seat> seats=new ArrayList<>();
+		int result=0;
 		try {
-			pstmt=conn.prepareStatement(sql.getProperty("selectAllSeatByEvnNo"));
-			pstmt.setString(1, eventNo);
-			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				Seat s=getSeat(rs);
-				seats.add(s);
-			}
-		}catch(SQLException e) {
+			pstmt=conn.prepareStatement(sql.getProperty("insertEventWish"));
+			pstmt.setString(1,eventNo);
+			pstmt.setString(2, memberId);
+			result=pstmt.executeUpdate();
+		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			close(rs);
 			close(pstmt);
-		}return seats;
+		}
+		return result;
+	}
+	public int deleteEventWish(Connection conn,String eventNo,String memberId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteEventWish"));
+			pstmt.setString(1,eventNo);
+			pstmt.setString(2, memberId);
+			result=pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 	// ------------------------- jaehun -------------------------

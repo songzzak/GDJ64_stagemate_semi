@@ -130,7 +130,7 @@ $(document).ready(function() {
 					seat.append("<p>V</p>");
 					countSeat++;
 				} else {
-					alert("5개 이하!!!");
+					alert("5개까지만 선택가능합니다");
 				}
 			}
 		}

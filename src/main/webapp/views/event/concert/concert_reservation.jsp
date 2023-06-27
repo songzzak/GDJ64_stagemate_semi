@@ -9,6 +9,8 @@
 	String round = (String)request.getAttribute("round");
 	String choiceday = (String)request.getAttribute("choiceday");
 	String esNo = (String)request.getAttribute("esNo");
+	int f1 = (int)request.getAttribute("f1");
+	int f2 = (int)request.getAttribute("f2");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -71,25 +73,17 @@
 			<div id="seat_choice">
 				<!-- 좌석등급/가격 -->
 				<div id="seat_class_price">
-				<%int stand=0;int choice=0;
-				for (Seat seat : seats){
-					if((seat.getSeatRow()=='E'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='F'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='G'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='H'&&seat.getIsReserved()=='N')||(seat.getSeatRow()=='I'&&seat.getIsReserved()=='N')){
-						choice++;
-					}else{
-						stand++;
-					}%>
-				<%} %>
 					<h2>좌석등급/가격</h2>
 					<hr>
 					<div>
 						<div class="seat unavailable" style="background-color: #5529DD"></div>
 						<h3>스탠딩석 : 80,000원</h3>
-						<h3>(잔여 : <%=stand-14 ==0?"매진":stand-14+"석"%>)</h3>
+						<h3>(잔여 : <%=f1-14==0?"매진":f1-14+"석" %>)</h3>
 					</div>
 					<div>
 						<div class="seat unavailable" style="background-color: #EF6400"></div>
 						<h3>지정석 80,000원</h3>
-						<h3>(잔여 : <%=choice-10 ==0?"매진":choice-10+"석"%>)</h3>
+						<h3>(잔여 : <%=f2-10==0?"매진":f2-10+"석" %>)</h3>
 					</div>
 				</div>
 				<!-- 선택한좌석 -->
