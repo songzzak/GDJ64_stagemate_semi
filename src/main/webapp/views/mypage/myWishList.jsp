@@ -38,7 +38,7 @@
 							</li>
 							<li class="li1">내가 쓴 글
 								<ul>
-									<li class="li2"><a href="<%= request.getContextPath() %>/views/mypage/myPosts.jsp">커뮤니티</a></li>
+									<li class="li2"><a href="<%= request.getContextPath() %>/board/selectMyBoard.do?id=<%=loginMember.getMemberId()%>">커뮤니티</a></li>
 									<li class="li2"><a href="<%= request.getContextPath() %>/views/mypage/myInquiry.jsp">1:1문의</a></li>
 								</ul>
 							</li class="li1">

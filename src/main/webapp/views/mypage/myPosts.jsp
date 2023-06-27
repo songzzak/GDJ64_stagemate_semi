@@ -3,9 +3,9 @@
 <link rel="stylesheet" href="<%=contextPath%>/css/yelin/store/style_shoppingBasket.css">
 <link rel="stylesheet" href="<%=contextPath%>/css/yoonjin/style_mypage_nav.css">
 <link rel="stylesheet" href="<%=contextPath%>/css/yoonjin/style_myPosts.css">
-<%@ page import="java.util.List"%>
+<%@ page import="java.util.List,com.stagemate.board.model.vo.Board"%>
 <%
-
+List<Board> boards=(List)request.getAttribute("boards");
 %>
 <title>My Page | 관심목록</title>
 </head>
@@ -36,7 +36,7 @@
 							</li>
 							<li class="li1">내가 쓴 글
 								<ul>
-									<li class="li2"><a href="<%= request.getContextPath() %>/views/mypage/myPosts.jsp">커뮤니티</a></li>
+									<li class="li2"><a href="<%= request.getContextPath() %>/board/selectMyBoard.do?id=<%=loginMember.getMemberId()%>">커뮤니티</a></li>
 									<li class="li2"><a href="<%= request.getContextPath() %>/views/mypage/myInquiry.jsp">1:1문의</a></li>
 								</ul>
 							</li>
@@ -77,24 +77,18 @@
 		                	</tr>
 	                	</thead>
 	                	<tbody>
+	                	<%if(boards.isEmpty()||boards==null){ %>
+	                		<tr><td colspan="4">작성된 게시글이 없습니다.</td></tr>
+	                	<%}else{ 
+	                			for(Board b:boards){%>
 		                	<tr>
 		                		<td><input type="checkbox" class="boardChkbox"></td>
-		                		<td style="text-align: center;">I’ve been waiting for this day</td>
-		                		<td style="text-align: center;">2023-06-27</td>
-		                		<td style="text-align: center;">0</td>
+		                		<td style="text-align: center;"><%=b.getBoardTitle() %></td>
+		                		<td style="text-align: center;"><%=b.getBoardDate() %></td>
+		                		<td style="text-align: center;"><%=b.getBoardViewCNT() %></td>
 		                	</tr>
-		                	<tr>
-		                		<td><input type="checkbox" class="boardChkbox"></td>
-		                		<td style="text-align: center;">the way I’m walking hand in hand with you</td>
-		                		<td style="text-align: center;">2023-06-09</td>
-		                		<td style="text-align: center;">5</td>
-		                	</tr>
-		                	<tr>
-		                		<td><input type="checkbox" class="boardChkbox"></td>
-		                		<td style="text-align: center;">just like all the sunlight is watch over me</td>
-		                		<td style="text-align: center;">2023-06-01</td>
-		                		<td style="text-align: center;">6</td>
-		                	</tr>
+		                	<%}
+		                	}%>
 	                	</tbody>
 	                </table>
 	                <div id="post-btnContainer">

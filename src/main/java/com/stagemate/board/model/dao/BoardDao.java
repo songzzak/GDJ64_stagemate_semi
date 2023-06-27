@@ -115,4 +115,24 @@ public class BoardDao {
 				.boardLikeCNT(rs.getInt("board_Like_CNT")).boardLikeCNT(rs.getInt("board_View_CNT"))
 				.boardDate(rs.getDate("board_insert_dt")).build();
 	}
+
+	public List<Board> selectBoardById(Connection conn, String id) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		 List<Board> list=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectBoardById"));
+		pstmt.setString(1, id);
+		rs=pstmt.executeQuery();
+		while(rs.next()) {
+			list.add(getBoard(rs));
+		}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
 }

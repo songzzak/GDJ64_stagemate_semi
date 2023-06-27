@@ -51,4 +51,11 @@ public class BoardService {
 	public int deleteBoard(int no) {
 		return 0;
 	}
+
+	public List<Board> selectBoardById(String id) {
+		Connection conn=getConnection();
+		List<Board> list=dao.selectBoardById(conn,id);
+		close(conn);
+		return list;
+	}
 }
