@@ -26,7 +26,7 @@
 					<tr>|
 					</tr>
 					<tr>
-						<a href="<%=request.getContextPath()%>/qna/qnaBoardList.do">11:1
+						<a href="<%=request.getContextPath()%>/qna/qnaList.do">1:1
 							문의사항</a>
 					</tr>
 				</table>
@@ -72,6 +72,13 @@
                     } %>
 
 				</table>
+				
+							<div class="bt_wrap">
+					<%if(loginMember!=null&&loginMember.getMemberId().equals("MemberId")){ %>
+					<button class="on"
+						onclick="location.assign('<%=request.getContextPath()%>/qna/insertForm.do')">글쓰기</button>
+					<%} %>
+				</div>
 				<div id="pageBar">
 					<%=request.getAttribute("pageBar") %>
 				</div>

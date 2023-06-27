@@ -24,7 +24,7 @@
 					<tr>|
 					</tr>
 					<tr>
-						<a href="<%=request.getContextPath()%>/qna/qnaBoardList.do">1:1
+						<a href="<%=request.getContextPath()%>/qna/qnaList.do">1:1
 							문의사항</a>
 					</tr>
 				</table>

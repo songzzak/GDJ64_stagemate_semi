@@ -10,9 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import static com.stagemate.common.JDBCTemplate.close;
+import static com.stagemate.common.JDBCTemplate.getConnection;
 
+import com.stagemate.notice.model.vo.Notice;
+import com.stagemate.notice.model.vo.NoticeFileData;
 import com.stagemate.qna.model.vo.Qna;
 import com.stagemate.qna.model.vo.QnaComment;
+import com.stagemate.qna.model.vo.QnaFileData;
 import com.stagemate.qna.model.vo.Qna;
 
 
@@ -21,7 +25,7 @@ public class QnaDao {
 	private Properties sql = new Properties();
 	
 	public QnaDao() {
-		String path = QnaDao.class.getResource("/sql/qna/qna_sql.properties").getPath();;
+		String path = QnaDao.class.getResource("/sql/qna/qnasql.properties").getPath();;
 		try {
 			sql.load(new FileReader(path));
 		}catch(IOException e) {
@@ -88,9 +92,57 @@ public Qna selectInquiryByNo(Connection conn, int no) {
 }
 
 public int insertQna(Connection conn, Qna q) {
-	return 0;
+	PreparedStatement pstmt=null;
+	int result=0;
+	try {
+		pstmt=conn.prepareStatement(sql.getProperty("insertQna"));
+	pstmt.setString(1, q.getInquiryContent());
+	pstmt.setString(2, q.getInquiryTitle());
+	pstmt.setString(3, q.getWriterId());
+	
+		result=pstmt.executeUpdate();
+		
+	}catch(SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
+	}
+	return result;
+}
+public int selectQnaSquence(Connection conn) {
+	PreparedStatement pstmt=null;
+	ResultSet rs= null;
+	int result=0;
+	try {
+		pstmt=conn.prepareStatement(sql.getProperty("selectQnaSquence"));
+		rs=pstmt.executeQuery();
+		if(rs.next()) result=rs.getInt(1);
+	}catch(SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(rs);
+		close(pstmt);
+	}
+	return result;
 }
 
+public int insertQnaFile(Connection conn, QnaFileData file) {
+	PreparedStatement pstmt=null;
+	int result=0;
+	try {
+		pstmt=conn.prepareStatement(sql.getProperty("insertQnaFile"));
+		pstmt.setString(1,file.getImgFilenameOri());
+		pstmt.setString(2, file.getImgFileRename());
+		pstmt.setInt(3, file.getInquiryNo());
+		result=pstmt.executeUpdate();
+		
+	}catch(SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
+	}
+	return result;
+}
 private Qna getQna(ResultSet rs) throws SQLException{
 	return Qna.builder()
 			.inquiryNo(rs.getInt("inquiry_no"))
@@ -145,15 +197,22 @@ public List<QnaComment> selectQnaComment(Connection conn,int qnaNo){
 
 private QnaComment getQnaComment(ResultSet rs) throws SQLException{
 	return QnaComment.builder()
-			.qnaCommentNo(rs.getInt("qna_comment_no"))
-			.level(rs.getInt("qna_comment_level"))
-			.qnaCommentWriter(rs.getString("qna_comment_writer"))
-			.qnaCommentContent(rs.getString("qna_comment_content"))
-			.qnaCommentDate(rs.getDate("qna_comment_date"))
-			.qnaCommentRef(rs.getInt("qna_comment_ref"))
-			.qnaRef(rs.getInt("qna_ref"))
+			.qnaCommentNo(rs.getInt("INQUIRY_COMMENT_NO"))
+			.level(rs.getInt("INQUIRY_COMMENT_LEVEL"))
+			.qnaCommentWriter(rs.getString("INQUIRY_COMMENT_WRITER"))
+			.qnaCommentContent(rs.getString("INQUIRY_COMMENT_CONTENT"))
+			.qnaCommentDate(rs.getDate("INQUIRY_COMMENT_DATE"))
+			.qnaCommentRef(rs.getInt("INQUIRY_COMMENT_REF"))
+			.qnaRef(rs.getInt("INQUIRY_REF"))
 			.build();
 }
 
+
+
 }
+
+
+
+
+
 

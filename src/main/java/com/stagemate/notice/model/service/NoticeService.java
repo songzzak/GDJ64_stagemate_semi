@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.stagemate.notice.model.dao.NoticeDao;
 import com.stagemate.notice.model.vo.Notice;
+import com.stagemate.qna.model.vo.QnaComment;
 
 public class NoticeService {
 private NoticeDao dao = new NoticeDao();
@@ -51,4 +52,5 @@ public int selectNoticeCount() {
 		close(conn);
 		return n;
 	}
+	
 }

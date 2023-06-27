@@ -2,6 +2,8 @@ package com.stagemate.qna.model.vo;
 
 import java.sql.Date;
 
+import com.stagemate.notice.model.vo.NoticeFileData;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +22,7 @@ public class Qna {
 	private String writerId;
 	private Date inquiryInsertDt;
 	private String inquiryLockFlg;
+	private QnaFileData files;
 	
 	
 }

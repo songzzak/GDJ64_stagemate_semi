@@ -70,6 +70,7 @@ public class NoticeListServlet extends HttpServlet {
 		}
 		request.setAttribute("pageBar", pageBar);
 		List<Notice> list = new NoticeService().selectNotice(cPage,numPerpage);
+		request.setAttribute("noties", list);
 		request.getRequestDispatcher("/views/notice/noticeList.jsp").forward(request,response);
 	}
 

@@ -31,26 +31,26 @@ public class QnaCommentInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		QnaComment qc=QnaComment.builder()
-				.qnaRef(Integer.parseInt(request.getParameter("qnaRef")))
+				.qnaRef(Integer.parseInt(request.getParameter("inquiryRef")))
 				.level(Integer.parseInt(request.getParameter("level")))
-				.qnaCommentWriter(request.getParameter("qnaCommentWriter"))
+				.qnaCommentWriter(request.getParameter("inquiryCommentWriter"))
 				.qnaCommentContent(request.getParameter("content"))
-				.qnaCommentRef(Integer.parseInt(request.getParameter("qnaCommentRef")))
+				.qnaCommentRef(Integer.parseInt(request.getParameter("inquiryCommentRef")))
 				.build();
 					
 		int result=new QnaService().insertQnaComment(qc);
 		
 		String view;
 		if(result>0) {
-			view=request.getContextPath()+"/qna/QnaBoardView.do?no="+qc.getQnaRef();
+			view=request.getContextPath()+"/qna/qnaView.do?no="+qc.getQnaRef();
 			response.sendRedirect(view);
 		}else {
 			request.setAttribute("msg", "댓글등록 실패!");
-			request.setAttribute("loc", "/qna/qnaboardView.do?no="+qc.getQnaRef());
+			request.setAttribute("loc", "/qna/qnaView.do?no="+qc.getQnaRef());
 			view="/views/common/msg.jsp";
-			request.getRequestDispatcher(view).forward(request,response);
+			
 		}
-		
+		request.getRequestDispatcher(view).forward(request,response);
 	
 	
 	}
