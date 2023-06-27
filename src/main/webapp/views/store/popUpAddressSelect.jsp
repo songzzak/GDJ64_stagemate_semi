@@ -56,7 +56,7 @@
                         <button class="delete_dlv_btn">삭제</button>
                     </div>
                     <div class="btn-right">
-                        <button class="selectDlv" onclick="selectAddress('<%=d.getDlvNm()%>', '<%=d.getDlvPerson()%>', '<%=d.getDlvPhone()%>', '<%=d.getDlvAddress()%>');">선택</button>
+                        <button class="selectDlv" onclick="selectAddress('<%=d.getDlvId()%>', '<%=d.getDlvNm()%>', '<%=d.getDlvPerson()%>', '<%=d.getDlvPhone()%>', '<%=d.getDlvAddress()%>');">선택</button>
                     </div>
                 </div>
             </div>

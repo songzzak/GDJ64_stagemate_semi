@@ -33,7 +33,7 @@ String firstProductNm=productList.get(0).getProductNm();
 	                    <ul>
 	                        <li>
 	                            <span>배송지</span>
-	                            <input type="hidden" name="dlvId" value="<%=d.getDlvId()%>">
+	                            <input type="hidden" name="dlvId" id="dlvId" value="<%=d.getDlvId()%>">
 	                            <div>
 	                                <span id="dlvName"><%=d.getDlvNm() %></span>
 	                                <button type="button" class="btn-layout2 btn-brown" id="btn_Popup_dlv">배송지변경</button>
@@ -161,6 +161,7 @@ $(document).ready(function() {
 	    for (var i = 0; i < productPriceList.length; i++) {
 	        totalAmount += parseInt(quantityList[i].value) * parseInt(productPriceList[i].value);
 	    }
+	   // $("#dlvName").text();
 		$("#totalprice").val(totalAmount);
 	    IMP.request_pay({
 	    	pg: "html5_inicis",
@@ -169,9 +170,9 @@ $(document).ready(function() {
 	        name : '<%=firstProductNm%>',
 	        amount : 100,
 	        buyer_email : '<%=loginMember.getMemberEmail() %>',
-	        buyer_name : '<%=d.getDlvPerson() %>',
-	        buyer_tel :'<%=d.getDlvPhone()%>',
-	        buyer_addr : '<%=d.getDlvAddress() %>',
+	        buyer_name : $("#dlvPerson").text(),
+	        buyer_tel :$("#dlvPhone").text(),
+	        buyer_addr : $("#dlvAddress").text(),
 	    }, function (rsp) {
 	        console.log(rsp);
 	        if (rsp.success) {
