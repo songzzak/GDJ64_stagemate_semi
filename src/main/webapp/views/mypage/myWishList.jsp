@@ -3,11 +3,17 @@
 <link rel="stylesheet" href="<%=contextPath%>/css/yelin/store/style_shoppingBasket.css">
 <link rel="stylesheet" href="<%=contextPath%>/css/yoonjin/style_mypage_nav.css">
 <link rel="stylesheet" href="<%=contextPath%>/css/yoonjin/style_myWishList.css">
-<%@ page import="java.util.List,com.stagemate.store.model.vo.StoreUpfile,com.stagemate.store.model.vo.Product,com.stagemate.store.model.vo.StoreLike"%>
+<%@ page import="java.util.List,com.stagemate.store.model.vo.StoreUpfile,
+com.stagemate.store.model.vo.Product,com.stagemate.store.model.vo.StoreLike,
+com.stagemate.event.model.vo.EventUpfile,com.stagemate.event.model.vo.EventWish,
+com.stagemate.event.model.vo.Event"%>
 <%
     List<Product> products = (List) request.getAttribute("products");
+	List<Event> tickets = (List) request.getAttribute("eventList");
 	List<StoreUpfile> files = (List) request.getAttribute("files");
 	List<StoreLike> likes=(List) request.getAttribute("likes");
+	List<EventUpfile> efiles = (List) request.getAttribute("efiles");
+	List<EventWish> events=(List) request.getAttribute("events");
 %>
 <title>My Page | 관심목록</title>
 </head>
@@ -60,9 +66,9 @@
                 </div>
                 <!-- 목록리스트 -->
                 <div id="eventWishList-container">
-                <table>
+                 <table>
 					<%
-					if (products == null || products.isEmpty()) {
+					if (tickets == null || tickets.isEmpty()) {
 					%>
 					<tr>
 						<td colspan="3">
@@ -74,31 +80,31 @@
 					</tr>
 					<%
                     } else {
-                    int size = products.size();
-                    for (int i = 0; i < 2; i++) {
+                    int size = tickets.size();
+                    for (int i = 0; i < size; i++) {
                     %>
                     <tr class="prod_tr">
                         <%
                         for (int j = 0; j < 3; j++) {
                             int index = i * 3 + j;
                             if (index < size) {
-                                Product p = products.get(index);
-                                int productNo = p.getProductNo();
-                                StoreUpfile mainFile = null;
-                                for (StoreUpfile file : files) {
-                                    if (file.getProductNo()==(productNo) && file.getIsMainImg()=='Y') {
+                                Event t = tickets.get(index);
+                                String eventNo = t.getEventNo();
+                                EventUpfile mainFile = null;
+                                for (EventUpfile file : efiles) {
+                                    if (file.getEventNo().equals(eventNo) && file.getPurposeNo().equals("PUR1")) {
                                         mainFile = file;
                                         break;
                                     }
                                 }
-                                StoreLike sl=null;
-                                for(StoreLike ul : likes) {
-                                	if(ul.getProductNo()==(productNo)) {
-                                		sl=ul;
+                                EventWish ew=null;
+                                for(EventWish ews : events) {
+                                	if(ews.getEventNo().equals(eventNo)) {
+                                		ew=ews;
                                 	}
                                 }
                                 String heartColor="";
-                                if(sl!=null){
+                                if(ew!=null){
                                 	heartColor="#BC0000";
                                 }else{
                                 	heartColor="none";
@@ -111,7 +117,7 @@
 								<%
 								String path=null;
 								if(mainFile != null){
-									path=contextPath+"/upload/yoonjin/"+mainFile.getImgFileRename();
+									path=contextPath+"/upload/joonho/"+mainFile.getEuRename();
 								}else{
 									path=contextPath +"/images/yoonjin/information/default_img.gif";
 								}
@@ -119,12 +125,12 @@
 									<img src="<%= path %>" alt="Product Image">
 								</div>
 								<div class="productDetails">
-									<input type="hidden" value="<%=p.getProductNo()%>">
-									<span class="brand"><%=p.getProductTitle()%></span>
-									<span class="name"><%=p.getProductNm()%></span>
+									<input type="hidden" value="<%=t.getEventNo()%>">
+									<%-- <span class="brand"><%=%></span> --%>
+									<span class="name"><%=t.getEventNm()%></span>
 									<div class="wishAndPrice">
-										<span class="price"><%=p.getProductPrice()%></span>
-										<span class="wish">
+										<span class="price"><%=t.getLocation()%></span>
+										<span class="eventwish">
 											<svg width="44" height="39" viewBox="0 0 44 39" fill="<%=heartColor%>" xmlns="http://www.w3.org/2000/svg">
                                         		<path d="M12.9329 1.67188C6.67923 1.67188 1.60938 6.80209 1.60938 13.1302C1.60938 24.5885 14.9917 35.0052 22.1976 37.4281C29.4035 35.0052 42.7859 24.5885 42.7859 13.1302C42.7859 6.80209 37.716 1.67188 31.4623 1.67188C27.6329 1.67188 24.2461 3.59584 22.1976 6.54063C21.1535 5.03563 19.7663 3.80739 18.1536 2.95988C16.5409 2.11238 14.7501 1.67058 12.9329 1.67188Z"
 												stroke="#BC0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -231,9 +237,6 @@
 					%>
 				</table>
                 </div>
-               <div class="page-bar">
-               		<%=request.getAttribute("pageBar") %>
-               </div>
             </div>
         </div>
     </section>
@@ -278,6 +281,25 @@ $(document).ready(function() {
 				  {
 				    productNo: productNo,
 				    userId: userId
+				  })
+				  .done(function(response) {
+			            alert("관심목록에서 삭제되었습니다.");
+			            location.reload();
+			        })
+			        .fail(function(error) {
+			            alert("오류가 발생했습니다. 관리자에게 문의해주세요.");
+			            location.reload();
+			        });
+		  });
+	  $(".eventwish").on("click", function(e) {
+		    let $heartIcon = $(this).find("svg");
+			let eventNo = $(this).closest(".product").find(".productDetails input[type='hidden']").val();
+			const userId=$("#userId").val();
+		      $heartIcon.css("fill", "none");
+		      $.post("<%=request.getContextPath()%>/event/removeHeart.do", 
+				  {
+		    	  eventNo: eventNo,
+		    	  memberId: userId
 				  })
 				  .done(function(response) {
 			            alert("관심목록에서 삭제되었습니다.");

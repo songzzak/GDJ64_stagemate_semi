@@ -188,9 +188,9 @@ public class StoreService {
 		return result;
 	}
 
-	public List<StoreLike> selectLikeById(int cPage, int numPerPage, String userId) {
+	public List<StoreLike> selectLikeById(String userId) {
 		Connection conn=getConnection();
-		List<StoreLike> list=dao.selectLikeById(conn,userId,cPage,numPerPage);
+		List<StoreLike> list=dao.selectLikeById(conn,userId);
 		close(conn);
 		return list;
 	}
