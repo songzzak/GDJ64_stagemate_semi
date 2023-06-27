@@ -207,7 +207,7 @@ select {
 	transform: translateX(-50%);
 	display: flex;
 	align-items: center;
-	margin-left: 66%;
+	margin-left: 68%;
 	margin-top: -9.7%;
 }
 
@@ -344,7 +344,7 @@ span {
 
 
 				<div class="bt_wrap">
-					<a href="<%=request.getContextPath()%>/board/boardWrite.do" class="on">작성</a>
+					<a href="<%=request.getContextPath() %>/board/boardWriteform.do" class="on">작성</a>
 				</div>
 				<div class="extracontainer">
 					<form action="">

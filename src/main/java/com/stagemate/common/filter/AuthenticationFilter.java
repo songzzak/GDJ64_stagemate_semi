@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 //필터 적용할 서블릿 추후 수정
 @WebFilter(servletNames = { 
-		"memberView", "updateMemberEnd", "updatePassword" 
+		"memberView", "updateMemberEnd", "updatePassword","boardWrite","boardWriteEnd"
 })
 public class AuthenticationFilter extends HttpFilter implements Filter {
 	private static final long serialVersionUID = -302126541455035660L;

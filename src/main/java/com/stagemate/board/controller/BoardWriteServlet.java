@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class BoardWriteServlet
  */
-@WebServlet("/board/boardWrite.do")
+@WebServlet(name="boardWrite",urlPatterns ="/board/boardWriteform.do")
 public class BoardWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,7 +26,7 @@ public class BoardWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 		request.getRequestDispatcher("/views/board/boardWrite.jsp").forward(request, response);
 	}
 

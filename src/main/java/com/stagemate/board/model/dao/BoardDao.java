@@ -1,9 +1,10 @@
 package com.stagemate.board.model.dao;
 
+import static com.stagemate.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +13,6 @@ import java.util.List;
 import java.util.Properties;
 
 import com.stagemate.board.model.vo.Board;
-import static com.stagemate.common.JDBCTemplate.close;
 
 public class BoardDao {
 
@@ -104,6 +104,23 @@ public class BoardDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int boardWrite(Connection conn,String boardWriter,String boardTitle, String boardContent) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("boardWrite"));
+			pstmt.setString(1, boardTitle);
+			pstmt.setString(2, boardWriter);
+			pstmt.setString(3, boardContent);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
 			close(pstmt);
 		}
 		return result;
