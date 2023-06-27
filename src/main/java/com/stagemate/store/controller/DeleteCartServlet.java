@@ -37,7 +37,7 @@ public class DeleteCartServlet extends HttpServlet {
 	    }
 	    for (int pNo : chkArr) {
 	        System.out.println(pNo);
-	        int result=new StoreService().deleteCart(pNo);
+	        int result=new StoreService().deleteCart(pNo,id);
 	    }
 	    request.getRequestDispatcher("/store/selectCartList.do?id="+id).forward(request, response);
 	    
