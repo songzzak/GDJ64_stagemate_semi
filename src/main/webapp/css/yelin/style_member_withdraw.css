@@ -1,4 +1,6 @@
-
+#withdrawContainer{
+	display: flex;
+}
 .SB_bigchart{
     margin:auto;
     width:900px;

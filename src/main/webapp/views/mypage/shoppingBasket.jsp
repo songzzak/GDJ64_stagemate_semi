@@ -40,7 +40,7 @@
 									<li class="li2"><a href="<%= request.getContextPath() %>/views/mypage/myInquiry.jsp">1:1문의</a></li>
 								</ul>
 							</li class="li1">
-							<li class="li1"><a href="#">회원 탈퇴</a></li>
+							<li class="li1"><a href="<%= request.getContextPath() %>/views/member/member_withdraw.jsp">회원 탈퇴</a></li>
 						</ul>
 					</nav>
         		</div>

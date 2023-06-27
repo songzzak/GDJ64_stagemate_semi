@@ -46,4 +46,16 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+
+	public int updateWthdrDate(String id) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = memberDao.updateWthdrDate(conn, id);
+		if (result > 0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
 }
