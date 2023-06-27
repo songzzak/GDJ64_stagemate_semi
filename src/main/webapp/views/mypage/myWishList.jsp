@@ -39,7 +39,7 @@
 							<li class="li1">내가 쓴 글
 								<ul>
 									<li class="li2"><a href="<%= request.getContextPath() %>/views/mypage/myPosts.jsp">커뮤니티</a></li>
-									<li class="li2"><a href="#">1:1문의</a></li>
+									<li class="li2"><a href="<%= request.getContextPath() %>/views/mypage/myInquiry.jsp">1:1문의</a></li>
 								</ul>
 							</li class="li1">
 							<li class="li1"><a href="#">회원 탈퇴</a></li>

@@ -1,0 +1,23 @@
+@charset "UTF-8";
+.InquirtListContainer{
+		width: 100%;
+}
+#quiryListContainer table{
+	border-collapse: collapse;
+}
+#quiryListContainer th{
+	font-size: 16px;
+	font-weight: bold;
+	padding: 10px;
+}
+
+#quiryListContainer tr td{
+	font-size: 14px;
+	padding: 10px;
+}
+.tr-underLine {
+  border-bottom: 1px solid #d9d9d9;
+}
+.hr-myInquiry-startLine{
+	margin-top: 63px;
+}

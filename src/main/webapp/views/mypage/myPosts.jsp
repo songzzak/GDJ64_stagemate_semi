@@ -37,7 +37,7 @@
 							<li class="li1">내가 쓴 글
 								<ul>
 									<li class="li2"><a href="<%= request.getContextPath() %>/views/mypage/myPosts.jsp">커뮤니티</a></li>
-									<li class="li2"><a href="#">1:1문의</a></li>
+									<li class="li2"><a href="<%= request.getContextPath() %>/views/mypage/myInquiry.jsp">1:1문의</a></li>
 								</ul>
 							</li>
 							<li class="li1"><a href="#">회원 탈퇴</a></li>
@@ -71,9 +71,9 @@
 	                	<thead>
 		                	<tr>
 		                		<th scope="col"><input type="checkbox" id="checkbox-listAll"></th>
-		                		<th scope="col" style="text-align: center;">제목</th>
-		                		<th scope="col" style="text-align: center;">작성일</th>
-		                		<th scope="col" style="text-align: center;">조회수</th>
+		                		<th scope="col">제목</th>
+		                		<th scope="col">작성일</th>
+		                		<th scope="col">조회수</th>
 		                	</tr>
 	                	</thead>
 	                	<tbody>
@@ -106,37 +106,35 @@
 					<table>
 	                	<colgroup>
 	                		<col style="width:30px">
-	                		<col style="width:300px">
-	                		<col style="width:100px">
-	                		<col style="width:30px">
+	                		<col style="width:600px">
 	                	</colgroup>
 	                	<thead>
 		                	<tr>
-		                		<th scope="col"><input type="checkbox" id="checkbox-listAll"></th>
+		                		<th scope="col"><input type="checkbox" id="checkbox-commentAll"></th>
 		                		<th scope="col" style="text-align: center;">제목</th>
-		                		<th scope="col" style="text-align: center;">작성일</th>
-		                		<th scope="col" style="text-align: center;">조회수</th>
 		                	</tr>
 	                	</thead>
 	                	<tbody>
-		                	<tr>
-		                		<td><input type="checkbox" class="boardChkbox"></td>
-		                		 <td style="text-align: center;">I’ve been waiting for this day</td>
-		                		<td style="text-align: center;">2023-06-27</td>
-		                		<td style="text-align: center;">0</td>
-		                	</tr>
-		                	<tr>
-		                		<td><input type="checkbox" class="boardChkbox"></td>
-		                		<td style="text-align: center;">the way I’m walking hand in hand with you</td>
-		                		<td style="text-align: center;">2023-06-09</td>
-		                		<td style="text-align: center;">5</td>
-		                	</tr>
-		                	<tr>
-		                		<td><input type="checkbox" class="boardChkbox"></td>
-		                		<td style="text-align: center;">just like all the sunlight is watch over me</td>
-		                		<td style="text-align: center;">2023-06-01</td>
-		                		<td style="text-align: center;">6</td>
-		                	</tr>
+	                		<tr>
+	                			<td><input type="checkbox" class="commentChkbox"></td>
+	                			<td>
+	                				<div class="div_comment_td">
+	                					<p class=comment_content>comment comment comment comment comment<p>
+	                					<p class=comment_date>2023.05.24<p>
+	                					<p class=comment_ref_title>title title title title title title title <p>
+	                				</div>
+	                			</td>
+	                		</tr>
+	                		<tr>
+	                			<td><input type="checkbox" class="commentChkbox"></td>
+	                			<td>
+	                				<div class="div_comment_td">
+	                					<p class=comment_content>comment comment comment comment comment<p>
+	                					<p class=comment_date>2023.05.24<p>
+	                					<p class=comment_ref_title>title title title title title title title <p>
+	                				</div>
+	                			</td>
+	                		</tr>
 	                	</tbody>
 	                </table>
 	                <div id="post-btnContainer">
