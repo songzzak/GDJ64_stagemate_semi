@@ -6,52 +6,93 @@ $(() => {
     week.forEach((element, index) => {
         const $li = $("<li>").addClass("btn-layout");
         const day = $("<p>").text(index == 0 ? "오늘" : week[(today.getDay() + index) % 7]);
-
         const theDayAfter = new Date();
         theDayAfter.setDate((today.getDate() + index));
         const date = $("<p>").text(theDayAfter.getDate());
+        const $hidden = $("<input>").attr("type", "hidden").val(formatDate(theDayAfter));
 
-        rsvDays.append($li.append(day).append(date));
+        $li.append(day)
+            .append(date)
+            .append($hidden);
+
+        rsvDays.append($li);
         rsvDays.children().eq(0).addClass("btn-brown");
     });
 
     rsvDays.on("click", (event) => {
+        let targetDate = "";
         rsvDays.children().removeClass("btn-brown");
         if ($(event.target).prop("tagName") === "P") {
             $(event.target).parent().addClass("btn-brown");
+            targetDate = $(event.target).siblings("input[type=hidden]").val();
         } else {
             $(event.target).addClass("btn-brown");
+            targetDate = $(event.target).find("input[type=hidden]").val();
         }
+
+        getLineup(new Date(targetDate));
     });
 });
 
-window.onload = () => {
-    $.post(getContextPath() + "/eventForMainPage.do", 
-            {
-                date: formatDate(new Date())
-            }, 
-            data => {
-                data.sort((a, b) => {
-                    if (new Date(a.rsvOpenDt) < new Date(b.rsvOpenDt)) {
-                        return -1;
-                    }
+window.onload = getLineup(new Date());
 
-                    if (new Date(a.rsvOpenDt) > new Date(b.rsvOpenDt)) {
-                        return 1;
-                    }
+function getLineup(date) {
+    let currentIndex = 0;
 
-                    return 0;
-                });
+    $.ajax({
+        type: "post",
+        url: getContextPath() + "/eventForMainPage.do",
+        data: {
+            targetDate: formatDate(date)
+        },
+        beforeSend: loading,
+        success: data => {
+            data.sort((a, b) => {
+                if (new Date(a.rsvOpenDt) < new Date(b.rsvOpenDt)) {
+                    return -1;
+                }
 
-                const lineup = $(".reservation-calendar-lineup");
-                lineup.html("");
-                lineup.width($(".reservation-calendar-wrapper").width() * data.length);
-                
-                data.forEach(event => {
-                    lineup.append(generatePoster(event));
-                });
-            }
-    );
+                if (new Date(a.rsvOpenDt) > new Date(b.rsvOpenDt)) {
+                    return 1;
+                }
+
+                return 0;
+            });
+
+            const lineup = $(".reservation-calendar-lineup");
+            lineup.html("");
+            lineup.width($(".reservation-calendar-wrapper").width() * data.length);
+            
+            data.forEach(event => {
+                lineup.append(generatePoster(event));
+            });
+
+            const btnPrev = $(".calendar_btn_prev");
+            const btnNext = $(".calendar_btn_next");
+            const lineupPoster = $(".calendar-lineup_poster");
+
+            lineupPoster.click((event) => {
+                const eventNo = $(event.target).closest(".calendar-lineup_poster").find("input[type=hidden]").val();
+
+                location.assign(getContextPath() + "/event/eventView.do?no=" + eventNo);
+            })
+
+            btnPrev.click(() => {
+                if (data.length > 5) {
+                    currentIndex = --currentIndex < 0 ? 0 : currentIndex;
+                    lineup.css('transform', `translateX(-${currentIndex * lineupPoster.outerWidth(true)}px)`);
+                }
+            });
+
+            btnNext.click(() => {
+                if (data.length > 5) {
+                    currentIndex = ++currentIndex > data.length - 5 ? data.length - 5 : currentIndex;
+                    lineup.css('transform', `translateX(-${currentIndex * lineupPoster.outerWidth(true)}px)`);
+                }
+            });
+        }
+
+    });
 }
 
 function formatDate(date) {
@@ -77,8 +118,9 @@ function generatePoster(event) {
         borderBottom: "none",
         width: "100%",
         textAlign: "center",
-        padding: "13px 0"
+        padding: "10px 0"
     });
+    const $hidden = $("<input>").attr("type", "hidden").val(event.eventNo);
     const relative = $("<div>").addClass("pos-relative");
     const $img = $("<img>").attr("src", getContextPath() + "/upload/joonho/" + event.euRename);
     const posterOverlay = $("<div>").addClass("lineup_poster_overlay");
@@ -94,8 +136,25 @@ function generatePoster(event) {
                 .append(eventEndDt)
                 .append(location);
 
-    relative.append($img).append(posterOverlay);
-    return poster.append(rsvOpenDt).append(relative);
+    relative.append($img)
+            .append(posterOverlay);
+
+    return poster.append(rsvOpenDt)
+                .append($hidden)
+                .append(relative);
+}
+
+function loading() {
+    const loading = `
+    <div class="calendar-lineup_poster" style="height: 298px; display: flex; justify-content: center; align-items: center;">
+        <img src='${getContextPath()}/images/jaehun/main_page/loading_poster.gif' style='width: 64px;'>
+    </div>
+    `;
+
+    $(".reservation-calendar-lineup").html("");
+    for (let i = 0; i < 5; i++) {
+        $(".reservation-calendar-lineup").append(loading);
+    }
 }
 
 const slideBanners = (() => {
@@ -143,7 +202,7 @@ const slideBanners = (() => {
         if (timer == undefined) {
             timer = setInterval(() => {
                 moveContainer();
-            }, 3000);
+            }, 2000);
         }
     };
 
@@ -188,27 +247,23 @@ const slideBanners = (() => {
 });
 slideBanners();
 
-$(document).on("mouseenter", ".pos-relative", event => {
-    console.log($(event.target));
-    if ($(event.target).hasClass("lineup_poster_overlay")) {
-        $(event.target).css("opacity", 1);
+function changePosterOverlayStyle(element, num) {
+    if ($(element).hasClass("lineup_poster_overlay")) {
+        $(element).css("opacity", num);
     }
+
+    if ($(element).prop("tagName") === "P" || $(element).prop("tagName") === "H3") {
+        $(element).parent().css("opacity", num);
+    }
+}
+
+$(document).on("mouseenter", ".pos-relative", event => {
+    changePosterOverlayStyle(event.target, 1);
 });
 
 $(document).on("mouseleave", ".pos-relative", event => {
-    if ($(event.target).hasClass("lineup_poster_overlay")) {
-        $(event.target).css("opacity", 0);
-    }
+    changePosterOverlayStyle(event.target, 0);
 });
-
-
-$('.lineup_btn_prev').click(() => {
-    alert('개발 중');
-})
-
-$('.lineup_btn_next').click(() => {
-    alert('개발 중');
-})
 
 const resizeGoods = () => {
     const goods = $('.goods-lineup_item>div:first-child');

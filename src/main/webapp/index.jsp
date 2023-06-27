@@ -47,22 +47,7 @@
                 <img src="<%= contextPath %>/images/jaehun/main_page/lineup_btn_next.svg" alt="다음버튼">
             </div>
             <article class="reservation-calendar-wrapper">
-                <div class="reservation-calendar-lineup">
-                    <div class="calendar-lineup_poster">
-                        <img src="<%= contextPath %>/images/jaehun/main_page/loading_lineup.gif">
-                    </div>
-                    <div class="calendar-lineup_poster">
-                        <img src="<%= contextPath %>/images/jaehun/main_page/loading_lineup.gif">
-                    </div>
-                    <div class="calendar-lineup_poster">
-                        <img src="<%= contextPath %>/images/jaehun/main_page/loading_lineup.gif">
-                    </div>
-                    <div class="calendar-lineup_poster">
-                        <img src="<%= contextPath %>/images/jaehun/main_page/loading_lineup.gif">
-                    </div>
-                    <div class="calendar-lineup_poster">
-                        <img src="<%= contextPath %>/images/jaehun/main_page/loading_lineup.gif">
-                    </div>
+                <div class="reservation-calendar-lineup animated-smooth">
                 </div>
             </article>
         </div>
@@ -83,9 +68,6 @@
                     <div>
                         <img src="<%= contextPath %>/images/jaehun/main_page/goods.png" alt="아이템">
                     </div>
-                    <div class="goods_rank">
-                        <img src="<%= contextPath %>/images/jaehun/main_page/rank1.svg" alt="1위아이템">
-                    </div>
                     <div>
                         <p>셰퍼드 페어리, 행동하라!</p>
                         <h4 class="fw-bold">아크릴 마그넷_S.F</h4>
@@ -96,9 +78,6 @@
                     <div>
                         <img src="<%= contextPath %>/images/jaehun/main_page/goods.png" alt="아이템">
                     </div>
-                    <div class="goods_rank">
-                        <img src="<%= contextPath %>/images/jaehun/main_page/rank2.svg" alt="2위아이템">
-                    </div>
                     <div>
                         <p>셰퍼드 페어리, 행동하라!</p>
                         <h4 class="fw-bold">아크릴 마그넷_S.F</h4>
@@ -108,9 +87,6 @@
                 <div class="goods-lineup_item">
                     <div>
                         <img src="<%= contextPath %>/images/jaehun/main_page/goods.png" alt="아이템">
-                    </div>
-                    <div class="goods_rank">
-                        <img src="<%= contextPath %>/images/jaehun/main_page/rank3.svg" alt="3위아이템">
                     </div>
                     <div>
                         <p>셰퍼드 페어리, 행동하라!</p>

@@ -26,7 +26,7 @@ public class EventForMainPageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException 
 	{
-		String date = request.getParameter("date");
+		String date = request.getParameter("targetDate");
 		Map<Event, String> events = new EventService().selectEventAndFileByDate(date);
 		
 		JSONArray jsonArray = new JSONArray();
