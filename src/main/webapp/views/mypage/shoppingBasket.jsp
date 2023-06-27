@@ -26,8 +26,8 @@
 					<nav>   
 						<ul id="mypage_nav_ul">
 							<li class="li1"><a href="#">내 정보 관리</a></li>
-							<li class="li1"><a href="#">관심목록</a></li>
-							<li class="li1"><a href="#">장바구니</a></li>
+							<li class="li1"><a href="<%= request.getContextPath() %>/mypage/wishList.do?userId=<%=loginMember.getMemberId()%>">관심목록</a></li>
+							<li class="li1"><a href="<%=request.getContextPath()%>/store/selectCartList.do?id=<%=loginMember.getMemberId()%>">장바구니</a></li>
 							<li class="li1">구매내역
 								<ul>
 									<li class="li2"><a href="#">구매상세내역</a></li>
@@ -36,11 +36,11 @@
 							</li>
 							<li class="li1">내가 쓴 글
 								<ul>
-									<li class="li2"><a href="#">커뮤니티</a></li>
-									<li class="li2"><a href="#">1:1문의</a></li>
+									<li class="li2"><a href="<%= request.getContextPath() %>/board/selectMyBoard.do?id=<%=loginMember.getMemberId()%>">커뮤니티</a></li>
+									<li class="li2"><a href="<%= request.getContextPath() %>/views/mypage/myInquiry.jsp">1:1문의</a></li>
 								</ul>
 							</li class="li1">
-							<li class="li1"><a href="#">회원 탈퇴</a></li>
+							<li class="li1"><a href="<%= request.getContextPath() %>/views/member/member_withdraw.jsp">회원 탈퇴</a></li>
 						</ul>
 					</nav>
         		</div>
@@ -58,7 +58,7 @@
                 <!-- 장바구니 내역 -->
                 <div class="ShoppingBasket_List">
                  <form id="orderForm" method="post" action="<%=request.getContextPath()%>/store/storeOrder.do">
-                <input type="hidden" id="userId" name="userId" value="<%=loginMember.getMemberId()%>">
+                    <input type="hidden" id="userId" name="userId" value="<%=loginMember.getMemberId()%>">
                     <table class="ShoppingBasket-table" style="margin: 3px auto; margin-right: auto;">
                         <colgroup>
                             <col style="width: 50px">

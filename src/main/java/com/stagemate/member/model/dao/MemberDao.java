@@ -113,4 +113,19 @@ private static final String SQL_PATH = "/sql/member/member_sql.properties";
 		}
 		return result;
 	}
+
+	public int updateWthdrDate(Connection conn, String id) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("updateWthdrDate"));
+			pstmt.setString(1, id);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 }

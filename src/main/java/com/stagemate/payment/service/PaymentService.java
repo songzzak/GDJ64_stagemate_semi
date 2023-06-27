@@ -6,11 +6,15 @@ import static com.stagemate.common.JDBCTemplate.getConnection;
 import static com.stagemate.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.stagemate.event.model.vo.Seat;
 import com.stagemate.payment.dao.PaymentDao;
 import com.stagemate.payment.model.vo.EventOrder;
 import com.stagemate.payment.model.vo.Payment;
+import com.stagemate.payment.model.vo.PrdOrder;
+import com.stagemate.payment.model.vo.PrdOrderDetail;
 
 public class PaymentService {
 	
@@ -92,6 +96,42 @@ public class PaymentService {
 		else rollback(conn);
 		close(conn);
 		return result;
+	}
+
+	public int insertPrdOrder(PrdOrder po) {
+		Connection conn = getConnection();
+	    int result = dao.insertPrdOrder(conn, po);
+	    if (result > 0) {
+	        commit(conn);
+	    } else {
+	        rollback(conn);
+	    }
+	    close(conn);
+
+	    return result;
+	}
+
+	public int insertPrdOrderDetail(PrdOrderDetail pod) {
+		Connection conn=getConnection();
+		int result=dao.insertPrdOrderDetail(conn,pod);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public String selectOrderNo() {
+		Connection conn=getConnection();
+		String orderNo=dao.selectOrderNo(conn);
+		close(conn);
+		return orderNo;
+	}
+
+	public PrdOrder selectPrdOrderByOrderNo(String orderNo) {
+		Connection conn=getConnection();
+		PrdOrder po=dao.selectPrdOrderByOrderNo(conn, orderNo);
+		close(conn);
+		return po;
 	}
 
 }

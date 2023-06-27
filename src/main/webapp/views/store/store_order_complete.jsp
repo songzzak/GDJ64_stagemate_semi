@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp" %>
+<%@page import="java.sql.Date,java.util.List,com.stagemate.payment.model.vo.PrdOrder,com.stagemate.deliveryAddress.model.vo.DlvAdress"%>
 <link rel="stylesheet" href="<%=contextPath %>/css/yoonjin/style_store_order_complete.css">
-<title>Order Complete</title>
+<title>StageMate | 결제완료</title>
+<%
+PrdOrder po=(PrdOrder)request.getAttribute("po");
+DlvAdress d=(DlvAdress)request.getAttribute("d");
+%>
 </head>
 <body>
 <%@ include file="/views/common/header.jsp" %>
@@ -25,27 +30,33 @@
 					<li class="underline-gray">
 						<span class="bgc-gray">배송지</span>
 						<div>
-							<span class="vertical-center">기본배송지</span>
+							<span class="vertical-center"><%=d.getDlvNm() %></span>
 						</div>
 					</li>
 					<li class="underline-gray">
-						<span class="bgc-gray">이름</span>
+						<span class="bgc-gray">받는 분</span>
 						<div>
-							<span class="vertical-center"><%=loginMember.getMemberNm() %></span>
+							<span class="vertical-center"><%=d.getDlvPerson() %></span>
 						</div>
 					</li>
 					<li class="underline-gray">
 						<span class="bgc-gray">연락처</span>
-						<span class="vertical-center"><%=loginMember.getMemberPhone() %></span>
+						<span class="vertical-center"><%=d.getDlvPhone() %></span>
 					</li>
 					<li class="underline-gray">
 						<span class="bgc-gray">주소</span>
-						<div class="vertical-center"><%=loginMember.getMemberAddress() %></div>
+						<div class="vertical-center"><%=d.getDlvAddress() %></div>
 					</li>
 					<li class="underline-gray">
 						<span class="bgc-gray">배송 요청사항</span>
 						<div>
-							<span class="vertical-center">부재 시 경비실에 맡겨주세요</span>
+							<span class="vertical-center">
+								<% if (po.getShipMsg() != null && !po.getShipMsg().isEmpty()) { %>
+							        <%= po.getShipMsg() %>
+							    <% } else { %>
+							        &nbsp; <!-- 공백 출력 -->
+							    <% } %>
+							</span>
 						</div>
 					</li>
 				</ul>
@@ -57,15 +68,15 @@
 				<ul>
 					<li class="underline-gray">
 						<span class="bgc-gray">결제일</span>
-						<span class="vertical-center">2023.06.15 20:56:06</span>
+						<span class="vertical-center"><%=po.getOrderDate() %></span>
 					</li>
 					<li class="underline-gray">
 						<span class="bgc-gray">총 결제금액</span>
-						<span class="vertical-center">14,000원</span>
+						<span class="vertical-center"><%=po.getTotalPrice() %></span>
 					</li>
 					<li class="underline-gray">
 						<span class="bgc-gray">결제수단</span>
-						<span class="vertical-center">신용카드[신한카드]</span>
+						<span class="vertical-center">카드결제</span>
 					</li>
 				</ul>
 			</div>
