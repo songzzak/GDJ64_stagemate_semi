@@ -27,7 +27,7 @@
 						<ul id="mypage_nav_ul">
 							<li class="li1"><a href="#">내 정보 관리</a></li>
 							<li class="li1"><a href="<%= request.getContextPath() %>/mypage/wishList.do?userId=<%=loginMember.getMemberId()%>">관심목록</a></li>
-							<li class="li1"><a href="#">장바구니</a></li>
+							<li class="li1"><a href="<%=request.getContextPath()%>/store/selectCartList.do?id=<%=loginMember.getMemberId()%>">장바구니</a></li>
 							<li class="li1">구매내역
 								<ul>
 									<li class="li2"><a href="#">구매상세내역</a></li>
@@ -36,7 +36,7 @@
 							</li>
 							<li class="li1">내가 쓴 글
 								<ul>
-									<li class="li2"><a href="#">커뮤니티</a></li>
+									<li class="li2"><a href="<%= request.getContextPath() %>/views/mypage/myPosts.jsp">커뮤니티</a></li>
 									<li class="li2"><a href="#">1:1문의</a></li>
 								</ul>
 							</li class="li1">
