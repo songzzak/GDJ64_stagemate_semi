@@ -8,6 +8,7 @@
 List<Event> musicals = (List) request.getAttribute("musical");
 List<EventUpfile> files = (List) request.getAttribute("files");
 List<EventWish> ew = (List) request.getAttribute("ew");
+String text=(String) request.getAttribute("text");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -24,8 +25,8 @@ List<EventWish> ew = (List) request.getAttribute("ew");
 				<div id="musical">
 					<h2>뮤지컬</h2>
 					<div id="chioce_array">
-						<a href="">마감일자순</a> | <a href="">인기도순</a> | <a href="">리뷰많은 순</a>
-						| <a href="">제목순</a>
+						<a onclick="changebolder(event)" class="bolderarray">마감일자순</a> | <a onclick="changebolder(event)">인기도순</a> | <a onclick="changebolder(event)">리뷰많은 순</a>
+						| <a onclick="changebolder(event)">제목순</a>
 					</div>
 					<br>
 					<form id="event_search">
@@ -62,7 +63,7 @@ List<EventWish> ew = (List) request.getAttribute("ew");
 					<br> <br> <br>
 					<div class="musical_content">
 						<%
-						if (musicals.isEmpty()) {
+						if (musicals==null||musicals.isEmpty()) {
 						%>
 						<div>등록된 뮤지컬이 없습니다. 확인 후 등록 해주세요</div>
 						<%
@@ -91,12 +92,7 @@ List<EventWish> ew = (List) request.getAttribute("ew");
 									<%
 										if(e.getEventNo().equals(ews.getEventNo()))
 										{ewsize++;}%>
-									<%}}else{ %> 
-									<div id="likeheart">
-										<img onclick="switchheart(event,'<%=e.getEventNo() %>');" src="<%=contextPath%>/images/joonho/heart.svg" class="empty">
-									</div>
-									<p>0</p>
-									<%} %>
+									<%}}%>
 									<div id="likeheart">
 											<img onclick="switchheart(event,'<%=e.getEventNo() %>');" src="<%=contextPath%>/images/joonho/<%=hearthave %>.svg" class="<%=classheart%>"> 
 									</div>
@@ -134,6 +130,22 @@ List<EventWish> ew = (List) request.getAttribute("ew");
 	<script src="<%=contextPath%>/js/script_common.js"></script>
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 	<script>
+	if('<%=text%>'==null||'<%=text%>'=='마감일자순'){
+		$("#chioce_array>a:first-child").addClass("bolderarray")
+		$("#chioce_array>a:first-child").siblings().removeClass("bolderarray")
+	}else if('<%=text%>'=='인기도순'){
+		$("#chioce_array>a:nth-child(2)").addClass("bolderarray")
+		$("#chioce_array>a:nth-child(2)").siblings().removeClass("bolderarray")
+	}else if('<%=text%>'=='리뷰많은 순'){
+		$("#chioce_array>a:nth-child(3)").addClass("bolderarray")
+		$("#chioce_array>a:nth-child(3)").siblings().removeClass("bolderarray")
+	}else if('<%=text%>'=='제목순'){
+		$("#chioce_array>a:nth-child(4)").addClass("bolderarray")
+		$("#chioce_array>a:nth-child(4)").siblings().removeClass("bolderarray")
+	}
+	const changebolder=(e)=>{
+		location.href="<%=contextPath%>/event/arraymusical.do?text="+$(e.target).text()
+	}
 	const switchheart=(e,eventNo)=>{
 		if(<%=loginMember==null%>){
 			alert("로그인 후 관심등록이 가능합니다.")

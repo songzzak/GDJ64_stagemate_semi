@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.stagemate.common.JDBCTemplate;
+import com.stagemate.common.MemberGenerator;
 import com.stagemate.member.model.vo.Member;
 
 public class AdminDao {
@@ -37,7 +37,7 @@ public class AdminDao {
 			pstmt.setInt(2, cPage * numPerpage);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				Member m = getMemberDTO(rs);
+				Member m = MemberGenerator.by(rs);
 				members.add(m);
 			}
 		} catch (SQLException e) {

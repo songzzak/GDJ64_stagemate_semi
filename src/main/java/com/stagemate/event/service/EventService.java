@@ -28,6 +28,24 @@ public class EventService {
 		close(conn);
 		return list;
 	}
+	public List<Event> selectAllEventMusicalTitle(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<Event> list=dao.selectAllEventMusicalTitle(conn,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+	public List<Event> selectAllEventMusicalLike(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<Event> list=dao.selectAllEventMusicalLike(conn,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+	public List<Event> selectAllEventMusicalReview(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<Event> list=dao.selectAllEventMusicalReview(conn,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
 	public int selectEventCountMusical() {
 		Connection conn=getConnection();
 		int result=dao.selectEventCountMusical(conn);
@@ -46,6 +64,24 @@ public class EventService {
 		close(conn);
 		return list;
 	}
+	public List<Event> selectAllEventConcertTitle(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<Event> list=dao.selectAllEventConcertTitle(conn,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+	public List<Event> selectAllEventConcertLike(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<Event> list=dao.selectAllEventConcertLike(conn,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+	public List<Event> selectAllEventConcertReview(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<Event> list=dao.selectAllEventConcertReview(conn,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
 	public int selectEventCountConcert() {
 		Connection conn=getConnection();
 		int result=dao.selectEventCountConcert(conn);
@@ -58,6 +94,25 @@ public class EventService {
 		close(conn);
 		return list;
 	}
+	public List<Event> selectAllEventActTitle(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<Event> list=dao.selectAllEventActTitle(conn,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+	public List<Event> selectAllEventActLike(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<Event> list=dao.selectAllEventActLike(conn,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+	public List<Event> selectAllEventActReview(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<Event> list=dao.selectAllEventActReview(conn,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+	
 	public int selectEventCountAct() {
 		Connection conn=getConnection();
 		int result=dao.selectEventCountAct(conn);

@@ -1,3 +1,10 @@
+.pageBar>div>span{
+	font-weight:bolder; 
+}
+
+.bolderarray{
+	font-weight: bolder;
+}
 #likeheart>img{
 	cursor:pointer;
 }
@@ -45,6 +52,7 @@ div.musical_content>div>h4 {
 	margin-left: 5px;
 	text-decoration: none;
 	color: black;
+	cursor:pointer;
 }
 
 div.musical_content>div>h5 {
@@ -78,8 +86,7 @@ div.musical_product>div img {
 
 #musical {
 	width: 1280px;
-	height: 2500px;
-	/* border: 1px solid red; */
+	height: 2580px;
 }
 
 #search {

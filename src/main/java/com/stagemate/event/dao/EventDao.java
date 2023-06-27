@@ -111,6 +111,69 @@ public class EventDao {
 		}return events;
 		
 	}
+	public List<Event> selectAllEventMusicalTitle(Connection conn,int cPage, int numPerpage){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllEventMusicalTitle"));
+			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	public List<Event> selectAllEventMusicalLike(Connection conn,int cPage, int numPerpage){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllEventMusicalLike"));
+			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	public List<Event> selectAllEventMusicalReview(Connection conn,int cPage, int numPerpage){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllEventMusicalReview"));
+			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
 	
 	public int selectEventCountMusical(Connection conn) {
 		PreparedStatement pstmt=null;
@@ -173,6 +236,70 @@ public class EventDao {
 		
 	}
 	
+	public List<Event> selectAllEventConcertTitle(Connection conn,int cPage, int numPerpage){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllEventConcertTitle"));
+			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	public List<Event> selectAllEventConcertLike(Connection conn,int cPage, int numPerpage){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllEventConcertLike"));
+			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	public List<Event> selectAllEventConcertReview(Connection conn,int cPage, int numPerpage){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllEventConcertReview"));
+			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	
 	public List<EventWish> selectAllEventWish(Connection conn){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -216,6 +343,69 @@ public class EventDao {
 		List<Event> events=new ArrayList<>();
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("selectAllEventAct"));
+			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	public List<Event> selectAllEventActTitle(Connection conn,int cPage, int numPerpage){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllEventActTitle"));
+			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	public List<Event> selectAllEventActLike(Connection conn,int cPage, int numPerpage){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllEventActLike"));
+			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	public List<Event> selectAllEventActReview(Connection conn,int cPage, int numPerpage){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllEventActReview"));
 			pstmt.setInt(1, (cPage-1)*numPerpage+1);
 			pstmt.setInt(2, cPage*numPerpage);
 			rs=pstmt.executeQuery();
