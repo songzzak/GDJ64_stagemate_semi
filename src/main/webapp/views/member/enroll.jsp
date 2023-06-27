@@ -334,14 +334,17 @@
     }
     
     function toAgreement() {
-    	const width = 400;
-    	const height = 700;
-    	const left = (window.screen.width / 2) + (width / 2);
-    	const top = (window.screen.height / 2) + (height / 2);
-    	
-    	window.open('<%= contextPath %>/member/agreement.do', 
-				'_blank',
-				'width=' + width, 'height=' + height, 'left=' + left, 'top=' + top);
+        const width = 700;
+    	const height = 400;
+        const left = (window.screen.width / 2) - (width / 2);
+        const top = (window.screen.height / 2) - (height / 2);
+        const url = getContextPath() + "/member/agreement.do";
+
+        window.open(url, "_blank",
+                    "width=" + width + ", " + 
+                    "height=" + height + ", " + 
+                    "left=" + left + ", " + 
+                    "top=" + top);
     }
     
     function addWarningSign(className, msg, colorName) {

@@ -389,4 +389,11 @@ public class EventService {
 		return events;
 	}
 	
+	public Map<String, EventUpfile> selectBanners() {
+		Connection conn = JDBCTemplate.getConnection();
+		Map<String, EventUpfile> banners = dao.selectBanners(conn);
+		JDBCTemplate.close(conn);
+		return banners;
+	}
+	
 }

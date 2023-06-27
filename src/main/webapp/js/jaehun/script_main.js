@@ -21,16 +21,19 @@ $(() => {
 
     rsvDays.on("click", (event) => {
         let targetDate = "";
-        rsvDays.children().removeClass("btn-brown");
         if ($(event.target).prop("tagName") === "P") {
+            rsvDays.children().removeClass("btn-brown");
             $(event.target).parent().addClass("btn-brown");
             targetDate = $(event.target).siblings("input[type=hidden]").val();
-        } else {
-            $(event.target).addClass("btn-brown");
-            targetDate = $(event.target).find("input[type=hidden]").val();
+            getPosters(new Date(targetDate));
         }
 
-        getPosters(new Date(targetDate));
+        if ($(event.target).prop("tagName") === "LI") {
+            rsvDays.children().removeClass("btn-brown");
+            $(event.target).addClass("btn-brown");
+            targetDate = $(event.target).find("input[type=hidden]").val();
+            getPosters(new Date(targetDate));
+        }
     });
 });
 
@@ -39,6 +42,7 @@ $(window).on("load", () => {
     getProducts();
 });
 
+//------------------------------ posters ------------------------------
 function getPosters(date) {
     let currentIndex = 0;
 
@@ -65,6 +69,7 @@ function getPosters(date) {
             const lineup = $(".reservation-calendar-lineup");
             lineup.html("");
             lineup.width($(".reservation-calendar-wrapper").width() * data.length);
+            lineup.css('transform', 'translateX(0px)');
             
             data.forEach(event => {
                 lineup.append(generatePoster(event));
@@ -146,13 +151,13 @@ function generatePoster(event) {
                 .append(relative);
 }
 
+//------------------------------ products ------------------------------
 function getProducts() {
     $.ajax({
         type: "get",
         url: getContextPath() + "/productForMainPage.do",
         beforeSend: loadingForProduct,
         success: data => {
-            console.log("성공");
             const lineup = $(".goods-lineup");
             lineup.html("");
             
@@ -223,6 +228,33 @@ function loadingForProduct() {
     }
 }
 
+function changePosterOverlayStyle(element, num) {
+    if ($(element).hasClass("lineup_poster_overlay")) {
+        $(element).css("opacity", num);
+    }
+
+    if ($(element).prop("tagName") === "P" || $(element).prop("tagName") === "H3") {
+        $(element).parent().css("opacity", num);
+    }
+}
+
+$(document).on("mouseenter", ".pos-relative", event => {
+    changePosterOverlayStyle(event.target, 1);
+});
+
+$(document).on("mouseleave", ".pos-relative", event => {
+    changePosterOverlayStyle(event.target, 0);
+});
+
+const resizeGoods = () => {
+    const goods = $('.goods-lineup_unit>div:first-child');
+
+    goods.width("90%");
+    goods.height(goods.width());
+};
+resizeGoods();
+
+//------------------------------ banners ------------------------------
 const slideBanners = (() => {
     const wrapper = $('.banners-wrapper');
     const container = $('.banners-container');
@@ -310,32 +342,16 @@ const slideBanners = (() => {
         initContainer();
         autoSlide();
     });
+
+    indicator.click(event => {
+        if ($(event.target).prop("tagName") === "IMG") {
+            const targetIndex = $(event.target).parent().index();
+            container.css('transform', `translateX(-${targetIndex * wrapper.width()}px)`);
+            currentIdx = targetIndex;
+            generateIndicator();
+        }
+    });
 });
 slideBanners();
 
-function changePosterOverlayStyle(element, num) {
-    if ($(element).hasClass("lineup_poster_overlay")) {
-        $(element).css("opacity", num);
-    }
-
-    if ($(element).prop("tagName") === "P" || $(element).prop("tagName") === "H3") {
-        $(element).parent().css("opacity", num);
-    }
-}
-
-$(document).on("mouseenter", ".pos-relative", event => {
-    changePosterOverlayStyle(event.target, 1);
-});
-
-$(document).on("mouseleave", ".pos-relative", event => {
-    changePosterOverlayStyle(event.target, 0);
-});
-
-const resizeGoods = () => {
-    const goods = $('.goods-lineup_unit>div:first-child');
-
-    goods.width("90%");
-    goods.height(goods.width());
-};
-resizeGoods();
 

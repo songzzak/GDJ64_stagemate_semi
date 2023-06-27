@@ -1300,6 +1300,27 @@ public class EventDao {
 		}
 		return events;
 	}
+	
+	public Map<String, EventUpfile> selectBanners(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<String, EventUpfile> banners = new HashMap<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectBanners"));
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				banners.put(rs.getString("EVENT_NM"), getEventUpfile(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return banners;
+	}
 
 	//윤진작성
 	public List<EventWish> selectWishById(Connection conn, String userId) {
