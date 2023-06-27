@@ -22,7 +22,8 @@ public class UpdateBannerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException 
 	{
-		Map<String, EventUpfile> banners = new EventService().selectBanners();
+		Map<String, EventUpfile> banners = new EventService().selectBanner();
+		
 		request.setAttribute("banners", banners);
 		request.getRequestDispatcher("/views/admin/admin_updateBanner.jsp").forward(request, response);
 	}

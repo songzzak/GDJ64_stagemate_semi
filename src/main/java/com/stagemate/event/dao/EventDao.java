@@ -1300,14 +1300,14 @@ public class EventDao {
 		}
 		return events;
 	}
-	
-	public Map<String, EventUpfile> selectBanners(Connection conn) {
+
+	public Map<String, EventUpfile> selectBanner(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Map<String, EventUpfile> banners = new HashMap<>();
 		
 		try {
-			pstmt = conn.prepareStatement(sql.getProperty("selectBanners"));
+			pstmt = conn.prepareStatement(sql.getProperty("selectBanner"));
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {

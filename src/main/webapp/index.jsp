@@ -64,35 +64,17 @@
                 </div>
             </div>
             <div class="goods-lineup">
-                <div class="goods-lineup_unit">
-                    <div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/goods.png" alt="아이템">
-                    </div>
-                    <div>
-                        <p>셰퍼드 페어리, 행동하라!</p>
-                        <h4 class="fw-bold">아크릴 마그넷_S.F</h4>
-                        <h4 class="fw-bold">￦7,000</h4>
-                    </div>
+                <div class="goods-lineup_unit" 
+                    style="height: 219px; display: flex; justify-content: center; align-items: center;">
+                    <img src='<%= contextPath %>/images/jaehun/main_page/loading_poster.gif' style='width: 64px;'>
                 </div>
-                <div class="goods-lineup_unit">
-                    <div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/goods.png" alt="아이템">
-                    </div>
-                    <div>
-                        <p>셰퍼드 페어리, 행동하라!</p>
-                        <h4 class="fw-bold">아크릴 마그넷_S.F</h4>
-                        <h4 class="fw-bold">￦7,000</h4>
-                    </div>
+                <div class="goods-lineup_unit" 
+                    style="height: 219px; display: flex; justify-content: center; align-items: center;">
+                    <img src='<%= contextPath %>/images/jaehun/main_page/loading_poster.gif' style='width: 64px;'>
                 </div>
-                <div class="goods-lineup_unit">
-                    <div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/goods.png" alt="아이템">
-                    </div>
-                    <div>
-                        <p>셰퍼드 페어리, 행동하라!</p>
-                        <h4 class="fw-bold">아크릴 마그넷_S.F</h4>
-                        <h4 class="fw-bold">￦7,000</h4>
-                    </div>
+                <div class="goods-lineup_unit" 
+                    style="height: 219px; display: flex; justify-content: center; align-items: center;">
+                    <img src='<%= contextPath %>/images/jaehun/main_page/loading_poster.gif' style='width: 64px;'>
                 </div>
             </div>
         </div>

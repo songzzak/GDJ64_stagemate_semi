@@ -18,10 +18,10 @@ import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.service.EventService;
 
 @WebServlet("/eventForMainPage.do")
-public class EventForMainPageServlet extends HttpServlet {
+public class SelectEventForMainPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public EventForMainPageServlet() {}
+    public SelectEventForMainPageServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException 

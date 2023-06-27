@@ -1,0 +1,35 @@
+{
+    "banners": [
+      {
+        "eventNm": "오페라의 유령",
+        "euNo": "EU5",
+        "euNameRename": "banner1_resized.jpg",
+        "eventNo": "EVN2"
+      },
+      {
+        "eventNm": "더 픽션",
+        "euNo": "EU11",
+        "euNameRename": "banner2_resized.jpg",
+        "eventNo": "EVN4"
+      },
+      {
+        "eventNm": "보이A",
+        "euNo": "EU8",
+        "euNameRename": "banner3_resized.jpg",
+        "eventNo": "EVN3"
+      },
+      {
+        "eventNm": "Soundberry Festa 23",
+        "euNo": "EU19",
+        "euNameRename": "banner_sb23.jpg",
+        "eventNo": "EVN7"
+      },
+      {
+        "eventNm": "아르토,고흐",
+        "euNo": "EU103",
+        "euNameRename": "banner_201912go.jpg",
+        "eventNo": "EVN18"
+      }
+    ]
+  }
+  
