@@ -193,7 +193,7 @@ div#search-gender {
 	width: 20%;
 }
 
-#admin_membermanage_table th:first-child, #admin_membermanage_table td:first-child
+#admin_membermanage_table th:first-child, #admin_membermanage_table td:first-child:not(#noperson)
 	{
 	width: 50px;
 }
@@ -300,4 +300,3 @@ div#search-gender {
 .pageBar>div>span {
     font-weight: bolder;
 }
-

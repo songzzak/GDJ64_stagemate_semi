@@ -9,6 +9,8 @@ List<Event> musicals = (List) request.getAttribute("musical");
 List<EventUpfile> files = (List) request.getAttribute("files");
 List<EventWish> ew = (List) request.getAttribute("ew");
 String text=(String) request.getAttribute("text");
+String theme=request.getParameter("theme");
+String searchtext=request.getParameter("searchtext");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -31,12 +33,11 @@ String text=(String) request.getAttribute("text");
 					<br>
 					<form id="event_search">
 						<div id="event_search">
-							<input id="input_search_text" type="text" placeholder="Search...">
+							<input id="input_search_text" type="text" placeholder="Search..." value="<%=theme!=null?searchtext:""%>">
 							<div id="search_button">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
-	                        <path
-										d="M21.5 23.25L13.625 15.375C13 15.875 12.2812 16.2708 11.4688 16.5625C10.6562 16.8542 9.79167 17 8.875 17C6.60417 17 4.6825 16.2133 3.11 14.64C1.5375 13.0667 0.750833 11.145 0.75 8.875C0.75 6.60417 1.53667 4.6825 3.11 3.11C4.68333 1.5375 6.605 0.750833 8.875 0.75C11.1458 0.75 13.0675 1.53667 14.64 3.11C16.2125 4.68333 16.9992 6.605 17 8.875C17 9.79167 16.8542 10.6562 16.5625 11.4688C16.2708 12.2812 15.875 13 15.375 13.625L23.25 21.5L21.5 23.25ZM8.875 14.5C10.4375 14.5 11.7658 13.9529 12.86 12.8588C13.9542 11.7646 14.5008 10.4367 14.5 8.875C14.5 7.3125 13.9529 5.98417 12.8588 4.89C11.7646 3.79583 10.4367 3.24917 8.875 3.25C7.3125 3.25 5.98417 3.79708 4.89 4.89125C3.79583 5.98542 3.24917 7.31333 3.25 8.875C3.25 10.4375 3.79708 11.7658 4.89125 12.86C5.98542 13.9542 7.31333 14.5008 8.875 14.5Z"
+	                        <path d="M21.5 23.25L13.625 15.375C13 15.875 12.2812 16.2708 11.4688 16.5625C10.6562 16.8542 9.79167 17 8.875 17C6.60417 17 4.6825 16.2133 3.11 14.64C1.5375 13.0667 0.750833 11.145 0.75 8.875C0.75 6.60417 1.53667 4.6825 3.11 3.11C4.68333 1.5375 6.605 0.750833 8.875 0.75C11.1458 0.75 13.0675 1.53667 14.64 3.11C16.2125 4.68333 16.9992 6.605 17 8.875C17 9.79167 16.8542 10.6562 16.5625 11.4688C16.2708 12.2812 15.875 13 15.375 13.625L23.25 21.5L21.5 23.25ZM8.875 14.5C10.4375 14.5 11.7658 13.9529 12.86 12.8588C13.9542 11.7646 14.5008 10.4367 14.5 8.875C14.5 7.3125 13.9529 5.98417 12.8588 4.89C11.7646 3.79583 10.4367 3.24917 8.875 3.25C7.3125 3.25 5.98417 3.79708 4.89 4.89125C3.79583 5.98542 3.24917 7.31333 3.25 8.875C3.25 10.4375 3.79708 11.7658 4.89125 12.86C5.98542 13.9542 7.31333 14.5008 8.875 14.5Z"
 										fill="white" />
 	                    </svg>
 							</div>
@@ -45,19 +46,19 @@ String text=(String) request.getAttribute("text");
 					<div id="choice">
 						<div>
 							<p>전체</p>
-							<input type="radio" name="hobby" checked value="전체">
+							<input type="radio" name="searchtheme" <%=theme==null||theme.equals("전체")?"checked":"" %> value="전체">
 						</div>
 						<div>
 							<p>제목</p>
-							<input type="radio" name="hobby" value="제목">
+							<input type="radio" name="searchtheme"<%=theme!=null&&theme.equals("제목")?"checked":"" %> value="제목">
 						</div>
 						<div>
 							<p>아티스트</p>
-							<input type="radio" name="hobby" value="아티스트">
+							<input type="radio" name="searchtheme" <%=theme!=null&&theme.equals("아티스트")?"checked":"" %> value="아티스트">
 						</div>
 						<div>
 							<p>장소</p>
-							<input type="radio" name="hobby" value="장소">
+							<input type="radio" name="searchtheme" <%=theme!=null&&theme.equals("장소")?"checked":"" %> value="장소">
 						</div>
 					</div>
 					<br> <br> <br>
@@ -195,6 +196,16 @@ String text=(String) request.getAttribute("text");
 	const openprev=(n)=>{
 		location.assign(getContextPath() + "/event/eventView.do?no=" + n);
 	}
+
+	$("#search_button").click(e=>{
+		var theme=$('input[name=searchtheme]:checked').val()
+		var searchtext=$('#input_search_text').val()
+		if(searchtext==""){
+			alert("검색어를 입력해주세요")
+		}else{
+			location.assign(getContextPath()+"/event/musicalsearch.do?theme="+theme+"&searchtext="+searchtext)
+		}
+	})
 	</script>
 	<!-------------------------------------------->
 </body>

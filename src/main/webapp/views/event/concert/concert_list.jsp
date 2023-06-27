@@ -8,6 +8,8 @@ List<Event> concerts = (List) request.getAttribute("concert");
 List<EventUpfile> files = (List) request.getAttribute("files");
 List<EventWish> ew = (List) request.getAttribute("ew");
 String text=(String) request.getAttribute("text");
+String theme=request.getParameter("theme");
+String searchtext=request.getParameter("searchtext");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -30,7 +32,7 @@ String text=(String) request.getAttribute("text");
 					<br>
 					<form id="event_search">
 						<div id="event_search">
-							<input id="input_search_text" type="text" placeholder="Search...">
+							<input id="input_search_text" type="text" placeholder="Search..." value="<%=theme!=null?searchtext:""%>">
 							<div id="search_button">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
@@ -44,19 +46,19 @@ String text=(String) request.getAttribute("text");
 					<div id="choice">
 						<div>
 							<p>전체</p>
-							<input type="radio" name="hobby" checked value="전체">
+							<input type="radio" name="searchtheme" <%=theme==null||theme.equals("전체")?"checked":"" %> value="전체">
 						</div>
 						<div>
 							<p>제목</p>
-							<input type="radio" name="hobby" value="제목">
+							<input type="radio" name="searchtheme"<%=theme!=null&&theme.equals("제목")?"checked":"" %> value="제목">
 						</div>
 						<div>
 							<p>아티스트</p>
-							<input type="radio" name="hobby" value="아티스트">
+							<input type="radio" name="searchtheme" <%=theme!=null&&theme.equals("아티스트")?"checked":"" %> value="아티스트">
 						</div>
 						<div>
 							<p>장소</p>
-							<input type="radio" name="hobby" value="장소">
+							<input type="radio" name="searchtheme" <%=theme!=null&&theme.equals("장소")?"checked":"" %> value="장소">
 						</div>
 					</div>
 					<br> <br> <br>
@@ -64,7 +66,7 @@ String text=(String) request.getAttribute("text");
 						<%
 						if (concerts.isEmpty()) {
 						%>
-						<div>등록된 뮤지컬이 없습니다. 확인 후 등록 해주세요</div>
+						<div>등록된 콘서트가 없습니다. 확인 후 등록 해주세요</div>
 						<%
 						} else {
 						for (Event c : concerts) {
@@ -194,6 +196,15 @@ String text=(String) request.getAttribute("text");
 	const openprev=(e,n)=>{
 		location.assign(getContextPath() + "/event/eventView.do?no=" + n);
 	}
+	$("#search_button").click(e=>{
+		var theme=$('input[name=searchtheme]:checked').val()
+		var searchtext=$('#input_search_text').val()
+		if(searchtext==""){
+			alert("검색어를 입력해주세요")
+		}else{
+			location.assign(getContextPath()+"/event/concertsearch.do?theme="+theme+"&searchtext="+searchtext)
+		}
+	})
 	</script>
 	<!-------------------------------------------->
 </body>

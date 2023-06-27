@@ -99,7 +99,7 @@ String keyword=request.getParameter("searchKeyword");
 						<%
 						if (members.isEmpty()) {%>
 						<tr>
-							<td colspan="6">등록된 회원이 없습니다.</td>
+							<td id="noperson"colspan="6">등록된 회원이 없습니다.</td>
 						</tr>
 						<%} else {
 							for (Member m : members) {

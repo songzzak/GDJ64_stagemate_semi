@@ -630,7 +630,384 @@ public class EventDao {
 		}
 		return result;
 	}
-
+	
+	public List<Event> searchAllEventMusical(Connection conn,int cPage, int numPerpage,String searchtext){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchAllEventMusical"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			pstmt.setString(2, "%"+searchtext+"%");
+			pstmt.setInt(3, (cPage-1)*numPerpage+1);
+			pstmt.setInt(4, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	public List<Event> searchAllEventAct(Connection conn,int cPage, int numPerpage,String searchtext){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchAllEventAct"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			pstmt.setString(2, "%"+searchtext+"%");
+			pstmt.setInt(3, (cPage-1)*numPerpage+1);
+			pstmt.setInt(4, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	public List<Event> searchAllEventConcert(Connection conn,int cPage, int numPerpage,String searchtext){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchAllEventConcert"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			pstmt.setString(2, "%"+searchtext+"%");
+			pstmt.setInt(3, (cPage-1)*numPerpage+1);
+			pstmt.setInt(4, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	
+	public int searchAllEventCountMusical(Connection conn,String searchtext) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try{
+			pstmt=conn.prepareStatement(sql.getProperty("searchAllEventCountMusical"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			pstmt.setString(2, "%"+searchtext+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+	public List<Event> searchTitleEventMusical(Connection conn,int cPage, int numPerpage,String searchtext){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchTitleEventMusical"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			pstmt.setInt(2, (cPage-1)*numPerpage+1);
+			pstmt.setInt(3, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	
+	public int searchTitleEventCountMusical(Connection conn,String searchtext) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try{
+			pstmt=conn.prepareStatement(sql.getProperty("searchTitleEventCountMusical"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	public List<Event> searchLocationEventMusical(Connection conn,int cPage, int numPerpage,String searchtext){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchLocationEventMusical"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			pstmt.setInt(2, (cPage-1)*numPerpage+1);
+			pstmt.setInt(3, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	
+	public int searchLocationEventCountMusical(Connection conn,String searchtext) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try{
+			pstmt=conn.prepareStatement(sql.getProperty("searchLocationEventCountMusical"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	public int searchAllEventCountAct(Connection conn,String searchtext) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try{
+			pstmt=conn.prepareStatement(sql.getProperty("searchAllEventCountAct"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			pstmt.setString(2, "%"+searchtext+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+	public List<Event> searchTitleEventAct(Connection conn,int cPage, int numPerpage,String searchtext){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchTitleEventAct"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			pstmt.setInt(2, (cPage-1)*numPerpage+1);
+			pstmt.setInt(3, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	
+	public int searchTitleEventCountAct(Connection conn,String searchtext) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try{
+			pstmt=conn.prepareStatement(sql.getProperty("searchTitleEventCountAct"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	public List<Event> searchLocationEventAct(Connection conn,int cPage, int numPerpage,String searchtext){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchLocationEventAct"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			pstmt.setInt(2, (cPage-1)*numPerpage+1);
+			pstmt.setInt(3, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	
+	public int searchLocationEventCountAct(Connection conn,String searchtext) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try{
+			pstmt=conn.prepareStatement(sql.getProperty("searchLocationEventCountAct"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	public int searchAllEventCountConcert(Connection conn,String searchtext) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try{
+			pstmt=conn.prepareStatement(sql.getProperty("searchAllEventCountConcert"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			pstmt.setString(2, "%"+searchtext+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+	public List<Event> searchTitleEventConcert(Connection conn,int cPage, int numPerpage,String searchtext){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchTitleEventConcert"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			pstmt.setInt(2, (cPage-1)*numPerpage+1);
+			pstmt.setInt(3, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	
+	public int searchTitleEventCountConcert(Connection conn,String searchtext) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try{
+			pstmt=conn.prepareStatement(sql.getProperty("searchTitleEventCountConcert"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	public List<Event> searchLocationEventConcert(Connection conn,int cPage, int numPerpage,String searchtext){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Event> events=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchLocationEventConcert"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			pstmt.setInt(2, (cPage-1)*numPerpage+1);
+			pstmt.setInt(3, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Event e=getEvent(rs);
+				events.add(e);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return events;
+		
+	}
+	
+	public int searchLocationEventCountConcert(Connection conn,String searchtext) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try{
+			pstmt=conn.prepareStatement(sql.getProperty("searchLocationEventCountConcert"));
+			pstmt.setString(1, "%"+searchtext+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
 	// ------------------------- jaehun -------------------------
 	public List<String> selectLocation(Connection conn, String location) {
 		PreparedStatement pstmt = null;
