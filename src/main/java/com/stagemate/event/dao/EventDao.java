@@ -712,6 +712,27 @@ public class EventDao {
 		}
 		return result;
 	}
+
+	//윤진작성
+	public List<EventWish> selectWishById(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		List<EventWish> list=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectWishById"));
+			pstmt.setString(1, userId);
+			rs=pstmt.executeQuery();
+				while(rs.next()) {
+					list.add(getEventWish(rs));
+				}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 	
 }

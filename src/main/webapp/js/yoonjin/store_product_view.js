@@ -55,6 +55,7 @@
             });
             
 $("#product-view-btn_pay").click(e => {
+	const userId=$("#userId").val();
    if(userId!=""){
         const pNo = $("#pNo").val();
     	const count = parseInt($("#product-select-count p").text());

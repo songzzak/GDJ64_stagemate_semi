@@ -2,28 +2,22 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <link rel="stylesheet" href="<%=contextPath%>/css/yelin/ReviewList.css">
- <%@ page import="java.util.List,com.stagemate.review.model.vo.ReviewPlay" %>  
 <title>STAGEMATE</title>
+<
 </head>
 <body>
-
 	<%@ include file="/views/common/header.jsp"%>
 <section class="min1280px">
         <div id="totalchart" class="max1280px" style="min-height:720px;" >
-
 		<div class="bigchart">
 			<p>STAGEMATE</p>
 			<p>정보를 안전하게 보호하기 위해 <br> 비밀번호를 다시 한 번 확인합니다.</p>
-			
-			<input type="password" id="check_pw" placeholder="비밀번호 입력">
-			
-			<div class="password_btn">
+			<input type="password" id="check_pw" placeholder="비밀번호 입력">    
+			<div class="passwordck_btn">
 						<input type="button" class="check_btn" value="확인"> 
 						<input type="button" class="cancel_btn" value="취소">
 			</div>
-			
 		</div>
-	
 	</div>
 	</section>
 	

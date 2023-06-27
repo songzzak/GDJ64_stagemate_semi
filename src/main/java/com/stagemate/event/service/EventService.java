@@ -210,5 +210,12 @@ public class EventService {
 		JDBCTemplate.close(conn);
 		return resultTotal;
 	}
+	//윤진작성
+	public List<EventWish> selectWishById(String userId) {
+		Connection conn=getConnection();
+		List<EventWish> list=dao.selectWishById(conn,userId);
+		close(conn);
+		return list;
+	}
 	
 }

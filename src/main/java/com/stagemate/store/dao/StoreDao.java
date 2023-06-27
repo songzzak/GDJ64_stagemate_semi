@@ -517,15 +517,13 @@ public class StoreDao {
 		return result;
 	}
 
-	public List<StoreLike> selectLikeById(Connection conn, String userId, int cPage, int numPerPage) {
+	public List<StoreLike> selectLikeById(Connection conn, String userId) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		List<StoreLike> likes=new ArrayList<>();
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("selectLikeById"));
 			pstmt.setString(1,userId);
-			pstmt.setInt(2, ((cPage-1)*numPerPage+1));
-			pstmt.setInt(3, cPage*numPerPage);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				likes.add(getLike(rs));

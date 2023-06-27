@@ -3,7 +3,9 @@ $(".storeorder_btn_prev").click(e=>{
     window.history.back();
 })
   
-function setSelectedAddress(dlvName, name, phone, address) {
+function setSelectedAddress(dlvId,dlvName, name, phone, address) {
+	console.log(dlvId);
+	$("#dlvId").val(dlvId);
     $("#dlvName").text(dlvName);
     $("#dlvPerson").text(name);
     $("#dlvPhone").text(phone);
