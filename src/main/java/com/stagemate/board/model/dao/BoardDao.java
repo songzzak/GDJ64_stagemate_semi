@@ -109,20 +109,22 @@ public class BoardDao {
 		return result;
 	}
 	
-//	public int boardWrite(Connection conn, String boardTitle, String boardContent) {
-//		PreparedStatement pstmt=null;
-//		
-//		try {
-//			pstmt=conn.prepareStatement(sql.getProperty("boardWrite"));
-//			pstmt.setString(1, boardTitle);
-//			pstmt.setString(2, boardContent);
-//		}catch(SQLException e) {
-//			e.printStackTrace();
-//		}finally {
-//			close(pstmt);
-//		}
-//		
-//	}
+	public int boardWrite(Connection conn,String boardWriter,String boardTitle, String boardContent) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("boardWrite"));
+			pstmt.setString(1, boardTitle);
+			pstmt.setString(2, boardWriter);
+			pstmt.setString(3, boardContent);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 	private Board getBoard(ResultSet rs) throws SQLException {
 		return Board.builder().boardNo(rs.getInt("board_no")).boardTitle(rs.getString("board_title"))

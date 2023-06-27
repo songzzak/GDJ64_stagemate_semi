@@ -35,15 +35,13 @@ public class BoardService {
 		return b;
 	}
 	
-	public int insertBoard(Board b) {
+	public int boardWrite(String boardWriter, String boardTitle, String boardContent) {
 		Connection conn=getConnection();
-		int result=dao.insertBoard(conn,b);
+		int result=dao.boardWrite(conn,boardWriter,boardTitle,boardContent);
 		if(result>0) commit(conn);
-		else rollback(conn);
 		close(conn);
 		return result;
 	}
-	
 	public int updateBoard(Board b) {
 		return 0;
 	}

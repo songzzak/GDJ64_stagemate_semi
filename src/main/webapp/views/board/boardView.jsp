@@ -113,23 +113,16 @@ a {
 						<th><%=b.getBoardViewCNT()%></th>
 						<th>추천수</th> 
 						<th><%=b.getBoardLikeCNT()%></th>
-						<th><img id="thumbs"
+						<th><img style="width:20; height:20px;" id="thumbs"
 							src="<%=request.getContextPath()%>/images/jangheum/thumbs.svg"></th>
 					</tr>
 				</table>
 				<hr>
 			</div>
 			<div class="board_main_content">
-				<p>
-					서론 <br> □연구 대상이나 주제 설정의 배경이 드러나 있는가<br> □기존 연구와의 차별성이 드러나
-					있는가<br> □글의 목표즉 이 글에서 답하고자 하는 연구 질문이 드러나 있는가<br> □연구의 의의가
-					드러나 독자에게 글을 읽을 동기를 부여해주고있는가<br> 본론<br> □하위 주장들이 잘 구성되었는가<br>
-					□각각을 뒷받침하는 근거들이 충분한가<br> □문단과 문단이 잘 연결되어 있어 독자가 그 흐름을 잘 따라갈 수
-					있는가<br> 결론<br> □글의 내용을 적절하게 재진술하고 있는가<br> □연구 주제의
-					의의나 시사점이 잘 드러나 있어 독자에게 중요성을 알리고 있는가<br> □연구 결과의 적용 가능성, 향후 논의의
-					방향을 제안하고 있는가<br>
-				</p>
+				<p><%=b.getBoardContent() %></p>
 			</div>
+			<div>
 			<hr color=#000000>
 			<div class="bt_wrap">
 				<a href="#" class="on">신고</a> <a href="#" class="on">수정</a> <a
@@ -138,6 +131,8 @@ a {
 			<div class="bt_list">
 				<a href="http://localhost:8080/GDJ64_stagemate_semi/board/boardList.do" class="on1">목록</a>
 			</div>
+			
+      
 </body>
 </section>
 <!-----------   위에서 HTML 작업  ----------->
