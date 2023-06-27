@@ -387,6 +387,7 @@
 	let jsonMap ={
 			"광림아트센터 BBCH홀" : ["37.523898", "127.025587"],
 			"예스24스테이지 3관" : ["37.582705", "127.003203"],
+			"예스24스테이지 2관" : ["37.582705", "127.003203"],
 			"예스24스테이지 1관" : ["37.582705", "127.003203"],
 			"샤롯데씨어터" : ["37.510693", "127.099874"],
 			"대학로 해피씨어터" : ["37.581846", "127.002567"],
@@ -397,6 +398,7 @@
 			"KBS 울산홀" : ["35.544506", "129.326446"],
 			"KBS아레나" : ["37.556730", "126.847916"],
 			"대학로 드림아트센터 3관" : ["37.583289", "127.003272"],
+			"대학로 드림아트센터 2관" : ["37.583289", "127.003272"],
 			"예술의전당 오페라극장" : ["37.479288", "127.013810"],
 			"대학로 유니플렉스 2관" : ["37.581166", "127.003695"],
 			"대학로 TOM 1관" : ["37.582263", "127.003670"],
@@ -407,6 +409,12 @@
 			"YES24 LIVE HALL" : ["37.580214", "127.107912"],
 			"대구 엑스코 5층 컨벤션홀" : ["35.906782", "128.613267"],
 			"전주종합경기장" : ["35.838898", "127.126406"],
+			"국립극장 해오름극장" : ["37.552585", "126.999725"],
+			"플러스씨어터" : ["37.580823", "127.003980"],
+			"대구 수성아트피아 용지홀" : ["35.829468", "128.628376"],
+			"드림씨어터" : ["35.148331", "129.065423"],
+			"대전시립연정국악원 큰마당" : ["36.366006", "127.389830"],
+			"북촌나래홀" : ["37.578905", "126.988956"],
 			
 	}
 	var GPSX=jsonMap["<%=event.getLocation()%>"][0]
@@ -483,10 +491,12 @@
 	let f2=0;
 	let allseat=0;
 	$(document).on("click","#schedule",function(e){
+		vip=0,r=0,s=0,a=0,f1=0,f2=0,allseat=0;
 		<%for(Seat seat:seats){%>
 			esdatecheck=new Date('<%=seat.getEsDate()%>')
 			if('<%=event.getEvcNo()%>'=="EVC1"){
 				if(esdatecheck.getDate()==$(".choiceDay").text()){
+					esNo='<%=seat.getEsNo()%>'
 					switch('<%=seat.getSeatRow()%>'){
 					case 'A' : if('<%=seat.getIsReserved()%>'=='N'){
 									vip++;break;
@@ -533,6 +543,7 @@
 				$("#seat_money>div:last-child>h3:last-child").text('(잔여 : '+((a-10) ==0?"매진":(a-10)+"석)"))
 			}else if('<%=event.getEvcNo()%>'=="EVC2"){
 				if(esdatecheck.getDate()==$(".choiceDay").text()){
+					esNo='<%=seat.getEsNo()%>'
 					switch('<%=seat.getSeatRow()%>'){
 						case 'A' : if('<%=seat.getIsReserved()%>'=='N'){
 										f1++;break;
@@ -576,7 +587,8 @@
 				$("#seat_money>div:first-child>h3:last-child").text('(잔여 : '+((f1-14) ==0?"매진":(f1-14)+"석)"))
 				$("#seat_money>div:last-child>h3:last-child").text('(잔여 : '+((f2-10) ==0?"매진":(f2-10)+"석)"))
 			}else{
-				if(esdatecheck.getDate()==$(".choiceDay").text()){
+				if(esdatecheck.getDate()==$(".choiceDay").text()&&'<%=seat.getIsReserved()%>'=='N'){
+					esNo='<%=seat.getEsNo()%>'
 					allseat++;
 				}
 				$("#seat_money>div:first-child>h3:last-child").text('(잔여 : '+((allseat-18) ==0?"매진":(allseat-18)+"석)"))

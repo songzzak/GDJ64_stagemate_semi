@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventUpfile;
+import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.service.EventService;
 
 /**
@@ -94,6 +95,8 @@ public class ActListServlet extends HttpServlet {
 		} else {
 			pageBar += "<a href='" + request.getRequestURI() + "?cPage=" + pageNo + "'>" + right_double_arrow + "</a>";
 		}
+		List<EventWish> ew=new EventService().selectAllEventWish();
+		request.setAttribute("ew", ew);
 		request.setAttribute("pageBar", pageBar);
 		request.getRequestDispatcher("/views/event/act/act_list.jsp").forward(request, response);
 	}

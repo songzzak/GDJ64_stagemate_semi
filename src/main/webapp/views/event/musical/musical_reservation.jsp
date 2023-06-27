@@ -80,22 +80,22 @@
 					<div>
 						<div class="seat unavailable" style="background-color: #CE3500"></div>
 						<h3>VIP석 150,000원</h3>
-						<h3>(잔여 : <%=vip-4==0?"매진":vip-4+"석" %></h3>
+						<h3>(잔여 : <%=vip-4==0?"매진":vip-4+"석)" %></h3>
 					</div>
 					<div>
 						<div class="seat unavailable" style="background-color: #9900C9"></div>
 						<h3>R석 120,000원</h3>
-						<h3>(잔여 : <%=r-4==0?"매진":r-4+"석" %></h3>
+						<h3>(잔여 : <%=r-4==0?"매진":r-4+"석)" %></h3>
 					</div>
 					<div>
 						<div class="seat unavailable" style="background-color: #00CCCC"></div>
 						<h3>S석 90,000원</h3>
-						<h3>(잔여 : <%=s-6==0?"매진":s-6+"석" %></h3>
+						<h3>(잔여 : <%=s-6==0?"매진":s-6+"석)" %></h3>
 					</div>
 					<div>
 						<div class="seat unavailable" style="background-color: #5529DD"></div>
 						<h3>A석 70,000원</h3>
-						<h3>(잔여 : <%=a-10==0?"매진":a-10+"석" %></h3>
+						<h3>(잔여 : <%=a-10==0?"매진":a-10+"석)" %></h3>
 					</div>
 				</div>
 				<!-- 선택한좌석 -->

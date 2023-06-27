@@ -1,7 +1,9 @@
 package com.stagemate.event.service;
 
 import static com.stagemate.common.JDBCTemplate.close;
+import static com.stagemate.common.JDBCTemplate.commit;
 import static com.stagemate.common.JDBCTemplate.getConnection;
+import static com.stagemate.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -13,6 +15,7 @@ import com.stagemate.event.model.vo.Casting;
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventSchedule;
 import com.stagemate.event.model.vo.EventUpfile;
+import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.model.vo.Seat;
 
 public class EventService {
@@ -114,6 +117,30 @@ public class EventService {
 		List<Seat> seats=dao.selectSeatByEvnNoAct(conn,eventNo);
 		close(conn);
 		return seats;
+	}
+	
+	public int insertEventWish(String eventNo,String memberId) {
+		Connection conn=getConnection();
+		int result=dao.insertEventWish(conn,eventNo,memberId);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	public int deleteEventWish(String eventNo,String memberId) {
+		Connection conn=getConnection();
+		int result=dao.deleteEventWish(conn,eventNo,memberId);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	public List<EventWish> selectAllEventWish(){
+		Connection conn=getConnection();
+		List<EventWish> ew=dao.selectAllEventWish(conn);
+		close(conn);
+		return ew;
 	}
 	
 	// ------------------------- jaehun -------------------------

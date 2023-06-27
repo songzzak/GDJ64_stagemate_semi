@@ -82,10 +82,10 @@ public class EventPaymentResultServlet extends HttpServlet {
 				 col.add(number);
 			 }else {
 				 int number = Integer.parseInt(columns[i]);
-				 if(number>5) {
+				 if(number>4) {
 					 number += 1;
 				 }
-				 if(number>13) {
+				 if(number>16) {
 					 number += 1;
 				 }
 				 col.add(number);
