@@ -44,4 +44,11 @@ public int selectNoticeCount() {
 		close(conn);
 		return result;
 	}
+	
+	public Notice selectNoticeByNo(int no) {
+		Connection conn = getConnection();
+		Notice n= dao.selectNoticeByNo(conn, no);
+		close(conn);
+		return n;
+	}
 }
