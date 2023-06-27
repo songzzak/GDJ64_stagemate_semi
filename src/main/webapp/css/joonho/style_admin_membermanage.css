@@ -193,7 +193,7 @@ div#search-gender {
 	width: 20%;
 }
 
-#admin_membermanage_table th:first-child, #admin_membermanage_table td:first-child
+#admin_membermanage_table th:first-child, #admin_membermanage_table td:first-child:not(#noperson)
 	{
 	width: 50px;
 }
@@ -285,4 +285,18 @@ div#search-gender {
 	font-weight: bolder;
 	margin-top: 2%;
 }
-
+#search-container button{
+	height: 32px;
+    width: 70px;
+    padding: 3px 3px 3px 3px;
+    font-size: 16px;
+    margin-left: 3%;
+    border-radius: 5px;
+    background-color: var(--sm-brown);
+    color:white;
+    border: 2px solid var(--sm-brown);
+    cursor: pointer;
+}
+.pageBar>div>span {
+    font-weight: bolder;
+}

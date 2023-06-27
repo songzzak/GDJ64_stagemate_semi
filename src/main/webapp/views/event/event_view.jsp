@@ -2,12 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <%@ page
-	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile,com.stagemate.event.model.vo.EventSchedule,com.stagemate.event.model.vo.Seat"%>
+	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile,com.stagemate.event.model.vo.EventSchedule,com.stagemate.event.model.vo.Seat,com.stagemate.event.model.vo.EventWish"%>
 <%
 	List<Seat> seats = (List) request.getAttribute("seats");
 	Event event = (Event) request.getAttribute("event");
 	List<EventUpfile> files = (List) request.getAttribute("files");
 	List<EventSchedule> es = (List) request.getAttribute("es");
+	List<EventWish> ew = (List) request.getAttribute("ew");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -130,9 +131,21 @@
 					<!-- 아이콘 -->
 					<div id="gold_icon">
 						<div>
-							<button>
-								<img src="<%=contextPath%>/images/joonho/blackheart.svg">
-								<p>23</p>
+							<button >
+							<%String hearthave="blackheart";String classheart="empty";int ewsize=0;
+									if(ew.size()!=0){
+									for(EventWish ews : ew){ %> 
+										<%
+										if(loginMember!=null&&event.getEventNo().equals(ews.getEventNo())&&loginMember.getMemberId().equals(ews.getMemberId())){ 
+											hearthave="fillheart"; classheart="fill";
+										}
+										%>
+									<%
+										if(event.getEventNo().equals(ews.getEventNo()))
+										{ewsize++;}%>
+									<%}}%>
+								<img onclick="switchheart(event,'<%=event.getEventNo() %>');" src="<%=contextPath%>/images/joonho/<%=hearthave %>.svg" class="<%=classheart%>">
+								<p><%=ewsize %></p>
 							</button>
 							<img id="urlcopy"
 								src="<%=contextPath%>/images/joonho/urlcopy.png"
@@ -383,6 +396,54 @@
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51321917c05ca5a38fbce7ed8b6a981c"></script>
 	<script src="<%=contextPath%>/js/joonho/script_event.js"></script>
 	<script>
+	const switchheart=(e,eventNo)=>{
+		if(<%=loginMember==null%>){
+			alert("로그인 후 관심등록이 가능합니다.")
+		}else{
+			let countheart=parseInt($(e.target).next().text())
+			if ($(e.target).hasClass("empty")) {
+		      $(e.target)
+		        .attr("src", "<%=contextPath%>/images/joonho/fillheart.svg")
+		        .addClass("fill")
+		        .removeClass("empty");
+		      $(e.target).next().text(countheart + 1);
+		      
+		      $.ajax({
+		        url: "<%=contextPath%>/event/addHeart.do", 
+		        method: "POST",
+		        data: {eventNo:eventNo , memberId:'<%=loginMember!=null?loginMember.getMemberId():""%>' }, 
+		        success: function(response) {
+		          alert("관심목록에 등록하였습니다!")
+		        },
+		        error: function(xhr, status, error) {
+		          alert("관심목록에 등록에 실패하셨습니다. 다시시도해주세요")
+		          console.error("데이터 등록 실패: " + error);
+		        }
+		      });
+		
+		    } else {
+		      $(e.target)
+		        .attr("src", "<%=contextPath%>/images/joonho/blackheart.svg")
+		        .addClass("empty")
+		        .removeClass("fill");
+		      $(e.target).next().text(countheart - 1);
+		
+		      $.ajax({
+		        url: "<%=contextPath%>/event/removeHeart.do", 
+		        method: "POST", 
+		        data: { eventNo:eventNo , memberId:'<%=loginMember!=null?loginMember.getMemberId():""%>' }, 
+		        success: function(response) {
+		        	alert("관심목록에서 삭제하였습니다!")
+		        },
+		        error: function(xhr, status, error) {
+		          // 요청이 실패한 경우의 처리
+		          alert("관심목록 삭제에 실패하였습니다. 다시시도해주세요")
+		          console.error("데이터 삭제 실패: " + error);
+		        }
+		      });
+		    } 
+		}
+	}
 	/* 지도 위치 지정 */
 	let jsonMap ={
 			"광림아트센터 BBCH홀" : ["37.523898", "127.025587"],

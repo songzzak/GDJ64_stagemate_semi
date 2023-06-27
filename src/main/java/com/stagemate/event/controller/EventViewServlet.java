@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventSchedule;
 import com.stagemate.event.model.vo.EventUpfile;
+import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.model.vo.Seat;
 import com.stagemate.event.service.EventService;
 
@@ -48,6 +49,8 @@ public class EventViewServlet extends HttpServlet {
 			List<Seat> seats=new EventService().selectSeatByEvnNoAct(eventNo);
 			request.setAttribute("seats", seats);
 		}
+		List<EventWish> ew=new EventService().selectAllEventWish();
+		request.setAttribute("ew", ew);
 		request.setAttribute("event", event);
 		request.setAttribute("files", files);
 		request.setAttribute("es", es);

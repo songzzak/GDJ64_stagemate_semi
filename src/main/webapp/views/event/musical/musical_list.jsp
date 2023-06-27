@@ -8,6 +8,9 @@
 List<Event> musicals = (List) request.getAttribute("musical");
 List<EventUpfile> files = (List) request.getAttribute("files");
 List<EventWish> ew = (List) request.getAttribute("ew");
+String text=(String) request.getAttribute("text");
+String theme=request.getParameter("theme");
+String searchtext=request.getParameter("searchtext");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -24,18 +27,17 @@ List<EventWish> ew = (List) request.getAttribute("ew");
 				<div id="musical">
 					<h2>뮤지컬</h2>
 					<div id="chioce_array">
-						<a href="">마감일자순</a> | <a href="">인기도순</a> | <a href="">리뷰많은 순</a>
-						| <a href="">제목순</a>
+						<a onclick="changebolder(event)" class="bolderarray">마감일자순</a> | <a onclick="changebolder(event)">인기도순</a> | <a onclick="changebolder(event)">리뷰많은 순</a>
+						| <a onclick="changebolder(event)">제목순</a>
 					</div>
 					<br>
 					<form id="event_search">
 						<div id="event_search">
-							<input id="input_search_text" type="text" placeholder="Search...">
+							<input id="input_search_text" type="text" placeholder="Search..." value="<%=theme!=null?searchtext:""%>">
 							<div id="search_button">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
-	                        <path
-										d="M21.5 23.25L13.625 15.375C13 15.875 12.2812 16.2708 11.4688 16.5625C10.6562 16.8542 9.79167 17 8.875 17C6.60417 17 4.6825 16.2133 3.11 14.64C1.5375 13.0667 0.750833 11.145 0.75 8.875C0.75 6.60417 1.53667 4.6825 3.11 3.11C4.68333 1.5375 6.605 0.750833 8.875 0.75C11.1458 0.75 13.0675 1.53667 14.64 3.11C16.2125 4.68333 16.9992 6.605 17 8.875C17 9.79167 16.8542 10.6562 16.5625 11.4688C16.2708 12.2812 15.875 13 15.375 13.625L23.25 21.5L21.5 23.25ZM8.875 14.5C10.4375 14.5 11.7658 13.9529 12.86 12.8588C13.9542 11.7646 14.5008 10.4367 14.5 8.875C14.5 7.3125 13.9529 5.98417 12.8588 4.89C11.7646 3.79583 10.4367 3.24917 8.875 3.25C7.3125 3.25 5.98417 3.79708 4.89 4.89125C3.79583 5.98542 3.24917 7.31333 3.25 8.875C3.25 10.4375 3.79708 11.7658 4.89125 12.86C5.98542 13.9542 7.31333 14.5008 8.875 14.5Z"
+	                        <path d="M21.5 23.25L13.625 15.375C13 15.875 12.2812 16.2708 11.4688 16.5625C10.6562 16.8542 9.79167 17 8.875 17C6.60417 17 4.6825 16.2133 3.11 14.64C1.5375 13.0667 0.750833 11.145 0.75 8.875C0.75 6.60417 1.53667 4.6825 3.11 3.11C4.68333 1.5375 6.605 0.750833 8.875 0.75C11.1458 0.75 13.0675 1.53667 14.64 3.11C16.2125 4.68333 16.9992 6.605 17 8.875C17 9.79167 16.8542 10.6562 16.5625 11.4688C16.2708 12.2812 15.875 13 15.375 13.625L23.25 21.5L21.5 23.25ZM8.875 14.5C10.4375 14.5 11.7658 13.9529 12.86 12.8588C13.9542 11.7646 14.5008 10.4367 14.5 8.875C14.5 7.3125 13.9529 5.98417 12.8588 4.89C11.7646 3.79583 10.4367 3.24917 8.875 3.25C7.3125 3.25 5.98417 3.79708 4.89 4.89125C3.79583 5.98542 3.24917 7.31333 3.25 8.875C3.25 10.4375 3.79708 11.7658 4.89125 12.86C5.98542 13.9542 7.31333 14.5008 8.875 14.5Z"
 										fill="white" />
 	                    </svg>
 							</div>
@@ -44,25 +46,25 @@ List<EventWish> ew = (List) request.getAttribute("ew");
 					<div id="choice">
 						<div>
 							<p>전체</p>
-							<input type="radio" name="hobby" checked value="전체">
+							<input type="radio" name="searchtheme" <%=theme==null||theme.equals("전체")?"checked":"" %> value="전체">
 						</div>
 						<div>
 							<p>제목</p>
-							<input type="radio" name="hobby" value="제목">
+							<input type="radio" name="searchtheme"<%=theme!=null&&theme.equals("제목")?"checked":"" %> value="제목">
 						</div>
 						<div>
 							<p>아티스트</p>
-							<input type="radio" name="hobby" value="아티스트">
+							<input type="radio" name="searchtheme" <%=theme!=null&&theme.equals("아티스트")?"checked":"" %> value="아티스트">
 						</div>
 						<div>
 							<p>장소</p>
-							<input type="radio" name="hobby" value="장소">
+							<input type="radio" name="searchtheme" <%=theme!=null&&theme.equals("장소")?"checked":"" %> value="장소">
 						</div>
 					</div>
 					<br> <br> <br>
 					<div class="musical_content">
 						<%
-						if (musicals.isEmpty()) {
+						if (musicals==null||musicals.isEmpty()) {
 						%>
 						<div>등록된 뮤지컬이 없습니다. 확인 후 등록 해주세요</div>
 						<%
@@ -91,12 +93,7 @@ List<EventWish> ew = (List) request.getAttribute("ew");
 									<%
 										if(e.getEventNo().equals(ews.getEventNo()))
 										{ewsize++;}%>
-									<%}}else{ %> 
-									<div id="likeheart">
-										<img onclick="switchheart(event,'<%=e.getEventNo() %>');" src="<%=contextPath%>/images/joonho/heart.svg" class="empty">
-									</div>
-									<p>0</p>
-									<%} %>
+									<%}}%>
 									<div id="likeheart">
 											<img onclick="switchheart(event,'<%=e.getEventNo() %>');" src="<%=contextPath%>/images/joonho/<%=hearthave %>.svg" class="<%=classheart%>"> 
 									</div>
@@ -134,6 +131,22 @@ List<EventWish> ew = (List) request.getAttribute("ew");
 	<script src="<%=contextPath%>/js/script_common.js"></script>
 	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 	<script>
+	if('<%=text%>'==null||'<%=text%>'=='마감일자순'){
+		$("#chioce_array>a:first-child").addClass("bolderarray")
+		$("#chioce_array>a:first-child").siblings().removeClass("bolderarray")
+	}else if('<%=text%>'=='인기도순'){
+		$("#chioce_array>a:nth-child(2)").addClass("bolderarray")
+		$("#chioce_array>a:nth-child(2)").siblings().removeClass("bolderarray")
+	}else if('<%=text%>'=='리뷰많은 순'){
+		$("#chioce_array>a:nth-child(3)").addClass("bolderarray")
+		$("#chioce_array>a:nth-child(3)").siblings().removeClass("bolderarray")
+	}else if('<%=text%>'=='제목순'){
+		$("#chioce_array>a:nth-child(4)").addClass("bolderarray")
+		$("#chioce_array>a:nth-child(4)").siblings().removeClass("bolderarray")
+	}
+	const changebolder=(e)=>{
+		location.href="<%=contextPath%>/event/arraymusical.do?text="+$(e.target).text()
+	}
 	const switchheart=(e,eventNo)=>{
 		if(<%=loginMember==null%>){
 			alert("로그인 후 관심등록이 가능합니다.")
@@ -183,6 +196,16 @@ List<EventWish> ew = (List) request.getAttribute("ew");
 	const openprev=(n)=>{
 		location.assign(getContextPath() + "/event/eventView.do?no=" + n);
 	}
+
+	$("#search_button").click(e=>{
+		var theme=$('input[name=searchtheme]:checked').val()
+		var searchtext=$('#input_search_text').val()
+		if(searchtext==""){
+			alert("검색어를 입력해주세요")
+		}else{
+			location.assign(getContextPath()+"/event/musicalsearch.do?theme="+theme+"&searchtext="+searchtext)
+		}
+	})
 	</script>
 	<!-------------------------------------------->
 </body>

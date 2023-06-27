@@ -27,4 +27,17 @@ public class AdminService {
 		close(conn);
 		return result;
 	}
+	public int selectMemberCountByType(String keyword, String type) {
+		Connection conn=getConnection();
+		int result=dao.selectMemberCountByType(conn,keyword,type);
+		close(conn);
+		return result;
+	}
+	
+	public List<Member> searchMemberByType(String keyword, String type, int cPage, int numPerpage){
+		Connection conn=getConnection();
+		List<Member> list=dao.searchMember(conn,keyword,type,cPage,numPerpage);
+		close(conn);
+		return list;
+	}
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.stagemate.common.JDBCTemplate;
+import com.stagemate.common.MemberGenerator;
 import com.stagemate.member.model.vo.Member;
 
 public class AdminDao {
@@ -37,7 +37,7 @@ public class AdminDao {
 			pstmt.setInt(2, cPage * numPerpage);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				Member m = getMemberDTO(rs);
+				Member m = MemberGenerator.by(rs);
 				members.add(m);
 			}
 		} catch (SQLException e) {
@@ -66,6 +66,52 @@ public class AdminDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	public int selectMemberCountByType(Connection conn,String keyword, String type) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql=this.sql.getProperty("selectMemberCountByType");
+		sql=sql.replace("#COL", type);
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,"%"+keyword+"%");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public List<Member> searchMember(Connection conn,String keyword, String type, int cPage, int numPerpage){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Member> members=new ArrayList<>();
+		String sql=this.sql.getProperty("searchMemberByType");
+		sql=sql.replace("#COL", type);
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,"%"+keyword+"%");
+			pstmt.setInt(2, (cPage-1)*numPerpage+1);
+			pstmt.setInt(3, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Member m=MemberGenerator.by(rs);
+				members.add(m);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return members;
 	}
 
 	public static Member getMemberDTO(ResultSet rs) throws SQLException {

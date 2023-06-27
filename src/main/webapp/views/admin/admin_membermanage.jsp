@@ -4,6 +4,8 @@
 <%@ page import="java.util.List,com.stagemate.member.model.vo.Member"%>
 <%
 List<Member> members = (List) request.getAttribute("member");
+String type=request.getParameter("searchType");
+String keyword=request.getParameter("searchKeyword");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet" href="<%= contextPath %>/css/joonho/style_admin_membermanage.css">
@@ -60,23 +62,23 @@ List<Member> members = (List) request.getAttribute("member");
 				<hr>
 				<div id="search-container">
 					<select id="searchType">
-						<option value="userId">아이디</option>
-						<option value="userName">회원이름</option>
+						<option value="userId" <%=type!=null&&type.equals("userId")?"selected":"" %>>아이디</option>
+						<option value="userName" <%=type!=null&&type.equals("userName")?"selected":"" %>>회원이름</option>
 					</select>
 					<div id="search-userId">
 						<form action="<%= contextPath %>/admin/searchMember">
-							<input type="hidden" name="searchType" value="userId"> <input
+							<input type="hidden" name="searchType" value="MEMBER_ID"> <input
 								type="text" name="searchKeyword" size="25"
-								placeholder="검색할 아이디를 입력하세요"> <input type="button"
-								class="btn-layout btn-brown" value="조회">
+								placeholder="검색할 아이디를 입력하세요" value="<%=type!=null&&type.equals("userId")?keyword:""%>"> 
+								<button type="submit">조회</button>
 						</form>
 					</div>
 					<div id="search-userName">
 						<form action="<%= contextPath %>/admin/searchMember">
-							<input type="hidden" name="searchType" value="userName">
+							<input type="hidden" name="searchType" value="MEMBER_NM">
 							<input type="text" name="searchKeyword" size="25"
-								placeholder="검색할 이름을 입력하세요"> <input type="button"
-								class="btn-layout btn-brown" value="조회">
+								placeholder="검색할 이름을 입력하세요"  value="<%=type!=null&&type.equals("userName")?keyword:""%>"> 
+								<button type="submit">조회</button>
 						</form>
 					</div>
 				</div>
@@ -97,7 +99,7 @@ List<Member> members = (List) request.getAttribute("member");
 						<%
 						if (members.isEmpty()) {%>
 						<tr>
-							<td colspan="6">등록된 회원이 없습니다.</td>
+							<td id="noperson"colspan="6">등록된 회원이 없습니다.</td>
 						</tr>
 						<%} else {
 							for (Member m : members) {
@@ -162,6 +164,26 @@ List<Member> members = (List) request.getAttribute("member");
 <script src="<%= contextPath %>/js/script_common.js"></script>
 <!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 <script src="<%= contextPath %>/js/joonho/script_admin_membermanage.js"></script>
+<script>
+$("#searchType").change(e=>{
+	const type=$(e.target).val();
+	$(e.target).parent().find("div").css("display","none");
+	$("#search-"+type).css("display","inline-block")
+})
+$(()=>{
+			$("#searchType").change();
+			$("#numPerpage").change(e=>{
+				let url=location.href;
+				if(url.includes("?")){
+					url=url.substring(0,url.indexOf("?")+1)+'searchType=<%=type%>&searchKeyword=<%=keyword%>&cPage=<%=request.getParameter("cPage")!=null?request.getParameter("cPage"):1%>&numPerpage='+e.target.value;
+				}else{
+					url+='?'
+					url+='cPage=<%=request.getParameter("cPage")!=null?request.getParameter("cPage"):1%>&numPerpage='+e.target.value;
+				}
+				location.assign(url)
+			})
+		})
+</script>
 <!-------------------------------------------->
 </body>
 </html>

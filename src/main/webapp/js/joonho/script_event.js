@@ -202,9 +202,9 @@ function buildCalendar() {
 
 // 날짜 선택
 function choiceDate(newDIV) {
-	/*if(openday>todays){
+	if(openday>todays){
 		alert(opendays+" 이후에 예매 가능합니다");
-	}else{*/
+	}else{
 		if (document.getElementsByClassName("choiceDay")[0]) {                              // 기존에 선택한 날짜가 있으면
 			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
 		}
@@ -251,7 +251,7 @@ function choiceDate(newDIV) {
 		$("#seat_money>div:nth-child(3)>h3:last-child").html('')
 		$("#seat_money>div:last-child>h3:last-child").html('')
 		flag=true;
-	/*}*/
+	}
 }
 
 
