@@ -189,7 +189,7 @@ div.musical_product>div img {
 	line-height: 24px;
 	color: #828282;
 	position: relative;
-	z-index: -1;
+	z-index: +1;
 }
 
 /* search_button */
@@ -203,6 +203,7 @@ div.musical_product>div img {
 	border-radius: 50%;
 	cursor: pointer;
 	margin-left: -20px;
+	z-index: +2;
 }
 
 .pageBar a {

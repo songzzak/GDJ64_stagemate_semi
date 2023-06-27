@@ -15,16 +15,16 @@ import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.service.EventService;
 
 /**
- * Servlet implementation class ArrayMusical
+ * Servlet implementation class ArrayConcert
  */
-@WebServlet("/event/arraymusical.do")
-public class ArrayMusical extends HttpServlet {
+@WebServlet("/event/arrayconcert.do")
+public class ArrayConcertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ArrayMusical() {
+    public ArrayConcertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,20 +45,20 @@ public class ArrayMusical extends HttpServlet {
 		} catch (NumberFormatException e) {
 			numPerpage = 16;
 		}
-		List<Event> musical=null;
+		List<Event> concert=null;
 		String text=request.getParameter("text");
 		if(text==null||text.equals("마감일자순")) {
-			musical = new EventService().selectAllEventMusical(cPage, numPerpage);
+			concert = new EventService().selectAllEventConcert(cPage, numPerpage);
 		}else if(text.equals("인기도순")) {
-			musical = new EventService().selectAllEventMusicalLike(cPage, numPerpage);
+			concert = new EventService().selectAllEventConcertLike(cPage, numPerpage);
 		}else if(text.equals("리뷰많은 순")) {
-			musical = new EventService().selectAllEventMusicalReview(cPage, numPerpage);
+			concert = new EventService().selectAllEventConcertReview(cPage, numPerpage);
 		}else if(text.equals("제목순")) {
-			musical = new EventService().selectAllEventMusicalTitle(cPage, numPerpage);
+			concert = new EventService().selectAllEventConcertTitle(cPage, numPerpage);
 		}
 		List<EventUpfile> files=new EventService().selectAllFile();
-		int totalData = new EventService().selectEventCountMusical();
-		request.setAttribute("musical", musical);
+		int totalData = new EventService().selectEventCountConcert();
+		request.setAttribute("concert", concert);
 		request.setAttribute("files", files);
 		int totalPage = (int) Math.ceil((double) totalData / numPerpage);
 		int pageBarSize = 3;
@@ -108,7 +108,7 @@ public class ArrayMusical extends HttpServlet {
 		request.setAttribute("ew", ew);
 		request.setAttribute("text", text);
 		request.setAttribute("pageBar", pageBar);
-		request.getRequestDispatcher("/views/event/musical/musical_list.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/event/concert/concert_list.jsp").forward(request, response);
 	}
 
 	/**

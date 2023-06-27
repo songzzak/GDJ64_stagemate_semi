@@ -18,13 +18,13 @@ import com.stagemate.event.service.EventService;
  * Servlet implementation class ArrayAct
  */
 @WebServlet("/event/arrayact.do")
-public class ArrayAct extends HttpServlet {
+public class ArrayActServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ArrayAct() {
+    public ArrayActServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -57,7 +57,7 @@ public class ArrayAct extends HttpServlet {
 			act = new EventService().selectAllEventActTitle(cPage, numPerpage);
 		}
 		List<EventUpfile> files=new EventService().selectAllFile();
-		int totalData = new EventService().selectEventCountMusical();
+		int totalData = new EventService().selectEventCountAct();
 		request.setAttribute("act", act);
 		request.setAttribute("files", files);
 		int totalPage = (int) Math.ceil((double) totalData / numPerpage);

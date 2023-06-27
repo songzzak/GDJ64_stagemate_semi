@@ -15,16 +15,16 @@ import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.service.EventService;
 
 /**
- * Servlet implementation class ArrayConcert
+ * Servlet implementation class ArrayMusical
  */
-@WebServlet("/event/arrayconcert.do")
-public class ArrayConcert extends HttpServlet {
+@WebServlet("/event/arraymusical.do")
+public class ArrayMusicalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ArrayConcert() {
+    public ArrayMusicalServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,20 +45,20 @@ public class ArrayConcert extends HttpServlet {
 		} catch (NumberFormatException e) {
 			numPerpage = 16;
 		}
-		List<Event> concert=null;
+		List<Event> musical=null;
 		String text=request.getParameter("text");
 		if(text==null||text.equals("마감일자순")) {
-			concert = new EventService().selectAllEventConcert(cPage, numPerpage);
+			musical = new EventService().selectAllEventMusical(cPage, numPerpage);
 		}else if(text.equals("인기도순")) {
-			concert = new EventService().selectAllEventConcertLike(cPage, numPerpage);
+			musical = new EventService().selectAllEventMusicalLike(cPage, numPerpage);
 		}else if(text.equals("리뷰많은 순")) {
-			concert = new EventService().selectAllEventConcertReview(cPage, numPerpage);
+			musical = new EventService().selectAllEventMusicalReview(cPage, numPerpage);
 		}else if(text.equals("제목순")) {
-			concert = new EventService().selectAllEventConcertTitle(cPage, numPerpage);
+			musical = new EventService().selectAllEventMusicalTitle(cPage, numPerpage);
 		}
 		List<EventUpfile> files=new EventService().selectAllFile();
 		int totalData = new EventService().selectEventCountMusical();
-		request.setAttribute("concert", concert);
+		request.setAttribute("musical", musical);
 		request.setAttribute("files", files);
 		int totalPage = (int) Math.ceil((double) totalData / numPerpage);
 		int pageBarSize = 3;
@@ -108,7 +108,7 @@ public class ArrayConcert extends HttpServlet {
 		request.setAttribute("ew", ew);
 		request.setAttribute("text", text);
 		request.setAttribute("pageBar", pageBar);
-		request.getRequestDispatcher("/views/event/concert/concert_list.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/event/musical/musical_list.jsp").forward(request, response);
 	}
 
 	/**
