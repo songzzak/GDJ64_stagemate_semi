@@ -89,6 +89,7 @@ input#file-upload-button {
 	<section class="min1280px">
 		<div class="max1280px">
 			<body>
+			<form action="<%=request.getContextPath()%>/board/boardWrite.do"">
 				<div class="board_title">
 					<strong>STAGEMATE</strong>
 					<hr>
@@ -99,29 +100,29 @@ input#file-upload-button {
 						<tr>
 							<th width=80>제목</th>
 							<td colspan="2" height=50><textarea placeholder="제목을 입력하세요."
-									style="width: 100%; height: 100%"></textarea></td>
+									style="width: 100%; height: 100%" name="title"></textarea></td>
 						</tr>
 						<tr>
 							<th width=80>파일첨부</th>
 							<td colspan="2" height=50>
 								<div id="filecontainer">
-									<form action="" method="post" enctype="mulipart/form-data">
-										<input type="file" name="upfile" multiple> <input
-											type="submit" value="업로드">
+
+										<input type="file" name="upfile"> 
 							</td>
-							</form>
+					
 							</div>
 						</tr>
 						<tr>
 							<td colspan="2" height=400><textarea
-									placeholder="내용을 입력하세요." style="width: 100%; height: 100%"></textarea>
+									placeholder="내용을 입력하세요." style="width: 100%; height: 100%" name="content"></textarea>
 							</td>
 						</tr>
 					</table>
 					<div class="bt_wrap">
-						<a href="#" onclick="window.open('boardList.jsp')" class="on">취소</a> 
-						<a href="#" onclick="window.open('boardList.jsp')" class="on">완료</a>
+						<input type=submit class="on" value="완료"> 
+						<a href="" class="on">완료</a>
 					</div>
+						</form>
 
 				</div>
 			</body>

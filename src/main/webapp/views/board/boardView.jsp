@@ -136,7 +136,7 @@ a {
 					href="#" class="on">삭제</a>
 			</div>
 			<div class="bt_list">
-				<a href="#" class="on1">목록</a>
+				<a href="http://localhost:8080/GDJ64_stagemate_semi/board/boardList.do" class="on1">목록</a>
 			</div>
 </body>
 </section>
@@ -151,8 +151,7 @@ $("#thumbs").click(
 			$(this).attr("src","<%=request.getContextPath()%>/images/jangheum/thumbs.svg");
 		},
 		function(){
-			$(this).attr("src","<%=request.getContextPath()%>
-	/images/jangheum/done_thumbs.png");
+			$(this).attr("src","<%=request.getContextPath()%>/images/jangheum/done_thumbs.png");
 					});
 </script>
 <!-------------------------------------------->
