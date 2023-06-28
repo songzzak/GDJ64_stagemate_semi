@@ -28,6 +28,9 @@
 									<td><input type="text" name="qnaWriter"
 									value="<%=loginMember.getMemberId()%>" readonly></td>
 								</tr>
+								<th>비밀글</th>
+								<td><input type="checkbox" name="qnaLock"
+								value="Y" ></td>
 								<tr>
 									<th>첨부파일</th>
 									<td><input type="file" name="upFile"></td>

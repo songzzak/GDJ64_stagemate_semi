@@ -77,7 +77,7 @@ public class QnaListServlet extends HttpServlet {
 		}
 			request.setAttribute("pageBar", pageBar);
 			request.setAttribute("qnas", qnas);
-			
+			System.out.println(qnas);
 		request.getRequestDispatcher("/views/qna/qnaBoardList.jsp")
 		.forward(request, response);
 	}

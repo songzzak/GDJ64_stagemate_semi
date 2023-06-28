@@ -74,7 +74,8 @@
 					<%if(loginMember!=null&&(loginMember.getMemberId().equals("stageadmin")||
 					loginMember.getMemberId().equals(q.getWriterId()))){%>
 
-					<a href="<%=request.getContextPath()%>/qna/updateQna.do?no=<%=q.getInquiryNo() %>" class="on">수정</a> <a href="<%=request.getContextPath()%>/qna/deleteQna.do?no=<%=q.getInquiryNo() %>" class="on">삭제</a>
+					<a href="<%=request.getContextPath()%>/qna/updateQna.do?no=<%=q.getInquiryNo() %>" class="on">수정</a> 
+					<a href="<%=request.getContextPath()%>/qna/deleteQna.do?no=<%=q.getInquiryNo() %>" class="on">삭제</a>
 					<%} %>
 				</div>
 
@@ -110,7 +111,7 @@
 				</table>
 
 				<div class="bt_list">
-					<a href="#" class="on1">목록</a>
+					<a href="<%=request.getContextPath()%>/qna/qnaList.do"" class="on1">목록</a>
 				</div>
 	</body>
 </section>

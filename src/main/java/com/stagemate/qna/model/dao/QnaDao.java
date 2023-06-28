@@ -96,10 +96,10 @@ public int insertQna(Connection conn, Qna q) {
 	int result=0;
 	try {
 		pstmt=conn.prepareStatement(sql.getProperty("insertQna"));
-	pstmt.setString(1, q.getInquiryContent());
-	pstmt.setString(2, q.getInquiryTitle());
-	pstmt.setString(3, q.getWriterId());
-	
+		pstmt.setString(1, q.getInquiryContent());
+		pstmt.setString(2, q.getInquiryTitle());
+		pstmt.setString(3, q.getWriterId());
+		pstmt.setString(4, q.getInquiryLockFlg()!=null?q.getInquiryLockFlg():"N");
 		result=pstmt.executeUpdate();
 		
 	}catch(SQLException e) {
@@ -109,6 +109,42 @@ public int insertQna(Connection conn, Qna q) {
 	}
 	return result;
 }
+
+public int deleteQna (Connection conn, int inquiryNo) {
+	PreparedStatement pstmt= null;
+	int result=0;
+	try {
+		pstmt=conn.prepareStatement(sql.getProperty("deleteQna"));
+		pstmt.setInt(1, inquiryNo);
+		
+		result=pstmt.executeUpdate();
+	}catch(SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
+	}
+	return result;
+}
+
+public int updateQna(Connection conn, Qna q) {
+	PreparedStatement pstmt=null;
+	int result=0;
+	try {
+		pstmt=conn.prepareStatement(sql.getProperty("updateQna"));
+		pstmt.setString(1,  q.getInquiryTitle());
+		pstmt.setString(2,  q.getInquiryContent());
+		pstmt.setInt(3, q.getInquiryNo());
+		result=pstmt.executeUpdate();
+	}
+	catch(SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
+		
+	}
+	return result;
+}
+
 public int selectQnaSquence(Connection conn) {
 	PreparedStatement pstmt=null;
 	ResultSet rs= null;
@@ -148,7 +184,6 @@ private Qna getQna(ResultSet rs) throws SQLException{
 			.inquiryNo(rs.getInt("inquiry_no"))
 			.inquiryContent(rs.getString("inquiry_content"))
 			.inquiryTitle(rs.getString("inquiry_title"))
-			.writerEmail(rs.getString("writer_email"))
 			.ctgNum(rs.getInt("ctg_num"))
 			.writerId(rs.getString("writer_id"))
 			.inquiryInsertDt(rs.getDate("inquiry_insert_dt"))

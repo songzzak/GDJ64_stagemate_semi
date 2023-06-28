@@ -41,7 +41,7 @@
 						<th>작성자</th>
 						<th>작성일</th>
 					</tr>
-					<%if(qnas.isEmpty()){ %>
+					<%if(qnas.isEmpty()||qnas==null){ %>
 					<tr>
 						<td colspan="6">조회된 데이터가 없습니다</td>
 					</tr>

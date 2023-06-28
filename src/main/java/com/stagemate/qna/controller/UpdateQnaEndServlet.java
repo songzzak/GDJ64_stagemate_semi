@@ -53,10 +53,21 @@ public class UpdateQnaEndServlet extends HttpServlet {
 			
 			
 			int result=new QnaService().updateQna(q);
-			
 			if(result>0) {
+				request.setAttribute("msg", "정상적으로 등록되었습니다.");
+				request.setAttribute("loc", "/qna/qnaList.do");
+				request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 				
 			}else {
+				
+				q=Qna.builder().inquiryNo(Integer.parseInt(mer.getParameter("qnaNo")))
+						.inquiryTitle(mer.getParameter("qnaTitle"))
+						.inquiryContent(mer.getParameter("qnaContent"))
+						.writerId(mer.getParameter("qnaWriter"))
+						.inquiryLockFlg(mer.getParameter("qnaLock"))
+						.files(QnaFileData.builder().imgFileRename(mer.getFilesystemName("upfile"))
+								.imgFilenameOri(mer.getOriginalFileName("upfile")).build())
+						.build();
 				
 			}
 		}

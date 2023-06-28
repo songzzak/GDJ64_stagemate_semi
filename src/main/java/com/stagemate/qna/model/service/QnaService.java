@@ -49,11 +49,22 @@ public class QnaService {
 		return result;
 	}
 	public int updateQna(Qna q) {
-		return 0;
+		Connection conn = getConnection();
+		int result = dao.updateQna(conn, q);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
 	}
-	public int deleteQna(int no) {
-		return 0;
+	public int deleteQna(int inquiryNo) {
+		Connection conn = getConnection();
+		int result = dao.deleteQna(conn, inquiryNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
 	}
+	
 	
 	public List<QnaComment> selectQnaComment(int qnaNo){
 		  Connection conn = getConnection(); 
@@ -61,6 +72,7 @@ public class QnaService {
 		  close(conn); 
 		  return list;
 	}
+	
 	
 	
 	public int insertQnaComment(QnaComment bc) {

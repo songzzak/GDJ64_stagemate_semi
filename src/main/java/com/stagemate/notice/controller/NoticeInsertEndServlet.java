@@ -80,7 +80,7 @@ public class NoticeInsertEndServlet extends HttpServlet {
 	request.setAttribute("msg", msg);
 	request.setAttribute("loc", loc);
 		
-	request.getRequestDispatcher("/view/common/msg.jsp")
+	request.getRequestDispatcher("/views/common/msg.jsp")
 	.forward(request, response);
 	}
 		
