@@ -11,7 +11,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="<%= contextPath %>/images/common/favicon-32x32.png" type="image/x-icon">
 <link rel="stylesheet" href="<%= contextPath %>/css/style_init.css">
-<link rel="stylesheet" href="<%= contextPath %>/css/style_header_footer.css">
 <link rel="stylesheet" href="<%= contextPath %>/css/jaehun/style_agreement.css">
 <title>개인정보 동의</title>
 </head>
