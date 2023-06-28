@@ -13,6 +13,7 @@ import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.service.EventService;
+import com.stagemate.review.model.vo.EventReviewTBJH;
 
 /**
  * Servlet implementation class Musical
@@ -48,6 +49,8 @@ public class ConcertListServlet extends HttpServlet {
 
 		List<Event> concert = new EventService().selectAllEventConcert(cPage, numPerpage);
 		List<EventUpfile> files=new EventService().selectAllFile();
+		List<EventReviewTBJH> er=new EventService().selectAllEventReview();
+		request.setAttribute("er", er);
 		int totalData = new EventService().selectEventCountConcert();
 		request.setAttribute("concert", concert);
 		request.setAttribute("files", files);

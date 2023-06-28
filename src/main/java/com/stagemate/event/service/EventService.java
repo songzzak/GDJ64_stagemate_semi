@@ -17,6 +17,7 @@ import com.stagemate.event.model.vo.EventSchedule;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.model.vo.Seat;
+import com.stagemate.review.model.vo.EventReviewTBJH;
 
 public class EventService {
 	
@@ -57,6 +58,12 @@ public class EventService {
 		List<EventUpfile> files=dao.selectAllFile(conn);
 		close(conn);
 		return files;
+	}
+	public List<EventReviewTBJH> selectAllEventReview(){
+		Connection conn=getConnection();
+		List<EventReviewTBJH> er=dao.selectAllEventReview(conn);
+		close(conn);
+		return er;
 	}
 	public List<Event> selectAllEventConcert(int cPage, int numPerPage) {
 		Connection conn=getConnection();

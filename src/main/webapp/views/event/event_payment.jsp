@@ -210,7 +210,7 @@ function requestPay() {
 	        pay_method : 'card',
 	        merchant_uid: "E"+makeMerchantUid, 
 	        name : '<%=event.getEventNm() %>',
-	        amount : 1,
+	        amount : 100,
 	        buyer_email : '<%=loginMember.getMemberEmail() %>',
 	        buyer_name : '<%=loginMember.getMemberNm() %>',
 	        buyer_tel : '<%=loginMember.getMemberPhone() %>',
