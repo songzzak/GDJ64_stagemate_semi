@@ -38,7 +38,7 @@
 							<th>글쓴이</th>
 							<th>작성일</th>
 						</tr>
-						<%if(notices.isEmpty()){ %>
+						<%if(notices.isEmpty()||notices==null){ %>
 						<tr>
 							<td colspan="4">조회된 공지사항이 없습니다.</td>
 						<tr>

@@ -37,7 +37,7 @@
 							<li class="li1">내가 쓴 글
 								<ul>
 									<li class="li2"><a href="<%= request.getContextPath() %>/board/selectMyBoard.do?id=<%=loginMember.getMemberId()%>">커뮤니티</a></li>
-									<li class="li2"><a href="<%= request.getContextPath() %>/views/mypage/myInquiry.jsp">1:1문의</a></li>
+									<li class="li2"><a href="<%= request.getContextPath() %>/qna/selectMyInquiry.do?id=<%=loginMember.getMemberId()%>">1:1문의</a></li>
 								</ul>
 							</li class="li1">
 							<li class="li1"><a href="<%= request.getContextPath() %>/views/member/member_withdraw.jsp">회원 탈퇴</a></li>
@@ -282,6 +282,10 @@ $(document).ready(function() {
 		$(".cart-checkbox:checked").each(function(){
 			chk_arr.push($(this).val()); 
 		});
+		if (chk_arr.length === 0) {
+	        alert("선택된 상품이 없습니다");
+	        return;
+	    }
 		if(confirm("선택 상품 모두 장바구니에서 삭제하시겠습니까?")){
 		location.assign("<%=request.getContextPath()%>/store/deleteCart.do?chk_arr="+chk_arr+"&id=<%=loginMember.getMemberId()%>");
 		}else{

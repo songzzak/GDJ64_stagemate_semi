@@ -71,5 +71,14 @@ public class QnaService {
 		close(conn);
 		return result;
 	}
+
+	
+	//윤진작성
+	public List<Qna> selectQnaById(String id) {
+		Connection conn=getConnection();
+		List<Qna> list=dao.selectQnaById(conn,id);
+		close(conn);
+		return list;
+	}
 	
 }
