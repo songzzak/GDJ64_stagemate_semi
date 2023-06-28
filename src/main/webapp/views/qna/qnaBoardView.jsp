@@ -74,7 +74,7 @@
 					<%if(loginMember!=null&&(loginMember.getMemberId().equals("stageadmin")||
 					loginMember.getMemberId().equals(q.getWriterId()))){%>
 
-					<a href="#" class="on">수정</a> <a href="#" class="on">삭제</a>
+					<a href="<%=request.getContextPath()%>/qna/updateQna.do?no=<%=q.getInquiryNo() %>" class="on">수정</a> <a href="<%=request.getContextPath()%>/qna/deleteQna.do?no=<%=q.getInquiryNo() %>" class="on">삭제</a>
 					<%} %>
 				</div>
 

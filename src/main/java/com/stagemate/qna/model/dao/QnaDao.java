@@ -25,7 +25,7 @@ public class QnaDao {
 	private Properties sql = new Properties();
 	
 	public QnaDao() {
-		String path = QnaDao.class.getResource("/sql/qna/qnasql.properties").getPath();;
+		String path = QnaDao.class.getResource("/sql/qna/qnasql.properties").getPath();
 		try {
 			sql.load(new FileReader(path));
 		}catch(IOException e) {

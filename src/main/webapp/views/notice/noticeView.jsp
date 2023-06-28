@@ -40,11 +40,16 @@
 				<%if(loginMember.getMemberId().equals("stageadmin")||
 					loginMember.getMemberId().equals(n.getNoticeWriter())){%>
 				<tr>
-					<th colspan="2"><input type="button" value="수정하기" onclick="">
-						<input type="button" value="삭제하기" onclick=""></th>
+					<th colspan="2">
+					<button id="btn-update" class="btn btn-warning">수정</button>
+					<button id="btn-delete" class="btn btn-danger">삭제</button>
+					</th>
 				</tr>
 				<%} %>
 			</table>
+			
+			 <!-- 버튼 기능 글 업데이트 딜릿 -->
+		
 			<script>
 			const fileDownload=(filename)=>{
 				location.assign("<%=request.getContextPath()%>/fileDownload.do?filename="+filename);
