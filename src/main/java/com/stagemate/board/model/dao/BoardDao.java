@@ -235,7 +235,6 @@ public class BoardDao {
 		String query = sql.getProperty("selectBoardByKeyword");
 		query = query.replace("#COL", type);
 		List<Board> boards = new ArrayList();
-		System.out.println(keyword);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, type.equals("content") ? keyword : "%" + keyword + "%");
