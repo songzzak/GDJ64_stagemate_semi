@@ -1,7 +1,9 @@
 package com.stagemate.admin.service;
 
 import static com.stagemate.common.JDBCTemplate.close;
+import static com.stagemate.common.JDBCTemplate.commit;
 import static com.stagemate.common.JDBCTemplate.getConnection;
+import static com.stagemate.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -39,5 +41,15 @@ public class AdminService {
 		List<Member> list=dao.searchMember(conn,keyword,type,cPage,numPerpage);
 		close(conn);
 		return list;
+	}
+	
+	public int outmember(String outid) {
+		Connection conn=getConnection();
+		int result=dao.outmember(conn,outid);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+		
 	}
 }

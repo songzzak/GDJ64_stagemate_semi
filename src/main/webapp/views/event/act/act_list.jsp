@@ -53,10 +53,6 @@ String searchtext=request.getParameter("searchtext");
 							<input type="radio" name="searchtheme"<%=theme!=null&&theme.equals("제목")?"checked":"" %> value="제목">
 						</div>
 						<div>
-							<p>아티스트</p>
-							<input type="radio" name="searchtheme" <%=theme!=null&&theme.equals("아티스트")?"checked":"" %> value="아티스트">
-						</div>
-						<div>
 							<p>장소</p>
 							<input type="radio" name="searchtheme" <%=theme!=null&&theme.equals("장소")?"checked":"" %> value="장소">
 						</div>

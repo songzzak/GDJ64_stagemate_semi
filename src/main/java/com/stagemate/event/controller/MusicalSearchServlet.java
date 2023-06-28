@@ -56,9 +56,6 @@ public class MusicalSearchServlet extends HttpServlet {
 		}else if(theme.equals("제목")) {
 			musical = new EventService().searchTitleEventMusical(cPage, numPerpage,searchtext);
 			totalData = new EventService().searchTitleEventCountMusical(searchtext);
-		}else if(theme.equals("아티스트")) {
-//			musical = new EventService().searchArtistEventMusical(cPage, numPerpage,searchtext);
-//			totalData = new EventService().searchArtistEventCountMusical(searchtext);
 		}else if(theme.equals("장소")) {
 			musical = new EventService().searchLocationEventMusical(cPage, numPerpage,searchtext);
 			totalData = new EventService().searchLocationEventCountMusical(searchtext);

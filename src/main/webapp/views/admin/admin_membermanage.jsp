@@ -86,8 +86,7 @@ String keyword=request.getParameter("searchKeyword");
 				<table id="admin_membermanage_table">
 					<thead>
 						<tr>
-							<th><input type="checkbox" class="checkall"
-								onclick="checkAll();"></th>
+							<th></th>
 							<th>아이디</th>
 							<th>이름</th>
 							<th>이메일</th>
@@ -105,7 +104,7 @@ String keyword=request.getParameter("searchKeyword");
 							for (Member m : members) {
 						%>
 						<tr>
-							<td><input type="checkbox" name="check"></td>
+							<td><input type="checkbox" name="check" <%=m.getWthdrDate()!=null||m.getMemberId().equals("stageadmin") ? "disabled" : ""%>></td>
 							<td><a href=""><%=m.getMemberId()%></a></td>
 							<td><%=m.getMemberNm()%></td>
 							<td><%=m.getMemberEmail()%></td>
@@ -133,14 +132,35 @@ String keyword=request.getParameter("searchKeyword");
 										<img src="<%= contextPath %>/images/joonho/question.png">
 									</div>
 									<div>
-										<p class="ctxt mb20">qwerty님을 탈퇴하시겠습니까?</p>
+										<p class="realout"></p>
 									</div>
 									<div>
 										<div class="btn-r">
-											<a href="#" class="btn-layerClose" id="yes">확인</a>
+											<a  onclick="withdrawalend()" href="#layer2" class="btn-layerCloseNew" id="yes">확인</a>
 										</div>
 										<div class="btn-r">
 											<a href="#" class="btn-layerClose" id="no">취소</a>
+										</div>
+									</div>
+								</div>
+								<!--// content-->
+							</div>
+						</div>
+					</div>
+					<div id="layer2" class="pop-layer">
+						<div class="pop-container">
+							<div class="pop-conts">
+								<!--content //-->
+								<div id="inner_pop">
+									<div>
+										<img src="<%= contextPath %>/images/joonho/approve.png">
+									</div>
+									<div>
+										<p class="realoutend"></p>
+									</div>
+									<div>
+										<div class="btn-r">
+											<a href="<%= request.getContextPath() %>/admin/membermanage"  class="btn-layerCloseend" id="yesend">확인</a>
 										</div>
 									</div>
 								</div>
@@ -183,6 +203,28 @@ $(()=>{
 				location.assign(url)
 			})
 		})
+$(document).ready(function() {
+	$("input[type='checkbox']").change(function() {
+		if($("input[type='checkbox']:checked").length>1){
+			 $(this).prop('checked', false);
+			alert("1명씩 탈퇴 가능합니다.")
+		}
+	})
+})
+const withdrawalend=()=>{
+	$.ajax({
+		url: "<%=contextPath%>/admin/withdrawal.do", 
+	    method: "POST",
+	    data: {outid:outid}, 
+	    success: function(response) {
+	      console.log("데이터 등록 성공!");
+	    },
+	    error: function(xhr, status, error) {
+	      console.error("데이터 등록 실패: " + error);
+	    }
+	});
+}
+
 </script>
 <!-------------------------------------------->
 </body>
