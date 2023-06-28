@@ -76,7 +76,11 @@ List<Qna> list=(List)request.getAttribute("list");
 	                			for(Qna q:list){%>
 		                	<tr class="tr-underLine">
 		                		<td style="text-align: center;"><%=q.getCtgNum() %></td>
-		                		<td style="text-align: center;"><%=q.getInquiryTitle() %></td>
+		                		<td style="text-align: center;">
+		                			<a href="<%=contextPath %>/qna/qnaView.do?no=<%=q.getInquiryNo()%>">
+		                				<%=q.getInquiryTitle() %>
+		                			</a>
+		                		</td>
 		                		<td style="text-align: center;"><%=q.getInquiryInsertDt() %></td>
 		                		<td style="text-align: center;">답변대기</td>
 		                	</tr>
