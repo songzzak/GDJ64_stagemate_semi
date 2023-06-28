@@ -2,9 +2,21 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp" %>
 <link rel="stylesheet" href="<%= contextPath %>/css/yelin/play/Refund_play.css">
+<%@ page import="java.util.List,com.stagemate.detail.model.vo.DetailInfo"%>
+<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
+<script src="<%= contextPath %>/js/script_common.js"></script>
+<script src="<%=contextPath%>/js/yelin/Refund_play.js"></script>
+<script src="<%=contextPath%>/js/yelin/detailList.js"></script>
 <title>STAGEMATE</title>
 </head>
 <body>
+	<%
+	DetailInfo detailInfo = (DetailInfo)request.getAttribute("DetailInfo");
+	%>
+	<script>
+		rsvNo = '<%= detailInfo.getRsvNo()%>';
+		esNo = '<%= detailInfo.getEsNo()%>';
+	</script>
 <%@ include file="/views/common/header.jsp" %>
 
 <section class="min1280px">
@@ -24,7 +36,7 @@
         <h4 class="refund-cnt">환불 내역</h4>
         <div class="refundbox">
 
-            <p class="refundbox-text">뮤지컬 <아르토 고흐></p>
+            <p class="refundbox-text"><%=detailInfo.getEventName() %></p>
         </div>
 
         <h4 class="refundcnt-detail">환불 상세내역</h4>
@@ -35,7 +47,7 @@
             </tr>
             <tr>
                 <th>환불 금액</th>
-                <td>46,200원</td>   
+                <td><%=detailInfo.getRsvPirce() %>원</td>   
             </tr>
             <tr>
                 <th>환불일정</th>
@@ -46,8 +58,8 @@
 
 
       <div class="refundcnt-btn">
-            <input type="button" class="re-btn4" value="예매내역목록" onclick="">
-            <input type="button" class="refund-btn2" value="취소내역 확인하기" onclick="">
+            <input type="button" class="re-btn4" value="예매내역목록" onclick="location.assign('<%=request.getContextPath()%>/Detail/DetailListServlet.do')">
+            <input type="button" class="refund-btn2" value="취소내역 확인하기" onclick="detailListPage2('1');">
         </div>
     </div> 
         
@@ -58,6 +70,5 @@
 
 <%@ include file="/views/common/footer.jsp" %>
 </body>
-<script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>
-<script src="<%=contextPath%>/js/yelin/Refund_play.js"></script>
+
 </html>

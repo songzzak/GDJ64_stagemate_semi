@@ -1,15 +1,20 @@
 @import url("../style_init.css");
 
 .ReviewList_bigchart {
-	margin: auto;
-	width: 900px;
-	height: 650px;
- /* 	border: 0.5px solid black; */
+	margin:auto;
+ 	width: 900px;
+	height: 650px; 
+/*  	 border: 0.5px solid black; */ 
 	flex-direction: row;
 	margin-top: 15px;
 	margin-bottom: 5px;
 }
 
+.maincontainer{
+	display:flex;
+	margin: auto;
+	
+}
 #ReviewList_title {
 	color: gray;
 	font-size: 30px;

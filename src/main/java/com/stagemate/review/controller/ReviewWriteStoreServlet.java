@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/review/ReviewWriteStore.do")
+@WebServlet("/Review/ReviewWriteStore")
 public class ReviewWriteStoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -21,8 +21,6 @@ public class ReviewWriteStoreServlet extends HttpServlet {
 	
 		
 		request.getRequestDispatcher("/views/review/ReviewWrite_store.jsp").forward(request, response);
-		
-		
 	}
 
 	

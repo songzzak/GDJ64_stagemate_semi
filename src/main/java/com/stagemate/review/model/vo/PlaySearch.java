@@ -12,8 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class PlaySearch {
-	
-	private String eventName;
-	private Date watchDt;
 	private String rsvNo;
+	private String eventNm;
+	private String esDate;
 }

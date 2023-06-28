@@ -82,14 +82,14 @@
 
 <script>
 	const UpdatePwd=()=>{
-		const childWindow=open("<%=request.getContextPath()%>/member/UpdatePassword.do","_blank","width=400,height=450");
+		const childWindow=open("<%=request.getContextPath()%>/member/UpdatePassword.do","_blank","width=600,height=450");
 		
 	}
 	const UpdatePhone=()=>{
-		const childWindow=open("<%=request.getContextPath()%>/member/updatePhone.do","_blank","width=400,height=260");
+		const childWindow=open("<%=request.getContextPath()%>/member/updatePhone.do","_blank","width=600,height=260");
 	}
 	const UpdateEmail=()=>{
-		const chilWindow=open("<%=request.getContextPath()%>/member/updateEmail.do","_blank","width=400,height=260");
+		const chilWindow=open("<%=request.getContextPath()%>/member/updateEmail.do","_blank","width=600,height=260");
 	}
 	const updateClearButton=()=>{
 		alert('변경 완료되었습니다.');

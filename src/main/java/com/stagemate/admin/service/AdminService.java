@@ -6,12 +6,15 @@ import static com.stagemate.common.JDBCTemplate.getConnection;
 import static com.stagemate.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.stagemate.admin.model.dao.AdminDao;
-import com.stagemate.common.JDBCTemplate;
-import com.stagemate.event.model.vo.Event;
+import com.stagemate.admin.model.vo.PlayInfo;
+import com.stagemate.detail.model.vo.EventOrder;
 import com.stagemate.member.model.vo.Member;
+import com.stagemate.member.service.MemberService;
 
 public class AdminService {
 	private AdminDao dao=new AdminDao();
@@ -43,6 +46,24 @@ public class AdminService {
 		return list;
 	}
 	
+	//관리자페이지 예매
+	public List<PlayInfo> listPlayInfo(){
+		Connection conn=getConnection();
+		List<PlayInfo> list=dao.playInfo(conn);
+		close(conn);
+		return list;
+	}
+	
+	
+	//사용자 애매내역
+	public List<EventOrder> selectSalesInfo(String userId){
+		Connection conn=getConnection();
+		
+		List<EventOrder> eventOrder=new AdminDao().selectEventOrder(conn,userId);
+		
+		close(conn);
+		return eventOrder;
+	}
 	public int outmember(String outid) {
 		Connection conn=getConnection();
 		int result=dao.outmember(conn,outid);

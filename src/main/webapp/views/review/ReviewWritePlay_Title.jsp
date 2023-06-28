@@ -3,41 +3,105 @@
 <%@ include file="/views/common/top.jsp"%>
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/yelin/play/style_Detailed_play.css">
-	<%@ page import="java.util.List,com.stagemate.review.model.vo.PlaySearch" %>  
+<%@ page import="java.util.List,com.stagemate.review.model.vo.PlaySearch" %>  
+<%@ page import="java.util.List,com.stagemate.review.model.vo.StoreSearch" %>
+<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 <title>STAGEMATE</title>
 </head>
 <body>
-<%
-	List<PlaySearch> playSearch = (List)request.getAttribute("keyword");
- %>
+<% 
+   List<PlaySearch> playSearch = (List)request.getAttribute("PlaySearch");
+%>
+<%  
+   List<StoreSearch> storeSearch = (List)request.getAttribute("StoreSearch");
+%>
+ 
+<script>
+var playSearchSiz = <%=playSearch.size() %>;
+var storeSearchSiz = <%=storeSearch.size() %>;
+function checkSuccess() {
+  	 var checkedRadio = $('input[type="radio"][name="rdoPlay"]:checked');
 
-
+     if (checkedRadio.length === 0) {
+       alert("라디오 버튼을 선택해주세요.");
+       return;
+     }
+     var sendData = [];
+     var selectedRow = checkedRadio.closest('tr');
+     if (playSearchSiz > 0) {
+    	 var rsvNo = selectedRow.find('td:eq(1)').text();
+         var eventName = selectedRow.find('td:eq(2)').text();
+         var esDate = selectedRow.find('td:eq(3)').text();
+         var sendData = [rsvNo, eventName, esDate]
+     } else if (storeSearchSiz > 0) {
+    	 var orderNo = selectedRow.find('td:eq(1)').text();
+         var productName = selectedRow.find('td:eq(2)').text();
+         var orderDate = selectedRow.find('td:eq(3)').text();
+         var productNo = selectedRow.find('input[type="hidden"]').val();
+         var sendData = [orderNo, productName, orderDate, productNo]
+     }
+     
+     window.opener.sendData(sendData);
+     window.close();
+}
+ </script>
 	<div class="Playtitle_title">
-		<p>상품 검색</p>
+		<p>검색</p>
 	</div>
 	<div class="Playtitle_bigchart">
 		<div class="BP-searchtitle">
+		<!-- 
 			<form action="<%=request.getContextPath()%>/Review/SearchTitle.do">
 				<input type="text" id="PT-searchtxt" name="keyword">
 				<button>검색</button>
 			</form>
+		 -->
 		</div>
 		<table class="BookedPlay_List">
-			<label for="">
-			<%if(playSearch.isEmpty()){ %>
+			
+			<thead>
+				<%if(playSearch.size() > 0){ %>
 				<tr>
-					<td colspan="3">조회된 데이터가 없습니다.</td>
+					<th scope="col"></th>
+					<th scope="col">예매번호</th>
+					<th scope="col">상품명</th>
+					<th scope="col">관람일</th>
 				</tr>
-			<%}else{
-				for (PlaySearch r: playSearch) {%>
+				<%} else if(storeSearch.size() > 0){ %> 
 				<tr>
-					<td><%= r.getEventName() %></td>
-					<td><input type="radio"><%= r.getRsvNo()%></td>
-					<td>관람 전</td>
+					<th scope="col"></th>
+					<th scope="col">주문번호</th>
+					<th scope="col">상품명</th>
+					<th scope="col">주문일</th>
+				</tr>
+				<% }%>
+			</thead>
+			<tbody>
+			  <%if(playSearch.size() > 0){ %>
+			  <% for (PlaySearch r: playSearch) {%>
+				<tr>
+					<td><input type="radio" name="rdoPlay"></td>
+					<td><%= r.getRsvNo()%></td>
+					<td><%= r.getEventNm() %></td>
+					<td><%= r.getEsDate() %></td>
 				</tr>
 				<% }
-				}%>
-			</label>
+			  } else if(storeSearch.size() > 0){ %> 
+			
+			  <%for (StoreSearch r: storeSearch) {%>
+				<tr>
+					<td><input type="radio" name="rdoPlay"></td>
+					<td><%= r.getOrderNo() %></td>
+					<td><%= r.getProductName() %><input type="hidden" value="<%= r.getProductNo() %>"></td>
+					<td><%= r.getOrderDate() %></td>
+				</tr>
+				<% }
+		    } else  {%>
+			    <tr>
+					<td colspan="3">조회된 데이터가 없습니다.</td>
+				</tr>
+		    <% }%>
+			</tbody>
 		</table>
 
 
@@ -46,7 +110,7 @@
 	<!-- 버튼 예매/스토어 -->
 	<div class="Search-box">
 		<button type="button" onclick="thisClose();">닫기</button>
-		<button type="button" onclick="">선택</button>
+		<button type="button" onclick="checkSuccess();">선택</button>
 	
 	</div>
 
@@ -55,11 +119,6 @@
 			window.close();
 		}
 	</script>
-
-
-
-
-
 
 	<style>
 .Playtitle_bigchart {
@@ -181,6 +240,5 @@
 
 
 </body>
-<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 
 </html>

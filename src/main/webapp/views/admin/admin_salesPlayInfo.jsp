@@ -2,9 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <link rel="stylesheet" href="<%=contextPath%>/css/yelin/play/style_sales_play_info.css"> 
+<%@ page import="java.util.List,com.stagemate.detail.model.vo.EventOrder,com.stagemate.member.model.vo.Member"%>
 <title>STAGEMATE</title>
 </head>
 <body>
+ <%
+   //PlayDetail 정보 가져와야 한다. 
+   	List<EventOrder> eventOrders = (List) request.getAttribute("eventOrders");
+ 	Member m=eventOrders.size()>0?eventOrders.get(0).getMember():null;
+   %>
 
 	 <div class="MDPlay_bigchart">
         <button type="button" class="btn_close" onclick="closeWin();"></button>
@@ -17,30 +23,36 @@
             <img src="<%=contextPath%>/images/yelin/profile.png" alt="">
             <!-- 주문자정보 테이블 -->
             <table class="OrderInfo-table">
+            <%if(m!=null){ %>
                 <tr>
                     <td>이름</td>
-                    <td>김뚜껑</td>
+                    <td><%=m.getMemberNm() %></td>
                 </tr>
                 <tr>
                     <td>아이디</td>
-                    <td>qwerty</td>
+                    <td><%=m.getMemberId() %></td>
                 </tr>
                 <tr>
                     <td>생년월일</td>
-                    <td>1998년 09월 30일</td>
+                    <td><%=m.getMemberBdate() %></td>
                 </tr>
                 <tr>
                     <td>이메일</td>
-                    <td>qwerty@naver.com</td>
+                    <td><%=m.getMemberEmail() %></td>
                 </tr>
                 <tr>
                     <td>전화번호</td>
-                    <td>010-1234-1234</td>
+                    <td><%=m.getMemberPhone() %></td>
                 </tr>
                 <tr>
                     <td>주소</td>
-                    <td>경기도 시흥시 주소주소주소소소</td>
+                    <td><%=m.getMemberAddress() %></td>
                 </tr>
+              <%}else{%>
+              	<tr>
+              		<td>존재하지않는 사용자입니다.</td>
+              	</tr>
+              <%} %>
             </table>
         </div>
        
@@ -72,27 +84,25 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="book_no"><a href=""  style="text-decoration-line: none;">S120329133</a></td>
-                <td class="book_no">뮤지컬<아르토고흐></a></td>
-                <td class="book_no">2023-08-02</td>
-                <td class="book_no">1매</td>
-                <td class="book_no">예매</td>
-                <td class="book_no">
-                	<a href="" onclick="CancelPlaypage();"
-                			style="text-decoration-line: none; color:black; font-weight:bold;">취소</a>
-               	</td>
-            </tr>
-            <tr>
-                <td class="book_no"><a href=""  style="text-decoration-line: none;">S120329133</a></td>
-                <td class="book_no">뮤지컬<나르치스와 골드문트></a></td>
-                <td class="book_no">2023-07-24</td>
-                <td class="book_no">1매</td>
-                <td class="book_no">예매</td>
-                <td class="book_no"><a href="" style="text-decoration-line: none; color:black;">취소</a></td>
-            </tr> 
-          
-        
+        	<%if(eventOrders.size()>0){ 
+	        	 for(EventOrder eo:eventOrders){ %>
+		            <tr>
+		                <td class="book_no"><a href=""  style="text-decoration-line: none;"><%=eo.getRsvNo() %></a></td>
+		                <td class="book_no"><a href="" ><%=eo.getEvent().getEventNm() %></a></td>
+		                <td class="book_no"><%=eo.getEsDate() %></td>
+		                <td class="book_no"><%=eo.getTcnt() %></td>
+		                <td class="book_no"><%=eo.getOrderStatus() %></td>
+		                <td class="book_no">
+		                	<a href="" onclick="CancelPlaypage();"
+		                			style="text-decoration-line: none; color:black; font-weight:bold;">취소</a>
+		               	</td>
+		            </tr>
+	           <%}
+        	}else{ %>
+          		<tr colspan="6">
+              		<td>예매내역이 없습니다.</td>
+              	</tr>
+        	<%} %>
         </tbody>
     </table>
     </div>

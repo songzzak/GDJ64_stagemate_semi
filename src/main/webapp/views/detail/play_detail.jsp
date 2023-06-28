@@ -1,11 +1,61 @@
+<<<<<<< HEAD
+<%@page import="com.stagemate.detail.model.vo.DetailInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/yelin/play/style_Detailed_play.css">
-<%@ page
-	import="java.util.List,com.stagemate.review.model.vo.PlaySearch"%>
+<%@ page import="java.util.List,com.stagemate.review.model.vo.PlaySearch"%>
+<%@ page import="java.util.List,com.stagemate.detail.model.vo.DetailInfo"%>
+<%@ page import="java.util.List,com.stagemate.detail.model.vo.DetailTicketList"%>
+<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
+<script src="<%= contextPath %>/js/script_common.js"></script>
+<script src="<%=contextPath%>/js/yelin/detailList.js"></script>
 <title>STAGEMATE</title>
+<%
+	DetailInfo detailInfo = (DetailInfo)request.getAttribute("DetailInfo");
+%>
+<%
+	List<DetailTicketList> ticketList = (List) request.getAttribute("TicketList");
+%>
+<script>
+let rsvNo = '<%= detailInfo.getRsvNo()%>';
+let esNo = '<%= detailInfo.getEsNo()%>';
+$(document).ready(function() {
+  $('input[name="choice"]').on('click', function() {
+    var isChecked = $(this).prop('checked');
+    $('tbody input[name="choice"]').prop('checked', isChecked);
+  });
+  
+  $('tbody input[name="choice"]').on('click', function() {
+    var isAllChecked = $('tbody input[name="choice"]').length === $('tbody input[name="choice"]:checked').length;
+    $('input[name="choice"]').prop('checked', isAllChecked);
+  });
+  
+  let orderStatus = '<%= detailInfo.getOrderStatus()%>';
+  if (orderStatus == '취소') {
+		$('.re-btn').removeClass('re-btn').addClass('disable-btn');
+		$('.disable-btn').attr('onclick', "alert('이미 취소한 내역입니다')");
+  }
+});
+
+</script>
+<style>
+	.disable-btn{
+		border: none;
+                    padding: 8px 45px;
+                    text-align: center;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    font-weight: bold;
+                    background-color: var(--sm-brown);
+                    border: 2px solid var(--sm-brown);
+                    color: white;
+                    margin: 0 auto;    /* 버튼 글씨정렬 후 버튼 일자 정렬 */
+                    display: flex;
+                    margin-bottom:30px;
+				}
+</style>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
@@ -15,9 +65,9 @@
 			<h1 id="BookingDetailPlay_title">예매내역</h1>
 			<div class="division-line"></div>
 
-			<div class="bigchart">
+			<div class="bigchart" style="height: auto;">
 				<!-- 제목 -->
-				<p class="play_title">뮤지컬 <아르토, 고흐></p>
+				<p class="play_title"><%=detailInfo.getEventName() %></p>
 
 				<div class="bookchart" id="bookchart2"
 					style="padding: 10px 10px 10px 10px">
@@ -26,28 +76,28 @@
 					<!-- 포스터 -->
 					<div class="ticketbook">
 						<p class="poster">
-							<a href='/Pages/Perf/Detail/Detail.aspx?IdPerf=45796'
-								Title='뮤지컬 〈아르토,고흐〉'>
-								<img src='https://stkfile.yes24.com/upload2/PerfBlog/202305/20230518/20230518-45796.jpg'
+							<a href=''
+								Title='<%=detailInfo.getEventName() %>'>
+								<img src='../upload/joonho/<%=detailInfo.getFileName() %>'
 								width='180' height='220' alt='' /></a>
 						</p>
 					</div>
 					<table class="book_info">
 						<tr>
 							<th>예매자</th>
-							<td>김뚜껑</td>
+							<td><%=detailInfo.getMemberNm() %></td>
 						</tr>
 						<tr>
 							<th>예매번호</th>
-							<td>S120329133</td>
+							<td><%=detailInfo.getRsvNo() %></td>
 						</tr>
 						<tr>
 							<th>관람일시</th>
-							<td>2023년 06월 04일 (토) 18:00</td>
+							<td><%=detailInfo.getRsvDate() %></td>
 						</tr>
 						<tr>
 							<th>장소</th>
-							<td>예스 24 스테이지 2관</td>
+							<td><%=detailInfo.getLocation() %></td>
 						</tr>
 						<tr>
 							<th>좌석</th>
@@ -86,16 +136,20 @@
 							</tr>
 						</thead>
 						<tbody>
+							<%
+							for (DetailTicketList d : ticketList) {
+							%>
 							<tr>
-								<td class="bk_no">R석</td>
-								<td class="bk_no">1층 C열 11번</td>
+								<td class="bk_no"><%=d.getSlvNM() %>석</td>
+								<td class="bk_no"><%=d.getSeatRow() %>열 <%=d.getSeatCol() %>번</td>
 								<td class="bk_no">재관람할인(1인1매)</td>
-								<td class="bk_no">46,200원</td>
+								<td class="bk_no"><%=d.getSlvPrice() %>원</td>
 								<td class="bk_no">취소가능</td>
-								<td class="bk_no">취소<input type="checkbox" name="choice"
-									value="c">
-								</td>
+								<td class="bk_no">취소<input type="checkbox" name="choice" value="c"></td>
 							</tr>
+							<%
+							}
+							%>
 						</tbody>
 					</table>
 				</div>
@@ -104,15 +158,15 @@
 				<table class="pay_chart">
 					<tr>
 						<th>예매일</th>
-						<td>2023. 05 15 14:01</td>
+						<td><%=detailInfo.getRsvDate() %></td>
 						<th>현재상태</th>
-						<td>예매</td>
+						<td><%=detailInfo.getOrderStatus() %></td>
 					</tr>
 					<tr>
 						<th>결제수단</th>
 						<td>신용카드[신한카드]</td>
 						<th>결제 금액</th>
-						<td>46,200원</td>
+						<td><%=detailInfo.getRsvPirce() %>원</td>
 					</tr>
 				</table>
 			</div>
@@ -120,7 +174,7 @@
 			<p class="cancel-txt" align="right"
 				style="padding: 0px 100px 3px 0px;">*취소를 원하시는 티켓을 선택하고 취소하기를
 				눌러주세요.</p>
-			<input type="button" class="re-btn" onclick="" value="취소하기">
+			<input type="button" class="re-btn" onclick="cacelDetailCheckPage('1')" value="취소하기">
 
 			<div class="bigchart2">
 				<h4 class="cancel-gd" style="color: red">예매취소 안내</h4>
@@ -156,9 +210,8 @@
 		</div>
 		</div>
 	</section>
-
+	
+	
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
-<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
-
 </html>

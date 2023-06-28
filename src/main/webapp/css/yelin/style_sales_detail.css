@@ -1,10 +1,11 @@
 /* 전체틀선 */
 .Playmanagement_title_bigchart {
 	margin: auto;
+	flex-direction: row;
 	width: 900px;
 	height: 500px;
 /* 	border: 0.5px solid lightgrey; */
-	flex-direction: row;
+
 	margin-top: 15px;
 	margin-bottom: 5px;
 }

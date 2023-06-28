@@ -6,6 +6,12 @@
    height: auto;
    /*     border:0.5px solid ; */
    flex-direction: row;
+<<<<<<< HEAD
+}
+.maincontainer{
+	display:flex;
+=======
+>>>>>>> refs/heads/yelin
 }
 
 #BookingList_title {

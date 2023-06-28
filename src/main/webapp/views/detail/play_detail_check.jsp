@@ -1,6 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
+<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
+<script src="<%= contextPath %>/js/script_common.js"></script>
+<script src="<%=contextPath%>/js/yelin/detailList.js"></script>
+<script>
+let rsvNo = '';
+let esNo = '';
+$(document).ready(function() {
+	rsvNo = '<%= request.getAttribute("RsvNo").toString()%>';
+	esNo = '<%= request.getAttribute("EsNo").toString()%>';
+	orderNo = '<%= request.getAttribute("OrderNo").toString()%>';
+});
+
+function checkCancelDetailLogin() {
+	if (rsvNo.trim() != '') { 
+		cancelDetailLogin('1');
+	} else {
+		cancelDetailLogin('2');
+	}
+}
+</script>
 <title>STAGEMATE</title>
 </head>
 <body>
@@ -14,10 +34,9 @@
 			<p id="notice">예매 취소 진행을 위해 재로그인합니다.</p>
 			
 			<input type="password" id="check_pw" placeholder=" 비밀번호 입력">
-			
 			<div class="password_btn">
 						<input type="button" class="cancel_btn" onclick="history.back()" value="돌아가기">
-						<input type="button" class="check_btn" value="확인"> 
+						<input type="button" class="check_btn" onclick="checkCancelDetailLogin()" value="확인"> 
 						
 	</div>
 			
@@ -96,5 +115,5 @@
 
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
-<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
+
 </html>

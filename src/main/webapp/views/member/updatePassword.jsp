@@ -2,7 +2,57 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
  <%@ page import="java.util.List,com.stagemate.review.model.vo.EventReview" %>  
+  <%@ page import="java.util.List,com.stagemate.member.model.vo.Member" %> 
+=======
+>>>>>>> refs/heads/yelin
 <title>패스워드 변경</title>
+<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
+<script src="<%= contextPath %>/js/script_common.js"></script>
+<% 
+	Member memberInfo = (Member)request.getAttribute("MemberInfo");
+%>
+<script>
+	function cancelDetailLogin(type) {
+		let reqData = {};
+		let url = '';
+		const password_new = $('#password_new').val().trim();
+		const password_chk = $('#password_chk').val().trim();
+		
+		if (password_new === '' || password_chk === '') {
+			alert('비밀번호를 입력해주세요.');
+			return;
+		}
+		
+		if (password_new !== password_chk) {
+			alert('비밀번번호 확인이 맞지 않습니다.');
+			return;
+		}
+
+		reqData['memberId'] = $('#memberId').val().trim();
+	    reqData['password'] = password_new;
+	    
+		url = getContextPath() + "/member/UpdatePasswordServiceServlet";	
+		$.ajax({
+			type: "post",
+			url: url,
+			data: reqData,
+			dataType: "text",
+			success: (data) => {
+				if (data === "1") {
+					alert("비밀번호가 변경됐습니다.");
+				} else {
+					alert("비밀번호가 변경되지 않습니다.");
+				}
+				window.close();
+			},
+			error:(response, status, error) => {
+				if (response.status === 500) {
+					alert("code:" + response.status + "\n" + "message:" + response.responseText + "\n" + "error:" + error);
+				}
+			}
+		});
+	}
+</script>
 </head>
 <body>
 
@@ -13,10 +63,10 @@
 		<p id="notice">비밀번호는 8~15자리 영문 대/소문자,<br>숫자, 특수문자를 조합해서 입력해주세요.</p>
 		<form name="updatePwdFrom" action="" method="post">
 			<tr>
-				<td><input type="text" name="password" id="password" value="qwerty1110" readonly></td>
+				<td><input type="text" name="id" id="memberId" value="<%=memberInfo.getMemberId() %>" readonly></td>
 			</tr>
 			<tr>
-				<td><input type="text" name="password_new" id="password_new" 
+				<td><input type="password" name="password_new" id="password_new" 
 					placeholder="새 비밀번호" required></td>
 			</tr>
 			<tr>
@@ -26,7 +76,7 @@
 				</td>
 			</tr>
 		
-		<input type="button" class="update-btn" value="변경하기">
+		<input type="button" class="update-btn" onclick="cancelDetailLogin();" value="변경하기">
 		
 		</form>
 	
