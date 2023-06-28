@@ -4,9 +4,29 @@
 <%@ page import="java.util.List,com.stagemate.board.model.vo.Board"%>
 <%
 List<Board> boards = (List<Board>) request.getAttribute("board");
+String type = request.getParameter("searchType");
+String keyword = request.getParameter("searchKeyword");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <style>
+div#search_container {
+	margin: 0 0 10px 0;
+	padding: 3px;
+	background-color: rgba(0, 188, 212, 0.3);
+}
+
+div#search_title {
+	display: inline-block;
+}
+
+div#search_writer {
+	display: none;
+}
+
+div#search_content {
+	display: none;
+}
+
 .board_head_list {
 	margin-left: -0.2%;
 }
@@ -303,8 +323,8 @@ span {
 								<div class="top"></div>
 								<div class="num a">글번호</div>
 								<div class="title a">제목</div>
-								<div class="count a">조회수</div>
-								<div class="rec_num a">추천수</div>
+								<div class="count a">추천수</div>
+								<div class="rec_num a">조회수</div>
 								<div class="writer a">작성자</div>
 								<div class="date a">작성일자</div>
 							</div>
@@ -349,29 +369,59 @@ span {
 				<div class="bt_wrap">
 					<a href="<%=request.getContextPath()%>/board/boardWriteform.do"
 						class="on">작성</a>
-				</div>
-				<div class="extracontainer">
-					<form action="">
-						<select name="searchKeyword" id="">
-							<option value="title">제목</option>
-							<option value="writer">작성자</option>
-							<option value="content">내용</option>
-						</select>
-						<div>
-							<div id="store_search">
-								<input id="input_search_text" type="text"
-									placeholder="Search...">
-								<div id="search_button">
-									<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
+					
+					<div class="extracontainer">
+							<select id="searchType">
+								<option value="title"
+									<%=type != null && type.equals("title") ? "selected" : ""%>>제목</option>
+								<option value="writer"
+									<%=type != null && type.equals("writer") ? "selected" : ""%>>작성자</option>
+								<option value="content"
+									<%=type != null && type.equals("content") ? "selected" : ""%>>내용</option>
+							</select>
+							<div id="search_title">
+								<form action="<%=request.getContextPath()%>/board/boardList">
+									<input type="hidden" name="searchType" value="title"> <input
+										type="text" name="searchKeyword" size="25"
+										placeholder="검색할 아이디를 입력하세요"
+										value="<%=type != null && type.equals("title") ? keyword : ""%>">
+									<button type="submit">검색</button>
+								</form>
+							</div>
+							<div id="search_writer">
+								<form action="<%=request.getContextPath()%>/board/boardList">
+									<input type="hidden" name="searchType" value="writer">
+									<input type="text" name="searchKeyword" size="25"
+										placeholder="검색할 이름을 입력하세요"
+										value="<%=type != null && type.equals("writer") ? keyword : ""%>">
+									<button type="submit">검색</button>
+								</form>
+							</div>
+							<div id="search_content">
+								<form action="<%=request.getContextPath()%>/board/boardList">
+									<input type="hidden" name="searchType" value="search_content">
+									<input type="text" name="searchKeyword" size="25"
+										placeholder="검색할 이름을 입력하세요"
+										value="<%=type != null && type.equals("content") ? keyword : ""%>">
+									<button type="submit">검색</button>
+								</form>
+							</div>
+							<div>
+								<div id="store_search">
+									<input id="input_search_text" type="text"
+										placeholder="Search...">
+									<div id="search_button">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
                         <path
-											d="M21.5 23.25L13.625 15.375C13 15.875 12.2812 16.2708 11.4688 16.5625C10.6562 16.8542 9.79167 17 8.875 17C6.60417 17 4.6825 16.2133 3.11 14.64C1.5375 13.0667 0.750833 11.145 0.75 8.875C0.75 6.60417 1.53667 4.6825 3.11 3.11C4.68333 1.5375 6.605 0.750833 8.875 0.75C11.1458 0.75 13.0675 1.53667 14.64 3.11C16.2125 4.68333 16.9992 6.605 17 8.875C17 9.79167 16.8542 10.6562 16.5625 11.4688C16.2708 12.2812 15.875 13 15.375 13.625L23.25 21.5L21.5 23.25ZM8.875 14.5C10.4375 14.5 11.7658 13.9529 12.86 12.8588C13.9542 11.7646 14.5008 10.4367 14.5 8.875C14.5 7.3125 13.9529 5.98417 12.8588 4.89C11.7646 3.79583 10.4367 3.24917 8.875 3.25C7.3125 3.25 5.98417 3.79708 4.89 4.89125C3.79583 5.98542 3.24917 7.31333 3.25 8.875C3.25 10.4375 3.79708 11.7658 4.89125 12.86C5.98542 13.9542 7.31333 14.5008 8.875 14.5Z"
-											fill="white" />
+												d="M21.5 23.25L13.625 15.375C13 15.875 12.2812 16.2708 11.4688 16.5625C10.6562 16.8542 9.79167 17 8.875 17C6.60417 17 4.6825 16.2133 3.11 14.64C1.5375 13.0667 0.750833 11.145 0.75 8.875C0.75 6.60417 1.53667 4.6825 3.11 3.11C4.68333 1.5375 6.605 0.750833 8.875 0.75C11.1458 0.75 13.0675 1.53667 14.64 3.11C16.2125 4.68333 16.9992 6.605 17 8.875C17 9.79167 16.8542 10.6562 16.5625 11.4688C16.2708 12.2812 15.875 13 15.375 13.625L23.25 21.5L21.5 23.25ZM8.875 14.5C10.4375 14.5 11.7658 13.9529 12.86 12.8588C13.9542 11.7646 14.5008 10.4367 14.5 8.875C14.5 7.3125 13.9529 5.98417 12.8588 4.89C11.7646 3.79583 10.4367 3.24917 8.875 3.25C7.3125 3.25 5.98417 3.79708 4.89 4.89125C3.79583 5.98542 3.24917 7.31333 3.25 8.875C3.25 10.4375 3.79708 11.7658 4.89125 12.86C5.98542 13.9542 7.31333 14.5008 8.875 14.5Z"
+												fill="white" />
                     </svg>
+									</div>
 								</div>
 							</div>
-						</div>
-					</form>
+						</form>
+					</div>
 				</div>
 				<div class="page-bar">
 					<%=request.getAttribute("pageBar")%>
@@ -387,14 +437,13 @@ span {
 <script src="<%=contextPath%>/js/script_common.js"></script>
 <!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 <script>
-$("#search_button").click(function(){
-	var keyword = $("#input_search_text").val();
-	var option = $("select[name='searchKeyword']").val();
-	var url = '<%=request.getContextPath()%>
-	/board/boardList.do?searchKeyword='
-								+ option + '&searchText=' + keyword;
-						location.href = url;
-					});
+	$("#search_button").click(function(){
+		var keyword = $("#input_search_text").val();
+		var option = $("select[name='searchKeyword']").val();
+		var url = '<%=request.getContextPath()%>/board/boardList.do?searchKeyword='	+ option + '&searchText=' + keyword;
+		
+		location.href = url;
+	});
 </script>
 <!-------------------------------------------->
 </body>

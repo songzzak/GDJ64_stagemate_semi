@@ -87,27 +87,11 @@ table#tbl_comment button.btn_reply {
 	display: none;
 }
 
-table#tbl_comment button.btn_delete {
-	display: none;
-}
-
-table#tbl_comment button.btn_update {
-	display: none;
-}
-
 table#tbl_comment tr:hover {
 	background: lightgray;
 }
 
 table#tbl_comment tr:hover button.btn_reply {
-	display: inline;
-}
-
-table#tbl_comment tr:hover button.btn_delete {
-	display: inline;
-}
-
-table#tbl_comment tr:hover button.btn_update {
 	display: inline;
 }
 
@@ -261,9 +245,9 @@ a {
 						<th>작성일</th>
 						<th><%=b.getBoardDate()%></th>
 						<th>조회수</th>
-						<th><%=b.getBoardViewCNT()%></th>
-						<th>추천수</th>
 						<th><%=b.getBoardLikeCNT()%></th>
+						<th>추천수</th>
+						<th><%=b.getBoardViewCNT()%></th>
 						<th><img style="width: 20; height: 20px;" id="thumbs"
 							src="<%=request.getContextPath()%>/images/jangheum/thumbs.svg"></th>
 					</tr>
@@ -276,9 +260,9 @@ a {
 			<div>
 				<hr color=#000000>
 				<div class="bt_wrap">
-					<a href="#" class="on">신고</a> <a href="#" class="on">수정</a> <a
-						href="<%=request.getContextPath()%>/board/boardDelete.do"
-						class="on">삭제</a>
+					<a href="#" class="on">신고</a> 
+					<a href="#" class="on">수정</a> 
+					<a href='<%=request.getContextPath()%>/board/boardDelete.do?no=<%=b.getBoardNo()%>' class="on">삭제</a>
 				</div>
 				<div class="bt_list">
 					<a href="<%=request.getContextPath()%>/board/boardList.do"
@@ -291,9 +275,8 @@ a {
 							method="post">
 							<textarea name="cmtContent" cols="55" rows="3"></textarea>
 							<input type="hidden" name="boardRef" value="<%=b.getBoardNo()%>">
-							<input type="hidden" name="level" value="1"> <input
-								type="hidden" name="cmtWriter"
-								value="<%=loginMember != null ? loginMember.getMemberId() : ""%>">
+							<input type="hidden" name="level" value="1"> 
+							<input type="hidden" name="cmtWriter" value="<%=loginMember != null ? loginMember.getMemberId() : ""%>">
 							<input type="hidden" name="cmtRef" value="0">
 							<button type="submit" id="btn_insert">등록</button>
 						</form>
@@ -307,17 +290,17 @@ a {
 					%>
 					<tr class="level1">
 						<td><sub class="comment_writer"><%=bc.getCmtWriter()%></sub>
-							<sub class="comment_date"><%=bc.getCmtDate()%></sub> <br> <%=bc.getCmtContent()%>
+							<sub class="comment_date"><%=bc.getCmtDate()%></sub> 
+							<br> <%=bc.getCmtContent()%>
 						</td>
 						<td>
 							<%
 							if (loginMember != null) {
 							%>
 							<button class="btn_reply" value="<%=bc.getCmtNo()%>">답글</button>
-							<button class="btn_delete">삭제</button> 
-							<%
- 							}
-							 %>
+							 <%
+							}
+							%>
 						</td>
 					</tr>
 					<%

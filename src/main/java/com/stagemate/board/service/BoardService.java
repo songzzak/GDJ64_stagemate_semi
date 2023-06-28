@@ -1,6 +1,7 @@
 package com.stagemate.board.service;
 
 import static com.stagemate.common.JDBCTemplate.close;
+import static com.stagemate.common.JDBCTemplate.*;
 import static com.stagemate.common.JDBCTemplate.commit;
 import static com.stagemate.common.JDBCTemplate.getConnection;
 import static com.stagemate.common.JDBCTemplate.rollback;
@@ -30,9 +31,17 @@ public class BoardService {
 		return result;
 	}
 
-	public Board selectBoardByNo(int no) {
+	public Board selectBoardByNo(int no, boolean isRead) {
 		Connection conn = getConnection();
 		Board b = dao.selectBoardByNo(conn, no);
+		if (b!= null&&!isRead) {
+			int result = dao.updateBoardViewCNT(conn, no);
+			if (result > 0) {
+				commit(conn);
+				b.setBoardViewCNT(b.getBoardViewCNT() + 1);
+			} else
+				rollback(conn);
+		}
 		close(conn);
 		return b;
 	}
@@ -50,8 +59,11 @@ public class BoardService {
 		return 0;
 	}
 
-	public int deleteBoard(int no) {
-		return 0;
+	public int deleteBoard(int boardNo) {
+		Connection conn=getConnection();
+		int result=dao.deleteBoard(conn,boardNo);
+		close(conn);
+		return result;
 	}
 
 	public List<Board> selectBoardById(String id) {
@@ -77,5 +89,21 @@ public class BoardService {
 		List<BoardComment> list = dao.selectBoardComment(conn, boardNo);
 		close(conn);
 		return list;
+	}
+
+	public List<Board> selectBoardByKeyword(String type, String keyword, int cPage, int numPerpage) {
+		Connection conn = getConnection();
+		List<Board> boards = dao.selectBoardByKeyword(conn, type, keyword, cPage, numPerpage);
+		close(conn);
+		return boards;
+
+	}
+
+	public int selectBoardByKeywordCount(String type, String keyword) {
+		Connection conn = getConnection();
+		int count = dao.selectBoardByKeywordCount(conn, type, keyword);
+		close(conn);
+		return count;
+
 	}
 }
