@@ -1,8 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
+<%@ page import="java.util.List,com.stagemate.board.model.vo.Board"%>
+<%
+ Board b=(Board)request.getAttribute("board");
+%>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <style>
+input[type="text"] {
+    margin-right: 78%;
+}
+input.on {
+    height: 50px;
+    width: 50px;
+    background-color: white;
+}
 .board_title {
 	margin-top: 5%;
 	margin-bottom: 10%;
@@ -10,7 +22,6 @@
 
 .board_title hr {
 	width: 100%;
-	/* text-align: right; */
 	margin-left: 5%;
 }
 
@@ -45,8 +56,6 @@ div#boardwrite {
 	margin-top: -8%;
 }
 
-
-
 a {
 	text-decoration: none;
 	color: black;
@@ -72,6 +81,7 @@ td {
 	justify-content: flex-end;
 	margin-bottom: 5%;
 }
+
 #filecontainer {
 	display: flex;
 	margin-left: 3%;
@@ -83,14 +93,14 @@ input#file-upload-button {
 </style>
 
 <!---------------------------------------->
-<title>게시글 수정</title>
+<title>게시글 작성</title>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
 	<!-----------   아래에서 HTML 작업  ----------->
 	<section class="min1280px">
 		<div class="max1280px">
-			<body>
+			<form action="">
 				<div class="board_title">
 					<strong>STAGEMATE</strong>
 					<hr>
@@ -98,30 +108,30 @@ input#file-upload-button {
 				</div>
 				<div id="boardwrite">
 					<table border="1" width=500>
+					<tr>
+						<th width=50>작성자</th>
+						<td colspan="2" height=50>
+							<input type="text" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():"" %>" readonly>	
+						</td>
+					</tr>
 						<tr>
 							<th width=80>제목</th>
-							<td colspan="2" height=50><textarea placeholder="수정중..."
-									style="width: 100%; height: 100%"></textarea>
+							<td colspan="2" height=50><textarea 
+									style="width: 100%; height: 100%" name="title" value="<%=b.getBoardTitle()%>"></textarea></td>
 						</tr>
 						<tr>
-							<th width=80>파일첨부</th>
-							<td colspan="2" height=50><div id="filecontainer">
-									<form action="" method="post" enctype="mulipart/form-data">
-										<input type="file" name="upfile" multiple> <input
-											type="submit" value="업로드">
-						</tr>
-						<tr>
-							<td colspan="2" height=400><textarea placeholder="수정수정"
-									style="width: 100%; height: 100%"></textarea></td>
+							<td colspan="2" height=400>
+							<textarea style="width: 100%; height: 100%" name="content" value="<%=b.getBoardContent()%>"></textarea>
+							</td>
 						</tr>
 					</table>
 					<div class="bt_wrap">
-						<a href="#" onclick="window.open('boardList.jsp')" class="on">취소</a> 
-						<a href="#" onclick="window.open('boardList.jsp')" class="on">완료</a>
+						<input type=submit class="on" value="취소"> 
+						<input type=submit class="on" value="완료"> 
 					</div>
+						</form>
 
 				</div>
-			</body>
 		</div>
 	</section>
 	<!-----------   위에서 HTML 작업  ----------->

@@ -260,7 +260,8 @@ a {
 			<div>
 				<hr color=#000000>
 				<div class="bt_wrap">
-					<a href="#" class="on">신고</a> <a href="#" class="on">수정</a> 
+					<a href="#" class="on">신고</a> 
+					<a href="<%=request.getContextPath()%>/board/boardModify.do?no=<%=b.getBoardNo() %>" class="on">수정</a> 
 					<a href="<%=request.getContextPath()%>/board/boardDelete.do?no=<%=b.getBoardNo()%>"class="on">삭제</a>
 				</div>
 				<div class="bt_list">
@@ -274,9 +275,8 @@ a {
 							method="post">
 							<textarea name="cmtContent" cols="55" rows="3"></textarea>
 							<input type="hidden" name="boardRef" value="<%=b.getBoardNo()%>">
-							<input type="hidden" name="level" value="1"> <input
-								type="hidden" name="cmtWriter"
-								value="<%=loginMember != null ? loginMember.getMemberId() : ""%>">
+							<input type="hidden" name="level" value="1"> 
+							<input type="hidden" name="cmtWriter" value="<%=loginMember != null ? loginMember.getMemberId() : ""%>">
 							<input type="hidden" name="cmtRef" value="0">
 							<button type="submit" id="btn_insert">등록</button>
 						</form>
@@ -358,6 +358,7 @@ a {
 	<%-- const count=(boardNo)=>{
 		location.href="<%=contextPath%>/board/boardCount.do?boardNo="+boardNo
 	} --%>
+	
 	
 	
 </script>

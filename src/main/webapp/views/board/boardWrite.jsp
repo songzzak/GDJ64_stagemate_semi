@@ -120,8 +120,8 @@ input#file-upload-button {
 									style="width: 100%; height: 100%" name="title"></textarea></td>
 						</tr>
 						<tr>
-							<td colspan="2" height=400><textarea
-									placeholder="내용을 입력하세요." style="width: 100%; height: 100%" name="content"></textarea>
+							<td colspan="2" height=400>
+							<textarea placeholder="내용을 입력하세요." style="width: 100%; height: 100%" name="content"></textarea>
 							</td>
 						</tr>
 					</table>
