@@ -109,6 +109,25 @@ public int insertQna(Connection conn, Qna q) {
 	}
 	return result;
 }
+
+public int updateQna(Connection conn, Qna q) {
+	PreparedStatement pstmt=null;
+	int result=0;
+	try {
+		pstmt=conn.prepareStatement(sql.getProperty("updateQna"));
+		pstmt.setString(1,  q.getInquiryTitle());
+		pstmt.setString(2,  q.getInquiryContent());
+		pstmt.setInt(3, q.getInquiryNo());
+		result=pstmt.executeUpdate();
+	}
+	catch(SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
+	}
+	return result;
+}
+
 public int selectQnaSquence(Connection conn) {
 	PreparedStatement pstmt=null;
 	ResultSet rs= null;
