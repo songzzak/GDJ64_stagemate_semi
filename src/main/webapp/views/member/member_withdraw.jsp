@@ -29,8 +29,8 @@
 							<li class="li1"><a href="<%=request.getContextPath()%>/store/selectCartList.do?id=<%=loginMember.getMemberId()%>">장바구니</a></li>
 							<li class="li1">구매내역
 								<ul>
-									<li class="li2"><a href="#">구매상세내역</a></li>
-									<li class="li2"><a href="#">리뷰 작성</a></li>
+									<li class="li2"><a href="<%=request.getContextPath()%>/Detail/DetailListServlet.do?id=<%=loginMember.getMemberId()%>">구매상세내역</a></li>
+									<li class="li2"><a href="<%=request.getContextPath()%>/Review/ReviewListServlet.do?id=<%=loginMember.getMemberId()%>">리뷰 작성</a></li>
 								</ul>
 							</li>
 							<li class="li1">내가 쓴 글
