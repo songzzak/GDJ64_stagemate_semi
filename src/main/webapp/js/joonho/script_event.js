@@ -125,15 +125,19 @@ var marker = new kakao.maps.Marker({
 // 지도에 마커를 표시합니다
 marker.setMap(map);
 
-// 지도에 클릭 이벤트를 등록합니다
-// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-    
-    // 클릭한 위도, 경도 정보를 가져옵니다 
+var mapTypeControl = new kakao.maps.MapTypeControl();
+
+// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+var zoomControl = new kakao.maps.ZoomControl();
+map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
        
     
 });
-})
+
 window.onload = function() { buildCalendar(); }    // 웹 페이지가 로드되면 buildCalendar 실행
 
 let nowMonth = new Date();  // 현재 달을 페이지를 로드한 날의 달로 초기화
