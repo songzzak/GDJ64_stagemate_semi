@@ -1,4 +1,4 @@
-package com.stagemate.review.controller;
+package com.stagemate.detail.model.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,22 +11,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.stagemate.detail.model.service.PlayListService;
+import com.stagemate.detail.model.service.StoreListService;
+import com.stagemate.detail.model.vo.DetailInfo;
+import com.stagemate.detail.model.vo.DetailTicketList;
+import com.stagemate.detail.model.vo.StoreDetailInfo;
 import com.stagemate.member.model.vo.Member;
-import com.stagemate.review.model.vo.PlaySearch;
-import com.stagemate.review.model.vo.ReviewPlay;
-import com.stagemate.review.model.vo.ReviewStore;
-import com.stagemate.review.model.vo.StoreSearch;
-import com.stagemate.review.service.ReviewService;
 
+import com.google.gson.Gson;
 
-@WebServlet("/Review/ReviewWritePlay_Title")
-public class ReviewWritePlayTitleServlet extends HttpServlet {
+/**
+ * Servlet implementation class PlayDetailInfoServlet
+ */
+@WebServlet("/Detail/StoreDetailCancelInfoServlet")
+public class StoreDetailCancelInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String LOGIN_MEMBER = "loginMember";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewWritePlayTitleServlet() {
+    public StoreDetailCancelInfoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,28 +40,20 @@ public class ReviewWritePlayTitleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String type = request.getParameter("type");
+		String checkNo = request.getParameter("orderNo");
+
 		String userId = "";
 		HttpSession session = ((HttpServletRequest) request).getSession();
-		Object obj = session.getAttribute("loginMember");
+		Object obj = session.getAttribute(LOGIN_MEMBER);
 		if (obj != null) {
 			Member member = (Member)obj;
 			userId = member.getMemberId();
 		}
 		
-		List<PlaySearch> playSearch = new ArrayList<>(); 
-		List<StoreSearch> storeSearch = new ArrayList<>();
-		if (type.equals("1")) {
-			playSearch = new ReviewService().selectPlaySearch(userId);
-		} else {
-			storeSearch = new ReviewService().selectStoreSearch(userId);
-		}	
-		request.setAttribute("PlaySearch", playSearch);
-		request.setAttribute("StoreSearch", storeSearch );
+		StoreDetailInfo storeDetailInfo = new StoreListService().selectStoreDetailInfo(userId, checkNo);
+		request.setAttribute("StoreDetailInfo", storeDetailInfo);
 		
-		request.getRequestDispatcher("/views/review/ReviewWritePlay_Title.jsp")
-		.forward(request, response);
-		
+		request.getRequestDispatcher("/views/detail/play_store_refund.jsp").forward(request, response);  
 	}
 
 	/**
@@ -68,3 +65,6 @@ public class ReviewWritePlayTitleServlet extends HttpServlet {
 	}
 
 }
+
+
+

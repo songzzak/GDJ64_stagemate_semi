@@ -9,11 +9,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StoreDetail {
+public class StoreDetailInfo {
 	private String orderNo;
-	private String productNm;
-	private int totalPrice;
-	private String orderDate;
 	private String orderStatus;
-	
+	private int totalPirce;
+	private int orderAMT;
+	private String orderDate;
+	private String productTitle;
+	private String productNm;
+	private int productPrice;
+	private String imgFileRename;	
 }

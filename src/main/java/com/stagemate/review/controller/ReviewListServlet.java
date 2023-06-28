@@ -15,13 +15,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.stagemate.review.model.vo.EventReview;
+import com.stagemate.detail.model.service.PlayListService;
+import com.stagemate.detail.model.service.StoreListService;
+import com.stagemate.detail.model.vo.Detail;
+import com.stagemate.detail.model.vo.StoreDetail;
+import com.stagemate.member.model.vo.Member;
+import com.stagemate.review.model.vo.ReviewPlay;
+import com.stagemate.review.model.vo.ReviewStore;
+import com.stagemate.review.service.ReviewService;
 
 
 @WebServlet("/Review/ReviewListServlet.do")
 public class ReviewListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String LOGIN_MEMBER = "loginMember"; 
        
  
     public ReviewListServlet() {
@@ -31,38 +40,67 @@ public class ReviewListServlet extends HttpServlet {
     
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// DB conn
-		// pstmt 쿼리를 작성
-		// rs
-		Connection conn=null; 
-		PreparedStatement pstmt=null; 
-		ResultSet rs=null;
-		List<EventReview> list=new ArrayList(); //만들어놓은 Review 클래스에 있는 값만 들어가는 새로운 List를 만드는 것. 
-		try {
-			conn=getConnection();  //DB 접속
-			String sql= "SELECT EVENT_REVIEW_TB.*,MEMBER.MEMBER_NM, EVENT.EVENT_NAME,EVENT_ORDER_TB.WATCH_DT "
-					+ "FROM EVENT_REVIEW_TB "
-					+ "JOIN MEMBER ON EVENT_REVIEW_TB.MEMBER_ID=MEMBER.MEMBER_ID "
-					+ "JOIN EVENT_ORDER_TB ON EVENT_ORDER_TB.RSV_NO=EVENT_REVIEW_TB.RSV_NO "
-					+ "JOIN EVENT ON EVENT_ORDER_TB.EVENT_NO=EVENT.EVENT_NO "; //실행할 쿼리
-			pstmt=conn.prepareStatement(sql); //실행 준비
-			rs=pstmt.executeQuery(); //드디어 쿼리 실행 결과를 rs에 담는다. 
-			
-			
-			while (rs.next()) {
-				System.out.println(rs);
-				list.add(getReviewList(rs));
-			}
+		int cPage = 1;
+		int numPerpage = 10;
+		String userId = "";
+		HttpSession session = ((HttpServletRequest) request).getSession();
+		Object obj = session.getAttribute(LOGIN_MEMBER);
+		if (obj != null) {
+			Member member = (Member)obj;
+			userId = member.getMemberId();
+		}
 		
-		 rs.close();
-		 pstmt.close();
-         conn.close();
-      } catch (SQLException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-		request.setAttribute("ReviewList", list);
+		List<ReviewPlay> reviewPlay = new ReviewService().selectPlayReviewCondition(userId, 1, 10);
+		request.setAttribute("ReviewPlay", reviewPlay);
+		List<ReviewStore> reviewStore  = new ReviewService().selectStoreReviewCondition(userId, 1, 10);
+		request.setAttribute("ReviewStore", reviewStore );
+		
+		int totalCount = new ReviewService().selectPlayReviewCount(userId);
+		request.setAttribute("TotalCount", totalCount );
+		String pageBar="";
+		if (totalCount > 0) {
+			int totalPage=(int)Math.ceil((double)totalCount/numPerpage);
+			int pageBarSize=5;
+			int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
+			int pageEnd=pageNo+pageBarSize-1;
+			String left_double_arrow = String.format("<img src='%s'>", request.getContextPath() + "/images/joonho/left_double_arrow.svg");
+			String left_arrow = String.format("<img src='%s'>", request.getContextPath() + "/images/joonho/left_arrow.svg");
+			String right_double_arrow = String.format("<img src='%s'>", request.getContextPath() + "/images/joonho/right_double_arrow.svg");
+			String right_arrow = String.format("<img src='%s'>", request.getContextPath() + "/images/joonho/right_arrow.svg");
+			if(pageNo==1) {
+				pageBar+="<span>"+left_double_arrow+"</span>";
+			}else {
+				pageBar+="<a class='page-link' onclick=\"searchList('1', 1, 10)\">"+left_double_arrow+"</a>";
+			}
+			if(cPage==1) {
+				pageBar+="<span>"+left_arrow+"</span>";
+			}else {
+				pageBar+="<a class='page-link' onclick=\"searchList('1', " + (cPage-1) + "1, 10)\">"+left_arrow+"</a>";
+			}
+			pageBar+="<div>";
+			while(!(pageNo>pageEnd||pageNo>totalPage)) {
+				if(pageNo==cPage) {
+					pageBar+="<span>"+pageNo+"</span>";
+				}else {
+					pageBar+="<a class='page-link' onclick=\"searchList('1', " + pageNo + "1, 10)\">"+pageNo+"</a>";
+				}
+				pageNo++;
+			}
+			pageBar+="</div>";
+			if(cPage==totalPage) {
+				pageBar+="<span>"+right_arrow+"</span>";
+			}else {
+				pageBar+="<a class='page-link' onclick=\"searchList('1', " + (cPage+1) + "1, 10)\">"+right_arrow+"</a>";
+			}
+			
+			if(pageNo>totalPage) {
+				pageBar+="<span>"+right_double_arrow+"</span>";
+			}else {
+				pageBar+="<a class='page-link' onclick=\"searchList('1', " + pageNo + "1, 10)\">"+right_double_arrow+"</a>";
+			}
+		}
+		request.setAttribute("pageBar", pageBar);
+		
 		request.getRequestDispatcher("/views/review/ReviewList.jsp").forward(request, response);
 	}
 
@@ -72,18 +110,6 @@ public class ReviewListServlet extends HttpServlet {
 		
 	}
 	
-	private EventReview getReviewList(ResultSet rs) throws SQLException{
-		return EventReview.builder()
-				.eventName(rs.getString("EVENT_NAME"))
-				.rpNo(rs.getInt("RP_NO"))
-				.rpContent(rs.getString("RP_CONTENT"))
-				.rpDate(rs.getDate("RP_DATE"))
-				.rsvNo(rs.getString("RSV_NO"))
-				.imojiCd(rs.getInt("IMOJI_CD"))
-				.memberId(rs.getString("MEMBER_ID"))
-				.watchDt(rs.getDate("WATCH_DT"))
-				.build(); 
-				
-	}
+	
 
 }

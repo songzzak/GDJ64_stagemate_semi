@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PlaySearch {
-	private String rsvNo;
-	private String eventNm;
-	private String esDate;
+public class StoreSearch {
+	private String orderNo;
+	private String productName;
+	private String orderDate;
 }

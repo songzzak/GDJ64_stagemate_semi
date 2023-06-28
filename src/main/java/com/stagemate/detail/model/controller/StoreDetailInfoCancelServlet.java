@@ -1,32 +1,40 @@
-package com.stagemate.review.controller;
+package com.stagemate.detail.model.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.stagemate.admin.service.AdminService;
+import com.stagemate.detail.model.service.PlayListService;
+import com.stagemate.detail.model.service.StoreListService;
+import com.stagemate.detail.model.vo.ResponseSearch;
+import com.stagemate.detail.model.vo.Detail;
+import com.stagemate.detail.model.vo.StoreDetail;
 import com.stagemate.member.model.vo.Member;
-import com.stagemate.review.model.vo.PlaySearch;
-import com.stagemate.review.model.vo.ReviewPlay;
-import com.stagemate.review.model.vo.ReviewStore;
-import com.stagemate.review.model.vo.StoreSearch;
-import com.stagemate.review.service.ReviewService;
+import com.stagemate.member.service.MemberService;
+import com.google.gson.Gson;
 
-
-@WebServlet("/Review/ReviewWritePlay_Title")
-public class ReviewWritePlayTitleServlet extends HttpServlet {
+/**
+ * Servlet implementation class PlayListSearchServlet
+ */
+@WebServlet("/Detail/StoreDetailInfoCancelServlet")
+public class StoreDetailInfoCancelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String LOGIN_MEMBER = "loginMember";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewWritePlayTitleServlet() {
+    public StoreDetailInfoCancelServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,28 +43,28 @@ public class ReviewWritePlayTitleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String type = request.getParameter("type");
+		String orderNo = request.getParameter("orderNo");
+		Boolean result = false;
+		
 		String userId = "";
 		HttpSession session = ((HttpServletRequest) request).getSession();
-		Object obj = session.getAttribute("loginMember");
+		Object obj = session.getAttribute(LOGIN_MEMBER);
 		if (obj != null) {
 			Member member = (Member)obj;
 			userId = member.getMemberId();
 		}
 		
-		List<PlaySearch> playSearch = new ArrayList<>(); 
-		List<StoreSearch> storeSearch = new ArrayList<>();
-		if (type.equals("1")) {
-			playSearch = new ReviewService().selectPlaySearch(userId);
-		} else {
-			storeSearch = new ReviewService().selectStoreSearch(userId);
-		}	
-		request.setAttribute("PlaySearch", playSearch);
-		request.setAttribute("StoreSearch", storeSearch );
+		if (!userId.equals("")) {
+			int detailCancel = 0;
+			detailCancel = new StoreListService().selectStoreDetailInfoCancel(userId, orderNo);
+			if (detailCancel > 0) {
+				result = true;
+			}
+		}
 		
-		request.getRequestDispatcher("/views/review/ReviewWritePlay_Title.jsp")
-		.forward(request, response);
-		
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.print(result);
 	}
 
 	/**
@@ -68,3 +76,6 @@ public class ReviewWritePlayTitleServlet extends HttpServlet {
 	}
 
 }
+
+
+

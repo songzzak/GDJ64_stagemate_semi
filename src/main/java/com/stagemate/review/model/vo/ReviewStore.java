@@ -1,7 +1,5 @@
 package com.stagemate.review.model.vo;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PlaySearch {
-	private String rsvNo;
-	private String eventNm;
-	private String esDate;
+
+public class ReviewStore {
+	private String reviewNo;
+	private String productNm;
+	private String reviewContent;
+	private String reviewDate;
+	private String orderDate;
 }

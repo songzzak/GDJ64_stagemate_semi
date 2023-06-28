@@ -1,17 +1,17 @@
-<%@page import="com.stagemate.review.model.vo.StoreReview"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <link rel="stylesheet" href="<%=contextPath%>/css/yelin/ReviewList.css">
-<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
- <%@ page import="java.util.List,com.stagemate.review.model.vo.EventReview" %>  
+ <%@ page import="java.util.List,com.stagemate.review.model.vo.ReviewPlay" %>  
+  <%@ page import="java.util.List,com.stagemate.review.model.vo.ReviewStore" %> 
 <title>STAGEMATE</title>
 </head>
 <body>
-<%
-//reviewPlay 정보 가져와야 한다. 
-   	List<EventReview> reviews = (List)request.getAttribute("ReviewList");
-	List<StoreReview> storeReviews = (List)request.getAttribute("storeReview");
+<% //reviewPlay 정보 가져와야 한다. 
+   List<ReviewPlay> reviewPlay = (List)request.getAttribute("ReviewPlay");
+%>
+<%  
+   List<ReviewStore> reviewStore = (List)request.getAttribute("ReviewStore");
 %>
 	<%@ include file="/views/common/header.jsp"%>
 	<section class="min1280px">
@@ -25,10 +25,28 @@
 
 
 				<ul class="btnsBox" style="padding: 30px 0pc 0px 0px;">
-					<li><button class="BLbtn" id="ps_play_btn">예매</button></li>
-					<li><button class="BLbtn" id="ps_store_btn">스토어</button></li>
+					<li><button class="BLbtn active" id="ps_play_btn"
+							onclick="change_btn(event)">예매</button></li>
+					<li><button class="BLbtn" id="ps_store_btn"
+							onclick="change_btn(event)">스토어</button></li>
 				</ul>
-				
+
+
+				<script>
+					function change_btn(e) {
+						var btns = document.querySelectorAll(".BLbtn");
+						btns.forEach(function(btn, i) {
+							if (e.currentTarget == btn) {
+								btn.classList.add("active");
+							} else {
+								btn.classList.remove("active");
+							}
+						});
+						console.log(e.currentTarget);
+					}
+				</script>
+
+
 				<div class="ReviewList_play">
 					<table class="PlayReview_List">
 						<colgroup>
@@ -39,64 +57,72 @@
 						</colgroup>
 						<thead>
 							<tr>
-								<th scope="col"><%=reviews!=null?"공연명":"상품명"%></th>
+								<th scope="col">제품명</th>
 								<th scope="col">한줄평</th>
 								<th scope="col">작성일</th>
-								<th scope="col"><%=reviews!=null?"예매일":"구매일"%></th>
+								<th scope="col">예매일</th>
 							</tr>
 						</thead>
 						<tbody>
-						<%if(reviews!=null){ 
-							for (EventReview r: reviews) {%>
-								<tr>
-								<td class="book_no"></td>
-								<td class="book_no"></td>
-								<td class="book_no"></td>
-								<td class="book_no"></td>
-							</tr>
-							<button class="write_Playreview" onclick="location.assign('<%=request.getContextPath()%>/Review/ReviewWritePlay.do')">리뷰작성</button>
-							
-							<%}
-						}else{
-							for (StoreReview r: storeReviews) {%>
+						<% for (ReviewPlay r: reviewPlay) {%>
 							<tr>
-								<td class="book_no"><%= r.getReviewProduct().getProductNm() %></td>
-								<td class="book_no"><%= r.getReviewContent() %></td>
-								<td class="book_no"><%= r.getReviewDt() %></td>
-								<td class="book_no"></td>
+								<td class="book_no"><%= r.getEventNm() %></td>
+								<td class="book_no"><%= r.getErvConTent() %></td>
+								<td class="book_no"><%= r.getErvDate() %></td>
+								<td class="book_no"><%= r.getRsvDate()%></td>
 							</tr>
-							
-							<% }
-							}%>
+						<% }%>
 						</tbody>
 					</table>
 
 					<!-- <input type="button" class="write_Playreview" value="리뷰 작성"> -->
-					<button class="write_Playreview" onclick="location.assign('<%=request.getContextPath()%>/Review/ReviewWritePlay.do')">리뷰작성</button>
+					<button class="write_Playreview" onclick="reviewWritePage('1');">리뷰작성</button>
 
 				</div>
 
-
-
-
-
+				<div class="ReviewList_store">
+					<table class="StoreReview_List">
+						<colgroup>
+							<col style="width: 260px">
+							<col style="width: 450px">
+							<col style="width: 160px">
+							<col style="width: 160px">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">예매명</th>
+								<th scope="col">한줄평</th>
+								<th scope="col">작성일</th>
+								<th scope="col">구매일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% for (ReviewStore r: reviewStore) {%>
+							<tr>
+								<td class="book_no"><%= r.getProductNm() %></td>
+								<td class="book_no"><%= r.getReviewContent() %></td>
+								<td class="book_no"><%= r.getReviewDate() %></td>
+								<td class="book_no"><%= r.getOrderDate() %></td>
+							</tr>
+							<% }%>
+						</tbody>
+					</table>
+			
+					<button class="write_Storereview" onclick="reviewWritePage('2');">리뷰작성</button>
+				</div>
+			</div>
 		<!-- 페이징바 -->
-		<div class="page-bar">
-			<%=request.getAttribute("pageBar") %>
+		<div id="page">
+			<div class="pageBar">
+				<%=request.getAttribute("pageBar") %>
+			</div>
 		</div>
 
 	</section>
-	<script>
-		$(()=>{
-			if(<%=reviews!=null%>){
-				$("#ps_play_btn").addClass("active");
-			}else{
-				$("#ps_store_btn").addClass("active");
-			}
-		})
-	</script>
+
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
-
+<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
+<script src="<%= contextPath %>/js/script_common.js"></script>
 <script src="<%=contextPath%>/js/yelin/ReviewList.js"></script>
 </html>

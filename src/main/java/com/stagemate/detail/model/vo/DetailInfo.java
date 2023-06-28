@@ -9,11 +9,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Detail {
+public class DetailInfo {
 	private String rsvNo;
-	private String eventName;
+	private String esNo;
 	private String rsvDate;
-	private String esDate;
+	private int rsvPirce;
+	private String memberId;
+	private String memberNm;
 	private String orderStatus;
 	private String tickets;
+	private String eventName;
+	private String fileName;
+	private String location;
 }

@@ -11,8 +11,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PlaySearch {
+
+public class ReviewPlay {
+	private String ervNo;
+	private String ervConTent;
+	private String memberId;
+	private String ervDate;
 	private String rsvNo;
+	private String memberNm;
 	private String eventNm;
-	private String esDate;
+	private String rsvDate;
 }

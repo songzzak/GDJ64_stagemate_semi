@@ -3,7 +3,19 @@
 <%@ include file="/views/common/top.jsp"%>
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/yelin/play/style_ReviewWrite_play.css">
+<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
+<script src="<%= contextPath %>/js/script_common.js"></script>
+<script src="<%=contextPath%>/js/yelin/ReviewList.js"></script>
+<script src="<%=contextPath%>/js/yelin/play/ReviewWrite_play.js"></script>
 <title>STAGEMATE</title>
+<script>
+var rsvNo = '';
+function sendData(arr){
+	rsvNo = arr[0];
+	$('#RD_txt').val(arr[1]);
+	$('#result').text(arr[2]);
+}
+</script>
 </head>
 <body>
 <%@ include file="/views/common/header.jsp"%>
@@ -27,7 +39,7 @@
 						<div class="RB_btngroup">
 							<div class="RB_searchbtn">
 								<input type="text" id="RD_txt">
-								<button onclick="SearchPlayTitle();">검색</button>
+								<button onclick="searchPlayTitle();">검색</button>
 							</div>
 							<div class="RB_info" style="margin-top: 20px">
 								<div>
@@ -38,23 +50,23 @@
 							</div>
 							<div class="RB-reac-rate">
 								<input type="radio" name="emoticon" id="smile-emo"
-									class="emo-radio" value=""> <label for="smile-emo">
+									class="emo-radio" value="1"> <label for="smile-emo">
 									<img src="<%=contextPath%>/images/yelin/smile.png"
 									style="width: 25px; height: 25px;" alt="">
 								</label> <input type="radio" name="emoticon" id="wow-emo"
-									class="emo-radio" value=""> <label for="wow-emo">
+									class="emo-radio" value="2"> <label for="wow-emo">
 									<img src="<%=contextPath%>/images/yelin/wow.png"
 									style="width: 25px; height: 25px;" alt="">
 								</label> <input type="radio" name="emoticon" id="sad-emo"
-									class="emo-radio" value=""> <label for="sad-emo">
+									class="emo-radio" value="3"> <label for="sad-emo">
 									<img src="<%=contextPath%>/images/yelin/sad.png"
 									style="width: 25px; height: 25px;" alt="">
 								</label><input type="radio" name="emoticon" id="bad-emo"
-									class="emo-radio" value=""> <label for="bad-emo">
+									class="emo-radio" value="4"> <label for="bad-emo">
 									<img src="<%=contextPath%>/images/yelin/bad.png"
 									style="width: 25px; height: 25px;" alt="">
 								</label><input type="radio" name="emoticon" id="none-emo"
-									class="emo-radio" value=""> <label for="none-emo">
+									class="emo-radio" value="5"> <label for="none-emo">
 									<img src="<%=contextPath%>/images/yelin/none.png"
 									style="width: 25px; height: 25px;" alt="">
 								</label>
@@ -63,24 +75,32 @@
 					</div>
 					<textarea class="RB-textarea" cols="100" rows="9" maxlength="300"
 						placeholder="관람후기를 남겨보세요!" style="resize: none;"></textarea>
-
+					<!-- 
 					<div class="RD_util_right">
 						<div class="RD-txtgroup">
 							<span class="current_length" style="font-weight: 500">0</span> <span
 								class="limit_length" style="font-weight: 350;">/300</span>
 						</div>
 					</div>
+					 -->
 					<div class="RD-list-box">
 						<button type="button" class="RD-list-btn" onclick="location.assign('<%=request.getContextPath()%>/Review/ReviewListServlet.do')">목록</button>
-						<button type="submit" class="RD-comment-btn">등록</button>
+						<button type="submit" class="RD-comment-btn" onclick="revieWritePlay();">등록</button>
 					</div>
 			</div>
 		</div>
 	
 		<script>
+
         //상품명 검색 팝업 
-   		const SearchPlayTitle=()=>{
-	   		const childWindow=open("<%=request.getContextPath()%>/Review/SearchTitle.do","_blank","width=650,height=300");
+   		const searchPlayTitle=()=>{
+	   		let childWindow=open("<%=request.getContextPath()%>/Review/ReviewWritePlay_Title?type=1","_blank","width=650,height=600");
+	   		/*$(childWindow).on('popupValueSelected', function(event, value) {
+	   			if (value.length > 0) {
+	   				$('#result').text('상품명: ' + value[1]);
+		            rsvNo = value[0];
+	   			}
+          	});*/
    		}
 	   
     	</script>
@@ -88,6 +108,4 @@
 	</section>
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
-<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
-<script src="<%=contextPath%>/js/yelin/play/ReviewWrite_play.js"></script>
 </html>

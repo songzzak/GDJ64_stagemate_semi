@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
-<%-- <%@ page import="java.util.List,com.stagemate.member.model.vo.Member"%> --%>
-<%-- <%
-List<Member> members = (List) request.getAttribute("member");
-%> --%>
+<%@ page import="java.util.List,com.stagemate.admin.model.vo.PlayInfo"%>
+<%
+List<PlayInfo> playInfos = (List) request.getAttribute("playinfo");
+%>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/joonho/style_admin_membermanage.css">
@@ -127,16 +127,20 @@ List<Member> members = (List) request.getAttribute("member");
 								</tr>
 							</thead>
 							<tbody>
+		                     <%
+		                     for (PlayInfo p : playInfos) {
+		                     %>
 								<tr>
-									<td class="book_no">S123910481</td>
-									<td class="book_no">kimdogung</td>
-									<td class="book_no">010-1111-2222</td>
-									<td class="book_no">2023-05-20</td>
-									<td class="book_no">kimdogung@naver.com</td>
-									<td class="book_no">예매완료</td>
+									<td class="book_no"><%=p.getRsvNo()%></td>
+									<td class="book_no"><%=p.getMemberId()%></td>
+									<td class="book_no"><%=p.getMemberPhone()%></td>
+									<td class="book_no"><%=p.getRsvDate()%></td>
+									<td class="book_no"><%=p.getMemberEmail()%></td>
+									<td class="book_no"><%=p.getOrderStatus()%></td>
 									<td><button class="play-mg-detail" 
-									onclick="SearchPlayInfo()">정보</button></td>
+									onclick="SearchPlayInfo('<%=p.getMemberId()%>')">정보</button></td>
 								</tr>
+								<%} %>
 							</tbody>
 						</table>
 					</div>
@@ -217,43 +221,7 @@ List<Member> members = (List) request.getAttribute("member");
 				</div>
 			</div>
 
-			<!-- 페이징바 -->
-			<div class="page-bar">
-				<svg class="arrow-left" width="30" height="31" viewBox="0 0 30 31"
-					fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-						d="M21.9873 23.4766L23.7498 21.7141L18.0248 15.9766L23.7498 10.2391L21.9873 8.47656L14.4873 15.9766L21.9873 23.4766Z"
-						fill="black" />
-                <path
-						d="M13.75 23.4766L15.5125 21.7141L9.7875 15.9766L15.5125 10.2391L13.75 8.47656L6.25 15.9766L13.75 23.4766Z"
-						fill="black" />
-            </svg>
-				<svg class="double-arrow-left" width="30" height="31"
-					viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-						d="M19.2625 21.7141L13.5375 15.9766L19.2625 10.2391L17.5 8.47656L10 15.9766L17.5 23.4766L19.2625 21.7141Z"
-						fill="black" />
-            </svg>
-				<a class="page-num select">1</a> <a class="page-num">2</a> <a
-					class="page-num">3</a>
-				<svg class="arrow-right" width="30" height="31" viewBox="0 0 30 31"
-					fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-						d="M10.7375 10.2391L16.4625 15.9766L10.7375 21.7141L12.5 23.4766L20 15.9766L12.5 8.47656L10.7375 10.2391Z"
-						fill="black" />
-            </svg>
-				<svg class="double-arrow-right" width="30" height="31"
-					viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-						d="M8.0127 8.47656L6.2502 10.2391L11.9752 15.9766L6.2502 21.7141L8.0127 23.4766L15.5127 15.9766L8.0127 8.47656Z"
-						fill="black" />
-                <path
-						d="M16.25 8.47656L14.4875 10.2391L20.2125 15.9766L14.4875 21.7141L16.25 23.4766L23.75 15.9766L16.25 8.47656Z"
-						fill="black" />
-            </svg>
-
-			</div>
-
+			
 
 		</div>
 
@@ -293,8 +261,8 @@ List<Member> members = (List) request.getAttribute("member");
 
 		<script>
         //상품명 검색 팝업 
-   		const SearchPlayInfo=()=>{
-	   		const childWindow=open("<%=request.getContextPath()%>/admin/SalesPlayInfo.do","_blank","width=1100,height=670");
+   		const SearchPlayInfo=(userId)=>{
+	   		const childWindow=open("<%=request.getContextPath()%>/admin/SalesPlayInfo.do?userId="+userId,"_blank","width=1100,height=670");
    		}
 	   
    		const SearchStoreInfo=()=>{
@@ -304,13 +272,11 @@ List<Member> members = (List) request.getAttribute("member");
 
 
 
-		</div>
 	</section>
 	<!-----------   위에서 HTML 작업  ----------->
 	<%@ include file="/views/common/footer.jsp"%>
 	<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 	<script src="<%=contextPath%>/js/script_common.js"></script>
-	<!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 	<script src="<%=contextPath%>/js/yelin/salesDetail.js"></script>
 	<!-------------------------------------------->
 </body>

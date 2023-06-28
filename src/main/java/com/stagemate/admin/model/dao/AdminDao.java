@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.Properties;
 
 import com.stagemate.common.MemberGenerator;
+import com.stagemate.admin.model.vo.PlayInfo;
+import com.stagemate.common.AESEncryptor;
+import com.stagemate.detail.model.vo.EventOrder;
+import com.stagemate.event.model.vo.Event;
 import com.stagemate.member.model.vo.Member;
 
 public class AdminDao {
@@ -123,5 +127,115 @@ public class AdminDao {
 				// .proImgNo(rs.getInt(""))
 				.build();
 	}
+	
+	//관리자페이지 예매내역 조회 playInfo
+	public List<PlayInfo> playInfo(Connection conn){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<PlayInfo> infos = new ArrayList<>();
+		try { 
+			String query = "SELECT EVENT_ORDER_TB.RSV_NO, EVENT_ORDER_TB.ORDER_STATUS, EVENT_ORDER_TB.RSV_DATE, MEMBER_TB.MEMBER_ID, MEMBER_TB.MEMBER_EMAIL, MEMBER_TB.MEMBER_PHONE "
+					+ "FROM EVENT_ORDER_TB "
+					+ "INNER JOIN MEMBER_TB ON MEMBER_TB.MEMBER_ID = EVENT_ORDER_TB.MEMBER_ID ";
 
+			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				PlayInfo m = getPlayInfoDTO(rs);
+				infos.add(m);
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			close(rs);
+			close(pstmt);
+
+		}
+
+		return infos;
+	}	
+	public static PlayInfo getPlayInfoDTO(ResultSet rs) throws SQLException {
+		
+		String phone="";
+		String email="";
+		try {
+			phone=AESEncryptor.decrypt(rs.getString("MEMBER_PHONE"));
+		}catch(Exception e) {
+			phone=rs.getString("MEMBER_PHONE");
+		}
+		try {
+			email=AESEncryptor.decrypt(rs.getString("MEMBER_EMAIL"));
+		}catch(Exception e) {
+			email=rs.getString("MEMBER_EMAIL");
+		}
+		
+		return PlayInfo.builder()
+				.memberId(rs.getString("MEMBER_ID"))
+				.rsvNo(rs.getString("RSV_NO"))
+				.memberPhone(phone)
+				.rsvDate(rs.getString("RSV_DATE"))
+				.memberEmail(email)
+				.orderStatus(rs.getString("ORDER_STATUS"))
+				.build();
+	}
+	
+
+	
+	public List<EventOrder> selectEventOrder(Connection conn,String userId){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<EventOrder> eventOrder = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectEventOrder"));
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				eventOrder.add(getEventOrder(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return eventOrder;
+	}
+	
+	private EventOrder getEventOrder(ResultSet rs) throws SQLException{
+		String phone="",email="";
+		try {
+			phone=AESEncryptor.decrypt(rs.getString("member_phone"));
+		}catch(Exception e) {
+			phone=rs.getString("member_phone");
+		}
+		try {
+			email=AESEncryptor.decrypt(rs.getString("member_email"));
+		}catch(Exception e) {
+			email=rs.getString("member_email");
+		}
+		return EventOrder.builder()
+				.orderStatus(rs.getString("order_status"))
+				.paymentNo(rs.getString("payment_no"))
+				.rsv_price(rs.getInt("rsv_price"))
+				.rsvDate(rs.getDate("rsv_date"))
+				.rsvNo(rs.getString("rsv_no"))
+				.esDate(rs.getDate("es_date"))
+				.member(Member.builder()
+						.memberId(rs.getString("member_id"))
+						.memberNm(rs.getString("member_nm"))
+						.memberBdate(rs.getDate("member_bdate"))
+						.memberEmail(email)
+						.memberPhone(phone)
+						.memberAddress(rs.getString("member_address"))
+						.build()
+						)
+				.tcnt(rs.getInt("tcnt"))
+				.event(Event.builder()
+						.eventNm(rs.getString("event_nm"))
+						.build())
+				.build();
+		}
 }

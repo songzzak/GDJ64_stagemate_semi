@@ -1,4 +1,5 @@
-package com.stagemate.detail.model.vo;
+package com.stagemate.admin.model.vo;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +10,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Detail {
+public class PlayInfo {
+
 	private String rsvNo;
-	private String eventName;
-	private String rsvDate;
-	private String esDate;
 	private String orderStatus;
-	private String tickets;
+	private String rsvDate;
+	//event_order_tb
+	//member_tb
+	private String memberId;
+	private String memberPhone;
+	private String memberEmail;
+	
+
+
 }
