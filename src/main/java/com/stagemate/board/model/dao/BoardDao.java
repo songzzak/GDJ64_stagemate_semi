@@ -231,6 +231,7 @@ public class BoardDao {
 				.cmtContent(rs.getString("cmt_content"))
 				.boardRef(rs.getInt("board_ref"))
 				.cmtRef(rs.getInt("cmt_ref"))
+				.cmtDate(rs.getDate("cmt_date"))
 				.build();
 	}
 	
@@ -280,5 +281,24 @@ public class BoardDao {
 			close(rs);
 			close(pstmt);
 		}return result;
+	}
+
+	public List<BoardComment> selectBoardCommentById(Connection conn, String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<BoardComment> list = new ArrayList();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectBoardComment"));
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			while (rs.next())
+				list.add(getBoardComment(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
 	}
 }

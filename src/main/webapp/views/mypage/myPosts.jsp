@@ -3,9 +3,10 @@
 <link rel="stylesheet" href="<%=contextPath%>/css/yelin/store/style_shoppingBasket.css">
 <link rel="stylesheet" href="<%=contextPath%>/css/yoonjin/style_mypage_nav.css">
 <link rel="stylesheet" href="<%=contextPath%>/css/yoonjin/style_myPosts.css">
-<%@ page import="java.util.List,com.stagemate.board.model.vo.Board"%>
+<%@ page import="java.util.List,com.stagemate.board.model.vo.Board,com.stagemate.board.model.vo.BoardComment"%>
 <%
 List<Board> boards=(List)request.getAttribute("boards");
+List<BoardComment> comments=(List)request.getAttribute("comments");
 %>
 <title>My Page | 관심목록</title>
 </head>
@@ -83,7 +84,11 @@ List<Board> boards=(List)request.getAttribute("boards");
 	                			for(Board b:boards){%>
 		                	<tr>
 		                		<td><input type="checkbox" class="boardChkbox"></td>
-		                		<td style="text-align: center;"><%=b.getBoardTitle() %></td>
+		                		<td style="text-align: center;">
+			                		<a href="<%=contextPath%>/board/boardView.do?no=<%=b.getBoardNo()%>">
+			                			<%=b.getBoardTitle() %>
+			                		</a>
+		                		</td>
 		                		<td style="text-align: center;"><%=b.getBoardDate() %></td>
 		                		<td style="text-align: center;"><%=b.getBoardViewCNT() %></td>
 		                	</tr>
@@ -109,26 +114,31 @@ List<Board> boards=(List)request.getAttribute("boards");
 		                	</tr>
 	                	</thead>
 	                	<tbody>
+	                	<%if(comments.isEmpty()||comments==null){ %>
+	                		<tr><td colspan="2">작성된 댓글이 없습니다.</td></tr>
+	                	<%}else{ 
+	                		Board refBoard=null;
+	                			for(BoardComment c:comments){
+	                				for(Board b:boards){
+	                					if(b.getBoardNo()==c.getBoardRef()){
+	                						refBoard=b;
+	                					}
+	                				}
+	                			%>
 	                		<tr>
 	                			<td><input type="checkbox" class="commentChkbox"></td>
 	                			<td>
 	                				<div class="div_comment_td">
-	                					<p class=comment_content>comment comment comment comment comment<p>
-	                					<p class=comment_date>2023.05.24<p>
-	                					<p class=comment_ref_title>title title title title title title title <p>
+	                				<a href="<%=contextPath%>/board/boardView.do?no=<%=c.getBoardRef()%>">
+	                					<p class=comment_content><%=c.getCmtContent() %></p>
+	                					<p class=comment_date><%=c.getCmtDate() %></p>
+	                					<p class=comment_ref_title><%=refBoard.getBoardTitle() %> </p>
+	                				</a>
 	                				</div>
 	                			</td>
 	                		</tr>
-	                		<tr>
-	                			<td><input type="checkbox" class="commentChkbox"></td>
-	                			<td>
-	                				<div class="div_comment_td">
-	                					<p class=comment_content>comment comment comment comment comment<p>
-	                					<p class=comment_date>2023.05.24<p>
-	                					<p class=comment_ref_title>title title title title title title title <p>
-	                				</div>
-	                			</td>
-	                		</tr>
+	                		<%}
+		                	}%>
 	                	</tbody>
 	                </table>
 	                <div id="post-btnContainer">
