@@ -223,21 +223,9 @@ public class BoardDao {
 	}
 
 	private BoardComment getBoardComment(ResultSet rs) throws SQLException {
-<<<<<<< Upstream, based on dev
-		return BoardComment.builder()
-				.cmtNo(rs.getInt("cmt_no"))
-				.level(rs.getInt("cmt_level"))
-				.cmtWriter(rs.getString("cmt_writer"))
-				.cmtContent(rs.getString("cmt_content"))
-				.boardRef(rs.getInt("board_ref"))
-				.cmtRef(rs.getInt("cmt_ref"))
-				.cmtDate(rs.getDate("cmt_date"))
-				.build();
-=======
 		return BoardComment.builder().cmtNo(rs.getInt("cmt_no")).level(rs.getInt("cmt_level"))
 				.cmtWriter(rs.getString("cmt_writer")).cmtContent(rs.getString("cmt_content"))
 				.boardRef(rs.getInt("board_ref")).cmtRef(rs.getInt("cmt_ref")).build();
->>>>>>> 5a279fd 검색기능 구현 완료
 	}
 
 	public List<Board> selectBoardByKeyword(Connection conn, String type, String keyword, int cPage, int numPerpage) {
