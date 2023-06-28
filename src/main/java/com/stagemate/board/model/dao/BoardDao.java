@@ -222,11 +222,11 @@ public class BoardDao {
 		return list;
 	}
 
-		private BoardComment getBoardComment(ResultSet rs) throws SQLException {
-			return BoardComment.builder().cmtNo(rs.getInt("cmt_no")).level(rs.getInt("cmt_level"))
+	private BoardComment getBoardComment(ResultSet rs) throws SQLException {
+		return BoardComment.builder().cmtNo(rs.getInt("cmt_no")).level(rs.getInt("cmt_level"))
 				.cmtWriter(rs.getString("cmt_writer")).cmtContent(rs.getString("cmt_content"))
 				.boardRef(rs.getInt("board_ref")).cmtRef(rs.getInt("cmt_ref")).build();
-
+	
 	}
 
 	public List<Board> selectBoardByKeyword(Connection conn, String type, String keyword, int cPage, int numPerpage) {
