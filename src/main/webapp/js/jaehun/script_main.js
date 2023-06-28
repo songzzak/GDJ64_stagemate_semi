@@ -274,8 +274,9 @@ function slideBanners(data) {
     data.banners.forEach((banner, index) => {
         const path = getContextPath() + "/upload/joonho/" + banner.euRename;
         container.append(`
-        <li>
+        <li class="banner-link">
             <img src="${path}">
+            <input type="hidden" value="${banner.eventNo}">
         </li>
         `);
 
@@ -304,12 +305,12 @@ function slideBanners(data) {
 
         for (let index = 0; index < numOfbanners; index++) {
             const $li = $('<li>').css("width", "13%");
-            const $img = $('<img>').attr("src", getContextPath() + "/images/jaehun/main_page/banners/indicator_empty.svg")
+            const $img = $('<img>').attr("src", getContextPath() + "/images/jaehun/main_page/indicator_empty.svg")
                                     .css({ display: "block",
                                             width: "100%"});
 
             if ((index == currentIdx) || (index == 0 && currentIdx == numOfbanners)) {
-                $img.attr("src", getContextPath() + "/images/jaehun/main_page/banners/indicator_filled.svg");
+                $img.attr("src", getContextPath() + "/images/jaehun/main_page/indicator_filled.svg");
             }
 
             $li.append($img);
@@ -371,4 +372,13 @@ function slideBanners(data) {
     });
 };
 
+$(document).on("click", ".banner-link", (event) => {
+    if ($(event.target).prop("tagName") === "LI") {
+        location.assign(getContextPath() + "/event/eventView.do?no=" + $(event.target).find("input[type=hidden]").val());
+    }
+
+    if ($(event.target).prop("tagName") === "IMG") {
+        location.assign(getContextPath() + "/event/eventView.do?no=" + $(event.target).siblings("input[type=hidden]").val());
+    }
+});
 

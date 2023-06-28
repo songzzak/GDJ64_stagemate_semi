@@ -1,34 +1,22 @@
 {
   "banners": [
     {
-      "eventNm": "2023 이찬원 콘서트 - ONE DAY",
-      "euNo": "EU14",
-      "euRename": "lcw021021.jpg",
-      "eventNo": "EVN5"
-    },
-    {
-      "eventNm": "곤 투모로우",
-      "euNo": "EU93",
-      "euRename": "banner_tmrw2011.jpg",
-      "eventNo": "EVN14"
-    },
-    {
-      "eventNm": "보이A",
-      "euNo": "EU8",
-      "euRename": "banner3_resized.jpg",
-      "eventNo": "EVN3"
-    },
-    {
       "eventNm": "오페라의 유령",
       "euNo": "EU5",
       "euRename": "banner1_resized.jpg",
       "eventNo": "EVN2"
     },
     {
-      "eventNm": "수레바퀴 아래서",
-      "euNo": "EU90",
-      "euRename": "banner_20231212.png",
-      "eventNo": "EVN13"
+      "eventNm": "2023 이찬원 콘서트 - ONE DAY",
+      "euNo": "EU14",
+      "euRename": "lcw021021.jpg",
+      "eventNo": "EVN5"
+    },
+    {
+      "eventNm": "Xdinary Heroes 1st fanmeeting",
+      "euNo": "EU132",
+      "euRename": "banner_band211212.jpg",
+      "eventNo": "EVN32"
     }
   ]
 }
