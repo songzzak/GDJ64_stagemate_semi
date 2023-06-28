@@ -184,6 +184,8 @@ public class BoardDao {
 				.boardDate(rs.getDate("board_insert_dt")).build();
 	}
 
+	
+	//윤진작성
 	public List<Board> selectBoardById(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -283,6 +285,8 @@ public class BoardDao {
 		}return result;
 	}
 
+	
+	//윤진작성
 	public List<BoardComment> selectBoardCommentById(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

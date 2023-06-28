@@ -207,6 +207,24 @@ private QnaComment getQnaComment(ResultSet rs) throws SQLException{
 			.build();
 }
 
+//윤진작성
+public List<Qna> selectQnaById(Connection conn, String id) {
+	PreparedStatement pstmt = null;
+	ResultSet rs=null;
+	List<Qna> list= new ArrayList();
+	try {
+		pstmt= conn.prepareStatement(sql.getProperty("selectQnaById"));
+		pstmt.setString(1, id);
+		rs=pstmt.executeQuery();
+		while(rs.next()) list.add(getQna(rs));
+	}catch(SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(rs);
+		close(pstmt);
+	}return list;
+}
+
 
 
 }

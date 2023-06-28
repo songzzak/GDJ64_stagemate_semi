@@ -74,7 +74,9 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
-
+	
+	
+	//윤진작성
 	public List<Board> selectBoardById(String id) {
 		Connection conn = getConnection();
 		List<Board> list = dao.selectBoardById(conn, id);
@@ -114,6 +116,9 @@ public class BoardService {
 		close(conn);
 		return count;
 	}
+	
+	
+//윤진작성
 	public List<BoardComment> selectBoardCommentById(String id) {
 		Connection conn = getConnection();
 		List<BoardComment> list = dao.selectBoardCommentById(conn, id);
