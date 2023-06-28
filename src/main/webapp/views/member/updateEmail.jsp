@@ -1,8 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
- <%@ page import="java.util.List,com.stagemate.review.model.vo.EventReview" %>  
-<title>패스워드 변경</title>
+<%@ page import="java.util.List,com.stagemate.review.model.vo.EventReview" %>
+<%@ page import="java.util.List,com.stagemate.member.model.vo.Member" %>   
+<title>이메일 변경</title>
+<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
+<script src="<%= contextPath %>/js/script_common.js"></script>
+<% 
+	Member memberInfo = (Member)request.getAttribute("MemberInfo");
+%>
+<script>
+	function cancelDetailLogin(type) {
+		let reqData = {};
+		let url = '';
+		const email = $('#email').val().trim();
+		
+		if (email === '') {
+			alert('이메일을 입력해주세요.');
+			return;
+		}
+
+		reqData['memberId'] = '<%=memberInfo.getMemberId()%>';
+		reqData['email'] = email;
+			
+		url = getContextPath() + "/member/UpdateEmailServiceServlet";	
+		$.ajax({
+			type: "post",
+			url: url,
+			data: reqData,
+			dataType: "text",
+			success: (data) => {
+				if (data === "1") {
+					alert("이메일이 변경됐습니다.");
+				} else {
+					alert("이메일이 변경되지 않습니다.");
+				}
+				window.close();
+			},
+			error:(response, status, error) => {
+				if (response.status === 500) {
+					alert("code:" + response.status + "\n" + "message:" + response.responseText + "\n" + "error:" + error);
+				}
+			}
+		});
+	}
+</script>
 </head>
 <body>
 
@@ -13,13 +55,13 @@
 		<p id="notice">이메일 변경</p>
 		<form name="updatePhoneFrom" action="" method="post" >
 			<tr>
-				<td><input type="text" name="phone" id="phone"
-				placeholder="변경 비밀번호(-) 없이 입력" value=" ">
+				<td><input type="text" name="email" id="email"
+				placeholder="변경 이메일 입력" value=" ">
 				</td>
 			</tr>
 			
 		
-		<input type="button" class="update-btn" value="변경하기">
+		<input type="button" class="update-btn" onclick="cancelDetailLogin();" value="변경하기">
 		
 		</form>
 	

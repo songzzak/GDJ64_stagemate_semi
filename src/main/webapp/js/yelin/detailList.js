@@ -255,7 +255,7 @@ function cacelDetail(type) {
 			url = getContextPath() + "/Detail/StoreDetailInfoCancelServlet";
 		}
 		
-		/*$.ajax({
+		$.ajax({
 			type: "post",
 			url: url,
 			data: reqData,
@@ -266,7 +266,7 @@ function cacelDetail(type) {
 					if (type == '1') {
 						location.replace(getContextPath() + "/Detail/PlayDetailCancelRefoundFinServlet?rsvNo=" + rsvNo);
 					} else {
-						location.replace(getContextPath() + "/Detail/DetailListServlet.do);
+						location.replace(getContextPath() + "/Detail/DetailListServlet.do");
 					}
 				} else {
 					alert("취소할 수 없습니다.");
@@ -279,6 +279,6 @@ function cacelDetail(type) {
 			}
 		});
 	} else {
-		alert('동의 하기 체크 후 취소가 가능합니다.'); */
+		alert('동의 하기 체크 후 취소가 가능합니다.');
 	}
 }

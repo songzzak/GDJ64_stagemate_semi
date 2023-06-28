@@ -10,6 +10,7 @@
 <title>STAGEMATE</title>
 </head>
 <script>
+var orderNo ='';
 var productNo = '';
 $(document).ready(function() {
 	  $('#fileInput').click(function() {
@@ -34,6 +35,7 @@ $(document).ready(function() {
 
 function sendData(arr){
 	orderNo = arr[0];
+	productNo = arr[3];
 	$('#RS_txt').val(arr[1]);
 }
 </script>

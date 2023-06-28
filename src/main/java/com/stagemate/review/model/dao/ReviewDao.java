@@ -74,6 +74,7 @@ public class ReviewDao {
 		String formattedDate = dateFormat1.format(rs.getDate("ORDER_DATE"));
 		return StoreSearch.builder()
 				.orderNo(rs.getString("ORDER_NO"))
+				.productNo(rs.getString("PRODUCT_NO"))
 				.productName(rs.getString("PRODUCT_NM"))
 				.orderDate(formattedDate)
 				.build(); 
@@ -215,7 +216,7 @@ public class ReviewDao {
 		int result= 0;
 		try { 
 			String query = "SELECT COUNT(*) AS row_count "
-					+ "FROM STORE_REVIEW_TB A JOIN PRD_ORDER_TB B ON A.ORDER_NO=B.ORDER_NO JOIN PRD_ORDER_DETAIL_TB C ON B.ORDER_NO=C.ORDER_NO "
+					+ "FROM STORE_REVIEW_TB A JOIN PRD_ORDER_TB B ON A.ORDER_NO=B.ORDER_NO JOIN PRD_ORDER_DETAIL_TB C ON B.ORDER_NO=C.ORDER_NO AND A.PRODUCT_NO=C.PRODUCT_NO "
 					+ "JOIN PRODUCT_TB D ON C.PRODUCT_NO=D.PRODUCT_NO " 
 					+ "WHERE (A.MEMBER_ID = '" + userId + "')";
 	
@@ -246,7 +247,7 @@ public class ReviewDao {
 		ResultSet rs = null;
 		List<StoreSearch> result = new ArrayList();
 		try { 
-			String query = "SELECT A.ORDER_NO, C.PRODUCT_NM, A.ORDER_DATE "
+			String query = "SELECT A.ORDER_NO, B.PRODUCT_NO, C.PRODUCT_NM, A.ORDER_DATE "
 					+ "FROM PRD_ORDER_TB A JOIN PRD_ORDER_DETAIL_TB B ON A.ORDER_NO=B.ORDER_NO "
 					+ "JOIN PRODUCT_TB C ON B.PRODUCT_NO=C.PRODUCT_NO "
 					+ "WHERE A.ORDER_STATUS = '배송 완료' AND (MEMBER_ID = '" + userId + "')";
@@ -279,7 +280,7 @@ public class ReviewDao {
 		try { 
 			String query = "SELECT * FROM (SELECT A.REVIEW_NO, D.PRODUCT_NM, A.REVIEW_CONTENT, A.REVIEW_DT, B.ORDER_DATE, "
 					+ "ROW_NUMBER() OVER (ORDER BY B.ORDER_DATE DESC) AS RN "
-					+ "FROM STORE_REVIEW_TB A JOIN PRD_ORDER_TB B ON A.ORDER_NO=B.ORDER_NO JOIN PRD_ORDER_DETAIL_TB C ON B.ORDER_NO=C.ORDER_NO "
+					+ "FROM STORE_REVIEW_TB A JOIN PRD_ORDER_TB B ON A.ORDER_NO=B.ORDER_NO JOIN PRD_ORDER_DETAIL_TB C ON B.ORDER_NO=C.ORDER_NO  AND A.PRODUCT_NO=C.PRODUCT_NO "
 					+ "JOIN PRODUCT_TB D ON C.PRODUCT_NO=D.PRODUCT_NO "
 					+ "WHERE (A.REVIEW_WRITER = '" + userId + "')) ";
 			query +=  "WHERE (RN BETWEEN ? AND ?)";
@@ -308,20 +309,21 @@ public class ReviewDao {
 		return result;
 	}
 	
-	public int insertStoreReview(Connection conn, String userId, String orderNo, String fileName, String content, String emotion){
+	public int insertStoreReview(Connection conn, String userId, String orderNo, String fileName, String content, String emotion, String productNo){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int result = 0;
 		try { 
 			String query = "INSERT INTO STORE_REVIEW_TB "
-					+ "(REVIEW_NO, REVIEW_CONTENT, REVIEW_DT, ORDER_NO, IMOJI_CD, REVIEW_WRITER) "
-					+ "VALUES((SELECT NVL(MAX(REVIEW_NO), 0) + 1 FROM STORE_REVIEW_TB), ?, sysdate, ?, ?, ?)";
+					+ "(REVIEW_NO, REVIEW_CONTENT, REVIEW_DT, ORDER_NO, IMOJI_CD, REVIEW_WRITER, PRODUCT_NO) "
+					+ "VALUES((SELECT NVL(MAX(REVIEW_NO), 0) + 1 FROM STORE_REVIEW_TB), ?, sysdate, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, content);
 			pstmt.setString(2, orderNo);
 			pstmt.setString(3, emotion);
 			pstmt.setString(4, userId);
+			pstmt.setString(5, productNo);
 			
 			result = pstmt.executeUpdate();
 			

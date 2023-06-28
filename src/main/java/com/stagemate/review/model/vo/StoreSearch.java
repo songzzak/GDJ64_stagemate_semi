@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class StoreSearch {
 	private String orderNo;
+	private String productNo;
 	private String productName;
 	private String orderDate;
 }

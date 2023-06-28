@@ -49,6 +49,7 @@ public class InsertReviewWriteStoreServlet extends HttpServlet {
 		}
 		
 		String orderNo = request.getParameter("orderNo");
+		String productNo = request.getParameter("productNo");
         String content = request.getParameter("content");
         String emotion = request.getParameter("emotion");
         Part filePart = request.getPart("file");
@@ -67,7 +68,7 @@ public class InsertReviewWriteStoreServlet extends HttpServlet {
                 Files.copy(fileContent, new File(filePath).toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
         }
-		int result = new ReviewService().insertStoreReview(userId, orderNo, fileName, content, emotion);
+		int result = new ReviewService().insertStoreReview(userId, orderNo, fileName, content, emotion, productNo);
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(result);  

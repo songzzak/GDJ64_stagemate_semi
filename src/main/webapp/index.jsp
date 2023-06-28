@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp" %>
 <link rel="stylesheet" href="<%= contextPath %>/css/jaehun/style_main.css">
+
 <title>STAGEMATE</title>
 </head>
 <body>

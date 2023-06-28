@@ -37,7 +37,8 @@ function checkSuccess() {
     	 var orderNo = selectedRow.find('td:eq(1)').text();
          var productName = selectedRow.find('td:eq(2)').text();
          var orderDate = selectedRow.find('td:eq(3)').text();
-         var sendData = [orderNo, productName, orderDate]
+         var productNo = selectedRow.find('input[type="hidden"]').val();
+         var sendData = [orderNo, productName, orderDate, productNo]
      }
      
      window.opener.sendData(sendData);
@@ -91,7 +92,7 @@ function checkSuccess() {
 				<tr>
 					<td><input type="radio" name="rdoPlay"></td>
 					<td><%= r.getOrderNo() %></td>
-					<td><%= r.getProductName() %></td>
+					<td><%= r.getProductName() %><input type="hidden" value="<%= r.getProductNo() %>"></td>
 					<td><%= r.getOrderDate() %></td>
 				</tr>
 				<% }

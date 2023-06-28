@@ -82,12 +82,6 @@ List<PlayInfo> playInfos = (List) request.getAttribute("playinfo");
 					<div class="salesDetail_play">
 						<!-- 기간 조회 버튼  -->
 						<div class="SM-search-btn" style="padding: 10px 0px 0px 0px;">
-							<div class="datebox">
-								예매일자별 조회 <select class="btnbox3 btnbox-white3" id="year"
-									name="year"></select> <select class="btnbox3 btnbox-white3"
-									id="month" name="month"></select> <input type="submit"
-									class="btnbox3 btnbox-brown3" value="조회">
-							</div>
 						</div>
 						<!-- 아이디/예매번호로 검색 -->
 						<div class="SM-idsearch-btn" style="padding: 10px 0px 0px 0px;">
@@ -148,12 +142,6 @@ List<PlayInfo> playInfos = (List) request.getAttribute("playinfo");
 					<div class="salesDetail_store">
 						<!-- 기간 조회 버튼  -->
 						<div class="SM-search-btn" style="padding: 10px 0px 0px 0px;">
-							<div class="datebox">
-								예매일자별 조회 <select class="btnbox3 btnbox-white3" id="year"
-									name="year"></select> <select class="btnbox3 btnbox-white3"
-									id="month" name="month"></select> <input type="submit"
-									class="btnbox3 btnbox-brown3" value="조회">
-							</div>
 						</div>
 						<!-- 아이디/예매번호로 검색 -->
 						<div class="SM-idsearch-btn3" style="padding: 10px 3px 0px 0px;">
@@ -225,36 +213,7 @@ List<PlayInfo> playInfos = (List) request.getAttribute("playinfo");
 
 		</div>
 
-		<script>
-			$(document).ready(function() {
-				setDateBox();
-			});
-			function setDateBox() {
-				var date = new Date();
-				var year = date.getFullYear();
 
-				$("#year").append("<option value=''>년도</option>");
-				for (var y = 2021; y <= (year + 1); y++) {
-					$("#year")
-							.append(
-									"<option value='"+ y +"'>" + y + " 년"
-											+ "</option>");
-				}
-
-				$("#month").append("<option value=''>월</option>");
-				for (var i = 1; i <= 12; i++) {
-					if (String(i).length == '1') {
-						$("#month").append(
-								"<option value='"+"0" + i +"'>" + "0" + i + "월"
-										+ "</option>");
-					} else {
-						$("#month").append(
-								"<option value='"+ i +"'>" + i + "월"
-										+ "</option>");
-					}
-				}
-			}
-		</script>
 
 
 

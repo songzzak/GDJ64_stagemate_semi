@@ -73,9 +73,9 @@ public class ReviewService {
 		return result;
 	}
 	
-	public int insertStoreReview(String userId, String orderNo, String fileName, String content, String emotion){
+	public int insertStoreReview(String userId, String orderNo, String fileName, String content, String emotion, String productNo){
 		Connection conn=getConnection();
-		int result = dao.insertStoreReview(conn, userId, orderNo, fileName, content, emotion);
+		int result = dao.insertStoreReview(conn, userId, orderNo, fileName, content, emotion, productNo);
 		close(conn);
 		return result;
 	}	

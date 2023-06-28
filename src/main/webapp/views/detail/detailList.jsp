@@ -3,8 +3,10 @@
 <%@ include file="/views/common/top.jsp"%>
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/yelin/style_detailList.css">
+	<link rel="stylesheet" href="<%=contextPath%>/css/yoonjin/style_mypage_nav.css">
 <%@ page import="java.util.List,com.stagemate.detail.model.vo.Detail"%>
 <%@ page import="java.util.List,com.stagemate.detail.model.vo.StoreDetail"%>
+
 <title>STAGEMATE</title>
 </head>
 <body>
@@ -19,7 +21,43 @@
 	<%@ include file="/views/common/header.jsp"%>
 
 	<div class="BookList min1280px">
-		<div class=BookingList_bigchart>
+
+		<div class=BookingList_bigchart >
+				<div class=maincontainer>
+			<div id="mypage_nav">
+        		<div id="user_profile">
+                    <img src="<%=contextPath%>/images/yoonjin/information/default_profile.png" alt="user_profile_img" id="img_profile">
+        			<h5><%=loginMember.getMemberId() %> 님</h5>
+        			<p><%=loginMember.getMemberEmail() %><p>
+        		</div>
+        		<hr>
+        		<div id="user_nav">
+					<nav>   
+						<ul id="mypage_nav_ul">
+							<li class="li1"><a href="<%= request.getContextPath() %>/member/UpdateMember.do?userId=<%=loginMember.getMemberId()%>">내 정보 관리</a></li>
+							<li class="li1"><a href="<%= request.getContextPath() %>/mypage/wishList.do?userId=<%=loginMember.getMemberId()%>">관심목록</a></li>
+							<li class="li1"><a href="<%=request.getContextPath()%>/store/selectCartList.do?id=<%=loginMember.getMemberId()%>">장바구니</a></li>
+							<li class="li1">구매내역
+								<ul>
+									<li class="li2"><a href="<%=request.getContextPath()%>/Detail/DetailListServlet.do?id=<%=loginMember.getMemberId()%>">구매상세내역</a></li>
+									<li class="li2"><a href="<%=request.getContextPath()%>/Review/ReviewListServlet.do?id=<%=loginMember.getMemberId()%>">리뷰 작성</a></li>
+								</ul>
+							</li>
+							<li class="li1">내가 쓴 글
+								<ul>
+									<li class="li2"><a href="<%= request.getContextPath() %>/board/selectMyBoard.do?id=<%=loginMember.getMemberId()%>">커뮤니티</a></li>
+									<li class="li2"><a href="<%= request.getContextPath() %>/views/mypage/myInquiry.jsp">1:1문의</a></li>
+								</ul>
+							</li class="li1">
+							<li class="li1"><a href="<%= request.getContextPath() %>/views/member/member_withdraw.jsp">회원 탈퇴</a></li>
+						</ul>
+					</nav>
+        		</div>
+        		<div id="nav_btn_logout">
+        			<a href="<%= request.getContextPath() %>/member/logout.do" id="logout_btn_mypage">로그아웃</a>
+        		</div>
+			</div>
+			<div class="take">
 			<h1 id="BookingList_title">구매상세내역</h1>
 			<div class="division-line"></div>
 
@@ -65,14 +103,6 @@
 							<button name="filterDate1" class="perbtn" value="3"
 								onclick="search_btn(event)">3개월</button>
 
-							<!-- 기간검색 : 시작일 종료일로 리스트 조회  -->
-							<!-- 시작일<input type="text" name="startDate">
-							종료일<input type="text" name="endDate">
-							<button onclick="">검색</button>
-								
-						<script>
-							
-						</script> -->
 
 						</div>
 						<div class="datebox">
@@ -253,9 +283,9 @@
 				</div>
 			</div>
 		</div>
-		
+		</div>
 
-		
+		</div>
 
 	</div>
 	<%@ include file="/views/common/footer.jsp"%>

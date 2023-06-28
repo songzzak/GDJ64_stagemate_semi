@@ -79,6 +79,7 @@ function revieWriteStore() {
     var formData = new FormData();
     let emotion = $('input[name="emoticon"]:checked').val();
     formData.append('orderNo', orderNo);
+    formData.append('productNo', productNo);
     formData.append('file', file);
     formData.append('content', $('textarea').val().trim());
     formData.append('emotion', emotion);

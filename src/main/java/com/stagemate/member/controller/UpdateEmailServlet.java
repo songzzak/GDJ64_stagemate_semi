@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.stagemate.member.model.vo.Member;
 
 /**
  * Servlet implementation class UpdateEmailServlet
@@ -26,6 +29,16 @@ public class UpdateEmailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userId = "";
+		HttpSession session = ((HttpServletRequest) request).getSession();
+		Object obj = session.getAttribute("loginMember");
+		Member member = null;
+		if (obj != null) {
+			member = (Member)obj;
+			userId = member.getMemberId();
+		}
+		request.setAttribute("MemberInfo", member);
+		
 		request.getRequestDispatcher("/views/member/updateEmail.jsp").forward(request, response);
 	}
 
