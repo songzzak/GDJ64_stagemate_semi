@@ -78,12 +78,9 @@ public class NoticeDao {
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("insertNotice"));
-			
-			
-			
-		pstmt.setString(1, n.getNoticeContent());
-		pstmt.setString(2, n.getNoticeTitle());
-		pstmt.setString(3, n.getNoticeWriter());
+			pstmt.setString(1, n.getNoticeContent());
+			pstmt.setString(2, n.getNoticeTitle());
+			pstmt.setString(3, n.getNoticeWriter());
 		
 			result=pstmt.executeUpdate();
 			
