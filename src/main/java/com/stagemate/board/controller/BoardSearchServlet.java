@@ -44,7 +44,7 @@ public class BoardSearchServlet extends HttpServlet {
 				try {
 					numPerpage=Integer.parseInt(request.getParameter("numPerpage"));
 				}catch(NumberFormatException e) {
-					numPerpage=3;
+					numPerpage=10;
 				}
 				
 				List<Board> boards=new BoardService()
@@ -60,38 +60,47 @@ public class BoardSearchServlet extends HttpServlet {
 				int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 				int pageEnd=pageNo+pageBarSize-1;
 				
-				if(pageNo==1) {
-					pageBar+="<span>[이전]</span>";
-				}else {
-					pageBar+="<a href='"+request.getRequestURI()
-					+"?searchType="+type
-					+"&searchKeyword="+keyword
-					+"&cPage="+(pageNo-1)
-					+"&numPerpage="+numPerpage+"'>[이전]</a>";
+				String pageBar1 = "";
+				String left_double_arrow = String.format("<img src='%s'>",
+						request.getContextPath() + "/images/joonho/left_double_arrow.svg");
+				String left_arrow = String.format("<img src='%s'>", request.getContextPath() + "/images/joonho/left_arrow.svg");
+				String right_double_arrow = String.format("<img src='%s'>",
+						request.getContextPath() + "/images/joonho/right_double_arrow.svg");
+				String right_arrow = String.format("<img src='%s'>",
+						request.getContextPath() + "/images/joonho/right_arrow.svg");
+				if (pageNo == 1) {
+					pageBar1 += "<span>" + left_double_arrow + "</span>";
+				} else {
+					pageBar1 += "<a href='" + request.getRequestURI() + "?cPage=" + (pageNo - 1) + "'>" + left_double_arrow
+							+ "</a>";
 				}
-				
-				while(!(pageNo>pageEnd||pageNo>totalPage)) {
-					if(pageNo==cPage) {
-						pageBar+="<span>"+pageNo+"</span>";
-					}else {
-						pageBar+="<a href='"+request.getRequestURI()
-						+"?searchType="+type
-						+"&searchKeyword="+keyword
-						+"&cPage="+pageNo
-						+"&numPerpage="+numPerpage+"'>"+pageNo+"</a>";
+				if (cPage == 1) {
+					pageBar1 += "<span>" + left_arrow + "</span>";
+				} else {
+					pageBar1 += "<a href='" + request.getRequestURI() + "?cPage=" + (cPage - 1) + "'>" + left_arrow + "</a>";
+				}
+				pageBar1 += "<div>";
+				while (!(pageNo > pageEnd || pageNo > totalPage)) {
+					if (pageNo == cPage) {
+						pageBar1 += "<span>" + pageNo + "</span>";
+					} else {
+						pageBar1 += "<a href='" + request.getRequestURI() + "?cPage=" + pageNo + "'>" + pageNo + "</a>";
 					}
 					pageNo++;
 				}
-				if(pageNo>totalPage) {
-					pageBar+="<span>[다음]</span>";
-				}else {
-					pageBar+="<a href='"+request.getRequestURI()
-					+"?searchType="+type
-					+"&searchKeyword="+keyword
-					+"&cPage="+pageNo
-					+"&numPerpage="+numPerpage+"'>[다음]</a>";
+				pageBar1 += "</div>";
+				if (cPage == totalPage) {
+					pageBar1 += "<span>" + right_arrow + "</span>";
+				} else {
+					pageBar1 += "<a href='" + request.getRequestURI() + "?cPage=" + (cPage + 1) + "'>" + right_arrow + "</a>";
 				}
-				request.setAttribute("pageBar", pageBar);
+
+				if (pageNo > totalPage) {
+					pageBar1 += "<span>" + right_double_arrow + "</span>";
+				} else {
+					pageBar1 += "<a href='" + request.getRequestURI() + "?cPage=" + pageNo + "'>" + right_double_arrow + "</a>";
+				}
+				request.setAttribute("pageBar", pageBar1);
 				request.getRequestDispatcher("/views/board/boardList.jsp")
 				.forward(request, response);
 				
