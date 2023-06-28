@@ -75,6 +75,7 @@ a {
 	margin-top: -6%;
 	text-align: right;
 	font-size: 0;
+	margin-left: -3%;
 }
 
 .bt_wrap a.on {
@@ -371,44 +372,18 @@ span {
 						class="on">작성</a>
 					
 					<div class="extracontainer">
-							<select id="searchType">
-								<option value="title"
-									<%=type != null && type.equals("title") ? "selected" : ""%>>제목</option>
-								<option value="writer"
-									<%=type != null && type.equals("writer") ? "selected" : ""%>>작성자</option>
-								<option value="content"
-									<%=type != null && type.equals("content") ? "selected" : ""%>>내용</option>
-							</select>
-							<div id="search_title">
-								<form action="<%=request.getContextPath()%>/board/boardList">
-									<input type="hidden" name="searchType" value="title"> <input
-										type="text" name="searchKeyword" size="25"
-										placeholder="검색할 아이디를 입력하세요"
-										value="<%=type != null && type.equals("title") ? keyword : ""%>">
-									<button type="submit">검색</button>
-								</form>
-							</div>
-							<div id="search_writer">
-								<form action="<%=request.getContextPath()%>/board/boardList">
-									<input type="hidden" name="searchType" value="writer">
-									<input type="text" name="searchKeyword" size="25"
-										placeholder="검색할 이름을 입력하세요"
-										value="<%=type != null && type.equals("writer") ? keyword : ""%>">
-									<button type="submit">검색</button>
-								</form>
-							</div>
-							<div id="search_content">
-								<form action="<%=request.getContextPath()%>/board/boardList">
-									<input type="hidden" name="searchType" value="search_content">
-									<input type="text" name="searchKeyword" size="25"
-										placeholder="검색할 이름을 입력하세요"
-										value="<%=type != null && type.equals("content") ? keyword : ""%>">
-									<button type="submit">검색</button>
-								</form>
-							</div>
 							<div>
+									<form action="<%=request.getContextPath() %>/board/searchBoard.do" method="get" id="searchFrm" style="display:flex">
 								<div id="store_search">
-									<input id="input_search_text" type="text"
+									<select id="searchType" name="searchType">
+										<option value="BOARD_TITLE"
+											<%=type != null && type.equals("BOARD_TITLE") ? "selected" : ""%>>제목</option>
+										<option value="BOARD_WRITER"
+											<%=type != null && type.equals("BOARD_WRITER") ? "selected" : ""%>>작성자</option>
+										<option value="BOARD_CONTENT"
+											<%=type != null && type.equals("BOARD_CONTENT") ? "selected" : ""%>>내용</option>
+									</select>
+									<input id="input_search_text" type="text" name="searchKeyword"
 										placeholder="Search...">
 									<div id="search_button">
 										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -419,6 +394,7 @@ span {
                     </svg>
 									</div>
 								</div>
+									</form>
 							</div>
 						</form>
 					</div>
@@ -437,13 +413,34 @@ span {
 <script src="<%=contextPath%>/js/script_common.js"></script>
 <!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 <script>
-	$("#search_button").click(function(){
-		var keyword = $("#input_search_text").val();
-		var option = $("select[name='searchKeyword']").val();
-		var url = '<%=request.getContextPath()%>/board/boardList.do?searchKeyword='	+ option + '&searchText=' + keyword;
+	 $("#search_button").click(function(){
 		
-		location.href = url;
-	});
+		console.log($("input[name=searchKeyword]").val())
+		$("#searchFrm").submit();
+	}); 
+	
+	<%-- $(()=>{
+	       $("#searchType").change();
+	       $("#numPerpage").change(e=>{
+	          let url=location.href;
+	          if(url.includes("?")){
+	             url=url.substring(0,url.indexOf("?")+1)
+	             +'searchType=<%=type%>'
+	             +'&searchKeyword=<%=keyword%>'
+	             +'&cPage=<%=request.getParameter("cPage")!=null
+	                ?request.getParameter("cPage"):1%>'
+	             +'&numPerpage='+e.target.value;
+	          }else{
+	             url+='?';
+	             url+='cPage=<%=request.getParameter("cPage")!=null
+	             ?request.getParameter("cPage"):1%>'
+	             +'&numPerpage='+e.target.value;
+	          }
+	          //console.log(url);
+	          //url+='&numPerpage='+e.target.value;
+	          location.assign(url);
+	       });
+	    }) --%>
 </script>
 <!-------------------------------------------->
 </body>

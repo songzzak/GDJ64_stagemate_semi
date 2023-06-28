@@ -51,22 +51,21 @@ public class BoardDao {
 	}
 
 	public int boardCount(Connection conn, int boardNo, String memberId) {
-		PreparedStatement pstmt=null;
-		int result=0;
+		PreparedStatement pstmt = null;
+		int result = 0;
 		try {
-			pstmt=conn.prepareStatement(sql.getProperty("boardCount"));
+			pstmt = conn.prepareStatement(sql.getProperty("boardCount"));
 			pstmt.setInt(1, boardNo);
 			pstmt.setString(2, memberId);
-			result=pstmt.executeUpdate();
-		}catch (Exception e) {
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(pstmt);
 		}
 		return result;
 	}
-		
-	
+
 	public int selectBoardCount(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -115,7 +114,7 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("updateboardViewCNT"));
 			pstmt.setInt(1, no);
-			result=pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -140,17 +139,17 @@ public class BoardDao {
 		}
 		return result;
 	}
-	
+
 	public int deleteBoard(Connection conn, int boardNo) {
-		PreparedStatement pstmt=null;
-		int result =0;
+		PreparedStatement pstmt = null;
+		int result = 0;
 		try {
-			pstmt=conn.prepareStatement(sql.getProperty("deleteBoard"));
+			pstmt = conn.prepareStatement(sql.getProperty("deleteBoard"));
 			pstmt.setInt(1, boardNo);
-			result=pstmt.executeUpdate();
-		}catch(SQLException e) {
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(pstmt);
 		}
 		return result;
@@ -174,8 +173,6 @@ public class BoardDao {
 		}
 		return result;
 	}
-	
-	
 
 	private Board getBoard(ResultSet rs) throws SQLException {
 		return Board.builder().boardNo(rs.getInt("board_no")).boardTitle(rs.getString("board_title"))
@@ -226,63 +223,55 @@ public class BoardDao {
 	}
 
 	private BoardComment getBoardComment(ResultSet rs) throws SQLException {
-		return BoardComment.builder()
-				.cmtNo(rs.getInt("cmt_no"))
-				.level(rs.getInt("cmt_level"))
-				.cmtWriter(rs.getString("cmt_writer"))
-				.cmtContent(rs.getString("cmt_content"))
-				.boardRef(rs.getInt("board_ref"))
-				.cmtRef(rs.getInt("cmt_ref"))
-				.cmtDate(rs.getDate("cmt_date"))
-				.build();
+		return BoardComment.builder().cmtNo(rs.getInt("cmt_no")).level(rs.getInt("cmt_level"))
+				.cmtWriter(rs.getString("cmt_writer")).cmtContent(rs.getString("cmt_content"))
+				.boardRef(rs.getInt("board_ref")).cmtRef(rs.getInt("cmt_ref")).build();
 	}
-	
-	public List<Board> selectBoardByKeyword(
-			Connection conn, String type, String keyword
-			,int cPage, int numPerpage){
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		String query=sql.getProperty("selectBoardByKeyword");
-		query=query.replace("#COL", type);
-		List<Board> boards=new ArrayList();
+
+	public List<Board> selectBoardByKeyword(Connection conn, String type, String keyword, int cPage, int numPerpage) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = sql.getProperty("selectBoardByKeyword");
+		query = query.replace("#COL", type);
+		List<Board> boards = new ArrayList();
+		System.out.println(keyword);
 		try {
-			pstmt=conn.prepareStatement(query);
-			pstmt.setString(1,
-					type.equals("content")?keyword:"%"+keyword+"%");
-			pstmt.setInt(2,(cPage-1)*numPerpage+1);
-			pstmt.setInt(3, cPage*numPerpage);
-			rs=pstmt.executeQuery();
-			while(rs.next()) {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, type.equals("content") ? keyword : "%" + keyword + "%");
+			pstmt.setInt(2, (cPage - 1) * numPerpage + 1);
+			pstmt.setInt(3, cPage * numPerpage);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
 				boards.add(getBoard(rs));
 			}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rs);
 			close(pstmt);
-		}return boards;
+		}
+		return boards;
 	}
-	public int selectBoardByKeywordCount(
-			Connection conn, String type, String keyword) {
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		int result=0;
-		String query=sql.getProperty("selectBoardByKeywordCount")
-				.replace("#COL", type);
+
+	public int selectBoardByKeywordCount(Connection conn, String type, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		String query = sql.getProperty("selectBoardByKeywordCount").replace("#COL", type);
 		try {
-			pstmt=conn.prepareStatement(query);
-			pstmt.setString(1,type.equals("content")?keyword
-					:"%"+keyword+"%");
-			rs=pstmt.executeQuery();
-			if(rs.next()) {
-				result=rs.getInt(1);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, type.equals("content") ? keyword : "%" + keyword + "%");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
 			}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rs);
 			close(pstmt);
-		}return result;
+		}
+		return result;
 	}
 
 	
