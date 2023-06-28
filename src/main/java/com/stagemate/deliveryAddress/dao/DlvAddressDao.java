@@ -1,6 +1,7 @@
 package com.stagemate.deliveryAddress.dao;
 
-import static com.stagemate.common.JDBCTemplate.*;
+import static com.stagemate.common.JDBCTemplate.close;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.stagemate.common.AESEncryptor;
 import com.stagemate.common.PropertiesGenerator;
 import com.stagemate.deliveryAddress.model.vo.DlvAdress;
 
@@ -42,15 +44,21 @@ public class DlvAddressDao {
 	}
 
 	private DlvAdress getDlv(ResultSet rs) throws SQLException {
-		return DlvAdress.builder()
-				.dlvId(rs.getString("dlv_id"))
-				.memberId(rs.getString("member_id"))
-				.dlvPerson(rs.getString("dlv_person"))
-				.dlvNm(rs.getString("dlv_nm"))
-				.dlvPhone(rs.getString("dlv_phone"))
-				.dlvAddress(rs.getString("dlv_address"))
-				.isDefaultDlv(rs.getString("is_default_dlv").charAt(0))
-				.build();
+		DlvAdress dlvAdress = null;
+		try {
+			dlvAdress = DlvAdress.builder()
+					.dlvId(rs.getString("dlv_id"))
+					.memberId(rs.getString("member_id"))
+					.dlvPerson(rs.getString("dlv_person"))
+					.dlvNm(rs.getString("dlv_nm"))
+					.dlvPhone(AESEncryptor.decrypt(rs.getString("dlv_phone")))
+					.dlvAddress(rs.getString("dlv_address"))
+					.isDefaultDlv(rs.getString("is_default_dlv").charAt(0))
+					.build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dlvAdress;
 	}
 
 	public int insertDlvAddress(Connection conn, DlvAdress newAddress, int seqNo) {
@@ -62,11 +70,11 @@ public class DlvAddressDao {
 			pstmt.setString(2, newAddress.getMemberId());
 			pstmt.setString(3, newAddress.getDlvPerson());
 			pstmt.setString(4, newAddress.getDlvNm());
-			pstmt.setString(5, newAddress.getDlvPhone());
+			pstmt.setString(5, AESEncryptor.encrypt(newAddress.getDlvPhone()));
 			pstmt.setString(6, newAddress.getDlvAddress());
 			pstmt.setString(7, String.valueOf(newAddress.getIsDefaultDlv()));
 			result=pstmt.executeUpdate();
-		}catch(SQLException e) {
+		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -121,12 +129,12 @@ public class DlvAddressDao {
 			pstmt.setString(1, newAddress.getMemberId());
 			pstmt.setString(2, newAddress.getDlvPerson());
 			pstmt.setString(3, newAddress.getDlvNm());
-			pstmt.setString(4, newAddress.getDlvPhone());
+			pstmt.setString(4, AESEncryptor.encrypt(newAddress.getDlvPhone()));
 			pstmt.setString(5, newAddress.getDlvAddress());
 			pstmt.setString(6, String.valueOf(newAddress.getIsDefaultDlv()));
 			pstmt.setString(7, dlvId);
 			result=pstmt.executeUpdate();
-		}catch(SQLException e) {
+		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);

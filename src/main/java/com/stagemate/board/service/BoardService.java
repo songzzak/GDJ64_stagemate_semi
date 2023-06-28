@@ -125,4 +125,11 @@ public class BoardService {
 		close(conn);
 		return list;
 	}
+//윤진작성
+	public int deleteComment(int commentNo) {
+		Connection conn=getConnection();
+		int result=dao.deleteComment(conn,commentNo);
+		close(conn);
+		return result;
+	}
 }

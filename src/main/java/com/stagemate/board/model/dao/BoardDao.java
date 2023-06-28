@@ -294,4 +294,19 @@ public class BoardDao {
 		}
 		return list;
 	}
+
+	public int deleteComment(Connection conn, int commentNo) {
+		PreparedStatement pstmt=null;
+		int result =0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteComment"));
+			pstmt.setInt(1, commentNo);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
