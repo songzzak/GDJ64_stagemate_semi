@@ -81,7 +81,6 @@
 					<h1 id="price"></h1>
 				</div>
 				<div id="payment_button">
-					<button>이전 단계</button>
 					<button onclick="requestPay()">결제하기</button>
 				</div>
 			</div>

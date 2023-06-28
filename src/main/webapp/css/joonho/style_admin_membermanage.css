@@ -244,7 +244,7 @@ div#search-gender {
 	z-index: 10;
 }
 
-#yes {
+#yes, #yesend {
 	display: inline-flex;
 	width: 100%;
 	height: 40px;

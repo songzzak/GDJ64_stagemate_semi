@@ -1,8 +1,8 @@
 const urlcopy = () => {
-	var url = '';
+	var currentUrl = window.location.href;
 	var textarea = document.createElement("textarea");
 	document.body.appendChild(textarea);
-	textarea.value = pagecopy;
+	textarea.value = currentUrl;
 	textarea.select();
 	document.execCommand("copy");
 	document.body.removeChild(textarea);
@@ -175,26 +175,22 @@ function buildCalendar() {
 		
 		if (nowDay<startDay || nowDay < today) {                       // 지난날인 경우
 			newDIV.className = "pastDay";
-		}
-		else if (nowDay.getFullYear() == today.getFullYear() && nowDay.getMonth() == today.getMonth() && nowDay.getDate() == today.getDate()) { // 오늘인 경우           
-			newDIV.className = "today";
-			newDIV.onclick = function() { choiceDate(this); }
 		}else if(nowDay>endDay){
 			newDIV.className = "pastDay";
 		}else {                                      // 미래인 경우
 			daysgo.forEach((val)=>{
 				switch(val){
-					case "월" : $(".Calendar>tbody>tr>td:nth-child(2)>p:not(.pastDay,.today)").addClass("futureDay");break;
-					case "화" : $(".Calendar>tbody>tr>td:nth-child(3)>p:not(.pastDay,.today)").addClass("futureDay");break;
-					case "수" : $(".Calendar>tbody>tr>td:nth-child(4)>p:not(.pastDay,.today)").addClass("futureDay");break;
-					case "목" : $(".Calendar>tbody>tr>td:nth-child(5)>p:not(.pastDay,.today)").addClass("futureDay");break;
-					case "금" : $(".Calendar>tbody>tr>td:nth-child(6)>p:not(.pastDay,.today)").addClass("futureDay");break;
-					case "토" : $(".Calendar>tbody>tr>td:nth-child(7)>p:not(.pastDay,.today)").addClass("futureDay");break;
-					case "일" : $(".Calendar>tbody>tr>td:nth-child(1)>p:not(.pastDay,.today)").addClass("futureDay");break;
+					case "월" : $(".Calendar>tbody>tr>td:nth-child(2)>p:not(.pastDay)").addClass("futureDay");break;
+					case "화" : $(".Calendar>tbody>tr>td:nth-child(3)>p:not(.pastDay)").addClass("futureDay");break;
+					case "수" : $(".Calendar>tbody>tr>td:nth-child(4)>p:not(.pastDay)").addClass("futureDay");break;
+					case "목" : $(".Calendar>tbody>tr>td:nth-child(5)>p:not(.pastDay)").addClass("futureDay");break;
+					case "금" : $(".Calendar>tbody>tr>td:nth-child(6)>p:not(.pastDay)").addClass("futureDay");break;
+					case "토" : $(".Calendar>tbody>tr>td:nth-child(7)>p:not(.pastDay)").addClass("futureDay");break;
+					case "일" : $(".Calendar>tbody>tr>td:nth-child(1)>p:not(.pastDay)").addClass("futureDay");break;
 				}
 			
 			})
-			$(".Calendar>tbody>tr>td>p:not(.pastDay,.today,.futureDay)").addClass("pastDay").css({"pointer-events":"none"});
+			$(".Calendar>tbody>tr>td>p:not(.pastDay,.futureDay)").addClass("pastDay").css({"pointer-events":"none"});
 			newDIV.onclick = function() { choiceDate(this); }
 		}
 	}
