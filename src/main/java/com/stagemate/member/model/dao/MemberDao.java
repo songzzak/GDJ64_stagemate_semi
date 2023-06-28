@@ -113,4 +113,11 @@ private static final String SQL_PATH = "/sql/member/member_sql.properties";
 		}
 		return result;
 	}
+	
+	
+	
+	
+	
+	
+	
 }
