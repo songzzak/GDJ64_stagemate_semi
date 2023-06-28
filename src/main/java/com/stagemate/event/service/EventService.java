@@ -322,27 +322,27 @@ public class EventService {
 		return locations;
 	}
 	
-	public int insertEvent(Event eventInfo, List<Casting> castings,
-						List<EventSchedule> eventSchedule, List<EventUpfile> upfiles) 
+	public int insertEvent(Event eventInfo, 
+							List<Casting> castings,
+							List<EventSchedule> eventSchedule, 
+							List<EventUpfile> upfiles) 
 	{
 		Connection conn = JDBCTemplate.getConnection();
-		int resultTotal = 0;
-		int resultOfInfo = dao.insertEventInfo(conn, eventInfo);
-		int resultOfCasting = dao.insertEventCasting(conn, castings);
-		int resultOfSchedule = dao.insertEventSchedule(conn, eventSchedule);
-		int resultOfFiles = dao.insertEventFiles(conn, upfiles);
+		int finalResult = 0;
+		List<Integer> results = List.of(dao.insertEventInfo(conn, eventInfo), 
+										dao.insertEventCasting(conn, castings), 
+										dao.insertEventSchedule(conn, eventSchedule), 
+										dao.insertEventFiles(conn, upfiles));
 		
-		if (resultOfInfo == 0 || resultOfCasting == 0 
-			|| resultOfFiles == 0 || resultOfSchedule == 0) 
-		{
+		if (results.contains(0)) {
 			JDBCTemplate.rollback(conn);
 		} else {
-			resultTotal = 1;
+			finalResult = 1;
 			JDBCTemplate.commit(conn);
 		}
 		
 		JDBCTemplate.close(conn);
-		return resultTotal;
+		return finalResult;
 	}
 	
 	public String selectCastingByEventNo(String eventNo) {
