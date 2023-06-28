@@ -128,7 +128,8 @@ String evcNo = (String) request.getAttribute("evcNo");
 								onclick='location.assign("<%= contextPath %>/admin/insertEvent.do")'>
 					</div>
 					<div>
-						<input type="button" class="btn-layout btn-brown " value="배너변경">
+						<input type="button" class="btn-layout btn-brown " value="배너변경"
+								onclick="updateBanner();">
 					</div>
 				</div>
 			</article>
@@ -150,6 +151,20 @@ String evcNo = (String) request.getAttribute("evcNo");
 				location.replace("<%= contextPath %>/admin/selectEventByCategory.do?evcNo=" + $(event.target).val());
 			}
 		});
+
+		function updateBanner() {
+			const width = 800;
+    		const height = 580;
+    		const left = (window.screen.width / 2) - (width / 2);
+    		const top = (window.screen.height / 2) - (height / 2);
+			const url = getContextPath() + "/admin/updateBanner.do";
+
+			window.open(url, "_blank",
+						"width=" + width + ", " + 
+						"height=" + height + ", " + 
+						"left=" + left + ", " + 
+						"top=" + top);
+		}
 	</script>
 </body>
 </html>

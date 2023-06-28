@@ -13,6 +13,7 @@ import com.stagemate.detail.model.vo.StoreDetailInfo;
 import com.stagemate.detail.model.vo.StoreDetailOrderDlv;
 
 public class StoreListService {
+
 	private StoreListDao dao=new StoreListDao();
 	
 	public List<StoreDetail> selectStoreDetail(){
@@ -21,13 +22,14 @@ public class StoreListService {
 		close(conn);
 		return result;
 	}
-	
+	   
 	public int selectStoreDetailCount(String userId, String day, String yyyy, String mm, String status){
 		Connection conn=getConnection();
 		int result = dao.selectStoreDetailCount(conn, userId, day, yyyy, mm, status);
 		close(conn);
 		return result;
 	}
+
 	
 	public List<StoreDetail> selectStoreDetailCondition(String userId, String day, String yyyy, String mm, String status, int startRow, int endRow, String order){
 		Connection conn=getConnection();
@@ -36,6 +38,7 @@ public class StoreListService {
 		return result;
 	}
 
+	
 	public StoreDetailInfo selectStoreDetailInfo(String userId, String orderNo){
 		Connection conn=getConnection();
 		StoreDetailInfo result = dao.selectStoreDetailInfo(conn, userId, orderNo);
@@ -57,3 +60,4 @@ public class StoreListService {
 		return result;
 	}
 }
+

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.stagemate.common.JDBCTemplate;
 import com.stagemate.common.MemberGenerator;
 import com.stagemate.admin.model.vo.PlayInfo;
 import com.stagemate.common.AESEncryptor;
@@ -116,6 +117,21 @@ public class AdminDao {
 			close(rs);
 			close(pstmt);
 		}return members;
+	}
+	
+	public int outmember(Connection conn,String outid) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("outmember"));
+			pstmt.setString(1, outid);
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
 	}
 
 	public static Member getMemberDTO(ResultSet rs) throws SQLException {

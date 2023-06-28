@@ -1,3 +1,4 @@
+<%@page import="com.stagemate.review.model.vo.StoreReview"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
@@ -8,6 +9,7 @@
 <title>STAGEMATE</title>
 </head>
 <body>
+
 <% //reviewPlay 정보 가져와야 한다. 
    List<ReviewPlay> reviewPlay = (List)request.getAttribute("ReviewPlay");
 %>
@@ -58,12 +60,9 @@
 				있습니다.
 			</p>
 				<ul class="btnsBox" style="padding: 30px 0pc 0px 0px;">
-					<li><button class="BLbtn active" id="ps_play_btn"
-							onclick="change_btn(event)">예매</button></li>
-					<li><button class="BLbtn" id="ps_store_btn"
-							onclick="change_btn(event)">스토어</button></li>
+					<li><button class="BLbtn" id="ps_play_btn">예매</button></li>
+					<li><button class="BLbtn" id="ps_store_btn">스토어</button></li>
 				</ul>
-
 
 				<script>
 					function change_btn(e) {
@@ -78,7 +77,6 @@
 						console.log(e.currentTarget);
 					}
 				</script>
-
 
 				<div class="ReviewList_play">
 					<table class="PlayReview_List">
@@ -112,7 +110,6 @@
 					<button class="write_Playreview" onclick="reviewWritePage('1');">리뷰작성</button>
 
 				</div>
-
 				<div class="ReviewList_store">
 					<table class="StoreReview_List">
 						<colgroup>
@@ -144,6 +141,7 @@
 					<button class="write_Storereview" onclick="reviewWritePage('2');">리뷰작성</button>
 				</div>
 			</div>
+
 		<!-- 페이징바 -->
 		<div id="page">
 			<div class="pageBar">
@@ -152,9 +150,9 @@
 		</div>
 	</div>
 	</section>
-
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
+<<<<<<< HEAD
 <script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 <script src="<%= contextPath %>/js/script_common.js"></script>
 <script src="<%=contextPath%>/js/yelin/ReviewList.js"></script>

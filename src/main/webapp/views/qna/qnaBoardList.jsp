@@ -74,7 +74,7 @@
 				</table>
 				
 							<div class="bt_wrap">
-					<%if(loginMember!=null&&loginMember.getMemberId().equals("MemberId")){ %>
+					<%if(loginMember!=null){ %>
 					<button class="on"
 						onclick="location.assign('<%=request.getContextPath()%>/qna/insertForm.do')">글쓰기</button>
 					<%} %>

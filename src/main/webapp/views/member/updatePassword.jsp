@@ -3,6 +3,8 @@
 <%@ include file="/views/common/top.jsp"%>
  <%@ page import="java.util.List,com.stagemate.review.model.vo.EventReview" %>  
   <%@ page import="java.util.List,com.stagemate.member.model.vo.Member" %> 
+=======
+>>>>>>> refs/heads/yelin
 <title>패스워드 변경</title>
 <script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 <script src="<%= contextPath %>/js/script_common.js"></script>

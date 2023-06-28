@@ -540,7 +540,6 @@
 	var todays=new Date();
 	var openday=new Date('<%=event.getRsvOpenDt()%>');
 	var opendays=openday.getFullYear()+'년'+(openday.getMonth() + 1)+'월'+openday.getDate()+'일';
-	var pagecopy="<%=contextPath%>/event/eventView.do?no=<%=event.getEventNo()%>"
 	
 	let esdatecheck=new Date();
 	var esNo="";

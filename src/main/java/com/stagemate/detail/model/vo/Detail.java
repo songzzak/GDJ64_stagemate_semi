@@ -17,3 +17,4 @@ public class Detail {
 	private String orderStatus;
 	private String tickets;
 }
+

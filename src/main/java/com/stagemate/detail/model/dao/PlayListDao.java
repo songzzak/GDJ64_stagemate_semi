@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Properties;
 public class PlayListDao {
 
+
 	private final Properties sql = new Properties();
 	static SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
@@ -29,7 +30,9 @@ public class PlayListDao {
 		e.printStackTrace();
 	}
 
+
 }
+
 
 	public List<Detail> selectPlayDetail(Connection conn){
 		PreparedStatement pstmt = null;
@@ -42,20 +45,21 @@ public class PlayListDao {
 				result.add(getDetailList(rs));
 			}
 
-		} catch (SQLException e) {
 
-			e.printStackTrace();
+      } catch (SQLException e) {
 
-		} finally {
+         e.printStackTrace();
 
-			close(rs);
-			close(pstmt);
+      } finally {
 
-		}
+         close(rs);
+         close(pstmt);
 
-		return result;
-	}
-		
+      }
+
+      return result;
+   }
+      
 
 	
 	public static Detail getDetailList(ResultSet rs) throws SQLException{
@@ -324,4 +328,14 @@ public class PlayListDao {
 
 	    return result;
 	}
+
+   
+   private static LocalDateTime getLocalDateTime(ResultSet rs, String columnName) throws SQLException {
+        java.sql.Timestamp timestamp = rs.getTimestamp(columnName);
+        return (timestamp != null) ? timestamp.toLocalDateTime() : null;
+    }
+   
 }
+   
+   
+  

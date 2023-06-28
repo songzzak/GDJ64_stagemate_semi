@@ -374,6 +374,21 @@ public class EventService {
 		JDBCTemplate.close(conn);
 		return resultTotal;
 	}
+	
+	public Map<Event, String> selectEventAndFileByDate(String date) {
+		Connection conn = JDBCTemplate.getConnection();
+		Map<Event, String> events = dao.selectEventAndFileByDate(conn, date);
+		JDBCTemplate.close(conn);
+		return events;
+	}
+	
+	public Map<String, EventUpfile> selectBanner() {
+		Connection conn = JDBCTemplate.getConnection();
+		Map<String, EventUpfile> banners = dao.selectBanner(conn);
+		JDBCTemplate.close(conn);
+		return banners;
+	}
+	
 	//윤진작성
 	public List<EventWish> selectWishById(String userId) {
 		Connection conn=getConnection();

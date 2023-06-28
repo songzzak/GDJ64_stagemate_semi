@@ -15,10 +15,14 @@ import java.util.Properties;
 
 import com.stagemate.admin.model.dao.AdminDao;
 import com.stagemate.detail.model.vo.Detail;
+import com.stagemate.common.MemberGenerator;
+import com.stagemate.review.model.vo.Imoji;
 import com.stagemate.review.model.vo.PlaySearch;
 import com.stagemate.review.model.vo.ReviewPlay;
 import com.stagemate.review.model.vo.ReviewStore;
 import com.stagemate.review.model.vo.StoreSearch;
+import com.stagemate.review.model.vo.StoreReview;
+import com.stagemate.store.model.vo.Product;
 
 public class ReviewDao {
 
@@ -111,6 +115,7 @@ public class ReviewDao {
 		return result;
 	}
 	
+
 	public List<PlaySearch> selectPlaySearch(Connection conn, String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -340,6 +345,65 @@ public class ReviewDao {
 
 		return result;
 	}
+	
+	public List<StoreReview> selectStoreReviewList(Connection conn, int cPage, int numPerPage, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<StoreReview> result = new ArrayList();
+
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectStoreReviewList"));
+			pstmt.setString(1, userId);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, ((cPage-1)*numPerPage+1));
+			pstmt.setInt(3, cPage*numPerPage);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				result.add(getStoreReview(rs));
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			close(rs);
+			close(pstmt);
+
+		}
+
+		return result;
+	}
+	
+	
+	private StoreReview getStoreReview(ResultSet rs) throws SQLException{
+		StoreReview sr=StoreReview.builder()
+				.reviewNo(rs.getInt("review_no"))
+				.reviewContent(rs.getString("review_content"))
+				.reviewDt(rs.getDate("review_dt"))
+				.reviewImoji(Imoji.builder().imojiNm(rs.getString("imoji_nm")).imojiNo(rs.getString("imoji_no")).build())
+				.reviewWriter(MemberGenerator.by(rs))
+				.reviewProduct(getProduct(rs))
+				.build();
+		return sr;
+	}
+	
+	
+	private Product getProduct(ResultSet rs) throws SQLException {
+		return Product.builder()
+				.productNo(rs.getInt("product_no"))
+				.productTitle(rs.getString("product_title"))
+				.productNm(rs.getString("product_nm"))
+				.productPrice(rs.getInt("product_price"))
+				.productAmt(rs.getInt("product_amt"))
+				.productComment(rs.getString("product_comment"))
+				.productInsertDate(rs.getDate("product_insert_date"))
+				.productLikeCnt(rs.getInt("product_like_cnt"))
+				.build();
+	}
+	
 
 }
 

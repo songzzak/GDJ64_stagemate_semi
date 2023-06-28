@@ -3,9 +3,9 @@
 <link rel="stylesheet" href="<%=contextPath%>/css/yelin/store/style_shoppingBasket.css">
 <link rel="stylesheet" href="<%=contextPath%>/css/yoonjin/style_mypage_nav.css">
 <link rel="stylesheet" href="<%=contextPath%>/css/yoonjin/style_myInquiry.css">
-<%@ page import="java.util.List"%>
+<%@ page import="java.util.List,com.stagemate.qna.model.vo.Qna"%>
 <%
-
+List<Qna> list=(List)request.getAttribute("list");
 %>
 <title>My Page | 관심목록</title>
 </head>
@@ -37,7 +37,7 @@
 							<li class="li1">내가 쓴 글
 								<ul>
 									<li class="li2"><a href="<%= request.getContextPath() %>/board/selectMyBoard.do?id=<%=loginMember.getMemberId()%>">커뮤니티</a></li>
-									<li class="li2"><a href="<%= request.getContextPath() %>/views/mypage/myInquiry.jsp">1:1문의</a></li>
+									<li class="li2"><a href="<%= request.getContextPath() %>/qna/selectMyInquiry.do?id=<%=loginMember.getMemberId()%>">1:1문의</a></li>
 								</ul>
 							</li>
 							<li class="li1"><a href="<%= request.getContextPath() %>/views/member/member_withdraw.jsp">회원 탈퇴</a></li>
@@ -70,24 +70,23 @@
 		                	</tr>
 	                	</thead>
 	                	<tbody>
+	                	<%if(list.isEmpty()||list==null){ %>
+	                		<tr><td colspan="4">작성된 게시글이 없습니다.</td></tr>
+	                	<%}else{ 
+	                			for(Qna q:list){%>
 		                	<tr class="tr-underLine">
-		                		<td style="text-align: center;">[교환/환불]</td>
-		                		<td style="text-align: center;">교환신청은 어떻게 하나요?</td>
-		                		<td style="text-align: center;">2023-06-27</td>
-		                		<td style="text-align: center;">답변완료</td>
+		                		<td style="text-align: center;"><%=q.getCtgNum() %></td>
+		                		<td style="text-align: center;">
+		                			<a href="<%=contextPath %>/qna/qnaView.do?no=<%=q.getInquiryNo()%>">
+		                				<%=q.getInquiryTitle() %>
+		                			</a>
+		                		</td>
+		                		<td style="text-align: center;"><%=q.getInquiryInsertDt() %></td>
+		                		<td style="text-align: center;">답변대기</td>
 		                	</tr>
-		                	<tr class="tr-underLine">
-		                		<td style="text-align: center;">[교환/환불]</td>
-		                		<td style="text-align: center;">교환신청은 어떻게 하나요?</td>
-		                		<td style="text-align: center;">2023-06-27</td>
-		                		<td style="text-align: center;">답변완료</td>
-		                	</tr>
-		                	<tr class="tr-underLine">
-		                		<td style="text-align: center;">[교환/환불]</td>
-		                		<td style="text-align: center;">교환신청은 어떻게 하나요?</td>
-		                		<td style="text-align: center;">2023-06-27</td>
-		                		<td style="text-align: center;">답변완료</td>
-		                	</tr>
+		                <%}
+	                			}%>
+
 	                	</tbody>
 	                </table>
                 </div>

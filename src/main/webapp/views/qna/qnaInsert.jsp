@@ -10,7 +10,7 @@
 <section class="min1280px">
 	<div id="sectionContainer" class="max1280px">
 
-		<body>
+		
 			<div class="qna_wrap">
 				<div class="qna_title">
 					<span> 고객센터 </span>> <span>1:1 문의</span>
@@ -45,8 +45,8 @@
 					</div>
 				</div>
 			</div>
-		</body>
-
+		</div>
+</section>
 
 		<%@ include file="/views/common/footer.jsp"%>
 		<script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>

@@ -15,9 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.stagemate.member.model.vo.Member;
+import com.stagemate.common.AESEncryptor;
 
 
 @WebServlet("/member/UpdatePhoneServiceServlet")
@@ -33,7 +32,13 @@ public class UpdatePhoneServiceServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String memberId = request.getParameter("memberId");
-		String phone = request.getParameter("phone");
+		String phone = "";
+		try {
+			phone = AESEncryptor.encrypt(request.getParameter("phone"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		int result = 0;
 		
 		Connection conn = getConnection();

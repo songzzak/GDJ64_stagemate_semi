@@ -34,75 +34,75 @@ public class StoreReviewListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-//		 int cPage;
-//        try {
-//            cPage = Integer.parseInt(request.getParameter("cPage"));
-//        } catch (NumberFormatException e) {
-//            cPage = 1;
-//        }
-//        int numPerPage;
-//        try {
-//            numPerPage = Integer.parseInt(request.getParameter("numPerpage"));
-//        } catch (NumberFormatException e) {
-//            numPerPage = 6;
-//        }
-//        HttpSession session=request.getSession();
-//        Member loginMember=(Member)session.getAttribute("loginMember");
-//        
-//        List<StoreReview> list=new ReviewService().selectStoreReviewList(cPage,numPerPage,
-//        		loginMember.getMemberId());
-//        
-//        request.setAttribute("storeReview", list);
-//        
-//        int totalData = new ReviewService().selectStoreReviewCount(loginMember.getMemberId());
-//        int totalPage = (int) Math.ceil((double) totalData / numPerPage);
-//        int pageBarSize = 3;
-//        int pageNo = ((cPage - 1) / pageBarSize) * pageBarSize + 1;
-//        int pageEnd = pageNo + pageBarSize - 1;
-//
-//        String contextPath = request.getContextPath();
-//        String pageBar = "";
-//        // 맨처음 페이지표시
-//        if (pageNo == 1) {
-//            pageBar += "<span><img src='" + contextPath + "/images/yoonjin/button/double-arrow-left.svg' alt='arrow-left'></span>";
-//        } else {
-//            pageBar += "<a href='" + request.getRequestURI() + "?cPage=" + 1 +"'><img src='" + contextPath + "/images/yoonjin/button/double-arrow-left.svg' alt='arrow-left'></a>";
-//        }
-//        // 이전표시
-//        if (pageNo == 1) {
-//            pageBar += "<span><img src='" + contextPath + "/images/yoonjin/button/arrow-left.svg' alt='arrow-left'></span>";
-//        } else {
-//            pageBar += "<a href='" + request.getRequestURI() + "?cPage=" + (pageNo - 1)
-//                    + "'><img src='" + contextPath + "/images/yoonjin/button/arrow-left.svg' alt='arrow-left'></a>";
-//        }
-//        // 선택할 페이지 번호 출력
-//        while (!(pageNo > pageEnd || pageNo > totalPage)) {
-//            if (pageNo == cPage) {
-//                pageBar += "<span>" + pageNo + "</span>";
-//            } else {
-//                pageBar += "<a class='bar-num' href='" + request.getRequestURI() + "?cPage=" + pageNo 
-//                        + "'>" + pageNo + "</a>";
-//            }
-//            pageNo++;
-//        }
-//        // 다음표시
-//        if (pageNo > totalPage) {
-//            pageBar += "<span><img src='" + contextPath + "/images/yoonjin/button/arrow-right.svg' alt='arrow-right'></span>";
-//        } else {
-//            pageBar += "<a href='" + request.getRequestURI() + "?cPage=" + (pageNo + 1)
-//                    + "'><img src='" + contextPath + "/images/yoonjin/button/arrow-right.svg' alt='arrow-right'></a>";
-//        }
-//        // 마지막 페이지표시
-//        if (pageNo > totalPage) {
-//            pageBar += "<span><img src='" + contextPath + "/images/yoonjin/button/double-arrow-right.svg' alt='arrow-right'></span>";
-//        } else {
-//            pageBar += "<a href='" + request.getRequestURI() + "?cPage=" + totalPage
-//                    + "'><img src='" + contextPath + "/images/yoonjin/button/double-arrow-right.svg' alt='arrow-right'></a>";
-//        }
-//
-//        request.setAttribute("pageBar", pageBar);
-//		
-//        request.getRequestDispatcher("/views/review/ReviewList.jsp").forward(request, response);
+		 int cPage;
+        try {
+            cPage = Integer.parseInt(request.getParameter("cPage"));
+        } catch (NumberFormatException e) {
+            cPage = 1;
+        }
+        int numPerPage;
+        try {
+            numPerPage = Integer.parseInt(request.getParameter("numPerpage"));
+        } catch (NumberFormatException e) {
+            numPerPage = 6;
+        }
+        HttpSession session=request.getSession();
+        Member loginMember=(Member)session.getAttribute("loginMember");
+        
+        List<StoreReview> list=new ReviewService().selectStoreReviewList(cPage,numPerPage,
+        		loginMember.getMemberId());
+        
+        request.setAttribute("storeReview", list);
+        
+        int totalData = new ReviewService().selectStoreReviewCount(loginMember.getMemberId());
+        int totalPage = (int) Math.ceil((double) totalData / numPerPage);
+        int pageBarSize = 3;
+        int pageNo = ((cPage - 1) / pageBarSize) * pageBarSize + 1;
+        int pageEnd = pageNo + pageBarSize - 1;
+
+        String contextPath = request.getContextPath();
+        String pageBar = "";
+        // 맨처음 페이지표시
+        if (pageNo == 1) {
+            pageBar += "<span><img src='" + contextPath + "/images/yoonjin/button/double-arrow-left.svg' alt='arrow-left'></span>";
+        } else {
+            pageBar += "<a href='" + request.getRequestURI() + "?cPage=" + 1 +"'><img src='" + contextPath + "/images/yoonjin/button/double-arrow-left.svg' alt='arrow-left'></a>";
+        }
+        // 이전표시
+        if (pageNo == 1) {
+            pageBar += "<span><img src='" + contextPath + "/images/yoonjin/button/arrow-left.svg' alt='arrow-left'></span>";
+        } else {
+            pageBar += "<a href='" + request.getRequestURI() + "?cPage=" + (pageNo - 1)
+                    + "'><img src='" + contextPath + "/images/yoonjin/button/arrow-left.svg' alt='arrow-left'></a>";
+        }
+        // 선택할 페이지 번호 출력
+        while (!(pageNo > pageEnd || pageNo > totalPage)) {
+            if (pageNo == cPage) {
+                pageBar += "<span>" + pageNo + "</span>";
+            } else {
+                pageBar += "<a class='bar-num' href='" + request.getRequestURI() + "?cPage=" + pageNo 
+                        + "'>" + pageNo + "</a>";
+            }
+            pageNo++;
+        }
+        // 다음표시
+        if (pageNo > totalPage) {
+            pageBar += "<span><img src='" + contextPath + "/images/yoonjin/button/arrow-right.svg' alt='arrow-right'></span>";
+        } else {
+            pageBar += "<a href='" + request.getRequestURI() + "?cPage=" + (pageNo + 1)
+                    + "'><img src='" + contextPath + "/images/yoonjin/button/arrow-right.svg' alt='arrow-right'></a>";
+        }
+        // 마지막 페이지표시
+        if (pageNo > totalPage) {
+            pageBar += "<span><img src='" + contextPath + "/images/yoonjin/button/double-arrow-right.svg' alt='arrow-right'></span>";
+        } else {
+            pageBar += "<a href='" + request.getRequestURI() + "?cPage=" + totalPage
+                    + "'><img src='" + contextPath + "/images/yoonjin/button/double-arrow-right.svg' alt='arrow-right'></a>";
+        }
+
+        request.setAttribute("pageBar", pageBar);
+		
+        request.getRequestDispatcher("/views/review/ReviewList.jsp").forward(request, response);
 	}
 
 	/**

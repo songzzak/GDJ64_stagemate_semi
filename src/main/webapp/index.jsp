@@ -11,19 +11,7 @@
     <div class="banners-wrapper">
         <ul class="banners-container">
             <li>
-                <img src="<%= contextPath %>/images/jaehun/main_page/banners/banner1_resized.jpg">
-            </li>
-            <li>
-                <img src="<%= contextPath %>/images/jaehun/main_page/banners/banner2_resized.jpg">
-            </li>
-            <li>
-                <img src="<%= contextPath %>/images/jaehun/main_page/banners/banner3_resized.jpg">
-            </li>
-            <li>
-                <img src="<%= contextPath %>/images/jaehun/main_page/banners/banner4_resized.jpg">
-            </li>
-            <li>
-                <img src="<%= contextPath %>/images/jaehun/main_page/banners/banner5_resized.jpg">
+                <img src="<%= contextPath %>/images/jaehun/main_page/loading_banner.svg">
             </li>
         </ul>
         <ul class="banners-indicator"></ul>
@@ -32,101 +20,25 @@
 
 <section class="reservation min1280px">
     <div class="reservation-container max1280px">
-        <div class="reservation-title">
-            <h2 class="fw-bold">곧 만나요!</h2>
-            <div>
+        <div class="reservation-title pos-relative">
+            <h2 class="fw-bold">곧 예매 오픈!</h2>
+            <div class="title-absolute">
                 <img src="<%= contextPath %>/images/jaehun/main_page/hello.svg" alt="손_흔드는_아이콘">
             </div>
         </div>
         <div class="reservation-calandar">
             <ul class="reservation-calandar-days">
-                <li class="btn-layout btn-brown">
-                    <p>오늘</p>
-                    <p>10</p>
-                </li>
-                <li class="btn-layout">
-                    <p>목</p>
-                    <p>11</p>
-                </li>
-                <li class="btn-layout">
-                    <p>금</p>
-                    <p>12</p>
-                </li>
-                <li class="btn-layout">
-                    <p>토</p>
-                    <p>13</p>
-                </li>
-                <li class="btn-layout">
-                    <p>일</p>
-                    <p>14</p>
-                </li>
-                <li class="btn-layout">
-                    <p>월</p>
-                    <p>15</p>
-                </li>
-                <li class="btn-layout">
-                    <p>화</p>
-                    <p>16</p>
-                </li>
             </ul>
-            <div class="reservation-calandar-lineup">
-                <div class="lineup_btn_prev">
-                    <img src="<%= contextPath %>/images/jaehun/main_page/lineup_btn_prev.svg" alt="이전버튼">
-                </div>
-                <div class="calandar-lineup_poster">
-                    <p>5월 10일</p>
-                    <p>14:00 예매 오픈</p>
-                    <div>
-                        <div class="overlay-absolute">
-                            <p>개발 중</p>
-                        </div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/poster1.jpg" alt="포스터1">
-                    </div>
-                </div>
-                <div class="calandar-lineup_poster">
-                    <p>5월 10일</p>
-                    <p>14:00 예매 오픈</p>
-                    <div>
-                        <div class="overlay-absolute">
-                            <p>개발 중</p>
-                        </div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/poster1.jpg" alt="포스터1">
-                    </div>
-                </div>
-                <div class="calandar-lineup_poster">
-                    <p>5월 10일</p>
-                    <p>14:00 예매 오픈</p>
-                    <div>
-                        <div class="overlay-absolute">
-                            <p>개발 중</p>
-                        </div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/poster1.jpg" alt="포스터1">
-                    </div>
-                </div>
-                <div class="calandar-lineup_poster">
-                    <p>5월 10일</p>
-                    <p>14:00 예매 오픈</p>
-                    <div>
-                        <div class="overlay-absolute">
-                            <p>개발 중</p>
-                        </div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/poster1.jpg" alt="포스터1">
-                    </div>
-                </div>
-                <div class="calandar-lineup_poster">
-                    <p>5월 10일</p>
-                    <p>14:00 예매 오픈</p>
-                    <div>
-                        <div class="overlay-absolute">
-                            <p>개발 중</p>
-                        </div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/poster1.jpg" alt="포스터1">
-                    </div>
-                </div>
-                <div class="lineup_btn_prev">
-                    <img src="<%= contextPath %>/images/jaehun/main_page/lineup_btn_next.svg" alt="다음버튼">
-                </div>
+            <div class="calendar_btn_prev">
+                <img src="<%= contextPath %>/images/jaehun/main_page/lineup_btn_prev.svg" alt="이전버튼">
             </div>
+            <div class="calendar_btn_next">
+                <img src="<%= contextPath %>/images/jaehun/main_page/lineup_btn_next.svg" alt="다음버튼">
+            </div>
+            <article class="reservation-calendar-wrapper">
+                <div class="reservation-calendar-lineup animated-smooth">
+                </div>
+            </article>
         </div>
     </div>
 </section>
@@ -141,44 +53,17 @@
                 </div>
             </div>
             <div class="goods-lineup">
-                <div class="goods-lineup_item">
-                    <div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/goods.png" alt="아이템">
-                    </div>
-                    <div class="goods_rank">
-                        <img src="<%= contextPath %>/images/jaehun/main_page/rank1.svg" alt="1위아이템">
-                    </div>
-                    <div>
-                        <p>셰퍼드 페어리, 행동하라!</p>
-                        <h4 class="fw-bold">아크릴 마그넷_S.F</h4>
-                        <h4 class="fw-bold">￦7,000</h4>
-                    </div>
+                <div class="goods-lineup_unit" 
+                    style="height: 219px; display: flex; justify-content: center; align-items: center;">
+                    <img src='<%= contextPath %>/images/jaehun/main_page/loading_poster.gif' style='width: 64px;'>
                 </div>
-                <div class="goods-lineup_item">
-                    <div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/goods.png" alt="아이템">
-                    </div>
-                    <div class="goods_rank">
-                        <img src="<%= contextPath %>/images/jaehun/main_page/rank2.svg" alt="2위아이템">
-                    </div>
-                    <div>
-                        <p>셰퍼드 페어리, 행동하라!</p>
-                        <h4 class="fw-bold">아크릴 마그넷_S.F</h4>
-                        <h4 class="fw-bold">￦7,000</h4>
-                    </div>
+                <div class="goods-lineup_unit" 
+                    style="height: 219px; display: flex; justify-content: center; align-items: center;">
+                    <img src='<%= contextPath %>/images/jaehun/main_page/loading_poster.gif' style='width: 64px;'>
                 </div>
-                <div class="goods-lineup_item">
-                    <div>
-                        <img src="<%= contextPath %>/images/jaehun/main_page/goods.png" alt="아이템">
-                    </div>
-                    <div class="goods_rank">
-                        <img src="<%= contextPath %>/images/jaehun/main_page/rank3.svg" alt="3위아이템">
-                    </div>
-                    <div>
-                        <p>셰퍼드 페어리, 행동하라!</p>
-                        <h4 class="fw-bold">아크릴 마그넷_S.F</h4>
-                        <h4 class="fw-bold">￦7,000</h4>
-                    </div>
+                <div class="goods-lineup_unit" 
+                    style="height: 219px; display: flex; justify-content: center; align-items: center;">
+                    <img src='<%= contextPath %>/images/jaehun/main_page/loading_poster.gif' style='width: 64px;'>
                 </div>
             </div>
         </div>

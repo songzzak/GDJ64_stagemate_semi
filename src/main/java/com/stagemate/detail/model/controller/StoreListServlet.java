@@ -15,7 +15,7 @@ import com.stagemate.detail.model.vo.StoreDetail;
 
 @WebServlet("/StoreListServlet")
 public class StoreListServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -24,6 +24,7 @@ public class StoreListServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,14 +37,14 @@ public class StoreListServlet extends HttpServlet {
 //		
 //		request.getRequestDispatcher("/views/detail/detailList.jsp").forward(request, response);
 		
-		
 
-	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+   }
+
+   
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      // TODO Auto-generated method stub
+      doGet(request, response);
+   }
 
 }

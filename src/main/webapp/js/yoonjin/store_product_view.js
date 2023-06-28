@@ -1,5 +1,17 @@
          // 초기 상태에서는 #product-detailInfo만 표시!!
             $(document).ready(() => {
+				
+				$("#shareSvg").click(function() {
+					    var currentUrl = window.location.href;
+					    // 클립보드에 URL 복사하기
+					    var tempInput = $("<input>");
+					    $("body").append(tempInput);
+					    tempInput.val(currentUrl).select();
+					    document.execCommand("copy");
+					    tempInput.remove(); 
+					    alert("현재 URL이 클립보드에 복사되었습니다.");
+				  });
+  
 				const price=parseInt($("#pricebyone").text());
 				$("#product-totalspan p:last-child").text((price).toLocaleString());
 				

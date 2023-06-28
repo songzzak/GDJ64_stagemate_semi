@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@page import="com.stagemate.detail.model.vo.DetailInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -37,7 +38,24 @@ $(document).ready(function() {
 		$('.disable-btn').attr('onclick', "alert('이미 취소한 내역입니다')");
   }
 });
+
 </script>
+<style>
+	.disable-btn{
+		border: none;
+                    padding: 8px 45px;
+                    text-align: center;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    font-weight: bold;
+                    background-color: var(--sm-brown);
+                    border: 2px solid var(--sm-brown);
+                    color: white;
+                    margin: 0 auto;    /* 버튼 글씨정렬 후 버튼 일자 정렬 */
+                    display: flex;
+                    margin-bottom:30px;
+				}
+</style>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
@@ -196,6 +214,4 @@ $(document).ready(function() {
 	
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
-
-
 </html>

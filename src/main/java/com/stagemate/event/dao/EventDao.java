@@ -20,7 +20,6 @@ import com.stagemate.event.model.vo.EventSchedule;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.model.vo.Seat;
-import com.stagemate.payment.model.vo.Payment;
 import com.stagemate.store.dao.StoreDao;
 
 public class EventDao {
@@ -1279,6 +1278,49 @@ public class EventDao {
 		}
 		return result;
 	}
+	
+	public Map<Event, String> selectEventAndFileByDate(Connection conn, String date) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<Event, String> events = new HashMap<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectEventAndFileByDate"));
+			pstmt.setString(1, date);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				events.put(getEvent(rs), rs.getString("EU_RENAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return events;
+	}
+
+	public Map<String, EventUpfile> selectBanner(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<String, EventUpfile> banners = new HashMap<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectBanner"));
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				banners.put(rs.getString("EVENT_NM"), getEventUpfile(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return banners;
+	}
 
 	//윤진작성
 	public List<EventWish> selectWishById(Connection conn, String userId) {
@@ -1300,6 +1342,4 @@ public class EventDao {
 		}
 		return list;
 	}
-	
-	
 }

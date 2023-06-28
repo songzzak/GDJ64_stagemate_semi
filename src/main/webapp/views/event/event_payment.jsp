@@ -81,7 +81,6 @@
 					<h1 id="price"></h1>
 				</div>
 				<div id="payment_button">
-					<button>이전 단계</button>
 					<button onclick="requestPay()">결제하기</button>
 				</div>
 			</div>
@@ -211,7 +210,7 @@ function requestPay() {
 	        pay_method : 'card',
 	        merchant_uid: "E"+makeMerchantUid, 
 	        name : '<%=event.getEventNm() %>',
-	        amount : 1,
+	        amount : 100,
 	        buyer_email : '<%=loginMember.getMemberEmail() %>',
 	        buyer_name : '<%=loginMember.getMemberNm() %>',
 	        buyer_tel : '<%=loginMember.getMemberPhone() %>',

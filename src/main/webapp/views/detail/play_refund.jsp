@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp" %>
 <link rel="stylesheet" href="<%= contextPath %>/css/yelin/play/Refund_play.css">
+<<<<<<< HEAD
 <%@ page import="java.util.List,com.stagemate.detail.model.vo.DetailInfo"%>
 <script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 <script src="<%= contextPath %>/js/script_common.js"></script>
@@ -131,4 +132,5 @@ let esNo = '';
 
 <%@ include file="/views/common/footer.jsp" %>
 </body>
+
 </html>

@@ -56,9 +56,6 @@ public class ActSearchServlet extends HttpServlet {
 		}else if(theme.equals("제목")) {
 			act = new EventService().searchTitleEventAct(cPage, numPerpage,searchtext);
 			totalData = new EventService().searchTitleEventCountAct(searchtext);
-		}else if(theme.equals("아티스트")) {
-//			musical = new EventService().searchArtistEventMusical(cPage, numPerpage,searchtext);
-//			totalData = new EventService().searchArtistEventCountMusical(searchtext);
 		}else if(theme.equals("장소")) {
 			act = new EventService().searchLocationEventAct(cPage, numPerpage,searchtext);
 			totalData = new EventService().searchLocationEventCountAct(searchtext);

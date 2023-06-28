@@ -25,6 +25,7 @@ import com.stagemate.member.model.vo.Member;
 import com.stagemate.review.model.vo.ReviewPlay;
 import com.stagemate.review.model.vo.ReviewStore;
 import com.stagemate.review.service.ReviewService;
+import com.stagemate.review.model.vo.EventReview;
 
 
 @WebServlet("/Review/ReviewListServlet.do")
@@ -110,6 +111,18 @@ public class ReviewListServlet extends HttpServlet {
 		
 	}
 	
-	
 
+	private EventReview getReviewList(ResultSet rs) throws SQLException{
+		return EventReview.builder()
+				.eventName(rs.getString("EVENT_NAME"))
+				.rpNo(rs.getInt("RP_NO"))
+				.rpContent(rs.getString("RP_CONTENT"))
+				.rpDate(rs.getDate("RP_DATE"))
+				.rsvNo(rs.getString("RSV_NO"))
+				.imojiCd(rs.getInt("IMOJI_CD"))
+				.memberId(rs.getString("MEMBER_ID"))
+				.watchDt(rs.getDate("WATCH_DT"))
+				.build(); 
+				
+	}
 }

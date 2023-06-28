@@ -25,7 +25,7 @@ public class QnaDao {
 	private Properties sql = new Properties();
 	
 	public QnaDao() {
-		String path = QnaDao.class.getResource("/sql/qna/qnasql.properties").getPath();;
+		String path = QnaDao.class.getResource("/sql/qna/qnasql.properties").getPath();
 		try {
 			sql.load(new FileReader(path));
 		}catch(IOException e) {
@@ -205,6 +205,24 @@ private QnaComment getQnaComment(ResultSet rs) throws SQLException{
 			.qnaCommentRef(rs.getInt("INQUIRY_COMMENT_REF"))
 			.qnaRef(rs.getInt("INQUIRY_REF"))
 			.build();
+}
+
+//윤진작성
+public List<Qna> selectQnaById(Connection conn, String id) {
+	PreparedStatement pstmt = null;
+	ResultSet rs=null;
+	List<Qna> list= new ArrayList();
+	try {
+		pstmt= conn.prepareStatement(sql.getProperty("selectQnaById"));
+		pstmt.setString(1, id);
+		rs=pstmt.executeQuery();
+		while(rs.next()) list.add(getQna(rs));
+	}catch(SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(rs);
+		close(pstmt);
+	}return list;
 }
 
 

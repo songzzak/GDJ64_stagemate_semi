@@ -17,3 +17,4 @@ public class StoreDetail {
 	private String orderStatus;
 	
 }
+

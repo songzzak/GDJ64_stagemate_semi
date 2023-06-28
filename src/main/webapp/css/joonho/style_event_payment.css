@@ -17,6 +17,7 @@
 }
 
 #payment_button>button:last-child {
+	width: 55%;
 	border: none;
 	background-color: var(--sm-yellow);
 }

@@ -11,6 +11,7 @@ import com.stagemate.review.model.vo.PlaySearch;
 import com.stagemate.review.model.vo.ReviewPlay;
 import com.stagemate.review.model.vo.ReviewStore;
 import com.stagemate.review.model.vo.StoreSearch;
+import com.stagemate.review.model.vo.StoreReview;
 
 public class ReviewService {
 
@@ -79,6 +80,13 @@ public class ReviewService {
 		close(conn);
 		return result;
 	}	
+	public List<StoreReview> selectStoreReviewList(int cPage, int numPerPage, String userId){
+		Connection conn = getConnection();
+		List<StoreReview> result = dao.selectStoreReviewList(conn, cPage,numPerPage,userId);
+		close(conn);
+		return result;
+	}
+
 }
 
 
