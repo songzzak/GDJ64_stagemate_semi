@@ -109,7 +109,11 @@ public class InsertEventEndServlet extends HttpServlet {
 		
 		for (LocalDate date = startDt; date.isBefore(endDt.plusDays(1)); date = date.plusDays(1)) {
 			if (Arrays.asList(days).contains(date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN))) {
-				eventSchedule.add(EventSchedule.builder().esDate(Date.valueOf(date)).esStartTime(Arrays.asList(times).get(Arrays.asList(days).indexOf(date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN)))).build());
+				eventSchedule.add(EventSchedule.builder()
+												.esDate(Date.valueOf(date))
+												.esDay(date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN))
+												.esStartTime(Arrays.asList(times).get(Arrays.asList(days).indexOf(date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN))))
+												.build());
 			}
 		}
 		return eventSchedule;
@@ -128,4 +132,5 @@ public class InsertEventEndServlet extends HttpServlet {
 					.castingNm(castingNm)
 					.build();
 	}
+	
 }

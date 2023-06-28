@@ -16,7 +16,7 @@ String evcNo = (String) request.getAttribute("evcNo");
 		<div id="eventManagement">
 			<nav class="eventManagement-sidebar">
 				<ul class="eventManagement-sidebar_big">
-					<li><a href="">회원 관리</a></li>
+					<li><a href="<%=contextPath%>/admin/membermanage">회원 관리</a></li>
 					<li class="link_active"><a href="">상품 관리</a>
 						<ul class="eventManagement-sidebar_small">
 							<li><a href="">행사</a></li>
