@@ -254,4 +254,26 @@ public class AdminDao {
 						.build())
 				.build();
 		}
+	
+	//멤버 정보
+	public List<Member> MemberInfoma(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Member> members = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement("select * from member_tb");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Member m = MemberGenerator.by(rs);
+				members.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return members;
+	}
+
 }

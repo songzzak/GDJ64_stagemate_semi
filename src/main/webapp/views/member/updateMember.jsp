@@ -3,13 +3,18 @@
 <%@ include file="/views/common/top.jsp"%>
 <link rel="stylesheet" href="<%=contextPath%>/css/yelin/style_updateMember.css">
  <%@ page import="java.util.List,com.stagemate.review.model.vo.EventReview" %> 
- <%@ page import="java.util.List,com.stagemate.member.model.vo.Member"%> 
+<%@ page import="java.util.List,com.stagemate.detail.model.vo.EventOrder,com.stagemate.member.model.vo.Member"%>
 <title>STAGEMATE</title>
 <%
 //모든 회원 정보 가져오기
 String type=request.getParameter("searchType");
 String keyword=request.getParameter("searchKeyword");
 %>
+ <%
+   //PlayDetail 정보 가져와야 한다. 
+   	List<Member> memberIno = (List) request.getAttribute("eventOrders");
+ 	Member m=eventOrders.size()>0?eventOrders.get(0).getMember():null;
+   %>
 </head>
 <body>
 <%@ include file="/views/common/header.jsp"%>
@@ -23,7 +28,7 @@ String keyword=request.getParameter("searchKeyword");
 			</div>
 			<div class="">
 			<table class="updateTable">
-		    
+		     <%if(m!=null){ %>
 				<tr>
 					<th>이름</th>
 					<td>	
@@ -33,7 +38,7 @@ String keyword=request.getParameter("searchKeyword");
 				<tr>
 					<th>아이디</th>
 					<td>
-					<input type="text" name="userId" value="qwerty" readonly>
+					<input type="text" name="userId" value="<%=m.getMemberId() %>" readonly>
 					</td>
 				</tr>
 				<tr>
@@ -70,11 +75,11 @@ String keyword=request.getParameter("searchKeyword");
 					<td>	
 					<input type="text" name="email" value="qwerty@naver.com">	
 					</td>
-					<td>
+				<!-- 	<td>
 						<button onclick="UpdateEmail();">수정</button>
-					</td>
+					</td> -->
 				</tr>
-						
+				   <%} %>		
 			</table>
 			<div class="infoUpdate_btn">
 						<button onclick=""  class="cancel_btn">취소</button>
