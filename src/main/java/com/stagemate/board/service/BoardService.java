@@ -45,6 +45,15 @@ public class BoardService {
 		close(conn);
 		return b;
 	}
+	
+	public int boardCount(int boardNo, String memberId) {
+		Connection conn=getConnection();
+		int result=dao.boardCount(conn,boardNo,memberId);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 
 	public int boardWrite(String boardWriter, String boardTitle, String boardContent) {
 		Connection conn = getConnection();

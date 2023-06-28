@@ -50,6 +50,23 @@ public class BoardDao {
 		return list;
 	}
 
+	public int boardCount(Connection conn, int boardNo, String memberId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("boardCount"));
+			pstmt.setInt(1, boardNo);
+			pstmt.setString(2, memberId);
+			result=pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+		
+	
 	public int selectBoardCount(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

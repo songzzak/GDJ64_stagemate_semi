@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.stagemate.board.service.BoardService;
 
@@ -33,22 +32,12 @@ public class BoardDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int boardNo = Integer.parseInt(request.getParameter("no"));
 
-		try {
-			BoardService service = new BoardService();
-
-			int result = service.deleteBoard(boardNo);
-
-			HttpSession session = request.getSession();
-
-			session.setAttribute("result", result);
-
-			response.sendRedirect("boardList");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		int boardNo=Integer.parseInt(request.getParameter("no"));
+		
+		int result=new BoardService().deleteBoard(boardNo);
+		
+		response.sendRedirect(request.getContextPath()+"/board/boardList.do");
 
 	}
 

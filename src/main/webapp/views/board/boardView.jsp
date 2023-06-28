@@ -248,7 +248,7 @@ a {
 						<th><%=b.getBoardLikeCNT()%></th>
 						<th>추천수</th>
 						<th><%=b.getBoardViewCNT()%></th>
-						<th><img style="width: 20; height: 20px;" id="thumbs"
+						<th><img onclick="count('<%=b.getBoardNo() %>')" style="width: 20; height: 20px;" id="thumbs"
 							src="<%=request.getContextPath()%>/images/jangheum/thumbs.svg"></th>
 					</tr>
 				</table>
@@ -260,9 +260,8 @@ a {
 			<div>
 				<hr color=#000000>
 				<div class="bt_wrap">
-					<a href="#" class="on">신고</a> 
-					<a href="#" class="on">수정</a> 
-					<a href='<%=request.getContextPath()%>/board/boardDelete.do?no=<%=b.getBoardNo()%>' class="on">삭제</a>
+					<a href="#" class="on">신고</a> <a href="#" class="on">수정</a> 
+					<a href="<%=request.getContextPath()%>/board/boardDelete.do?no=<%=b.getBoardNo()%>"class="on">삭제</a>
 				</div>
 				<div class="bt_list">
 					<a href="<%=request.getContextPath()%>/board/boardList.do"
@@ -275,8 +274,9 @@ a {
 							method="post">
 							<textarea name="cmtContent" cols="55" rows="3"></textarea>
 							<input type="hidden" name="boardRef" value="<%=b.getBoardNo()%>">
-							<input type="hidden" name="level" value="1"> 
-							<input type="hidden" name="cmtWriter" value="<%=loginMember != null ? loginMember.getMemberId() : ""%>">
+							<input type="hidden" name="level" value="1"> <input
+								type="hidden" name="cmtWriter"
+								value="<%=loginMember != null ? loginMember.getMemberId() : ""%>">
 							<input type="hidden" name="cmtRef" value="0">
 							<button type="submit" id="btn_insert">등록</button>
 						</form>
@@ -290,15 +290,14 @@ a {
 					%>
 					<tr class="level1">
 						<td><sub class="comment_writer"><%=bc.getCmtWriter()%></sub>
-							<sub class="comment_date"><%=bc.getCmtDate()%></sub> 
-							<br> <%=bc.getCmtContent()%>
+							<sub class="comment_date"><%=bc.getCmtDate()%></sub> <br> <%=bc.getCmtContent()%>
 						</td>
 						<td>
 							<%
 							if (loginMember != null) {
 							%>
 							<button class="btn_reply" value="<%=bc.getCmtNo()%>">답글</button>
-							 <%
+							<%
 							}
 							%>
 						</td>
@@ -354,8 +353,13 @@ a {
         td.css("display","none");
         td.append(form);
         tr.append(td);
-        
      });
+	
+	<%-- const count=(boardNo)=>{
+		location.href="<%=contextPath%>/board/boardCount.do?boardNo="+boardNo
+	} --%>
+	
+	
 </script>
 <!-------------------------------------------->
 </body>
