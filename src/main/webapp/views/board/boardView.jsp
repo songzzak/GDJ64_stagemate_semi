@@ -87,27 +87,11 @@ table#tbl_comment button.btn_reply {
 	display: none;
 }
 
-table#tbl_comment button.btn_delete {
-	display: none;
-}
-
-table#tbl_comment button.btn_update {
-	display: none;
-}
-
 table#tbl_comment tr:hover {
 	background: lightgray;
 }
 
 table#tbl_comment tr:hover button.btn_reply {
-	display: inline;
-}
-
-table#tbl_comment tr:hover button.btn_delete {
-	display: inline;
-}
-
-table#tbl_comment tr:hover button.btn_update {
 	display: inline;
 }
 
@@ -261,10 +245,10 @@ a {
 						<th>작성일</th>
 						<th><%=b.getBoardDate()%></th>
 						<th>조회수</th>
-						<th><%=b.getBoardViewCNT()%></th>
-						<th>추천수</th>
 						<th><%=b.getBoardLikeCNT()%></th>
-						<th><img style="width: 20; height: 20px;" id="thumbs"
+						<th>추천수</th>
+						<th><%=b.getBoardViewCNT()%></th>
+						<th><img onclick="count('<%=b.getBoardNo() %>')" style="width: 20; height: 20px;" id="thumbs"
 							src="<%=request.getContextPath()%>/images/jangheum/thumbs.svg"></th>
 					</tr>
 				</table>
@@ -276,9 +260,8 @@ a {
 			<div>
 				<hr color=#000000>
 				<div class="bt_wrap">
-					<a href="#" class="on">신고</a> <a href="#" class="on">수정</a> <a
-						href="<%=request.getContextPath()%>/board/boardDelete.do"
-						class="on">삭제</a>
+					<a href="#" class="on">신고</a> <a href="#" class="on">수정</a> 
+					<a href="<%=request.getContextPath()%>/board/boardDelete.do?no=<%=b.getBoardNo()%>"class="on">삭제</a>
 				</div>
 				<div class="bt_list">
 					<a href="<%=request.getContextPath()%>/board/boardList.do"
@@ -314,10 +297,9 @@ a {
 							if (loginMember != null) {
 							%>
 							<button class="btn_reply" value="<%=bc.getCmtNo()%>">답글</button>
-							<button class="btn_delete">삭제</button> 
 							<%
- 							}
-							 %>
+							}
+							%>
 						</td>
 					</tr>
 					<%
@@ -371,8 +353,13 @@ a {
         td.css("display","none");
         td.append(form);
         tr.append(td);
-        
      });
+	
+	<%-- const count=(boardNo)=>{
+		location.href="<%=contextPath%>/board/boardCount.do?boardNo="+boardNo
+	} --%>
+	
+	
 </script>
 <!-------------------------------------------->
 </body>
