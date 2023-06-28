@@ -24,7 +24,7 @@ public class WithdrawMemberServlet extends HttpServlet {
 		String id=request.getParameter("id");
 		int result=new AdminService().outmember(id);
 		String msg = "";
-		String loc = "/";
+		String loc = "/member/logout.do";
 		 if (result > 0) {
              // 성공
 			 msg="탈퇴가 완료되었습니다. 그 동안 StageMate를 사랑해주셔서 감사합니다.";
