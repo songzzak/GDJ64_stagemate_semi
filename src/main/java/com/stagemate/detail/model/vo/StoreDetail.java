@@ -1,7 +1,5 @@
 package com.stagemate.detail.model.vo;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,8 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class StoreDetail {
-	private int orderNo;
-	private String productNm;
-	private int totalPrice;
-	
+   private int orderNo;
+   private String productNm;
+   private int totalPrice;
+   private String orderDate;
+   private String orderStatus;
+   
 }

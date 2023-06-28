@@ -1,6 +1,7 @@
 package com.stagemate.detail.model.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,19 +11,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.stagemate.admin.service.AdminService;
+import com.google.gson.Gson;
 import com.stagemate.detail.model.service.PlayListService;
-import com.stagemate.detail.model.service.StoreListService;
 import com.stagemate.detail.model.vo.Detail;
-import com.stagemate.detail.model.vo.StoreDetail;
+import com.stagemate.detail.model.vo.ResponseSearch;
 import com.stagemate.member.model.vo.Member;
 
-@WebServlet("/Detail/DetailListServlet.do")
-public class PlayListServlet extends HttpServlet {
+/**
+ * Servlet implementation class PlayListSearchServlet
+ */
+@WebServlet("/PlayListSearchServlet")
+public class PlayListSearchServlet extends HttpServlet {
    private static final long serialVersionUID = 1L;
-   private static final String LOGIN_MEMBER = "loginMember";    
-
-    public PlayListServlet() {
+   private static final String LOGIN_MEMBER = "loginMember";
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public PlayListSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,8 +37,24 @@ public class PlayListServlet extends HttpServlet {
     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
     */
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      int cPage = 1;
-      int numPerpage = 10;
+      String day = request.getParameter("day");
+      String yyyy = request.getParameter("yyyy");
+      String mm = request.getParameter("mm");
+      String status = request.getParameter("status");
+
+      int cPage;
+      int numPerpage;
+      try {
+         cPage = Integer.parseInt(request.getParameter("cPage"));
+      } catch (NumberFormatException e){
+         cPage = 1;
+      }
+      try {
+         numPerpage = Integer.parseInt(request.getParameter("numPerpage"));
+      } catch (NumberFormatException e){
+         numPerpage = 10;
+      }
+      
       String userId = "";
       HttpSession session = ((HttpServletRequest) request).getSession();
       Object obj = session.getAttribute(LOGIN_MEMBER);
@@ -41,19 +63,20 @@ public class PlayListServlet extends HttpServlet {
          userId = member.getMemberId();
       }
       
-      List<Detail> detail = new PlayListService().selectPlayDetailCondition(userId, "1", "", "", "전체", 1, 10);
-      request.setAttribute("DetailList", detail);
-      List<StoreDetail> stores  = new StoreListService().selectStoreDetailCondition(userId, "1", "", "", "결제", 1, 10, "DESC");
-      request.setAttribute("StoreList", stores );
-      
-      int totalCount = new PlayListService().selectPlayDetailCount(userId, "1", "", "", "1");
-      request.setAttribute("TotalCount", totalCount );
+      int totalCount = new PlayListService().selectPlayDetailCount(userId, day, yyyy, mm, status);
+      List<Detail> detail = new ArrayList();
       String pageBar="";
+      
       if (totalCount > 0) {
          int totalPage=(int)Math.ceil((double)totalCount/numPerpage);
          int pageBarSize=5;
          int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
          int pageEnd=pageNo+pageBarSize-1;
+         int startRow = cPage == 1 ? 1 : 1 + ((cPage-1) * numPerpage);
+         int endRow = cPage == 1 ? numPerpage : ((cPage) * numPerpage);
+         
+         detail = new PlayListService().selectPlayDetailCondition(userId, day, yyyy, mm, status, startRow, endRow);
+         
          String left_double_arrow = String.format("<img src='%s'>", request.getContextPath() + "/images/joonho/left_double_arrow.svg");
          String left_arrow = String.format("<img src='%s'>", request.getContextPath() + "/images/joonho/left_arrow.svg");
          String right_double_arrow = String.format("<img src='%s'>", request.getContextPath() + "/images/joonho/right_double_arrow.svg");
@@ -66,14 +89,14 @@ public class PlayListServlet extends HttpServlet {
          if(cPage==1) {
             pageBar+="<span>"+left_arrow+"</span>";
          }else {
-            pageBar+="<a class='page-link' onclick=\"searchList('1', " + (cPage-1) + "1, 10)\">"+left_arrow+"</a>";
+            pageBar+="<a class='page-link' onclick=\"searchList('1', " + (cPage-1) + ", 10)\">"+left_arrow+"</a>";
          }
          pageBar+="<div>";
          while(!(pageNo>pageEnd||pageNo>totalPage)) {
             if(pageNo==cPage) {
                pageBar+="<span>"+pageNo+"</span>";
             }else {
-               pageBar+="<a class='page-link' onclick=\"searchList('1', " + pageNo + "1, 10)\">"+pageNo+"</a>";
+               pageBar+="<a class='page-link' onclick=\"searchList('1', " + pageNo + ", 10)\">"+pageNo+"</a>";
             }
             pageNo++;
          }
@@ -81,18 +104,23 @@ public class PlayListServlet extends HttpServlet {
          if(cPage==totalPage) {
             pageBar+="<span>"+right_arrow+"</span>";
          }else {
-            pageBar+="<a class='page-link' onclick=\"searchList('1', " + (cPage+1) + "1, 10)\">"+right_arrow+"</a>";
+            pageBar+="<a class='page-link' onclick=\"searchList('1', " + (cPage+1) + ", 10)\">"+right_arrow+"</a>";
          }
          
          if(pageNo>totalPage) {
             pageBar+="<span>"+right_double_arrow+"</span>";
          }else {
-            pageBar+="<a class='page-link' onclick=\"searchList('1', " + pageNo + "1, 10)\">"+right_double_arrow+"</a>";
+            pageBar+="<a class='page-link' onclick=\"searchList('1', " + pageNo + ", 10)\">"+right_double_arrow+"</a>";
          }
       }
-      request.setAttribute("pageBar", pageBar);
       
-      request.getRequestDispatcher("/views/detail/detailList.jsp").forward(request, response);  
+      ResponseSearch data = new ResponseSearch(totalCount, detail, null, pageBar);
+      Gson gson = new Gson();
+      String json = gson.toJson(data);
+      response.setContentType("application/json");
+      response.setCharacterEncoding("UTF-8");
+      
+      response.getWriter().write(json);
    }
 
    /**
@@ -104,3 +132,5 @@ public class PlayListServlet extends HttpServlet {
    }
 
 }
+
+

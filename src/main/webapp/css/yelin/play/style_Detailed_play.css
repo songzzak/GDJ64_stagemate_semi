@@ -184,6 +184,7 @@
 	color: white;
 	margin: 0 auto; /* 버튼 글씨정렬 후 버튼 일자 정렬 */
 	display: flex;
+	cursor:pointer;
 }
 /* 예매내역 버튼 */
 .re-btn2 {
@@ -200,6 +201,7 @@
 	display: flex;
 	margin-bottom: 80px;
 	margin-top: 30px;
+	cursor:pointer;
 }
 
 /* 예매취소 아래 선 조절 */
