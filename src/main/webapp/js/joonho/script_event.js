@@ -1,8 +1,8 @@
 const urlcopy = () => {
-	var url = '';
+	var currentUrl = window.location.href;
 	var textarea = document.createElement("textarea");
 	document.body.appendChild(textarea);
-	textarea.value = pagecopy;
+	textarea.value = currentUrl;
 	textarea.select();
 	document.execCommand("copy");
 	document.body.removeChild(textarea);
