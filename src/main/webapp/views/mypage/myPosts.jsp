@@ -71,7 +71,7 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 	                	</colgroup>
 	                	<thead>
 		                	<tr>
-		                		<th scope="col"><input type="checkbox" id="checkbox-listAll"></th>
+		                		<th scope="col"><input type="checkbox" id="boardList-checkAll"></th>
 		                		<th scope="col">제목</th>
 		                		<th scope="col">작성일</th>
 		                		<th scope="col">조회수</th>
@@ -83,7 +83,7 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 	                	<%}else{ 
 	                			for(Board b:boards){%>
 		                	<tr>
-		                		<td><input type="checkbox" class="boardChkbox"></td>
+		                		<td><input type="checkbox" class="board-ckbox" value="<%=b.getBoardNo()%>"></td>
 		                		<td style="text-align: center;">
 			                		<a href="<%=contextPath%>/board/boardView.do?no=<%=b.getBoardNo()%>">
 			                			<%=b.getBoardTitle() %>
@@ -97,7 +97,7 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 	                	</tbody>
 	                </table>
 	                <div id="post-btnContainer">
-	                	<button>삭제</button>
+	                	<button id="deleteBoardBtn">삭제</button>
 	                	<button onclick="boardWriteForm();">글쓰기</button>
 	                </div>
                 </div>
@@ -109,7 +109,7 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 	                	</colgroup>
 	                	<thead>
 		                	<tr>
-		                		<th scope="col"><input type="checkbox" id="checkbox-commentAll"></th>
+		                		<th scope="col"><input type="checkbox" id="commentList-checkAll"></th>
 		                		<th scope="col" style="text-align: center;">제목</th>
 		                	</tr>
 	                	</thead>
@@ -126,7 +126,7 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 	                				}
 	                			%>
 	                		<tr>
-	                			<td><input type="checkbox" class="commentChkbox"></td>
+	                			<td><input type="checkbox" class="comment-ckbox" value="<%=c.getCmtNo()%>"></td>
 	                			<td>
 	                				<div class="div_comment_td">
 	                				<a href="<%=contextPath%>/board/boardView.do?no=<%=c.getBoardRef()%>">
@@ -142,7 +142,7 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 	                	</tbody>
 	                </table>
 	                <div id="post-btnContainer">
-	                	<button>삭제</button>
+	                	<button id="deleteCommentBtn">삭제</button>
 	                	<button onclick="boardWriteForm();">글쓰기</button>
 	                </div>
                 </div>
@@ -161,7 +161,55 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 		  location.assign("<%=request.getContextPath()%>/board/boardWriteform.do");
 	};
 $(document).ready(function() {
-	  // 초기 설정은 공연 버튼이 선택되어 있음
+	// 전체선택 체크박스 클릭 시
+    $("#boardList-checkAll").on("change", function() {
+        var isChecked = $(this).prop("checked");
+        $(".board-ckbox").prop("checked", isChecked);
+    });
+    $("#commentList-checkAll").on("change", function() {
+        var isChecked = $(this).prop("checked");
+        $(".comment-ckbox").prop("checked", isChecked);
+    });
+    
+    //작성글 삭제버튼
+    $("#deleteBoardBtn").click(function () {
+		let chk_arr=[];
+		$(".board-ckbox:checked").each(function(){
+			chk_arr.push($(this).val()); 
+		});
+		if (chk_arr.length === 0) {
+	        alert("선택된 게시글이 없습니다");
+	        return;
+	    }
+		if(confirm("선택 게시글을 삭제하시겠습니까?")){
+			alert("삭제 기능구현"+chk_arr);
+		<%-- location.assign("<%=request.getContextPath()%>/store/deleteCart.do?chk_arr="+chk_arr+"&id=<%=loginMember.getMemberId()%>"); --%>
+		}else{
+			alert("삭제하기 취소");
+		}
+		reload();
+	});
+    
+  //작성댓글 삭제버튼
+    $("#deleteCommentBtn").click(function () {
+		let chk_arr=[];
+		$(".comment-ckbox:checked").each(function(){
+			chk_arr.push($(this).val()); 
+		});
+		if (chk_arr.length === 0) {
+	        alert("선택된 댓글이 없습니다");
+	        return;
+	    }
+		if(confirm("선택 댓글을 삭제하시겠습니까?")){
+			alert("삭제 기능구현"+chk_arr);
+		<%-- location.assign("<%=request.getContextPath()%>/store/deleteCart.do?chk_arr="+chk_arr+"&id=<%=loginMember.getMemberId()%>"); --%>
+		}else{
+			alert("삭제하기 취소");
+		}
+		reload();
+	});
+  
+	  // 초기 설정은  작성글 선택되어 있음
 	  $("#boardListContainer").show();
 	  $("#commentListcontainer").hide();
 
