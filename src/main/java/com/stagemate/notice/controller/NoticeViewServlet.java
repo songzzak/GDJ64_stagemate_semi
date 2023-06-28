@@ -13,7 +13,7 @@ import com.stagemate.notice.model.vo.Notice;
 /**
  * Servlet implementation class NoticeViewServlet
  */
-@WebServlet("/notice/noticeView")
+@WebServlet("/notice/noticeView.do")
 public class NoticeViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
