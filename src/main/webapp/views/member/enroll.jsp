@@ -381,7 +381,7 @@
     function sendAuthCode(element) {
         let realCode = '';
         let timer = undefined;
-        let count = 29;
+        let count = 179;
         
     	$(".emailDuplicate").remove();
     	
@@ -497,7 +497,7 @@
                 textAlign: "center"
         };
         const timerTitle = $("<p>").text("남은 시간").css(cssTime).addClass("fs-small centering-children");
-        const timerSeconds = $("<p>").text("01:00").css(cssTime).addClass("fc-red centering-children timer_seconds");
+        const timerSeconds = $("<p>").text("03:00").css(cssTime).addClass("fc-red centering-children timer_seconds");
 
         formBox.append(authCode);
         formBox.append(enrollWrapperRightInner.append(btnCheck));

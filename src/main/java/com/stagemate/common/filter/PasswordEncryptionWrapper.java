@@ -25,7 +25,7 @@ public class PasswordEncryptionWrapper extends HttpServletRequestWrapper {
 		return dataBinded;
 	}
 	
-	private String getSHA512(String pwOriginal) {
+	public static String getSHA512(String pwOriginal) {
 		MessageDigest md = null;
 		try {
 			md = MessageDigest.getInstance(ALGORITHM);

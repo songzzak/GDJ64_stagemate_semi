@@ -113,4 +113,47 @@ private static final String SQL_PATH = "/sql/member/member_sql.properties";
 		}
 		return result;
 	}
+
+	public Member selectByIdAndEmail(Connection conn, String userId, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member member = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectByIdAndEmail"));
+			pstmt.setString(1, userId);
+			pstmt.setString(2, email);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				member = MemberGenerator.by(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return member;
+	}
+
+	public int updatePassword(Connection conn, String newPassword, String userId, String emailEncrypted) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("updatePassword"));
+			pstmt.setString(1, newPassword);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, emailEncrypted);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 }

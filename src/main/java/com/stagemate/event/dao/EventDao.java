@@ -1377,7 +1377,6 @@ public class EventDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("selectEventAndFileByDate"));
-			System.out.println("pstmt.setString() 적용 전 sql.getProperty(): " + sql.getProperty("selectEventAndFileByDate"));
 			pstmt.setString(1, date);
 			rs = pstmt.executeQuery();
 			
