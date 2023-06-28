@@ -37,7 +37,7 @@ public class FileDownloadServlet extends HttpServlet {
 		//1. 클라이언트가 보낸 파일이름 받기 
 		String fileName= request.getParameter("name");
 		//2.파일에 대한 절대경로를 가져옴 
-		String path = getServletContext().getRealPath("/upload/notice/");
+		String path = getServletContext().getRealPath("/upload/nabin");
 		File f= new File(path+fileName);
 		//3. InputStream을 생성 => fILEiNPUTsTREAM을 생성 
 	FileInputStream fis = new FileInputStream(f);

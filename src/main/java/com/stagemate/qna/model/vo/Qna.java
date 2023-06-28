@@ -17,7 +17,6 @@ public class Qna {
 	private int inquiryNo;
 	private String inquiryContent;
 	private String inquiryTitle;
-	private String writerEmail;
 	private int ctgNum;
 	private String writerId;
 	private Date inquiryInsertDt;

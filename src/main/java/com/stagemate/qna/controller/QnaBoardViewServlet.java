@@ -34,11 +34,7 @@ public class QnaBoardViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int inquiryNo= Integer.parseInt(request.getParameter("no"));
 		Qna q = new QnaService().selectInquiryByNo(inquiryNo);
-		
-		request.setAttribute("qna",q);
-		request.getRequestDispatcher("/views/qna/qnaBoardView.jsp")
-			.forward(request, response);
-				
+					
 		
 		//댓글을 가져와 출력하기
 		List<QnaComment> comments=new QnaService().selectQnaComment(inquiryNo);

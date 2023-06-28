@@ -59,31 +59,34 @@ public class QnaInsertEndServlet extends HttpServlet {
 			//MutipartRequest 클래스 샹성하기 
 			MultipartRequest mr= new MultipartRequest (request,path,maxSize,encode,dfr);
 			
-			String inquiryTitle= mr.getParameter("inquiryTitle");
-			String writerId=mr.getParameter("writerId");
-			String inquiryContent=mr.getParameter("inquiryContent");
+			String inquiryTitle= mr.getParameter("qnaTitle");
+			String writerId=mr.getParameter("qnaWriter");
+			String inquiryContent=mr.getParameter("qnaContent");
 			//저장된 파일에 대한 정보도 가져올 수있음 
 			//원본파일명, 재정의 파일명, 파일 사이즈 등의 정보를 가져올 수있다.
 			String orifilename=mr.getOriginalFileName("upFile");
 			String renamefilename=mr.getFilesystemName("upFile");
+			String inquiryLockFlg = mr.getParameter("qnaLock");
 			
 			Qna q = Qna.builder()
 					  .inquiryTitle(inquiryTitle)
 					  .writerId(writerId)
 					  .inquiryContent(inquiryContent)
 					  .files(QnaFileData.builder().imgFilenameOri(orifilename).imgFileRename(renamefilename).build())
+					  .inquiryLockFlg(inquiryLockFlg)
 					  .build();
-					
+			
+			System.out.println(q);		
 		int result = new QnaService().insertQna(q);
 		String msg="1:1문의 등록완료", loc="/qna/qnaList.do";
 		if(result==0) {
-			msg="공지사항 등록 실패";
+			msg="1:1문의 등록 실패";
 			loc="/qna/insertForm.do";
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 			
-		request.getRequestDispatcher("/view/common/msg.jsp")
+		request.getRequestDispatcher("/views/common/msg.jsp")
 		.forward(request, response);
 		}
 			

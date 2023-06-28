@@ -64,6 +64,7 @@ public class UpdateQnaEndServlet extends HttpServlet {
 						.inquiryTitle(mer.getParameter("qnaTitle"))
 						.inquiryContent(mer.getParameter("qnaContent"))
 						.writerId(mer.getParameter("qnaWriter"))
+						.inquiryLockFlg(mer.getParameter("qnaLock"))
 						.files(QnaFileData.builder().imgFileRename(mer.getFilesystemName("upfile"))
 								.imgFilenameOri(mer.getOriginalFileName("upfile")).build())
 						.build();
