@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.stagemate.admin.service.AdminService;
 import com.stagemate.detail.model.vo.EventOrder;
+import com.stagemate.member.model.vo.Member;
 
 /**
  * Servlet implementation class UpdateMemberServlet
@@ -31,12 +33,19 @@ public class UpdateMemberServlet extends HttpServlet {
 		//이거 
 		String userId=request.getParameter("userId");
 		
-		List<EventOrder> eventOrders=new AdminService().selectSalesInfo(userId);
-
-		eventOrders.stream().forEach(System.out::println);
+		HttpSession session = ((HttpServletRequest) request).getSession();
+		Object obj = session.getAttribute("loginMember");
+		Member member = null;
+		if (obj != null) {
+			member = (Member)obj;
+		}
+		
+//		List<EventOrder> eventOrders=new AdminService().selectSalesInfo(userId);
+//
+//		eventOrders.stream().forEach(System.out::println);
 
 		
-		request.setAttribute("eventOrders", eventOrders);
+		request.setAttribute("MemberIno", member);
 		//
 		request.getRequestDispatcher("/views/member/updateMember.jsp").forward(request, response);
 		

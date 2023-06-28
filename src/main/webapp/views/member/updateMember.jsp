@@ -11,9 +11,8 @@ String type=request.getParameter("searchType");
 String keyword=request.getParameter("searchKeyword");
 %>
  <%
-   //PlayDetail 정보 가져와야 한다. 
-   	List<Member> memberIno = (List) request.getAttribute("eventOrders");
- 	Member m=eventOrders.size()>0?eventOrders.get(0).getMember():null;
+   //Member 정보 가져와야 한다. 
+   	Member m = (Member) request.getAttribute("MemberIno");
    %>
 </head>
 <body>
@@ -49,7 +48,7 @@ String keyword=request.getParameter("searchKeyword");
 				</tr>
 					<th>전화번호</th>
 					<td>
-					<input type="text" name="" value="<%=members.getMemberPhone()%>">	
+					<input type="text" name="" value="<%=m.getMemberPhone()%>">	
 					</td>
 					<td>
 						<button onclick="UpdatePhone();">수정</button>
