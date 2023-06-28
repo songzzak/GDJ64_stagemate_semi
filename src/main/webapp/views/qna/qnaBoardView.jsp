@@ -36,6 +36,16 @@
 						<tr>
 							<th>작성자</th>
 							<td><%=q.getWriterId() %></td>
+							<th>첨부파일</th>
+							<td>
+								<%if(q.getFiles()!=null){ %> 
+								<div id="download-container" onclick="fileDownload('<%=q.getFiles()%>');">
+								<img src="<%=request.getContextPath() %>/images/nabin/file.png"
+								width="20"> <span><%=q.getFiles()%></span>
+								</div>
+								<% }%>
+							</td>
+							
 							<th>작성일</th>
 							<td><%=q.getInquiryInsertDt()%></td>
 							<!-- 	<th> 조회수</th> -->
@@ -113,6 +123,13 @@
 		});
 	
 	</script>
+	
+		<script>
+			const fileDownload=(filename)=>{
+				location.assign("<%=request.getContextPath()%>/fileDownload.do?filename="+filename);
+				
+			}
+			</script>
 
 <%@ include file="/views/common/footer.jsp"%>
 <script src="<%=contextPath %>/js/jquery-3.7.0.min.js"></script>

@@ -22,6 +22,7 @@ public class QnaService {
 		close(conn);
 		return qnas;
 	}
+	
 	public int selectQnaCount() {
 		Connection conn = getConnection();
 		int result=dao.selectQnaCount(conn);
