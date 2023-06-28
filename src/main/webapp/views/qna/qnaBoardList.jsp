@@ -7,11 +7,9 @@
 <% 
 		List<Qna> qnas =(List)request.getAttribute("qnas");
 %>
-
-<link rel="stylesheet"
-	href="<%=contextPath %>/css/nabin/notice_insert.css">
-<link rel="stylesheet" href="<%=contextPath %>/css/nabin/notice.css">
+<link rel="stylesheet" href="<%=contextPath %>/css/nabin/qnalist.css">
 <link rel="stylesheet" href="<%=contextPath %>/css/nabin/media.css">
+
 <section class="min1280px">
 	<div id="sectionContainer" class="max1280px">
 		<div class="board_wrap">
@@ -32,6 +30,7 @@
 				</table>
 			</div>
 			<div class="board_list_wrap">
+			<div class="board_list">
 				<table>
 					<tr>
 						<th>번호</th>
@@ -73,15 +72,23 @@
 
 				</table>
 				
-							<div class="bt_wrap">
+							
+				</div>
+				<%-- <div id="pageBar">
+					<%=request.getAttribute("pageBar") %>
+				</div> --%>
+				
+				<div class="board_page">
+					<a href="#" class="bt first"><<</a> <a href="#" class="bt prev"><</a>
+					<a href="#" class="num on">1</a> <a href="#" class="bt next">></a>
+					<a href="#" class="bt last">>></a>
+				</div>
+				
+				<div class="bt_wrap">
 					<%if(loginMember!=null){ %>
 					<button class="on"
 						onclick="location.assign('<%=request.getContextPath()%>/qna/insertForm.do')">글쓰기</button>
 					<%} %>
-				</div>
-				<div id="pageBar">
-					<%=request.getAttribute("pageBar") %>
-				</div>
 			</div>
 		</div>
 	</div>

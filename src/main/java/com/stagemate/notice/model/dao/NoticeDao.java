@@ -13,6 +13,7 @@ import static com.stagemate.common.JDBCTemplate.close;
 
 import com.stagemate.notice.model.vo.Notice;
 import com.stagemate.notice.model.vo.NoticeFileData;
+import com.stagemate.qna.model.vo.Qna;
 
 public class NoticeDao {
 
@@ -142,7 +143,42 @@ public class NoticeDao {
 		}
 		return n;
 	}
-		
+	
+	public int updateNotice(Connection conn, Notice n) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("updateNotice"));
+			pstmt.setString(1, n.getNoticeContent());
+			pstmt.setString(2, n.getNoticeTitle());
+			pstmt.setInt(3, n.getNoticeNo());
+			result=pstmt.executeUpdate();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
+		return result;
+	}
+
+	public int deleteNotice(Connection conn, int noticeNo) {
+		PreparedStatement pstmt= null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteNotice"));
+			pstmt.setInt(1, noticeNo);
+			
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 		
 }
 

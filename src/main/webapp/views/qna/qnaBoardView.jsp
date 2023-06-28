@@ -16,8 +16,7 @@
 	<!---------------------------------------->
 	<title><strong>게시글</strong></title>
 	<!-- </head> -->
-	<body>
-
+	
 		<!-----------   아래에서 HTML 작업  ----------->
 		<section class="min1280px">
 			<div class="max1280px">
@@ -45,6 +44,8 @@
 								</div>
 								<% }%>
 							</td>
+							<th>카테고리 </th>
+							<td><%=q.getCtgNum() %> </td>
 							
 							<th>작성일</th>
 							<td><%=q.getInquiryInsertDt()%></td>
@@ -73,7 +74,6 @@
 					<!-- 	글작성자 / 관리자인 경우 수정 삭제 가능 -->
 					<%if(loginMember!=null&&(loginMember.getMemberId().equals("stageadmin")||
 					loginMember.getMemberId().equals(q.getWriterId()))){%>
-
 					<a href="<%=request.getContextPath()%>/qna/updateQna.do?no=<%=q.getInquiryNo() %>" class="on">수정</a> 
 					<a href="<%=request.getContextPath()%>/qna/deleteQna.do?no=<%=q.getInquiryNo() %>" class="on">삭제</a>
 					<%} %>
