@@ -182,8 +182,9 @@ $(document).ready(function() {
 	        return;
 	    }
 		if(confirm("선택 게시글을 삭제하시겠습니까?")){
-			alert("삭제 기능구현"+chk_arr);
-		<%-- location.assign("<%=request.getContextPath()%>/store/deleteCart.do?chk_arr="+chk_arr+"&id=<%=loginMember.getMemberId()%>"); --%>
+			/* alert("삭제 기능구현"+chk_arr); */
+		location.assign("<%=request.getContextPath()%>/mypage/deleteMyBoard.do?chk_arr="+chk_arr+"&id=<%=loginMember.getMemberId()%>");
+		alert("게시글 삭제가 완료되었습니다.");
 		}else{
 			alert("삭제하기 취소");
 		}
@@ -201,8 +202,9 @@ $(document).ready(function() {
 	        return;
 	    }
 		if(confirm("선택 댓글을 삭제하시겠습니까?")){
-			alert("삭제 기능구현"+chk_arr);
-		<%-- location.assign("<%=request.getContextPath()%>/store/deleteCart.do?chk_arr="+chk_arr+"&id=<%=loginMember.getMemberId()%>"); --%>
+			//alert("삭제 기능구현"+chk_arr);
+			location.assign("<%=request.getContextPath()%>/mypage/deleteMyComment.do?chk_arr="+chk_arr+"&id=<%=loginMember.getMemberId()%>");
+			alert("댓글 삭제가 완료되었습니다.");
 		}else{
 			alert("삭제하기 취소");
 		}
