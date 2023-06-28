@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@page import="com.stagemate.detail.model.vo.DetailInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>

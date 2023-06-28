@@ -21,7 +21,7 @@ import com.stagemate.member.model.vo.Member;
 /**
  * Servlet implementation class PlayListSearchServlet
  */
-@WebServlet("/PlayListSearchServlet")
+@WebServlet("/Detail/PlayListSearchServlet")
 public class PlayListSearchServlet extends HttpServlet {
    private static final long serialVersionUID = 1L;
    private static final String LOGIN_MEMBER = "loginMember";
