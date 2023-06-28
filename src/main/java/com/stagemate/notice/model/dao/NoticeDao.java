@@ -78,9 +78,13 @@ public class NoticeDao {
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("insertNotice"));
-			pstmt.setString(1,n.getNoticeContent());
-			pstmt.setString(2, n.getNoticeTitle());
-			pstmt.setString(3, n.getNoticeWriter());
+			
+			
+			
+		pstmt.setString(1, n.getNoticeContent());
+		pstmt.setString(2, n.getNoticeTitle());
+		pstmt.setString(3, n.getNoticeWriter());
+		
 			result=pstmt.executeUpdate();
 			
 		}catch(SQLException e) {
@@ -124,4 +128,24 @@ public class NoticeDao {
 		}
 		return result;
 	}
+	
+	public Notice selectNoticeByNo(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rs= null;
+		Notice n= null;
+		try {
+			pstmt= conn.prepareStatement(sql.getProperty("selectNoticeByNo"));
+			pstmt.setInt(1,  no);
+			rs=pstmt.executeQuery();
+			if(rs.next()) n = getNotice(rs);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return n;
+	}
+		
+		
 }
+
