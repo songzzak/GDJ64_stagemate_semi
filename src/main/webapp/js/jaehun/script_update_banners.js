@@ -199,8 +199,8 @@ function updateBanners() {
             },
             data => {
                 if (data === "success") {
+                	window.opener.location.reload(true);
                     alert("배너가 성공적으로 변경되었습니다.");
-                    window.location.reload(true);
                 } else {
                     alert("배너 변경에 실패했습니다.");
                 }
