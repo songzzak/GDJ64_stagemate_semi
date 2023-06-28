@@ -3,11 +3,12 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <%@ page
-	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile,com.stagemate.event.model.vo.EventWish"%>
+	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile,com.stagemate.event.model.vo.EventWish,com.stagemate.review.model.vo.EventReviewTBJH"%>
 <%
 List<Event> musicals = (List) request.getAttribute("musical");
 List<EventUpfile> files = (List) request.getAttribute("files");
 List<EventWish> ew = (List) request.getAttribute("ew");
+List<EventReviewTBJH> er = (List) request.getAttribute("er");
 String text=(String) request.getAttribute("text");
 String theme=request.getParameter("theme");
 String searchtext=request.getParameter("searchtext");
@@ -95,11 +96,22 @@ String searchtext=request.getParameter("searchtext");
 									</div>
 									<p><%=ewsize %></p>
 								</div>
+								<%int reviewcount=0; {
+								if(er!=null){
+								for(EventReviewTBJH ers:er){
+									if(ers.getEventNo().equals(e.getEventNo())){
+										reviewcount++;
+									}
+									}
+								}
+								}
+								
+								%>
 								<div class="like">
 									<div>
 										<img src="<%=contextPath%>/images/joonho/text.svg" alt="">
 									</div>
-									<p>21</p>
+									<p><%=reviewcount %></p>
 								</div>
 							</div>
 						</div>

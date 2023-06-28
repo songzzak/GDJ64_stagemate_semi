@@ -20,6 +20,7 @@ import com.stagemate.event.model.vo.EventSchedule;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.model.vo.Seat;
+import com.stagemate.review.model.vo.EventReviewTBJH;
 import com.stagemate.store.dao.StoreDao;
 
 public class EventDao {
@@ -89,6 +90,17 @@ public class EventDao {
 				.build();
 	}
 	
+	private EventReviewTBJH getEventReviewTBJH(ResultSet rs)throws SQLException{
+		return EventReviewTBJH.builder()
+				.ervNo(rs.getString("ERV_NO"))
+				.ervContent(rs.getString("ERV_CONTENT"))
+				.memberId(rs.getString("MEMBER_ID"))
+				.ervDate(rs.getDate("ERV_DATE"))
+				.rsvNo(rs.getString("RSV_NO"))
+				.imojiNo(rs.getInt("IMOJI_NO"))
+				.eventNo(rs.getString("EVENT_NO"))
+				.build();
+	}
 	public List<Event> selectAllEventMusical(Connection conn,int cPage, int numPerpage){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -210,6 +222,26 @@ public class EventDao {
 			close(pstmt);
 		}
 		return files;
+		
+	}
+	public List<EventReviewTBJH> selectAllEventReview(Connection conn){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<EventReviewTBJH> es=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectAllEventReview"));
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				EventReviewTBJH f=getEventReviewTBJH(rs);
+				es.add(f);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return es;
 		
 	}
 	
