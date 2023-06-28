@@ -98,7 +98,7 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 	                </table>
 	                <div id="post-btnContainer">
 	                	<button>삭제</button>
-	                	<button>글쓰기</button>
+	                	<button onclick="boardWriteForm();">글쓰기</button>
 	                </div>
                 </div>
                 <div id="commentListcontainer" style="display: none;">
@@ -143,7 +143,7 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 	                </table>
 	                <div id="post-btnContainer">
 	                	<button>삭제</button>
-	                	<button>글쓰기</button>
+	                	<button onclick="boardWriteForm();">글쓰기</button>
 	                </div>
                 </div>
                <div class="page-bar">
@@ -157,6 +157,9 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 </body>
 <script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 <script>
+	  function boardWriteForm() {
+		  location.assign("<%=request.getContextPath()%>/board/boardWriteform.do");
+	};
 $(document).ready(function() {
 	  // 초기 설정은 공연 버튼이 선택되어 있음
 	  $("#boardListContainer").show();
@@ -179,6 +182,7 @@ $(document).ready(function() {
 	    $("#boardListContainer").hide();
 	    $("#commentListcontainer").show();
 	  });
+	  
 	});
 </script>
 </html>
