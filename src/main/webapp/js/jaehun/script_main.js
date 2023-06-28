@@ -37,9 +37,15 @@ $(() => {
     });
 });
 
+
 $(window).on("load", () => {
     getPosters(new Date());
     getProducts();
+    
+    $.get(getContextPath() + "/upload/jaehun/main_banners.json")
+    .then(data => {
+        slideBanners(data);
+    });
 });
 
 //------------------------------ posters ------------------------------
@@ -255,17 +261,32 @@ const resizeGoods = () => {
 resizeGoods();
 
 //------------------------------ banners ------------------------------
-const slideBanners = (() => {
-    const wrapper = $('.banners-wrapper');
+function slideBanners(data) {
+    const wrapper = $(".banners-wrapper");
     const container = $('.banners-container');
-    const numOfbanners = container.children("li").length;
+    const numOfbanners = data.banners.length;
     const indicator = $(".banners-indicator");
     let currentIdx = 0;
     let timer = undefined;
 
+    container.html("");
+
+    data.banners.forEach((banner, index) => {
+        const path = getContextPath() + "/upload/joonho/" + banner.euRename;
+        container.append(`
+        <li>
+            <img src="${path}">
+        </li>
+        `);
+
+    });
+
     container.append(container.children().eq(0)
                                         .clone()
                                         .addClass("clone"));
+
+    initContainer();
+    autoSlide();
 
     function initContainer() {
         container.width(wrapper.width() * (numOfbanners + 1))
@@ -305,7 +326,7 @@ const slideBanners = (() => {
     };
 
     function moveContainer() {
-        container.css('transform', `translateX(-${++currentIdx * wrapper.width()}px)`);
+        container.css('transform', `translateX(-${++currentIdx * container.children("li").eq(0).width()}px)`);
 
         if (currentIdx == numOfbanners) {
             setTimeout(() => {
@@ -326,9 +347,6 @@ const slideBanners = (() => {
         timer = undefined;
     }
 
-    initContainer();
-    autoSlide();
-
     container.on("mouseenter", function () {
         stopSlide();
     });
@@ -346,12 +364,11 @@ const slideBanners = (() => {
     indicator.click(event => {
         if ($(event.target).prop("tagName") === "IMG") {
             const targetIndex = $(event.target).parent().index();
-            container.css('transform', `translateX(-${targetIndex * wrapper.width()}px)`);
+            container.css('transform', `translateX(-${targetIndex * container.children("li").eq(0).width()}px)`);
             currentIdx = targetIndex;
             generateIndicator();
         }
     });
-});
-slideBanners();
+};
 
 

@@ -10,19 +10,7 @@
     <div class="banners-wrapper">
         <ul class="banners-container">
             <li>
-                <img src="<%= contextPath %>/images/jaehun/main_page/banners/banner1_resized.jpg">
-            </li>
-            <li>
-                <img src="<%= contextPath %>/images/jaehun/main_page/banners/banner2_resized.jpg">
-            </li>
-            <li>
-                <img src="<%= contextPath %>/images/jaehun/main_page/banners/banner3_resized.jpg">
-            </li>
-            <li>
-                <img src="<%= contextPath %>/images/jaehun/main_page/banners/banner4_resized.jpg">
-            </li>
-            <li>
-                <img src="<%= contextPath %>/images/jaehun/main_page/banners/banner5_resized.jpg">
+                <img src="<%= contextPath %>/images/jaehun/main_page/loading_banner.svg">
             </li>
         </ul>
         <ul class="banners-indicator"></ul>

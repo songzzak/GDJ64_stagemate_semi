@@ -56,15 +56,17 @@
 }
 
 .banners_main-container {
+    width: 100%;
     padding: 0 20px;
     margin-bottom: 20px;
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
 .banners_main-container>li {
     position: relative;
-    width: 122px;
+    width: 18%;
     height: 100px;
     display: flex;
     flex-direction: column;
