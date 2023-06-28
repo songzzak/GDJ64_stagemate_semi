@@ -15,7 +15,7 @@ import com.stagemate.board.service.BoardService;
 /**
  * Servlet implementation class BoardSearchServlet
  */
-@WebServlet("/board/boardList")
+@WebServlet("/board/searchBoard.do")
 public class BoardSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,7 +34,8 @@ public class BoardSearchServlet extends HttpServlet {
 
 				String type=request.getParameter("searchType");
 				String keyword=request.getParameter("searchKeyword");
-				
+				System.out.println(type);
+				System.out.println(keyword);
 				int cPage,numPerpage;
 				try {
 					cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -49,8 +50,8 @@ public class BoardSearchServlet extends HttpServlet {
 				
 				List<Board> boards=new BoardService()
 						.selectBoardByKeyword(type,keyword,cPage,numPerpage);
-				
-				request.setAttribute("boards", boards);
+				System.out.println(boards);
+				request.setAttribute("board", boards);
 				
 				String pageBar="";
 				int totalData=new BoardService()

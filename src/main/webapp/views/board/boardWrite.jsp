@@ -7,6 +7,9 @@
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <style>
+input[type="text"] {
+    margin-right: 78%;
+}
 input.on {
     height: 50px;
     width: 50px;
