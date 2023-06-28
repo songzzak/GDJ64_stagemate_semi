@@ -97,14 +97,12 @@
     }
     
     function withdraw() {
-    	var checkbox = $("#check_withdraw")[0];
-        if (checkbox.checked) {
-            alert('탈퇴가 진행됩니다.');
-            location.assign("<%= request.getContextPath() %>/member/withdrawMember.do?id=<%=loginMember.getMemberId()%>");
-        } else {
-            // 체크박스가 선택되어 있지 않은 경우 알림창 출력
-            alert('탈퇴 안내사항에 동의해주세요.');
-        }
+    	    var checkbox = $("#check_withdraw")[0];
+    	    if (checkbox.checked && confirm('탈퇴를 진행하시겠습니까? 탈퇴 후에는 복구할 수 없습니다.')) {
+    	        location.assign("<%= request.getContextPath() %>/member/withdrawMember.do?id=<%=loginMember.getMemberId()%>");
+    	    } else {
+    	        alert('탈퇴 안내사항에 동의해주세요.');
+    	}
     }
 </script>
 

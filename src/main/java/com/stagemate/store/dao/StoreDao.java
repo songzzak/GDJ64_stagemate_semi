@@ -13,8 +13,10 @@ import java.util.Properties;
 
 import com.stagemate.common.JDBCTemplate;
 import com.stagemate.common.PropertiesGenerator;
+import com.stagemate.review.model.vo.Imoji;
 import com.stagemate.store.model.vo.Cart;
 import com.stagemate.store.model.vo.Product;
+import com.stagemate.store.model.vo.Review;
 import com.stagemate.store.model.vo.StoreLike;
 import com.stagemate.store.model.vo.StoreUpfile;
 
@@ -552,7 +554,59 @@ public class StoreDao {
 		}
 		return result;
 	}
-
+	public List<Review> selectStoreReviewByNo(Connection conn, int pNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Review> list=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectStoreReviewByNo"));
+			pstmt.setInt(1,pNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Review r=Review.builder()
+						.reviewNo(rs.getInt("REVIEW_NO"))
+						.reviewContent(rs.getString("REVIEW_CONTENT"))
+						.reviewDt(rs.getDate("REVIEW_DT"))
+						.orderNo(rs.getString("ORDER_NO"))
+						.imojiCd(rs.getString("IMOJI_CD"))
+						.reviewWriter(rs.getString("REVIEW_WRITER"))
+						.productNo(rs.getInt("PRODUCT_NO"))
+						.build();
+				list.add(r);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		//System.out.println("dao리뷰"+list);
+		return list;
+	}
+	
+	public List<Imoji> selectImojiAll(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Imoji> list=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectImojiAll"));
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Imoji i=Imoji.builder()
+						.imojiNo(rs.getString("IMOJI_NO"))
+						.imojiNm(rs.getString("IMOJI_NM"))
+						.build();
+				list.add(i);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 	// --------------------- jaehun ---------------------
 	public Map<Product, String> selectProductAndFile(Connection conn) {
 		PreparedStatement pstmt = null;
@@ -574,4 +628,7 @@ public class StoreDao {
 		}
 		return products;
 	}
+
+
+
 }

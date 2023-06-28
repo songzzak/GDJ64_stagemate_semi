@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.stagemate.common.JDBCTemplate;
+import com.stagemate.review.model.vo.Imoji;
 import com.stagemate.store.dao.StoreDao;
 import com.stagemate.store.model.vo.Cart;
 import com.stagemate.store.model.vo.Product;
+import com.stagemate.store.model.vo.Review;
 import com.stagemate.store.model.vo.StoreLike;
 import com.stagemate.store.model.vo.StoreUpfile;
 
@@ -203,6 +205,20 @@ public class StoreService {
 		return result;
 	}
 		
+	public List<Review> selectStoreReviewByNo(int pNo) {
+		Connection conn=getConnection();
+		List<Review> list=dao.selectStoreReviewByNo(conn,pNo);
+		close(conn);
+		return list;
+	}
+	
+	public List<Imoji> selectImojiAll() {
+		Connection conn=getConnection();
+		List<Imoji> list=dao.selectImojiAll(conn);
+		close(conn);
+		return list;
+	}
+	
 	// --------------------- jaehun ---------------------
 	public Map<Product, String> selectProductAndFile() {
 		Connection conn = JDBCTemplate.getConnection();
@@ -210,5 +226,7 @@ public class StoreService {
 		JDBCTemplate.close(conn);
 		return products;
 	}
+
+
 
 }
