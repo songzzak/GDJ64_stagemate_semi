@@ -16,16 +16,16 @@ List<Product> products = (List) request.getAttribute("products");
 			<div id="store_admin_nav">
 				<nav>
 					<ul id="store_admin_nav_ul">
-						<li><a href="">회원 관리</a></li>
+						<li><a href="<%=contextPath%>/admin/membermanage">회원 관리</a></li>
 						<li class="select_nav_admin">
-							<a href="">상품 관리</a>
+							<a href="<%=contextPath%>/admin/eventlist">상품 관리</a>
 							<ul>
 								<li><a href="<%=contextPath%>/admin/eventlist">행사</a></li>
 								<li class="select_nav_admin"><a href="<%=contextPath%>/admin/selectAllProduct.do">스토어</a></li>
 							</ul>
 						</li>
 						<li>
-							<a href="">판매 관리</a>
+							<a href="<%=contextPath%>/admin/SalesDetail.do">판매 관리</a>
 							<ul>
 								<li><a href="<%=contextPath%>/admin/SalesDetail.do">판매내역관리</a></li>
 								<li><a href="">결제 취소 요청</a></li>
