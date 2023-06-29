@@ -37,9 +37,11 @@ public class BoardWriteEndServlet extends HttpServlet {
 				.boardTitle(request.getParameter("title"))
 				.boardContent(request.getParameter("content"))
 				.build();
-		System.out.println(b.getBoardWriter());
-		System.out.println(b.getBoardTitle());
-		System.out.println(b.getBoardContent());
+		/*
+		 * System.out.println(b.getBoardWriter());
+		 * System.out.println(b.getBoardTitle());
+		 * System.out.println(b.getBoardContent());
+		 */
 		int result = new BoardService().boardWrite(b.getBoardWriter(),b.getBoardTitle(), b.getBoardContent());
 
 		response.sendRedirect(request.getContextPath()+"/board/boardList.do");

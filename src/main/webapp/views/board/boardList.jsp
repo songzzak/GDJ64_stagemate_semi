@@ -324,8 +324,8 @@ span {
 								<div class="top"></div>
 								<div class="num a">글번호</div>
 								<div class="title a">제목</div>
-								<div class="count a">추천수</div>
 								<div class="rec_num a">조회수</div>
+								<div class="count a">추천수</div>
 								<div class="writer a">작성자</div>
 								<div class="date a">작성일자</div>
 							</div>
@@ -368,8 +368,7 @@ span {
 
 
 				<div class="bt_wrap">
-					<a href="<%=request.getContextPath()%>/board/boardWriteform.do"
-						class="on">작성</a>
+					<a href="<%=request.getContextPath()%>/board/boardWriteform.do"class="on">작성</a>
 					
 					<div class="extracontainer">
 							<div>
@@ -413,6 +412,7 @@ span {
 <script src="<%=contextPath%>/js/script_common.js"></script>
 <!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 <script>
+
 	 $("#search_button").click(function(){
 		
 		console.log($("input[name=searchKeyword]").val())

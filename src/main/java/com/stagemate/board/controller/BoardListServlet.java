@@ -17,7 +17,7 @@ import com.stagemate.board.service.BoardService;
  */
 @WebServlet("/board/boardList.do")
 public class BoardListServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;	
 
 	/**
 	 * @see HttpServlet#HttpServlet()

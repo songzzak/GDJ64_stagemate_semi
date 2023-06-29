@@ -93,14 +93,14 @@ input#file-upload-button {
 </style>
 
 <!---------------------------------------->
-<title>게시글 작성</title>
+<title>게시글 수정</title>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
 	<!-----------   아래에서 HTML 작업  ----------->
 	<section class="min1280px">
 		<div class="max1280px">
-			<form action="">
+			<form action="<%=request.getContextPath()%>/board/boardWrite.do" method="post">
 				<div class="board_title">
 					<strong>STAGEMATE</strong>
 					<hr>
@@ -111,23 +111,23 @@ input#file-upload-button {
 					<tr>
 						<th width=50>작성자</th>
 						<td colspan="2" height=50>
-							<input type="text" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():"" %>" readonly>	
+							<input type="text" name="writer" value="<%=b.getBoardWriter() %>" readonly>	
 						</td>
 					</tr>
 						<tr>
 							<th width=80>제목</th>
 							<td colspan="2" height=50><textarea 
-									style="width: 100%; height: 100%" name="title" value="<%=b.getBoardTitle()%>"></textarea></td>
+									style="width: 100%; height: 100%" name="title" ><%=b.getBoardTitle() %></textarea></td>
 						</tr>
 						<tr>
 							<td colspan="2" height=400>
-							<textarea style="width: 100%; height: 100%" name="content" value="<%=b.getBoardContent()%>"></textarea>
+							<textarea style="width: 100%; height: 100%" name="content"><%=b.getBoardContent() %></textarea>
 							</td>
 						</tr>
 					</table>
 					<div class="bt_wrap">
-						<input type=submit class="on" value="취소"> 
-						<input type=submit class="on" value="완료"> 
+						<input type="reset" class="on" value="취소"> 
+						<input type="submit" class="on" value="완료"> 
 					</div>
 						</form>
 
