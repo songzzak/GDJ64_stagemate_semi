@@ -11,6 +11,7 @@ import java.util.List;
 import com.stagemate.admin.model.dao.AdminDao;
 import com.stagemate.admin.model.vo.PlayInfo;
 import com.stagemate.detail.model.vo.EventOrder;
+import com.stagemate.detail.model.vo.StoreOrder;
 import com.stagemate.member.model.vo.Member;
 
 public class AdminService {
@@ -70,6 +71,22 @@ public class AdminService {
 		return result;
 		
 	}
+	
+	//공연 결제 취소창
+	public List<EventOrder> selectCancelOrder(String rsvNo){
+		Connection conn=getConnection();
+		
+		List<EventOrder> eventOrder=new AdminDao().selectCancelOrder(conn,rsvNo);
+		
+		close(conn);
+		return eventOrder;
+	}
+	
+	
+	
+	
+	
+	
 	//사용자 멤버 정보
 	public List<Member> MemberInfo(String userId){
 		Connection conn=getConnection();
@@ -79,4 +96,28 @@ public class AdminService {
 		close(conn);
 		return memberInfo;
 	}
+	//관리자페이지 스토어 리스트
+	/*
+	 * public List<StoreInfo> listStoreInfo(){ Connection conn=getConnection();
+	 * List<StoreInfo> list=dao.storeInfo(conn); close(conn); return list; }
+	 */
+		//사용자 구매정보
+		/*
+		 * public List<StoreOrder> selectStoresInfo(String userId){ Connection
+		 * conn=getConnection();
+		 * 
+		 * List<StoreOrder> storeOrder=new AdminDao().selectStoreOrder(conn,userId);
+		 * 
+		 * close(conn); return storeOrder; }
+		 */
+			
+			/*
+			 * //스토어 결제 취소창 public List<StoreOrder> selectStoreCancel(String orderNo){
+			 * Connection conn=getConnection();
+			 * 
+			 * List<StoreOrder> storeOrder=new AdminDao().selectStoreCancel(conn,orderNo);
+			 * 
+			 * close(conn); return storeOrder; }
+			 */
+	
 }

@@ -63,10 +63,10 @@ String keyword=request.getParameter("searchKeyword");
 				<tr>
 					<th>주소</th>
 					<td>	
-					<input type="text" name="address" value="">	
+					<input type="text" name="<%=m.getMemberAddress()%>" value="">	
 					</td>
 					<td>
-						<button onclick="openPostCode();">수정</button>
+						<!-- <button onclick="openPostCode();">수정</button> -->
 					</td>
 				</tr>
 				<tr>
@@ -94,15 +94,15 @@ String keyword=request.getParameter("searchKeyword");
 
 <script>
 	const UpdatePwd=()=>{
-		const childWindow=open("<%=request.getContextPath()%>/member/UpdatePassword.do","_blank","width=600,height=450");
+		const childWindow=open("<%=request.getContextPath()%>/member/UpdatePassword.do","_blank","width=500,height=450");
 		
 	}
 	const UpdatePhone=()=>{
-		const childWindow=open("<%=request.getContextPath()%>/member/updatePhone.do","_blank","width=600,height=260");
+		const childWindow=open("<%=request.getContextPath()%>/member/updatePhone.do","_blank","width=450,height=260");
 	}
-	const UpdateEmail=()=>{
+	<%-- const UpdateEmail=()=>{
 		const chilWindow=open("<%=request.getContextPath()%>/member/updateEmail.do","_blank","width=600,height=260");
-	}
+	} --%>
 	const updateClearButton=()=>{
 		alert('변경 완료되었습니다.');
 	}
@@ -111,6 +111,6 @@ String keyword=request.getParameter("searchKeyword");
 <%@ include file="/views/common/footer.jsp"%>
 </body>
 <script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> -->
 <script src="<%=contextPath%>/js/script_common.js"></script>
 </html>

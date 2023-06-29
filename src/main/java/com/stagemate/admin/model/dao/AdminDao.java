@@ -17,6 +17,7 @@ import com.stagemate.common.MemberGenerator;
 import com.stagemate.admin.model.vo.PlayInfo;
 import com.stagemate.common.AESEncryptor;
 import com.stagemate.detail.model.vo.EventOrder;
+import com.stagemate.detail.model.vo.StoreOrder;
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.member.model.vo.Member;
 
@@ -200,7 +201,7 @@ public class AdminDao {
 	}
 	
 
-	
+	//예매 상세정보
 	public List<EventOrder> selectEventOrder(Connection conn,String userId){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -255,7 +256,109 @@ public class AdminDao {
 				.build();
 		}
 	
-	//멤버 정보
+			
+		
+			//예매 결제 취소 요청 진행
+			public List<EventOrder> selectCancelOrder(Connection conn,String rsvNo){
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				List<EventOrder> eventOrder = new ArrayList<>();
+				try {
+					String query=sql.getProperty("selectCancelOrder");
+					pstmt = conn.prepareStatement(sql.getProperty("selectCancelOrder"));
+					pstmt.setString(1, rsvNo);
+					rs = pstmt.executeQuery();
+					while (rs.next()) {
+						eventOrder.add(getEventOrder(rs));
+					}
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}finally {
+					close(rs);
+					close(pstmt);
+				}return eventOrder;
+			}
+			
+			private EventOrder getCancelOrder(ResultSet rs) throws SQLException{
+				return EventOrder.builder()
+						
+						.paymentNo(rs.getString("payment_no"))
+						.rsv_price(rs.getInt("rsv_price"))
+						.rsvNo(rs.getString("rsv_no"))
+						.member(Member.builder()
+								.memberNm(rs.getString("member_nm"))
+								.build()
+								)
+						.build();
+				}
+			
+			
+			//스토어 회원 상세 정보
+			/*
+			 * public List<StoreOrder> selectStoreOrder(Connection conn,String userId){
+			 * PreparedStatement pstmt = null; ResultSet rs = null; List<StoreOrder>
+			 * storeOrder = new ArrayList<>(); try { pstmt =
+			 * conn.prepareStatement(sql.getProperty("selectStoreOrder"));
+			 * pstmt.setString(1, userId); rs = pstmt.executeQuery(); while (rs.next()) {
+			 * storeOrder.add(getStoreOrder(rs)); } }catch(SQLException e) {
+			 * e.printStackTrace(); }finally { close(rs); close(pstmt); }return storeOrder;
+			 * }
+			 */
+			
+			/*
+			 * private StoreOrder getStoreOrder(ResultSet rs) throws SQLException{ String
+			 * phone="",email=""; try {
+			 * phone=AESEncryptor.decrypt(rs.getString("member_phone")); }catch(Exception e)
+			 * { phone=rs.getString("member_phone"); } try {
+			 * email=AESEncryptor.decrypt(rs.getString("member_email")); }catch(Exception e)
+			 * { email=rs.getString("member_email"); } return StoreOrder.builder()
+			 * .orderStatus(rs.getString("order_status"))
+			 * .paymentNo(rs.getString("payment_no")) .totalPrice(rs.getInt("total_price"))
+			 * .orderDate(rs.getDate("order_date")) .orderNo(rs.getString("order_no"))
+			 * .member(Member.builder() .memberId(rs.getString("member_id"))
+			 * .memberNm(rs.getString("member_nm")) .memberBdate(rs.getDate("member_bdate"))
+			 * .memberEmail(email) .memberPhone(phone)
+			 * .memberAddress(rs.getString("member_address")) .build() )
+			 * .product(Product.builder() .productNm(rs.getString("product_nm")) .build())
+			 * .build(); }
+			 */
+			//스토어 결제 취소 요청 진행
+			/*
+			 * public List<StoreOrder> selectStoreCancel(Connection conn,String orderNo){
+			 * PreparedStatement pstmt = null; ResultSet rs = null; List<StoreOrder>
+			 * storeOrder = new ArrayList<>(); try { String
+			 * query=sql.getProperty("selectStoreCancel"); pstmt =
+			 * conn.prepareStatement(sql.getProperty("selectStoreCancel"));
+			 * pstmt.setString(1, orderNo); rs = pstmt.executeQuery(); while (rs.next()) {
+			 * storeOrder.add(getStoreOrder(rs)); } }catch(SQLException e) {
+			 * e.printStackTrace(); }finally { close(rs); close(pstmt); }return storeOrder;
+			 * }
+			 * 
+			 * private StoreOrder getStoreCancel(ResultSet rs) throws SQLException{
+			 * 
+			 * return StoreOrder.builder() .paymentNo(rs.getString("payment_no"))
+			 * .totalPrice(rs.getInt("total_price")) .orderNo(rs.getString("order_no"))
+			 * .member(Member.builder() .memberNm(rs.getString("member_nm")) .build() )
+			 * .build(); }
+			 * 
+			 */
+			
+			//예매 결제 취소 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//회원수정 멤버 정보
 	public List<Member> MemberInfoma(Connection conn, String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

@@ -221,7 +221,7 @@ List<PlayInfo> playInfos = (List) request.getAttribute("playinfo");
 		<script>
         //상품명 검색 팝업 
    		const SearchPlayInfo=(userId)=>{
-	   		const childWindow=open("<%=request.getContextPath()%>/admin/SalesPlayInfo.do?userId="+userId,"_blank","width=1100,height=670");
+	   		const childWindow=open("<%=request.getContextPath()%>/admin/SalesPlayInfo.do?userId="+userId,"_blank","width=1100,height=640");
    		}
 	   
    		const SearchStoreInfo=()=>{

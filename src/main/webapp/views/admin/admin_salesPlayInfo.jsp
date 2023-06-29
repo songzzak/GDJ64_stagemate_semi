@@ -93,7 +93,7 @@
 		                <td class="book_no"><%=eo.getTcnt() %></td>
 		                <td class="book_no"><%=eo.getOrderStatus() %></td>
 		                <td class="book_no">
-		                	<a href="" onclick="CancelPlaypage();"
+		                	<a href="javascript:CancelPlaypage('<%=eo.getRsvNo() %>')"
 		                			style="text-decoration-line: none; color:black; font-weight:bold;">취소</a>
 		               	</td>
 		            </tr>
@@ -113,8 +113,8 @@
 		window.close();
 	}
 	
-	const CancelPlaypage=()=>{
-		const childWindow=open("<%=contextPath%>/admin/SalesPlayCancel.do","_blank","width=650,height=450");
+	const CancelPlaypage=(rsvNo)=>{
+		const childWindow=open("<%=contextPath%>/admin/SalesPlayCancel.do?rsvNo="+rsvNo," blank","width=650,height=450");
 	}
 		
 </script>

@@ -93,7 +93,6 @@
 					<div class="search-btn"
 						style="padding: 60px 0px 0px 0px; float: right;">
 						<div class="termsearchbox" style="margin-right: 30px;">
-
 							기간별 조회
 							<button name="filterDate1" class="perbtn active" value="1"
 								onclick="search_btn(event)">7일</button>
@@ -101,16 +100,6 @@
 								onclick="search_btn(event)">1개월</button>
 							<button name="filterDate1" class="perbtn" value="3"
 								onclick="search_btn(event)">3개월</button>
-
-							<!-- 기간검색 : 시작일 종료일로 리스트 조회  -->
-							<!-- 시작일<input type="text" name="startDate">
-							종료일<input type="text" name="endDate">
-							<button onclick="">검색</button>
-								
-						<script>
-							
-						</script> -->
-
 						</div>
 						<div class="datebox">
 							예매일자별 조회 <select class="btnbox btnbox-white" id="year1"
@@ -193,7 +182,7 @@
 					</table>
 
 				</div>
-				<p class="Play_guidetxt" style="padding: 5px 0px 30px 60px">예매번호를
+				<p class="Play_guidetxt" style="padding: 5px 0px 30px 60px">*예매번호를
 					클릭하면 예매 상세 정보를 확인할 수 있습니다.</p>
 				
 			</div>
@@ -224,16 +213,14 @@
 						style="padding: 20px 0px 0px 700px;">
 						<p class="txt">총 <label id="searchCount2"><%=request.getAttribute("TotalCount") %></label>건의 주문내역이 있습니다</p>
 						<div class="stateS-btn" style="float: right">
-							배송 조회 <input type="radio" name="status2" value="1" checked="checked">배송 중 <input
+							배송 조회 <input type="radio" name="status2" value="1" >배송 중 <input
 								type="radio" name="status2" value="2">배송 전 <input
-								type="radio" name="status2" value="3">배송 완료 <input
+								type="radio" name="status2" value="3" checked="checked">배송 완료 <input
 								type="radio" name="status2" value="4">결제 취소
 						</div>
 					</div>
 
-					<div class="btn-move" style="padding: 60px 60px 7px 55px;">
-						<input type="button" class="ordersearch-btn" value="정상주문조회">
-					</div>
+					
 					<div class="Storedb" style="padding: 0px 0px 5px 60px">
 						날짜별 조회 <select class="btnbox btnbox-white" id="order" name="date">
 							<option value="lately">최근 순</option>
@@ -247,10 +234,10 @@
 						style="margin: 5px auto; margin-right: auto;">
 						<colgroup>
 							<col style="width: 120px">
-							<col>
-							<col style="width: 135px">
-							<col style="width: 135px">
 							<col style="width: 120px">
+							<col style="width: 155px">
+							<col style="width: 120px">
+							<col style="width: 100px">
 						</colgroup>
 						<thead>
 							<tr>
@@ -279,7 +266,7 @@
 						</tbody>
 					</table>
 					<p class="Store_guidetxt"
-						style="float: left; padding: 0px 0px 5px 60px">주문번호를 클릭하면 주문
+						style="float: left; padding: 0px 0px 5px 60px">*주문번호를 클릭하면 주문
 						상세 정보를 확인할 수 있습니다.</p>
 				</div>
 
