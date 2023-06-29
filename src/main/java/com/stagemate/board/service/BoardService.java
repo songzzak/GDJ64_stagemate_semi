@@ -157,4 +157,11 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+
+	public List<Board> selectBoardAll() {
+		Connection conn = getConnection();
+		List<Board> list = dao.selectBoardAll(conn);
+		close(conn);
+		return list;
+	}
 }

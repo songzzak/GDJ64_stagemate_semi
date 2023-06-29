@@ -6,6 +6,7 @@
 <%@ page import="java.util.List,com.stagemate.board.model.vo.Board,com.stagemate.board.model.vo.BoardComment"%>
 <%
 List<Board> boards=(List)request.getAttribute("boards");
+List<Board> allBoards=(List)request.getAttribute("allBoards");
 List<BoardComment> comments=(List)request.getAttribute("comments");
 %>
 <title>My Page | 관심목록</title>
@@ -119,7 +120,7 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 	                	<%}else{ 
 	                		Board refBoard=null;
 	                			for(BoardComment c:comments){
-	                				for(Board b:boards){
+	                				for(Board b:allBoards){
 	                					if(b.getBoardNo()==c.getBoardRef()){
 	                						refBoard=b;
 	                					}
@@ -131,7 +132,7 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 	                				<div class="div_comment_td">
 	                				<a href="<%=contextPath%>/board/boardView.do?no=<%=c.getBoardRef()%>">
 	                					<p class=comment_content><%=c.getCmtContent() %></p>
-	                					<p class=comment_date><%=c.getCmtDate() %></p>
+	                					<p class=comment_date><%=c.getCmtDate()%></p>
 	                					<p class=comment_ref_title><%=refBoard.getBoardTitle() %> </p>
 	                				</a>
 	                				</div>
