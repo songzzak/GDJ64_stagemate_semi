@@ -255,3 +255,9 @@
 .board-articles td:not(:first-child) {
     font-weight: 500;
 }
+
+.board-title>a, .board-title>a:visited {
+    text-decoration: none;
+    color: black;
+    font-weight: 900;
+}

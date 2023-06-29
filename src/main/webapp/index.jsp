@@ -70,7 +70,7 @@
 
         <div class="gb-content">
             <div class="gb-title">
-                <h2 class="fw-bold">인기 게시글</h2>
+                <h2 class="fw-bold">추천 게시글</h2>
                 <div>
                     <img src="<%= contextPath %>/images/jaehun/main_page/star.svg" alt="인기게시글">
                 </div>
@@ -85,29 +85,29 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>많은 분들이 저를 도와줬어요</td>
-                        <td>98</td>
-                        <td>40</td>
+                        <td class="board-title">INSERT TITLE HERE</td>
+                        <td class="board-view_count">98</td>
+                        <td class="board-like_count">40</td>
                     </tr>
                     <tr>
-                        <td>재훈씨랑 준호가 옆에서 많이 알려줬어요 </td>
-                        <td>87</td>
-                        <td>34</td>
+                        <td class="board-title">INSERT TITLE HERE</td>
+                        <td class="board-view_count">87</td>
+                        <td class="board-like_count">34</td>
                     </tr>
                     <tr>
-                        <td>바로 옆에 있으니까 즉각적인 피드백이 좋네요</td>
-                        <td>84</td>
-                        <td>33</td>
+                        <td class="board-title">INSERT TITLE HERE</td>
+                        <td class="board-view_count">84</td>
+                        <td class="board-like_count">33</td>
                     </tr>
                     <tr>
-                        <td>예린씨, 윤진씨, 나빈씨가 하신 것들도 많이 참고했어요</td>
-                        <td>80</td>
-                        <td>29</td>
+                        <td class="board-title">INSERT TITLE HERE</td>
+                        <td class="board-view_count">80</td>
+                        <td class="board-like_count">29</td>
                     </tr>
                     <tr>
-                        <td>특히 윤진씨가 하신 것에서 도움이 많이!!!</td>
-                        <td>64</td>
-                        <td>28</td>
+                        <td class="board-title">INSERT TITLE HERE</td>
+                        <td class="board-view_count">64</td>
+                        <td class="board-like_count">28</td>
                     </tr>
                 </tbody>
             </table>
