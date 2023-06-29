@@ -29,8 +29,8 @@
 							<li class="li1"><a href="<%=request.getContextPath()%>/store/selectCartList.do?id=<%=loginMember.getMemberId()%>">장바구니</a></li>
 							<li class="li1">구매내역
 								<ul>
-									<li class="li2"><a href="#">구매상세내역</a></li>
-									<li class="li2"><a href="#">리뷰 작성</a></li>
+									<li class="li2"><a href="<%=request.getContextPath()%>/Detail/DetailListServlet.do?id=<%=loginMember.getMemberId()%>">구매상세내역</a></li>
+									<li class="li2"><a href="<%=request.getContextPath()%>/Review/ReviewListServlet.do?id=<%=loginMember.getMemberId()%>">리뷰 작성</a></li>
 								</ul>
 							</li>
 							<li class="li1">내가 쓴 글
@@ -97,14 +97,12 @@
     }
     
     function withdraw() {
-    	var checkbox = $("#check_withdraw")[0];
-        if (checkbox.checked) {
-            alert('탈퇴가 진행됩니다.');
-            location.assign("<%= request.getContextPath() %>/member/withdrawMember.do?id=<%=loginMember.getMemberId()%>");
-        } else {
-            // 체크박스가 선택되어 있지 않은 경우 알림창 출력
-            alert('탈퇴 안내사항에 동의해주세요.');
-        }
+    	    var checkbox = $("#check_withdraw")[0];
+    	    if (checkbox.checked && confirm('탈퇴를 진행하시겠습니까? 탈퇴 후에는 복구할 수 없습니다.')) {
+    	        location.assign("<%= request.getContextPath() %>/member/withdrawMember.do?id=<%=loginMember.getMemberId()%>");
+    	    } else {
+    	        alert('탈퇴 안내사항에 동의해주세요.');
+    	}
     }
 </script>
 

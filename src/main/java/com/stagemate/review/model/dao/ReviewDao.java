@@ -403,6 +403,28 @@ public class ReviewDao {
 				.productLikeCnt(rs.getInt("product_like_cnt"))
 				.build();
 	}
+
+	
+	//윤진작성
+	public List<StoreReview> selectStoreReviewByNo(Connection conn, int pNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<StoreReview> list = new ArrayList();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectStoreReviewByNo"));
+			pstmt.setInt(1, pNo);
+			rs = pstmt.executeQuery();		
+			while (rs.next()) {
+				list.add(getStoreReview(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 
 }

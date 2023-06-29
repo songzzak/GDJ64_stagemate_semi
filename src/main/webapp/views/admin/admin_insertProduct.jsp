@@ -97,12 +97,9 @@
 					</table>
 					<div id="insert_btn">
 						<button type="submit">등록</button>
-						<button type="reset">취소</button>
+						<button id="resetInsert">취소</button>
 					</div>
 				</form>
-			</div>
-			<div class="page-bar">
-				<%-- <%=request.getAttribute("pageBar")%> --%>
 			</div>
 		</div>
 	</div>

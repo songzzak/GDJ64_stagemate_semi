@@ -266,26 +266,26 @@ p.fixed-width {
 #review-box-container>div{
     margin: 20px 0px;
 }
-#store-review-writer{
+.store-review-writer{
     font-size: 26px;
     font-weight: bolder;
     text-align: start;
 }
-#store-review-content{
+.store-review-content{
     font-size: 22px;
     text-align: start;
 }
-#reactionAndDate{
+.reactionAndDate{
     display: flex;
     flex-direction: row;
     float: right;
 }
-#store-review-react{
+.store-review-react{
     width: 25px;
     height: 25px;
     margin-right: 10px;
 }
-#store-review-date{
+.store-review-date{
     font-size: 20px;
     color: #686868;
 }
