@@ -102,6 +102,12 @@ public class EventDao {
 				.build();
 	}
 	
+	private EventReviewTBJH getEventReviewTBJHp(ResultSet rs)throws SQLException{
+		return EventReviewTBJH.builder()
+				.eventNo(rs.getString("EVENT_NO"))
+				.build();
+	}
+	
 	private EventOrder getEventOrder(ResultSet rs) throws SQLException{
 		return EventOrder.builder()
 			.rsvNo(rs.getString("RSV_NO"))
@@ -245,7 +251,7 @@ public class EventDao {
 			pstmt=conn.prepareStatement(sql.getProperty("selectAllEventReview"));
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				EventReviewTBJH f=getEventReviewTBJH(rs);
+				EventReviewTBJH f=getEventReviewTBJHp(rs);
 				es.add(f);
 			}
 		}catch(SQLException e) {

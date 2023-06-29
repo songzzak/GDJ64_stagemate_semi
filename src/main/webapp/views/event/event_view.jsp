@@ -33,11 +33,13 @@
 	display:flex;
 	align-items: center;
 }
-
-#review_event>div:nth-child(2)>div>p{
-	margin-left: 12%;
+#review_event>div:nth-child(2)>div>img{
+	margin-right: 14%;
 }
-#review_event>div:last-child>div>div:last-child{
+#review_event>div:nth-child(2)>h4{
+	font-weight: bolder;
+	font-size: 22px;
+}iv:last-child>div>div:last-child{
 	display:flex;
     justify-content: flex-end;
 }
@@ -51,6 +53,10 @@
 }
 #review_event>div:last-child>div>div:nth-child(2) {
 	margin-bottom: 0.6%;
+}
+#review_event>div:last-child>div>div:last-child{
+	display:flex;
+    justify-content: flex-end;
 }
 </style>
 <!---------------------------------------->
@@ -385,10 +391,25 @@
 								</div>
 							</div>
 							<div>
-							<%if(ertb==null||ertb.isEmpty()){%>
+							<%String emoji=null;
+							if(ertb==null||ertb.isEmpty()){%>
 								<a>행사에 대한 리뷰가 없습니다.</a>
 							<% }else{
-							for(EventReviewTBJH er:ertb){ %>
+							for(EventReviewTBJH er:ertb){ 
+								if(er.getImojiNo()==1){
+									emoji="/images/yoonjin/emoji/fun.png";
+								}else if(er.getImojiNo()==2){
+									emoji="/images/yoonjin/emoji/wow.png";
+								}else if(er.getImojiNo()==3){
+									emoji="/images/yoonjin/emoji/sad.png";
+								}else if(er.getImojiNo()==4){
+									emoji="/images/yoonjin/emoji/umm.png";
+								}else{
+									emoji="/images/yoonjin/emoji/none.png";
+								}
+							
+							%>
+							
 								<div>
 									<div>
 									<%=er.getMemberId() %>
@@ -397,9 +418,8 @@
 									<%=er.getErvContent() %>
 									</div>
 									<div>
-										<img src="<%=contextPath%>/images/yoonjin/emoji/none.png">
+										<img src="<%=contextPath%><%=emoji%>">
 										<p>작성일 <%=er.getErvDate() %></p>
-										<p>관람일 2023.05.18</p>
 									</div>
 								</div>
 							<%}} %>
@@ -508,6 +528,7 @@
 			"북촌나래홀" : ["37.578905", "126.988956"],
 			"잠실실내체육관" : ["37.516292", "127.075931"],
 			"KSPO DOME(올림픽체조경기장)" : ["37.519297", "127.127329"],
+			"인천문화예술회관 대공연장" : ["37.447846", "126.700134"],
 			
 	}
 	var GPSX=jsonMap["<%=event.getLocation()%>"][0]
