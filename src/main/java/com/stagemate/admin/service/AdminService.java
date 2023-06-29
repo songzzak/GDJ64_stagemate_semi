@@ -11,7 +11,6 @@ import java.util.List;
 import com.stagemate.admin.model.dao.AdminDao;
 import com.stagemate.admin.model.vo.PlayInfo;
 import com.stagemate.detail.model.vo.EventOrder;
-import com.stagemate.detail.model.vo.StoreOrder;
 import com.stagemate.member.model.vo.Member;
 
 public class AdminService {
@@ -69,20 +68,25 @@ public class AdminService {
 		else rollback(conn);
 		close(conn);
 		return result;
-		
 	}
 	
 	//공연 결제 취소창
 	public List<EventOrder> selectCancelOrder(String rsvNo){
 		Connection conn=getConnection();
-		
 		List<EventOrder> eventOrder=new AdminDao().selectCancelOrder(conn,rsvNo);
-		
 		close(conn);
 		return eventOrder;
 	}
 	
-	
+	//공연 결제 취소 진행
+	public int updateCancelByNo(String rsvNo) {
+		Connection conn=getConnection();
+		int result=dao.updateCancelByNo(conn, rsvNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 	
 	
 	

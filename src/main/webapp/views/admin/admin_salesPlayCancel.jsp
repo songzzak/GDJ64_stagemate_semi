@@ -57,17 +57,25 @@
 		</div>
 		<div class="MDP-list-box">
 			<button type="button" onclick="closeWin();">내역</button>
-			<button type="button" onclick="">취소</button>
+			<button type="button" class="btn_Play_update"onclick="<%=request.getContextPath()%>/admin/salesCancelServlet.do">취소</button>
 		</div>
 	</div>
 
-
+<!-- onclick="javascript:clickCancel()" -->
 
 <script>
+	function clickCancel(){
+		alert("결제가 취소되었습니다.")
+	}
+
 	const closeWin=()=>{
 		window.close();
 	}
 
+	$(".btn_Play_update").click(e => {
+	    location.assign(getContextPath() + '/admin/salesCancelServlet.do?rno=' + rNo);
+	  });
+	
 </script>
 
 <style>

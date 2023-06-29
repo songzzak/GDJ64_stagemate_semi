@@ -36,7 +36,6 @@ public class UpdatePhoneServiceServlet extends HttpServlet {
 		try {
 			phone = AESEncryptor.encrypt(request.getParameter("phone"));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		int result = 0;

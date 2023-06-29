@@ -16,6 +16,7 @@ import com.stagemate.common.JDBCTemplate;
 import com.stagemate.common.MemberGenerator;
 import com.stagemate.admin.model.vo.PlayInfo;
 import com.stagemate.common.AESEncryptor;
+import com.stagemate.detail.model.vo.Detail;
 import com.stagemate.detail.model.vo.EventOrder;
 import com.stagemate.detail.model.vo.StoreOrder;
 import com.stagemate.event.model.vo.Event;
@@ -258,7 +259,7 @@ public class AdminDao {
 	
 			
 		
-			//예매 결제 취소 요청 진행
+			//예매 결제 취소 요청
 			public List<EventOrder> selectCancelOrder(Connection conn,String rsvNo){
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
@@ -291,6 +292,28 @@ public class AdminDao {
 								)
 						.build();
 				}
+			
+			
+			//결제 취소 진행
+			public int updateCancelByNo(Connection conn, String rsvNo) {
+				PreparedStatement pstmt = null;
+		        int result = 0;
+		        try {
+		            pstmt = conn.prepareStatement(sql.getProperty("updateCancelByNo"));
+		            pstmt.setString(1,rsvNo);
+		            result = pstmt.executeUpdate();
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        } finally {
+		        	close(pstmt);
+		        }
+		        return result;
+			
+			}
+			
+			
+			
+			
 			
 			
 			//스토어 회원 상세 정보

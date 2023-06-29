@@ -94,15 +94,15 @@
 						style="padding: 60px 0px 0px 0px; float: right;">
 						<div class="termsearchbox" style="margin-right: 30px;">
 							기간별 조회
-							<button name="filterDate1" class="perbtn active" value="1"
+							<button name="filterDate1" class="perbtn " value="1"
 								onclick="search_btn(event)">7일</button>
 							<button name="filterDate1" class="perbtn" value="2"
 								onclick="search_btn(event)">1개월</button>
-							<button name="filterDate1" class="perbtn" value="3"
+							<button name="filterDate1" class="perbtn active" value="3"
 								onclick="search_btn(event)">3개월</button>
 						</div>
 						<div class="datebox">
-							예매일자별 조회 <select class="btnbox btnbox-white" id="year1"
+							관람일자별 조회 <select class="btnbox btnbox-white" id="year1"
 								name="year"></select> <select class="btnbox btnbox-white"
 								id="month1" name="month"></select> <input type="button"
 								class="btnbox btnbox-brown" value="조회" onclick="searchList('1', 1, 10)">
@@ -128,9 +128,9 @@
 						style="padding: 20px 0px 20px 700px;">
 						<p class="txt">총 <label id="searchCount1"><%=request.getAttribute("TotalCount") %></label>건의 예매내역이 있습니다</p>
 						<div class="stateP-btn" style="float: right">
-							예매상태별 조회 <input type="radio" name="status1" value="1" checked="checked">전체 <input
-								type="radio" name="status1" value="2">예매 <input
-								type="radio" name="status1" value="3">취소
+							예매상태별 조회 <input type="radio" name="status1" value="1" checked="checked">전체 
+							<input type="radio" name="status1" value="2">예매 
+							<input type="radio" name="status1" value="3">취소
 						</div>
 					</div>
 				</div>
@@ -147,17 +147,17 @@
 							<col style="width: 120px">
 							<col>
 							<col style="width: 180px">
-							<col style="width: 80px">
-							<col style="width: 185px">
+							<col style="width: 70px">
+							<col style="width: 190px">
 							<col style="width: 120px">
 						</colgroup>
 						<thead>
 							<tr>
 								<th scope="col">예매번호</th>
 								<th scope="col">티켓명</th>
-								<th scope="col">예매 일자</th>
+								<th scope="col">관람일</th>
 								<th scope="col">매수</th>
-								<th scope="col">취소가능일</th>
+								<th scope="col">예매일</th>
 								<th scope="col">상태</th>
 							</tr>
 						</thead>
@@ -168,16 +168,14 @@
 							<tr>
 								<td class="book_no"><a class="page-link" onclick="detailListPage('1', this);" style="color: gray"><%=d.getRsvNo()%></a></td>
 								<td class="book_no"><%=d.getEventName()%></a></td>
-								<td class="book_no"><%=d.getRsvDate()%></td>
-								<td class="book_no"><%=d.getTickets()%>매</td>
 								<td class="book_no"><%=d.getEsDate()%></td>
+								<td class="book_no"><%=d.getTickets()%>매</td>
+								<td class="book_no"><%=d.getRsvDate()%></td>
 								<td class="book_no"><%=d.getOrderStatus()%></td>
 							</tr>
 							<%
 							}
 							%>
-
-
 						</tbody>
 					</table>
 
@@ -193,15 +191,15 @@
 						style="padding: 60px 0px 0px 0px; float: right;">
 						<div class="termsearchbox" style="margin-right: 30px;">
 							기간별 조회
-							<button name="filterDate2" class="perbtn active" value="1"
+							<button name="filterDate2" class="perbtn " value="1"
 								onclick="search_btn(event)">7일</button>
 							<button name="filterDate2" class="perbtn" value="2"
 								onclick="search_btn(event)">1개월</button>
-							<button name="filterDate2" class="perbtn" value="3"
+							<button name="filterDate2" class="perbtn active" value="3"
 								onclick="search_btn(event)">3개월</button>
 						</div>
 						<div class="datebox">
-							배송일자별 조회 <select class="btnbox btnbox-white" id="year2"
+							주문일자별 조회 <select class="btnbox btnbox-white" id="year2"
 								name="year"></select> <select class="btnbox btnbox-white"
 								id="month2" name="month"></select> <input type="button"
 								class="btnbox btnbox-brown" value="조회" onclick="searchList('2', 1, 10)">
@@ -213,10 +211,10 @@
 						style="padding: 20px 0px 0px 700px;">
 						<p class="txt">총 <label id="searchCount2"><%=request.getAttribute("TotalCount") %></label>건의 주문내역이 있습니다</p>
 						<div class="stateS-btn" style="float: right">
-							배송 조회 <input type="radio" name="status2" value="1" >배송 중 <input
-								type="radio" name="status2" value="2">배송 전 <input
-								type="radio" name="status2" value="3" checked="checked">배송 완료 <input
-								type="radio" name="status2" value="4">결제 취소
+							배송 조회 <input type="radio" name="status2" value="1" >배송 중 
+							<!-- <input type="radio" name="status2" value="2">배송 전  -->
+							<input type="radio" name="status2" value="3" checked="checked">배송 완료 
+							<input type="radio" name="status2" value="4">결제 취소
 						</div>
 					</div>
 

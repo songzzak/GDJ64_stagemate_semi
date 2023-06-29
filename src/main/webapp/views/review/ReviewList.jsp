@@ -60,8 +60,8 @@
 				있습니다.
 			</p>
 				<ul class="btnsBox" style="padding: 30px 0pc 0px 0px;">
-					<li><button class="BLbtn" id="ps_play_btn">예매</button></li>
-					<li><button class="BLbtn" id="ps_store_btn">스토어</button></li>
+					<li><button class="BLbtn active" id="ps_play_btn" onclick="change_btn(event)">예매</button></li>
+					<li><button class="BLbtn" id="ps_store_btn" onclick="change_btn(event)">스토어</button></li>
 				</ul>
 
 				<script>
