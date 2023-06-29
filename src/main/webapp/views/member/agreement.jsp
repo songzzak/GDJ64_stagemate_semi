@@ -52,11 +52,11 @@
 			<div class="agreement-content_btn">
 				<div>
 		            <button class="btn-layout btn-brown" 
-		            		onclick="confirmPopupAgreement();">확인</button>
+		            		onclick="confirmAgreement();">확인</button>
 		        </div>
 		        <div>
 		            <button class="btn-layout btn-white"
-		            		onclick="closePopupAgreement();">취소</button>
+		            		onclick="closePage();">취소</button>
 		        </div>	
 			</div>
 		</article>
@@ -64,17 +64,13 @@
 <script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 <script src="<%= contextPath %>/js/script_common.js"></script>
 <script>
-	function confirmPopupAgreement() {
+	function confirmAgreement() {
 		if ($("#agreement").is(":checked")) {
 			$(opener.document).find("#agreement").prop("checked", true);
-			window.close();
+			closePage();
 		} else {
 			alert("개인정보 수집 및 이용 동의를 체크해야 확인 버튼을 누를 수 있습니다.");
 		}
-	}
-	
-	function closePopupAgreement() {
-		window.close();
 	}
 </script>
 </body>

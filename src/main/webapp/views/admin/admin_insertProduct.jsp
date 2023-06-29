@@ -19,7 +19,7 @@
 						<li class="select_nav_admin">
 							<a href="">상품 관리</a>
 							<ul>
-								<li><a href="">예매</a></li>
+								<li><a href="<%=contextPath%>/admin/eventlist">행사</a></li>
 								<li class="select_nav_admin"><a href="<%=contextPath%>/admin/selectAllProduct.do">스토어</a></li>
 							</ul>
 						</li>

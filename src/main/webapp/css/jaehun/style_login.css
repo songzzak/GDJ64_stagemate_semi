@@ -208,6 +208,10 @@ input[id="saveId"]:checked + label:first-of-type::after{
 	margin-right: 5px;
 }
 
+#findId, #findPw {
+	cursor: pointer;
+}
+
 .right_content_options a, .right_content_options a:visited {
     text-decoration: none;
     color: white;

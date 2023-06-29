@@ -49,3 +49,20 @@ function openPostCode(inputZipCode, inputAddress, inputAddressDetail) {
 		}
 	}).open();
 }
+
+// 원하는 크기의 페이지 오픈
+function openPage(width, height, url) {
+	const left = (window.screen.width / 2) - (width / 2);
+	const top = (window.screen.height / 2) - (height / 2);
+
+	window.open(url, "_blank",
+				"width=" + width + ", " + 
+				"height=" + height + ", " + 
+				"left=" + left + ", " + 
+				"top=" + top);
+}
+
+// 페이지 닫기
+function closePage() {
+    window.close();
+}

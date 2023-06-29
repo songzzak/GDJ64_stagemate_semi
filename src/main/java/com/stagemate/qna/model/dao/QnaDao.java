@@ -262,8 +262,6 @@ private QnaComment getQnaComment(ResultSet rs) throws SQLException{
 			.build();
 }
 
-
-
 }
 
 
