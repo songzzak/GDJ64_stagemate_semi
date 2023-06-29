@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.stagemate.qna.model.service.QnaService;
 import com.stagemate.qna.model.vo.Qna;
 import com.stagemate.qna.model.vo.QnaComment;
+import com.stagemate.qna.model.vo.QnaListCtg;
 
 /**
  * Servlet implementation class QnaBoardViewServlet
@@ -38,11 +39,13 @@ public class QnaBoardViewServlet extends HttpServlet {
 		
 		//댓글을 가져와 출력하기
 		List<QnaComment> comments=new QnaService().selectQnaComment(inquiryNo);
+		
 		request.setAttribute("comments", comments);
 		
 		request.setAttribute("qna",q);
 		System.out.println(comments);
-		
+		List<QnaListCtg> qc= new QnaService().selectQnaListCtg();
+		request.setAttribute("qc", qc);
 		request.getRequestDispatcher("/views/qna/qnaBoardView.jsp")
 		.forward(request, response);
 		System.out.println(comments);

@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ page import="com.stagemate.qna.model.vo.Qna,java.util.List,com.stagemate.qna.model.vo.QnaComment"%>
+<%@ page import="com.stagemate.qna.model.vo.Qna,java.util.List,com.stagemate.qna.model.vo.QnaComment,com.stagemate.qna.model.vo.QnaListCtg"%>
 <%
-Qna q= (Qna)request.getAttribute("qna");
+	Qna q= (Qna)request.getAttribute("qna");
 	List<QnaComment> comments=(List)request.getAttribute("comments");
+	List<QnaListCtg> qc =(List)request.getAttribute("qc");
 %>
 <%@ include file="/views/common/top.jsp"%>
 <%@ include file="/views/common/header.jsp"%>
@@ -37,7 +38,7 @@ Qna q= (Qna)request.getAttribute("qna");
 							<td><%=q.getWriterId() %></td>
 							<th>첨부파일</th>
 							<td>
-								<%if(q.getFiles()!=null){ %> 
+								<%if(q.getFiles()!=null) {%> 
 									<div id="download-container" onclick="fileDownload('<%=q.getFiles()%>');">
 									<img src="<%=request.getContextPath() %>/images/nabin/file.png"
 									width="20"> <span><%=q.getFiles()%></span>
@@ -48,8 +49,13 @@ Qna q= (Qna)request.getAttribute("qna");
 									</div>
 								<%} %>
 							</td>
+							
 							<th>카테고리 </th>
+							<% for(QnaListCtg qlc:qc){%>
+								<% if(qlc.getCtgNum()==q.getCtgNum()) {%>
 							<td><%=q.getCtgNm() %> </td>
+							<%} 
+								}%>
 							
 							<th>작성일</th>
 							<td><%=q.getInquiryInsertDt()%></td>
@@ -111,22 +117,24 @@ Qna q= (Qna)request.getAttribute("qna");
 				</div>
 				<table id="tbl-comment">
 				
-					<%if(comments!=null){for(QnaComment qc:comments) {%>
+					<%if(comments!=null){for(QnaComment qcm:comments) {%>
 					<tr class="levlel1">
 						<td>
-							<sub class="comment-writer"><%=qc.getQnaCommentWriter() %></sub> 
-							<sub class="comment-date"><%=qc.getQnaCommentDate() %></sub>
+							<sub class="comment-writer"><%=qcm.getQnaCommentWriter() %></sub> 
+							<sub class="comment-date"><%=qcm.getQnaCommentDate() %></sub>
 						<br> 
-						<%=qc.getQnaCommentContent() %>
+						<%=qcm.getQnaCommentContent() %>
 						</td>
 					</tr>
-					<%} }%>
+					<%} 
+					}%>
 				</table>
 
 				<div class="bt_list">
 					<a href="<%=request.getContextPath()%>/qna/qnaList.do" class="on1">목록</a>
 				</div>
-	</body>
+		
+	</div>
 </section>
 <script>
 		$("#comment-container textarea[name=content]").focus(e=>{
@@ -148,5 +156,3 @@ Qna q= (Qna)request.getAttribute("qna");
 <%@ include file="/views/common/footer.jsp"%>
 <script src="<%=contextPath %>/js/jquery-3.7.0.min.js"></script>
 <script src="<%=contextPath %>/js/script_common.js"></script>
-
-</body>

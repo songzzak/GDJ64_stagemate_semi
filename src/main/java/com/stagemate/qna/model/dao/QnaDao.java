@@ -178,8 +178,6 @@ private QnaListCtg getQnaListCtg(ResultSet rs) throws SQLException{
 			
 }
 
-		
-	
 
 public int selectQnaSquence(Connection conn) {
 	PreparedStatement pstmt=null;

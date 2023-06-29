@@ -49,7 +49,7 @@ List<QnaListCtg> qc =(List)request.getAttribute("qc");
 					</tr>
 					<%
 					}else{
-								                        for(Qna q:qnas){
+						for(Qna q:qnas){
 					%>
 							<tr>
 								<td><%=q.getInquiryNo() %></td>
