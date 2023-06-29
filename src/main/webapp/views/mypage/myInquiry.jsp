@@ -70,9 +70,9 @@ List<Qna> list=(List)request.getAttribute("list");
 		                	</tr>
 	                	</thead>
 	                	<tbody>
-	                	<%
-	                	if(list.isEmpty()||list==null){
-	                	%>
+	                	
+	                	<%if(list==null){ %>
+
 	                		<tr><td colspan="4">작성된 게시글이 없습니다.</td></tr>
 	                	<%
 	                	}else{ 

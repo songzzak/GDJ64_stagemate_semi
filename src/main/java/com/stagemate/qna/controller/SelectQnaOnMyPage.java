@@ -38,7 +38,7 @@ public class SelectQnaOnMyPage extends HttpServlet {
 		List<Qna> list=new QnaService().selectQnaById(id);
 
 		request.setAttribute("list", list);
-
+		System.out.println(list);
 		request.getRequestDispatcher("/views/mypage/myInquiry.jsp").forward(request, response);
 	}
 
