@@ -1,6 +1,7 @@
 package com.stagemate.event.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -42,9 +43,13 @@ public class EventViewServlet extends HttpServlet {
 		List<EventUpfile> files=new EventService().selectFileByEventNo(eventNo);
 		List<EventSchedule> es=new EventService().selectTimeByEvent(eventNo);
 		List<EventOrder> rsv=new EventService().selectRsvNo(eventNo);
-		List<EventReviewTBJH> ertb=null;
+		List<EventReviewTBJH> ertb=new ArrayList<>();
+		int count=0;
 		for(EventOrder r:rsv) {
-			ertb=new EventService().selectEventReview(r.getRsvNo());
+			if(new EventService().selectEventReview(r.getRsvNo())!=null) {
+				ertb.add(count,new EventService().selectEventReview(r.getRsvNo()));
+				count++;
+			}
 		}
 		if(event.getEvcNo().equals("EVC1")) {
 			List<Seat> seats=new EventService().selectSeatByEvnNoMusical(eventNo);

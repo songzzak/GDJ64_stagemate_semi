@@ -572,17 +572,16 @@ public class EventDao {
 		}
 		return rsv;
 	}
-	public List<EventReviewTBJH> selectEventReview(Connection conn, String eventNo){
+	public EventReviewTBJH selectEventReview(Connection conn, String eventNo){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		List<EventReviewTBJH> ertb=new ArrayList<>();
+		EventReviewTBJH ertb=null;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("selectEventReview"));
 			pstmt.setString(1, eventNo);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				EventReviewTBJH er=getEventReviewTBJH(rs);
-				ertb.add(er);
+				ertb=getEventReviewTBJH(rs);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
