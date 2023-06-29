@@ -1412,7 +1412,23 @@ public class EventDao {
 		}
 		return banners;
 	}
-
+	
+	public int deleteEventByNo(Connection conn, String eventNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("deleteEventByNo"));
+			pstmt.setString(1, eventNo);			
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
 	//윤진작성
 	public List<EventWish> selectWishById(Connection conn, String userId) {
 		PreparedStatement pstmt = null;
@@ -1433,4 +1449,5 @@ public class EventDao {
 		}
 		return list;
 	}
+
 }

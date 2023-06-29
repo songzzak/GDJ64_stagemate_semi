@@ -1,10 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
-<%@ page import="java.util.List,com.stagemate.event.model.vo.Event"%>
+<%@ page import="java.util.List, java.util.ArrayList, com.stagemate.event.model.vo.Event"%>
 <%
-List<Event> events = (List) request.getAttribute("event");
-String evcNo = (String) request.getAttribute("evcNo");
+	Object eventsUncast = request.getAttribute("event");
+
+	String evcNo = (String) request.getAttribute("evcNo");
+	String[] category = { "뮤지컬", "콘서트", "연극" };
+	
+	List<Event> events = new ArrayList<>();
+	if (eventsUncast != null && eventsUncast instanceof ArrayList<?>) {
+		for (Object eventUncast : (List<?>) eventsUncast) {
+			events.add(Event.class.cast(eventUncast));
+		}
+	}
 %>
 <link rel="stylesheet"
 	href="<%= contextPath %>/css/jaehun/style_admin_eventList.css">
@@ -12,21 +21,28 @@ String evcNo = (String) request.getAttribute("evcNo");
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
+	<section class="loading-bg">
+		<article class="loading-container">
+			<div class="loading-content">
+				<img src="<%= contextPath %>/images/jaehun/main_page/loading_poster.gif">
+			</div>
+		</article>
+	</section>
 	<section class="min1280px">
 		<div id="eventManagement">
 			<nav class="eventManagement-sidebar">
 				<ul class="eventManagement-sidebar_big">
-					<li><a href="<%=contextPath%>/admin/membermanage">회원 관리</a></li>
+					<li><a href="<%= contextPath %>/admin/membermanage">회원 관리</a></li>
 					<li class="link_active"><a href="">상품 관리</a>
 						<ul class="eventManagement-sidebar_small">
-							<li><a href="">행사</a></li>
+							<li><a href="<%=contextPath%>/admin/eventlist">행사</a></li>
 							<li><a
-								href="<%=contextPath%>/admin/selectAllProduct.do">스토어</a></li>
+								href="<%= contextPath %>/admin/selectAllProduct.do">스토어</a></li>
 						</ul>
 					</li>
 					<li><a href="">판매 관리</a>
 						<ul class="eventManagement-sidebar_small">
-							<li><a href="">판매내역관리</a></li>
+							<li><a href="<%= contextPath %>/admin/SalesDetail.do">판매내역관리</a></li>
 							<li><a href="">결제 취소 요청</a></li>
 							<li><a href="">반품/교환 관리</a></li>
 						</ul>
@@ -86,7 +102,6 @@ String evcNo = (String) request.getAttribute("evcNo");
 							<th>예매오픈일</th>
 							<th>카테고리</th>
 							<th>공연장소</th>
-							<th>배너이미지</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -97,26 +112,25 @@ String evcNo = (String) request.getAttribute("evcNo");
 							<td colspan="8">등록된 행사가 없습니다.</td>
 						</tr>
 						<%} else {
-						for (Event e : events) {
+						for (Event event : events) {
 					%>
 						<tr>
-							<td><%=e.getEventNm() %></td>
-							<td><%=e.getEventStartDt() %> ~ <%=e.getEventEndDt() %></td>
-							<td><%=e.getRsvOpenDt() %></td>
+							<td><%= event.getEventNm() %></td>
+							<td><%= event.getEventStartDt() %> ~ <%= event.getEventEndDt() %></td>
+							<td><%= event.getRsvOpenDt() %></td>
 							<td>
-								<%if(e.getEvcNo().equals("EVC1")){ %> 뮤지컬 <%}else if(e.getEvcNo().equals("EVC2")){%>
-								콘서트 <%}else{ %> 연극 <%} %>
+								<%= category[Integer.parseInt(event.getEvcNo().substring(3)) - 1] %>
 							</td>
-							<td><%=e.getLocation() %></td>
-							<td><%=e.getLocation()%></td>
-							<td><button evn="<%= e.getEventNo() %>" class="btn-event_view">상세보기</button>
-								<button>삭제</button></td>
+							<td><%= event.getLocation() %></td>
+							<td>
+								<input type="hidden" value="<%= event.getEventNo() %>">
+								<button class="btn-event_view">상세보기</button>
+								<button class="btn-event_delete">삭제</button>
+							</td>
 						</tr>
 						<%
-					}
-					}
-					%>
-
+						}
+					} %>
 					</tbody>
 				</table>
 				<div class="pageBar">
@@ -137,23 +151,6 @@ String evcNo = (String) request.getAttribute("evcNo");
 	<%@ include file="/views/common/footer.jsp"%>
 	<script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>
 	<script src="<%= contextPath %>/js/script_common.js"></script>
-	<script>
-		$(".btn-event_view").click(event => {
-			location.assign("<%= contextPath %>/admin/updateEvent.do?no=" + $(event.target).attr("evn"));
-		});
-
-		$("input[name=eventCategory]").change(event => {
-			console.log($(event.target).val());
-			if ($(event.target).val() === "ALL") {
-				location.replace("<%= contextPath %>/admin/eventlist");
-			} else {
-				location.replace("<%= contextPath %>/admin/selectEventByCategory.do?evcNo=" + $(event.target).val());
-			}
-		});
-
-		$("#bannerLink").click(event => {
-			openPage(800, 580, getContextPath() + "/admin/updateBanner.do");
-		});
-	</script>
+	<script src="<%= contextPath %>/js/jaehun/script_eventList.js"></script>
 </body>
 </html>

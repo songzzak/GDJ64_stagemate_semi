@@ -411,6 +411,13 @@ public class EventService {
 		return banners;
 	}
 	
+	public int deleteEventByNo(String eventNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.deleteEventByNo(conn, eventNo);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	
 	//윤진작성
 	public List<EventWish> selectWishById(String userId) {
 		Connection conn=getConnection();

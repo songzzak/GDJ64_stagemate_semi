@@ -40,7 +40,7 @@ public class FindPwEndServlet extends HttpServlet {
 		int result = new MemberService().updatePassword(PasswordEncryptionWrapper.getSHA512(newPassword), userId, emailEncrypted);
 		if (result != 0) {
 			AuthMailSender authMailSender = new AuthMailSender();
-			authMailSender.send("areyouhun@gmail.com", newPassword);
+			authMailSender.send(email, newPassword);
 		}
 		
 		response.setContentType("text/html; charset=utf-8");
