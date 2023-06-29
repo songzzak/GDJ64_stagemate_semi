@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.stagemate.qna.model.service.QnaService;
 import com.stagemate.qna.model.vo.Qna;
+import com.stagemate.qna.model.vo.QnaListCtg;
 
 /**
  * Servlet implementation class QnaServlet
@@ -78,6 +79,8 @@ public class QnaListServlet extends HttpServlet {
 			request.setAttribute("pageBar", pageBar);
 			request.setAttribute("qnas", qnas);
 			System.out.println(qnas);
+			List<QnaListCtg> qc= new QnaService().selectQnaListCtg();
+			request.setAttribute("qc", qc);
 		request.getRequestDispatcher("/views/qna/qnaBoardList.jsp")
 		.forward(request, response);
 	}

@@ -11,6 +11,7 @@ import static com.stagemate.common.JDBCTemplate.rollback;
 import com.stagemate.qna.model.dao.QnaDao;
 import com.stagemate.qna.model.vo.Qna;
 import com.stagemate.qna.model.vo.QnaComment;
+import com.stagemate.qna.model.vo.QnaListCtg;
 
 public class QnaService {
 
@@ -22,6 +23,9 @@ public class QnaService {
 		close(conn);
 		return qnas;
 	}
+	
+	
+	
 	
 	public int selectQnaCount() {
 		Connection conn = getConnection();
@@ -38,7 +42,8 @@ public class QnaService {
 		  return q;
 	 }
 	 
-	
+
+
 	
 	public int insertQna (Qna q) {
 		Connection conn = getConnection();
@@ -48,6 +53,7 @@ public class QnaService {
 		close(conn);
 		return result;
 	}
+
 	public int updateQna(Qna q) {
 		Connection conn = getConnection();
 		int result = dao.updateQna(conn, q);
@@ -56,6 +62,7 @@ public class QnaService {
 		close(conn);
 		return result;
 	}
+	
 	public int deleteQna(int inquiryNo) {
 		Connection conn = getConnection();
 		int result = dao.deleteQna(conn, inquiryNo);
@@ -63,6 +70,14 @@ public class QnaService {
 		else rollback(conn);
 		close(conn);
 		return result;
+	}
+	
+	
+	public List<QnaListCtg> selectQnaListCtg(){
+		  Connection conn = getConnection(); 
+		  List<QnaListCtg> list= dao.QnaListCtg(conn); 
+		  close(conn); 
+		  return list;
 	}
 	
 	

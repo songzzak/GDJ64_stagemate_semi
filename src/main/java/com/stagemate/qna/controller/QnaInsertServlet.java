@@ -1,11 +1,16 @@
 package com.stagemate.qna.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.stagemate.qna.model.service.QnaService;
+import com.stagemate.qna.model.vo.QnaListCtg;
 
 /**
  * Servlet implementation class QnaInsertServlet
@@ -26,6 +31,7 @@ public class QnaInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.getRequestDispatcher("/views/qna/qnaInsert.jsp").forward(request, response);
 	}
 

@@ -58,7 +58,7 @@ public class QnaInsertEndServlet extends HttpServlet {
 			
 			//MutipartRequest 클래스 샹성하기 
 			MultipartRequest mr= new MultipartRequest (request,path,maxSize,encode,dfr);
-			
+			int category = Integer.parseInt(mr.getParameter("category"));
 			String inquiryTitle= mr.getParameter("qnaTitle");
 			String writerId=mr.getParameter("qnaWriter");
 			String inquiryContent=mr.getParameter("qnaContent");
@@ -74,9 +74,10 @@ public class QnaInsertEndServlet extends HttpServlet {
 					  .inquiryContent(inquiryContent)
 					  .files(QnaFileData.builder().imgFilenameOri(orifilename).imgFileRename(renamefilename).build())
 					  .inquiryLockFlg(inquiryLockFlg)
+					  .ctgNum(category)
 					  .build();
 			
-			System.out.println(q);		
+	
 		int result = new QnaService().insertQna(q);
 		String msg="1:1문의 등록완료", loc="/qna/qnaList.do";
 		if(result==0) {
