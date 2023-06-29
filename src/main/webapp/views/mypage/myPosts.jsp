@@ -130,7 +130,7 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 	                			<td><input type="checkbox" class="comment-ckbox" value="<%=c.getCmtNo()%>"></td>
 	                			<td>
 	                				<div class="div_comment_td">
-	                				<a href="<%=contextPath%>/board/boardView.do?no=<%=c.getBoardRef()%>">
+	                				<a href="<%=contextPath%>/board/boardView.do?no=<%=c.getBoardRef()%>" class="div_comment_td">
 	                					<p class=comment_content><%=c.getCmtContent() %></p>
 	                					<p class=comment_date><%=c.getCmtDate()%></p>
 	                					<p class=comment_ref_title><%=refBoard.getBoardTitle() %> </p>
