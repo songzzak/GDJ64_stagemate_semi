@@ -2,13 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <%@ include file="/views/common/header.jsp"%>
-<%@ page import="java.util.List,com.stagemate.qna.model.vo.Qna"%>
+<%@ page import="java.util.List,com.stagemate.qna.model.vo.Qna,com.stagemate.qna.model.vo.QnaListCtg"%>
 
-<% 
-		List<Qna> qnas =(List)request.getAttribute("qnas");
+<%
+List<Qna> qnas =(List)request.getAttribute("qnas");
+List<QnaListCtg> qc =(List)request.getAttribute("qc");
 %>
-<link rel="stylesheet" href="<%=contextPath %>/css/nabin/qnalist.css">
-<link rel="stylesheet" href="<%=contextPath %>/css/nabin/media.css">
+<link rel="stylesheet" href="<%=contextPath%>/css/nabin/qnalist.css">
+<link rel="stylesheet" href="<%=contextPath%>/css/nabin/media.css">
 
 <section class="min1280px">
 	<div id="sectionContainer" class="max1280px">
@@ -40,12 +41,16 @@
 						<th>작성자</th>
 						<th>작성일</th>
 					</tr>
-					<%if(qnas.isEmpty()||qnas==null){ %>
+					<%
+					if(qnas.isEmpty()||qnas==null){
+					%>
 					<tr>
 						<td colspan="6">조회된 데이터가 없습니다</td>
 					</tr>
-					<%}else{
-                        for(Qna q:qnas){%>
+					<%
+					}else{
+						for(Qna q:qnas){
+					%>
 							<tr>
 								<td><%=q.getInquiryNo() %></td>
 								<td>
@@ -53,11 +58,24 @@
 										<img src="<%=request.getContextPath() %>/images/nabin/lock.png" width="20">
 									<%} %>
 								</td>
-								<td><%=q.getCtgNm()%></td>
+								<% for(QnaListCtg qlc:qc){%>
+								<% if(qlc.getCtgNum()==q.getCtgNum()){ %>
+								
+								<td><%=qlc.getCtgNm()%></td>
+								
+								<% } } %>
 								<td>
+								
+								<!-- 비밀글이 y이면서, 로그인아이디= 운영자이면서,  -->
+								<%if(loginMember!=null&&(loginMember.getMemberId().equals("stageadmin")||loginMember.getMemberId().equals(q.getWriterId()))
+								||q.getInquiryLockFlg().equals("N")
+									){%>
 									<a href="<%=request.getContextPath()%>/qna/qnaView.do?no=<%=q.getInquiryNo()%>">
 											<%=q.getInquiryTitle() %>
 									</a>
+								<%}else{ %>
+									<%=q.getInquiryTitle() %>
+								<%} %>
 								</td>
 								<td><%=q.getWriterId() %></td>
 		

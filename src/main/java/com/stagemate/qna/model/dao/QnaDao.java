@@ -17,6 +17,7 @@ import com.stagemate.notice.model.vo.NoticeFileData;
 import com.stagemate.qna.model.vo.Qna;
 import com.stagemate.qna.model.vo.QnaComment;
 import com.stagemate.qna.model.vo.QnaFileData;
+import com.stagemate.qna.model.vo.QnaListCtg;
 import com.stagemate.qna.model.vo.Qna;
 
 
@@ -100,6 +101,7 @@ public int insertQna(Connection conn, Qna q) {
 		pstmt.setString(2, q.getInquiryTitle());
 		pstmt.setString(3, q.getWriterId());
 		pstmt.setString(4, q.getInquiryLockFlg()!=null?q.getInquiryLockFlg():"N");
+		pstmt.setInt(5,  q.getCtgNum());
 		result=pstmt.executeUpdate();
 		
 	}catch(SQLException e) {
@@ -109,6 +111,8 @@ public int insertQna(Connection conn, Qna q) {
 	}
 	return result;
 }
+
+
 
 public int deleteQna (Connection conn, int inquiryNo) {
 	PreparedStatement pstmt= null;
@@ -144,6 +148,36 @@ public int updateQna(Connection conn, Qna q) {
 	}
 	return result;
 }
+
+
+public List<QnaListCtg> QnaListCtg(Connection conn ){
+	PreparedStatement pstmt=null;
+	ResultSet rs=null;
+	List<QnaListCtg> list=new ArrayList();
+	try {
+		pstmt=conn.prepareStatement(sql.getProperty("selectQnaListCtg"));
+		rs=pstmt.executeQuery();
+		while(rs.next()) {
+			QnaListCtg qc = getQnaListCtg(rs);
+			list.add(qc);
+		}
+	}catch(SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(rs);
+		close(pstmt);
+	}return list;
+}
+
+private QnaListCtg getQnaListCtg(ResultSet rs) throws SQLException{
+	return QnaListCtg.builder()
+			.ctgNum(rs.getInt("ctg_num"))
+			.ctgNm(rs.getString("ctg_nm"))
+			.build();
+	
+			
+}
+
 
 public int selectQnaSquence(Connection conn) {
 	PreparedStatement pstmt=null;
@@ -188,11 +222,12 @@ private Qna getQna(ResultSet rs) throws SQLException{
 			.writerId(rs.getString("writer_id"))
 			.inquiryInsertDt(rs.getDate("inquiry_insert_dt"))
 			.inquiryLockFlg(rs.getString("inquiry_lock_flg"))
-			.ctgNm(rs.getString("ctg_nm"))
+			
 			.build();
 	
 			
 }
+
 
 public int insertQnaComment(Connection conn, QnaComment qc) {
 	PreparedStatement pstmt=null;
@@ -261,8 +296,6 @@ private QnaComment getQnaComment(ResultSet rs) throws SQLException{
 			
 			.build();
 }
-
-
 }
 
 

@@ -18,7 +18,7 @@
 				<div class="qna_insert_wrap">
 					<div class="qna_insert">
 						<form action="<%=request.getContextPath() %>/qna/insertQna.do" method="post" enctype="multipart/form-data">
-							<table id="tbl-notice">
+							<table id="tbl-qna">
 								<tr>
 									<th>제 목</th>
 									<td><input type="text" name="qnaTitle" required></td>
@@ -28,9 +28,26 @@
 									<td><input type="text" name="qnaWriter"
 									value="<%=loginMember.getMemberId()%>" readonly></td>
 								</tr>
+								<tr>
 								<th>비밀글</th>
 								<td><input type="checkbox" name="qnaLock"
-								value="Y" ></td>
+								value="Y" >
+								</td>
+								</tr>
+								<tr>
+								<th>카테고리</th>
+								<td>
+								<input type="radio" id="ctgList" name="category" value="1" checked="checked">
+								예매
+								<input type="radio" id="ctgList" name="category" value="2" checked="checked">
+								상품
+								<input type="radio" id="ctgList" name="category" value="3" checked="checked">
+								배송
+								<input type="radio" id="ctgList" name="category" value="4" checked="checked">
+								반품/취소
+								<input type="radio" id="ctgList" name="category" value="5" checked="checked">
+								회원정보
+								</td>
 								<tr>
 									<th>첨부파일</th>
 									<td><input type="file" name="upFile"></td>
@@ -42,6 +59,7 @@
 								<tr>
 								<th colspan="2">
 								<input type="submit" value="등록" onclick="if(!confirm('글이 등록됩니다.\ 글을 등록하시겠습니까?')){return false;}"/>
+								
 								</th>
 								</tr>
 							</table>

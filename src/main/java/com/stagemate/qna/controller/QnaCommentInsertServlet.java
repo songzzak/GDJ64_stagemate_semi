@@ -48,9 +48,9 @@ public class QnaCommentInsertServlet extends HttpServlet {
 			request.setAttribute("msg", "댓글등록 실패!");
 			request.setAttribute("loc", "/qna/qnaView.do?no="+qc.getQnaRef());
 			view="/views/common/msg.jsp";
-			
+			request.getRequestDispatcher(view).forward(request,response);
 		}
-		request.getRequestDispatcher(view).forward(request,response);
+		
 	
 	
 	}
@@ -60,7 +60,7 @@ public class QnaCommentInsertServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		doGet(request, response);
 	}
 
 }

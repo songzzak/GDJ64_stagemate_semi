@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ page import="com.stagemate.qna.model.vo.Qna, java.util.List,com.stagemate.qna.model.vo.QnaComment"%>
+<%@ page import="com.stagemate.qna.model.vo.Qna,java.util.List,com.stagemate.qna.model.vo.QnaComment,com.stagemate.qna.model.vo.QnaListCtg"%>
 <%
 	Qna q= (Qna)request.getAttribute("qna");
 	List<QnaComment> comments=(List)request.getAttribute("comments");
+	List<QnaListCtg> qc =(List)request.getAttribute("qc");
 %>
 <%@ include file="/views/common/top.jsp"%>
 <%@ include file="/views/common/header.jsp"%>
@@ -14,7 +15,7 @@
 	<!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 
 	<!---------------------------------------->
-	<title><strong>게시글</strong></title>
+
 	<!-- </head> -->
 	
 		<!-----------   아래에서 HTML 작업  ----------->
@@ -37,19 +38,24 @@
 							<td><%=q.getWriterId() %></td>
 							<th>첨부파일</th>
 							<td>
-								<%if(q.getFiles()!=null){ %> 
+								<%if(q.getFiles()!=null) {%> 
 									<div id="download-container" onclick="fileDownload('<%=q.getFiles()%>');">
 									<img src="<%=request.getContextPath() %>/images/nabin/file.png"
 									width="20"> <span><%=q.getFiles()%></span>
 									</div>
 								<% }else{%>
 									<div id="download-container">
-										<h4>없음</h4>
+										<h4>[없음]</h4>
 									</div>
 								<%} %>
 							</td>
+							
 							<th>카테고리 </th>
+							<% for(QnaListCtg qlc:qc){%>
+								<% if(qlc.getCtgNum()==q.getCtgNum()) {%>
 							<td><%=q.getCtgNm() %> </td>
+							<%} 
+								}%>
 							
 							<th>작성일</th>
 							<td><%=q.getInquiryInsertDt()%></td>
@@ -79,15 +85,15 @@
 					<%if(loginMember!=null&&(loginMember.getMemberId().equals("stageadmin")||
 					loginMember.getMemberId().equals(q.getWriterId()))){%>
 					<a href="<%=request.getContextPath()%>/qna/updateQna.do?no=<%=q.getInquiryNo() %>" class="on">수정</a> 
-					<a href="<%=request.getContextPath()%>/qna/deleteQna.do?no=<%=q.getInquiryNo() %>" class="on">삭제</a> 
-					<!-- <script type="text/javascript">
-					function del() {
- 					 if (confirm("정말 삭제하시겠습니까?"))
-   						 list_ok.submit();
- 						}
-						</script> -->
+					<a href="javascript:del();" class="on">삭제</a> 
+					<script type="text/javascript">
+						function del() {
+	 					 if (confirm("정말 삭제하시겠습니까?"))
+	   						 location.replace('<%=request.getContextPath()%>/qna/deleteQna.do?no=<%=q.getInquiryNo() %>');
+	 					}
+					</script> 
 					<%} %>
-				<%-- 	<a href="<%=request.getContextPath()%>/qna/deleteQna.do?no=<%=q.getInquiryNo() %>" onclick="del();">삭제</a> --%>
+				
 				</div>
 
 
@@ -111,22 +117,24 @@
 				</div>
 				<table id="tbl-comment">
 				
-					<%if(comments!=null){for(QnaComment qc:comments) {%>
+					<%if(comments!=null){for(QnaComment qcm:comments) {%>
 					<tr class="levlel1">
 						<td>
-							<sub class="comment-writer"><%=qc.getQnaCommentWriter() %></sub> 
-							<sub class="comment-date"><%=qc.getQnaCommentDate() %></sub>
+							<sub class="comment-writer"><%=qcm.getQnaCommentWriter() %></sub> 
+							<sub class="comment-date"><%=qcm.getQnaCommentDate() %></sub>
 						<br> 
-						<%=qc.getQnaCommentContent() %>
+						<%=qcm.getQnaCommentContent() %>
 						</td>
 					</tr>
-					<%} }%>
+					<%} 
+					}%>
 				</table>
 
 				<div class="bt_list">
-					<a href="<%=request.getContextPath()%>/qna/qnaList.do"" class="on1">목록</a>
+					<a href="<%=request.getContextPath()%>/qna/qnaList.do" class="on1">목록</a>
 				</div>
-	</body>
+		
+	</div>
 </section>
 <script>
 		$("#comment-container textarea[name=content]").focus(e=>{
@@ -148,5 +156,3 @@
 <%@ include file="/views/common/footer.jsp"%>
 <script src="<%=contextPath %>/js/jquery-3.7.0.min.js"></script>
 <script src="<%=contextPath %>/js/script_common.js"></script>
-
-</body>

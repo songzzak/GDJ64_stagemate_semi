@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ page import="com.stagemate.qna.model.vo.Qna, 
-java.util.List,com.stagemate.qna.model.vo.QnaComment"%>
+
+<%@ page import="com.stagemate.qna.model.vo.Qna,java.util.List,com.stagemate.qna.model.vo.QnaComment"%>
 <%
-	Qna q= (Qna)request.getAttribute("qna");
+Qna q= (Qna)request.getAttribute("qna");
 %>
 <%@ include file="/views/common/top.jsp"%>
 <%@ include file="/views/common/header.jsp"%>
