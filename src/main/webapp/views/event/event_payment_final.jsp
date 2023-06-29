@@ -109,7 +109,7 @@
 				<!-- 버튼 -->
 				<div id="res_pay_fin_button">
 					<button onclick="gohome();">홈으로 가기</button>
-					<button>예매내역으로 가기</button>
+					<button onclick="rsvMy();">예매내역으로 가기</button>
 				</div>
 			</div>
 		</div>
@@ -122,6 +122,9 @@
 	<script>
 	const gohome=()=>{
 		location.replace(getContextPath());
+	}
+	const rsvMy=()=>{
+		location.replace('<%= request.getContextPath()%>/Detail/DetailListServlet.do');
 	}
 	</script>
 	<!-------------------------------------------->
