@@ -1,7 +1,6 @@
-	package com.stagemate.board.controller;
+package com.stagemate.board.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.stagemate.board.service.BoardService;
 
 /**
- * Servlet implementation class BoardCountServlet
+ * Servlet implementation class BoardReportServlet
  */
-@WebServlet("/board/boardCount.do")
-public class BoardCountServlet extends HttpServlet {
+@WebServlet("/board/boardReport.do")
+public class BoardReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardCountServlet() {
+    public BoardReportServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,10 +29,12 @@ public class BoardCountServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String boardNo=request.getParameter("boardNo");
-		String memberId=request.getParameter("memberId");
-//		int boardCount=new BoardService().board();
+		int boardNo=Integer.parseInt(request.getParameter("no"));
 		
+		int result=new BoardService().reportBoard(boardNo);
+		
+		response.sendRedirect(request.getContextPath()+"/board/boardList.do");
+
 	}
 
 	/**

@@ -172,6 +172,44 @@ input {
 	<!-----------   아래에서 HTML 작업  ----------->
 	<section class="min1280px">
 		<div class="max1280px">
+			
+			<div id="store_admin_nav">
+				<nav>
+					<ul id="store_admin_nav_ul">
+						<li><a href="<%=contextPath%>/admin/membermanage" class="select_nav_admin">회원 관리</a></li>
+						<li>
+							<a href="<%=contextPath%>/admin/eventlist">상품 관리</a>
+							<ul>
+								<li><a href="<%=contextPath%>/admin/eventlist">행사</a></li>
+								<li><a href="<%=contextPath%>/admin/selectAllProduct.do">스토어</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">판매 관리</a>
+							<ul>
+								<li><a href="<%=contextPath%>/admin/SalesDetail.do">판매내역관리</a></li>
+								<li><a href="">결제 취소 요청</a></li>
+								<li><a href="">반품/교환 관리</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">커뮤니티 관리</a>
+							<ul>
+								<li><a href="">게시판 관리</a></li>
+								<li><a href="">신고 관리</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">고객센터</a>
+							<ul>
+								<li><a href="">공지사항 관리</a></li>
+								<li><a href="">1:1문의 관리</a></li>
+							</ul>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			
 			<body>
 				<div class="admin_board">
 					<h3>게시글 신고조회 및 처리</h3>

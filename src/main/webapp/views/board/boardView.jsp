@@ -245,10 +245,10 @@ a {
 						<th>작성일</th>
 						<th><%=b.getBoardDate()%></th>
 						<th>조회수</th>
-						<th><%=b.getBoardLikeCNT()%></th>
-						<th>추천수</th>
 						<th><%=b.getBoardViewCNT()%></th>
-						<th><img onclick="count('<%=b.getBoardNo() %>')" style="width: 20; height: 20px;" id="thumbs"
+						<th>추천수</th>
+						<th><%=b.getBoardLikeCNT()%></th>
+						<th><img onclick="count('<%=b.getBoardNo() %>',event)" style="width: 20; height: 20px;" id="thumbs"
 							src="<%=request.getContextPath()%>/images/jangheum/thumbs.svg"></th>
 					</tr>
 				</table>
@@ -260,9 +260,9 @@ a {
 			<div>
 				<hr color=#000000>
 				<div class="bt_wrap">
-					<a href="#" class="on">신고</a> 
+					<a href="javascript:reportbtn('<%=b.getBoardNo()%>')" class="on">신고</a> 
 					<a href="<%=request.getContextPath()%>/board/boardModify.do?no=<%=b.getBoardNo() %>" class="on">수정</a> 
-					<a href="<%=request.getContextPath()%>/board/boardDelete.do?no=<%=b.getBoardNo()%>"class="on">삭제</a>
+					<a href="javascript:deletebtn('<%=b.getBoardNo()%>')"class="on">삭제</a>
 				</div>
 				<div class="bt_list">
 					<a href="<%=request.getContextPath()%>/board/boardList.do"
@@ -327,13 +327,31 @@ a {
 <script src="<%=contextPath%>/js/script_common.js"></script>
 <!-- 본인이 따로 적용할 외부 JS 파일 및 script 태그 -->
 <script>
-	$("#thumbs").click(
-			function(){
-				$(this).attr("src","<%=request.getContextPath()%>/images/jangheum/thumbs.svg");
-			},
-			function(){
-				$(this).attr("src","<%=request.getContextPath()%>/images/jangheum/done_thumbs.png");
-						});
+	 function count(boardNo,e){
+			const src=$(e.target).attr("src");
+			let requestUrl="";
+			if(src.includes('thumbs.svg')){
+				//delete
+				requestUrl="insertLike.do";
+			}else{
+				//insert
+				requestUrl="deleteLike.do";
+				
+			}
+			$.get("<%=request.getContextPath()%>/board/"+requestUrl+"?no="+boardNo+"&id=<%=loginMember!=null?loginMember.getMemberId():""%>",data=>{
+				
+				if(data){
+					if(requestUrl.includes("delete")){
+						$(e.target).attr("src","<%=request.getContextPath()%>/images/jangheum/thumbs.svg");
+					}else{
+						$(e.target).attr("src","<%=request.getContextPath()%>/images/jangheum/done_thumbs.png");
+					}
+				}else{
+					alert("저장실패 관리자에게 문의하세요. :(");
+				}
+			});
+	}
+
 					
 	$("#comment_container textarea[name=cmtContent]").click(e=>{
 		if(<%=loginMember == null%>){
@@ -355,12 +373,25 @@ a {
         tr.append(td);
      });
 	
-	<%-- const count=(boardNo)=>{
-		location.href="<%=contextPath%>/board/boardCount.do?boardNo="+boardNo
-	} --%>
+	function reportbtn(){
+		if(!confirm("신고하시겠습니까?")){
+			alert("취소되었습니다.");
+		}else{
+			alert("신고처리가 완료되었습니다.");
+			location.replace("<%=request.getContextPath()%>/board/boardView.do?no=<%=b.getBoardNo()%>");
+		}
+	}
 	
+	function deletebtn(){
+		if(!confirm("삭제하시겠습니까?")){
+			alert("취소되었습니다.");
+		}else{
+			alert("삭제되었습니다.");
+			location.replace("<%=request.getContextPath()%>/board/boardDelete.do?no=<%=b.getBoardNo()%>");
+		}
+	}
 	
-	
+	 
 </script>
 <!-------------------------------------------->
 </body>

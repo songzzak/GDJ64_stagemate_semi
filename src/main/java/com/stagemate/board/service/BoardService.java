@@ -64,8 +64,13 @@ public class BoardService {
 		return result;
 	}
 
-	public int updateBoard(Board b) {
-		return 0;
+	public int updateBoard(String boardWriter, String boardTitle, String boardContent) {
+		Connection conn=getConnection();
+		int result=dao.updateBoard(conn, boardWriter, boardTitle, boardContent);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
 	}
 
 	public int deleteBoard(int boardNo) {
@@ -74,6 +79,23 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+	
+	public int reportBoard(int boardNo) {
+		Connection conn=getConnection();
+		int result=dao.deleteBoard(conn,boardNo);
+		close(conn);
+		return result;
+	}
+	
+	public int insertLike(int boardNo,String memberId) {
+		Connection conn=getConnection();
+		int result=dao.insertLike(conn,boardNo,memberId);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
 	
 	
 	//윤진작성
@@ -95,6 +117,8 @@ public class BoardService {
 		return result;
 	}
 
+
+	
 	public List<BoardComment> selectBoardComment(int boardNo) {
 		Connection conn = getConnection();
 		List<BoardComment> list = dao.selectBoardComment(conn, boardNo);
@@ -116,6 +140,7 @@ public class BoardService {
 		close(conn);
 		return count;
 	}
+	
 	
 	
 //윤진작성
