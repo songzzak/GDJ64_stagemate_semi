@@ -27,6 +27,7 @@
 
 .banners-container li {
     width: 100vw;
+    cursor: pointer;
 }
 
 .banners-indicator {
@@ -36,11 +37,11 @@
     transform: translateX(-50%);
     width: 15%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
-.banners-indicator li, .banners-container li {
-    cursor: pointer;
+.banners-indicator li:not(:last-child) {
+    margin-right: 5%;
 }
 
 /* reservation */

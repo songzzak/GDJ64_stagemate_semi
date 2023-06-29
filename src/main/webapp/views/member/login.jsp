@@ -101,31 +101,11 @@ $(document).ready(() => {
 });
 
 $("#findId").click(event => {
-	const width = 300;
-	const height = 150;
-	const left = (window.screen.width / 2) - (width / 2);
-	const top = (window.screen.height / 2) - (height / 2);
-	const url = getContextPath() + "/member/findId.do";
-
-	window.open(url, "_blank",
-				"width=" + width + ", " + 
-				"height=" + height + ", " + 
-				"left=" + left + ", " + 
-				"top=" + top);
+	openPage(300, 150, getContextPath() + "/member/findId.do");
 });
 
 $("#findPw").click(event => {
-	const width = 300;
-	const height = 150;
-	const left = (window.screen.width / 2) - (width / 2);
-	const top = (window.screen.height / 2) - (height / 2);
-	const url = getContextPath() + "/member/findPw.do";
-
-	window.open(url, "_blank",
-				"width=" + width + ", " + 
-				"height=" + height + ", " + 
-				"left=" + left + ", " + 
-				"top=" + top);
+	openPage(300, 150, getContextPath() + "/member/findPw.do");
 });
 </script>
 </body>
