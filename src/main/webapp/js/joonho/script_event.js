@@ -18,6 +18,7 @@ $("#detail_information").click(e => {
 	$("#gold_review").children().css({ "fontWeight": "" })
 	$("#gold_location").css({ "borderBottom": "" })
 	$("#gold_location").children().css({ "fontWeight": "" })
+	$("#review_event").css({ "display": "none" })
 	$("#detail_information_img").css({ "display": "inline-flex", "flex-direction": "column", "align-items": "center" })
 	$("#reservation_cancel_info").css({ "display": "none" })
 	$("#gold_details_map").css({ "display": "none" })
@@ -34,6 +35,7 @@ $("#reservation_cancel").click(e => {
 	$("#gold_location").css({ "borderBottom": "" })
 	$("#gold_location").children().css({ "fontWeight": "" })
 	$("#detail_information_img").css({ "display": "none" })
+	$("#review_event").css({ "display": "none" })
 	$("#reservation_cancel_info").css({ "display": "inline-flex", "flex-direction": "column" })
 	$("#gold_details_map").css({ "display": "none" })
 
@@ -50,6 +52,7 @@ $("#gold_review").click(e => {
 	$("#gold_location").children().css({ "fontWeight": "" })
 	$("#detail_information_img").css({ "display": "none" })
 	$("#reservation_cancel_info").css({ "display": "none" })
+	$("#review_event").css({ "display": "inline" })
 	$("#gold_details_map").css({ "display": "none" })
 })
 
@@ -65,6 +68,7 @@ $("#movemap").click(e=>{
 	$("#gold_location").css({"borderBottom":"14px solid black"})
 	$("#gold_location").children().css({"fontWeight":"bolder"})
 	$("#detail_information_img").css({"display":"none"})
+	$("#review_event").css({ "display": "none" })
 	$("#reservation_cancel_info").css({"display":"none"})
 	$("#gold_details_map").css({"display":"inline-flex","flex-direction":"column","align-items": "center"})
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -107,6 +111,7 @@ $("#gold_location").click(e=>{
 	$("#gold_location").css({"borderBottom":"14px solid black"})
 	$("#gold_location").children().css({"fontWeight":"bolder"})
 	$("#detail_information_img").css({"display":"none"})
+	$("#review_event").css({ "display": "none" })
 	$("#reservation_cancel_info").css({"display":"none"})
 	$("#gold_details_map").css({"display":"inline-flex","flex-direction":"column","align-items": "center"})
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

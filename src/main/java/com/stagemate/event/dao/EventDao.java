@@ -20,6 +20,7 @@ import com.stagemate.event.model.vo.EventSchedule;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.model.vo.Seat;
+import com.stagemate.payment.model.vo.EventOrder;
 import com.stagemate.review.model.vo.EventReviewTBJH;
 import com.stagemate.store.dao.StoreDao;
 
@@ -98,8 +99,20 @@ public class EventDao {
 				.ervDate(rs.getDate("ERV_DATE"))
 				.rsvNo(rs.getString("RSV_NO"))
 				.imojiNo(rs.getInt("IMOJI_NO"))
-				.eventNo(rs.getString("EVENT_NO"))
 				.build();
+	}
+	
+	private EventOrder getEventOrder(ResultSet rs) throws SQLException{
+		return EventOrder.builder()
+			.rsvNo(rs.getString("RSV_NO"))
+			.esNo(rs.getString("ES_NO"))
+			.rsvDate(rs.getDate("RSV_DATE"))
+			.rsvPrice(rs.getInt("RSV_PRICE"))
+			.memberId(rs.getString("MEMBER_ID"))
+			.paymentNo(rs.getString("PAYMENT_NO"))
+			.orderStatus(rs.getString("ORDER_STATUS"))
+			.build();
+			
 	}
 	public List<Event> selectAllEventMusical(Connection conn,int cPage, int numPerpage){
 		PreparedStatement pstmt=null;
@@ -532,6 +545,46 @@ public class EventDao {
 			close(pstmt);
 		}
 		return et;
+	}
+	public List<EventOrder> selectRsvNo(Connection conn, String eventNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<EventOrder> rsv=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectRsvNo"));
+			pstmt.setString(1, eventNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				EventOrder eo=getEventOrder(rs);
+				rsv.add(eo);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return rsv;
+	}
+	public List<EventReviewTBJH> selectEventReview(Connection conn, String eventNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<EventReviewTBJH> ertb=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectEventReview"));
+			pstmt.setString(1, eventNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				EventReviewTBJH er=getEventReviewTBJH(rs);
+				ertb.add(er);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return ertb;
 	}
 	public List<Event> selectAllEvent(Connection conn,int cPage, int numPerpage){
 		PreparedStatement pstmt=null;

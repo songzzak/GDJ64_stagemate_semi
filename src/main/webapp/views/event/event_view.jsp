@@ -2,13 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <%@ page
-	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile,com.stagemate.event.model.vo.EventSchedule,com.stagemate.event.model.vo.Seat,com.stagemate.event.model.vo.EventWish"%>
+	import="java.util.List,com.stagemate.event.model.vo.Event,com.stagemate.event.model.vo.EventUpfile,com.stagemate.event.model.vo.EventSchedule,com.stagemate.event.model.vo.Seat,com.stagemate.event.model.vo.EventWish,com.stagemate.review.model.vo.EventReviewTBJH"%>
 <%
 	List<Seat> seats = (List) request.getAttribute("seats");
 	Event event = (Event) request.getAttribute("event");
 	List<EventUpfile> files = (List) request.getAttribute("files");
 	List<EventSchedule> es = (List) request.getAttribute("es");
 	List<EventWish> ew = (List) request.getAttribute("ew");
+	List<EventReviewTBJH> ertb = (List) request.getAttribute("ertb");
 %>
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
@@ -294,87 +295,17 @@
 						}}
 						%>
 						<div id="reservation_cancel_info" style="display: none">
-							<div id="reservation_info" class="info">
-								<div>
-									<h1>예매</h1>
-								</div>
-								<div>
-									<div id="reservation_info_content">
-										<p>예매는 PC, 모바일, 고객센터 를 통해 신용카드, 가상계좌(무통장 입금), YES머니,
-											YES상품권, 예치금 등으로 예매하실 수 있습니다.</p>
-										<p>(단, 상품마다 사용 가능한 결제 수단이 다르게 적용될 수 있으니 상품 상세페이지 안내 사항을
-											확인해주세요.)</p>
-										<p>(단, 상품에 따라 예매 당일 밤 11시 29분에 마감되는 경우가 있으니 예매 전후 반드시
-											확인해주시기 바랍니다.)</p>
-										<p>예매수수료는 다음과 같습니다.(상품의 특성에 따라 예매수수료 정책은 다를 수 있습니다.)</p>
-									</div>
-									<div id="reservation_info_table" class="info_table">
-										<table class="info_table_detail">
-											<tr>
-												<th>장르</th>
-												<th>PC</th>
-											</tr>
-											<tr>
-												<td>콘서트, 뮤지컬, 클래식, 국악, 무용</td>
-												<td>장당 1,000원</td>
-											</tr>
-											<tr>
-												<td>연극, 전시</td>
-												<td>장당 500원</td>
-											</tr>
-											<tr>
-												<td>체험, 행사</td>
-												<td>장당 300원</td>
-											</tr>
-										</table>
-									</div>
-								</div>
-							</div>
-							<hr>
-							<div id="cancel_info" class="info">
-								<div>
-									<h1>취소 수수료</h1>
-								</div>
-								<div>
-									<div id="cancel_info_table" class="info_table">
-										<table class="info_table_detail">
-											<tr>
-												<th>취소일</th>
-												<th>취소 수수료</th>
-											</tr>
-											<tr>
-												<td>예매 후 7일 이내</td>
-												<td>없음</td>
-											</tr>
-											<tr>
-												<td>예매 후 8일~관람일 10일 전까지</td>
-												<td>뮤지컬, 콘서트, 클래식 : 장당 4,000원 / 연극, 전시 : 장당 2,000원(단,
-													티켓 금액의 10% 이내)</td>
-											</tr>
-											<tr>
-												<td>관람일 9일~관람일 7일 전까지</td>
-												<td>티켓 금액의 10%</td>
-											</tr>
-											<tr>
-												<td>관람일 6일~관람일 3일 전까지</td>
-												<td>티켓 금액의 20%</td>
-											</tr>
-											<tr>
-												<td>관람일 2일~취소마감일시까지</td>
-												<td>티켓 금액의 30%</td>
-											</tr>
-										</table>
-									</div>
-									<div id="cancel_info_content">
-										<p>예매 후 7일 이내라도 취소시점이 관람일로부터 10일 이내라면 그에 해당하는 취소수수료가
-											부과됩니다.</p>
-										<p>관람일 당일 취소 가능한 상품의 경우 관람일 당일 취소 시 티켓금액의 90%가 부과됩니다.</p>
-										<p>(단, 상품에 따라 예매 당일 밤 11시 29분에 마감되는 경우가 있으니 예매 전후 반드시
-											확인해주시기 바랍니다.)</p>
-										<p>상품의 특성에 따라 취소수수료 정책이 달라질 수 있습니다.(각 상품 예매 시 취소수수료 확인)</p>
-									</div>
-								</div>
-							</div>
+							<img src="<%=contextPath%>/images/joonho/cancel1.PNG">
+							<img src="<%=contextPath%>/images/joonho/cancel2.PNG">
+							<img src="<%=contextPath%>/images/joonho/cancel3.PNG">
+						</div>
+						<div id="review_event" style="display: none">
+						<%if(ertb==null||ertb.isEmpty()){%>
+								<a>비었음!</a>
+							<% }else{
+							for(EventReviewTBJH er:ertb){ %>
+								<%=er.getErvContent() %>
+							<%}} %>
 						</div>
 						<div id="gold_details_map" style="display: none">
 							<div>

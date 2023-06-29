@@ -18,5 +18,4 @@ public class EventReviewTBJH {
 	private Date ervDate;
 	private String rsvNo;
 	private int imojiNo;
-	private String eventNo;
 }
