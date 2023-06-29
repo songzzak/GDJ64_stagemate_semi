@@ -24,8 +24,7 @@
 					<tr>|
 					</tr>
 					<tr>
-						<a href="<%=request.getContextPath()%>/qna/qnaList.do">1:1
-							문의사항</a>
+						<a href="<%=request.getContextPath()%>/qna/qnaList.do">1:1문의사항</a>
 					</tr>
 				</table>
 			</div>
@@ -43,23 +42,22 @@
 							<td colspan="4">조회된 공지사항이 없습니다.</td>
 						<tr>
 							<%}else{ 
-			 for(Notice n : notices){%>
+								 for(Notice n : notices){%>
 						
 						<tr>
 							<td><%=n.getNoticeNo() %></td>
-							<td><a
-								href="<%=request.getContextPath()%>/notice/noticeView.do?no=<%=n.getNoticeNo()%>">
-									<%=n.getNoticeTitle() %>
-							</a>
-							<td><%=n.getNoticeInsertDt() %></td>
+							<td><a href="<%=request.getContextPath()%>/notice/noticeView.do?no=<%=n.getNoticeNo()%>">
+									<%=n.getNoticeTitle() %></a>
 							<td><%=n.getNoticeWriter() %></td>
+							<td><%=n.getNoticeInsertDt() %></td>
+							
 						</tr>
 						<%} 
-		}%>
+							}%>
 					</table>
-					<div id="pageBar">
+					<%-- <div id="pageBar">
 						<%=request.getAttribute("pageBar") %>
-					</div>
+					</div> --%>
 
 
 				</div>

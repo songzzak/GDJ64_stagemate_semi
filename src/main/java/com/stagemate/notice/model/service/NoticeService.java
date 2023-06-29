@@ -53,6 +53,25 @@ public int selectNoticeCount() {
 		return n;
 	}
 	
+	public int updateNotice(Notice n) {
+		Connection conn = getConnection();
+		int result = dao.updateNotice(conn, n);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	public int deleteNotice(int noticeNo) {
+		Connection conn = getConnection();
+		int result = dao.deleteNotice(conn, noticeNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	
 	
 	
 }

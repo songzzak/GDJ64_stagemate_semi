@@ -188,6 +188,7 @@ private Qna getQna(ResultSet rs) throws SQLException{
 			.writerId(rs.getString("writer_id"))
 			.inquiryInsertDt(rs.getDate("inquiry_insert_dt"))
 			.inquiryLockFlg(rs.getString("inquiry_lock_flg"))
+			.ctgNm(rs.getString("ctg_nm"))
 			.build();
 	
 			
@@ -239,25 +240,8 @@ private QnaComment getQnaComment(ResultSet rs) throws SQLException{
 			.qnaCommentDate(rs.getDate("INQUIRY_COMMENT_DATE"))
 			.qnaCommentRef(rs.getInt("INQUIRY_COMMENT_REF"))
 			.qnaRef(rs.getInt("INQUIRY_REF"))
+			
 			.build();
-}
-
-//윤진작성
-public List<Qna> selectQnaById(Connection conn, String id) {
-	PreparedStatement pstmt = null;
-	ResultSet rs=null;
-	List<Qna> list= new ArrayList();
-	try {
-		pstmt= conn.prepareStatement(sql.getProperty("selectQnaById"));
-		pstmt.setString(1, id);
-		rs=pstmt.executeQuery();
-		while(rs.next()) list.add(getQna(rs));
-	}catch(SQLException e) {
-		e.printStackTrace();
-	}finally {
-		close(rs);
-		close(pstmt);
-	}return list;
 }
 
 

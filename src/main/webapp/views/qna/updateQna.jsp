@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ page import="com.stagemate.qna.model.vo.Qna, java.util.List,com.stagemate.qna.model.vo.QnaComment"%>
+<%@ page import="com.stagemate.qna.model.vo.Qna, 
+java.util.List,com.stagemate.qna.model.vo.QnaComment"%>
 <%
 	Qna q= (Qna)request.getAttribute("qna");
 %>
@@ -20,9 +21,12 @@
 				</div>
 				<hr color=#000000>
 				<div class="board_theme">
+				<table>
+				<tr>
 					<th>제목</th>
 					<td><input type="text" name="qnaTitle" value="<%=q.getInquiryTitle() %>"></td>
-					
+					</tr>
+				</table>
 				</div>
 				<div class="board_middle_theme">
 					<hr style="color: #BDBDBD; border-style: dotted">
@@ -58,10 +62,9 @@
 			</div>
 		</form>
 </section>
-<script>
+
 
 <%@ include file="/views/common/footer.jsp"%>
-<script src="<%=contextPath %>/js/jquery-3.7.0.min.js"></script>
+<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 <script src="<%=contextPath %>/js/script_common.js"></script>
 
-</body>

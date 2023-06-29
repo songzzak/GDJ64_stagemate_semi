@@ -7,22 +7,30 @@
 	%>
 <%@ include file="/views/common/top.jsp"%>
 <%@ include file="/views/common/header.jsp"%>
+<link rel="stylesheet" href="<%=contextPath %>/css/nabin/notice_view.css">
 
 
 <section class="min1280px">
-<h2> 스테이지 메이트 공지사항 </h2>
+
 	<div id="sectionContainer" class="max1280px">
 		<div class="board_wrap">
+		<p>스테이지메이트 공지사항</p>
+		</div>
+		<hr color=#000000>
+		<div class="board_theme">
 			<table>
 				<tr>
 					<th>제목</th>
 					<td><%=n.getNoticeTitle() %></td>
 				</tr>
+				</div>
+			</table>
+			<div class="board_middle_theme">
+			<hr style="color: #BDBDBD; border-style: dotted">
+			<table>
 				<tr>
 					<th>작성자</th>
 					<td><%=n.getNoticeWriter() %></td>
-				</tr>
-				<tr>
 					<th>첨부파일</th>
 					<td>
 						<%if(n.getFiles()!=null){ %> 
@@ -32,22 +40,33 @@
 						</div>
 						<% }%>
 					</td>
-					</tr>
-				<tr>
-					<th>내 용</th>
-					<td><%=n.getNoticeContent() %></td>
+					<th>작성일</th>
+					<td><%=n.getNoticeInsertDt() %></td>
 				</tr>
+			</table>
+			<hr>
+				</div>
+				<div class="board_main_content">
+				<table>
+						<tr>
+						<th>내 용</th>
+						<td><%=n.getNoticeContent() %></td>
+				</tr>
+			</table>
+			</div>
+			
+				<hr color=#000000>
+				<div class="bt_wrap">
 				<%if(loginMember.getMemberId().equals("stageadmin")||
 					loginMember.getMemberId().equals(n.getNoticeWriter())){%>
-				<tr>
-					<th colspan="2">
-					<button id="btn-update" class="btn btn-warning">수정</button>
-					<button id="btn-delete" class="btn btn-danger">삭제</button>
-					</th>
-				</tr>
-				<%} %>
-			</table>
-			
+					<a href="<%=request.getContextPath()%>/notice/updateNotice.do?no=<%=n.getNoticeNo() %>" class="on">수정</a> 
+					<a href="<%=request.getContextPath()%>/notice/deleteNotice.do?no=<%=n.getNoticeNo() %>" class="on">삭제</a>
+					<%} %>
+				</div>
+		
+			<div class="bt_list">
+					<a href="<%=request.getContextPath()%>/notice/noticeList.do"" class="on1">목록</a>
+				</div>
 			 <!-- 버튼 기능 글 업데이트 딜릿 -->
 		
 			<script>

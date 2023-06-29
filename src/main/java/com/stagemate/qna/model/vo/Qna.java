@@ -22,6 +22,6 @@ public class Qna {
 	private Date inquiryInsertDt;
 	private String inquiryLockFlg;
 	private QnaFileData files;
-	
+	private String ctgNm;
 	
 }
