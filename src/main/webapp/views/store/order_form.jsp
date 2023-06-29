@@ -168,7 +168,7 @@ $(document).ready(function() {
 	        pay_method : 'card',
 	        merchant_uid: "STR"+makeMerchantUid, 
 	        name : '<%=firstProductNm%>',
-	        amount : 100,
+	        amount : totalAmount,
 	        buyer_email : '<%=loginMember.getMemberEmail() %>',
 	        buyer_name : $("#dlvPerson").text(),
 	        buyer_tel :$("#dlvPhone").text(),

@@ -70,8 +70,8 @@
         var url = "<%=contextPath %>/views/store/popupAddressInsert.jsp?userId=<%=userId%>";
         window.open(url, '_blank', 'width=500, height=440');
         }
-        function selectAddress(address, name, phone, addressDetails) {
-            opener.setSelectedAddress(address, name, phone, addressDetails);
+        function selectAddress(dlvId,address, name, phone, addressDetails) {
+            opener.setSelectedAddress(dlvId,address, name, phone, addressDetails);
             window.close();
         }
         $(".update_dlv_btn").click(e => {
