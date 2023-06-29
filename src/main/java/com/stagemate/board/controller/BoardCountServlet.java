@@ -1,4 +1,4 @@
-package com.stagemate.board.controller;
+	package com.stagemate.board.controller;
 
 import java.io.IOException;
 

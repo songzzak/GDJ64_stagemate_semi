@@ -82,6 +82,7 @@ $(document).on("dragover", container, event => {
 $(document).on("drop", container, event => {
     const corX = event.pageX;
     const mainBanners = container.children("li");
+    const divisions = [];
     const newMainBanner = generateMainBanner(event.originalEvent.dataTransfer.getData("path"), 
                                             event.originalEvent.dataTransfer.getData("rename"), 
                                             event.originalEvent.dataTransfer.getData("eventNm"), 
@@ -97,6 +98,7 @@ $(document).on("drop", container, event => {
             isIncluded = true;
             return;
         }
+        divisions.push(mainBanners.eq(index).offset().left + (mainBanners.eq(index).width() / 2));
     });
 
     if (isIncluded) {
@@ -109,7 +111,7 @@ $(document).on("drop", container, event => {
     }
 
     if (mainBanners.length === 1) {
-        if (isToTheLeftOfFirst(corX)) {
+        if (corX < divisions[0]) {
             container.prepend(newMainBanner);
         } else {
             container.children("li").eq(0).after(newMainBanner);
@@ -118,9 +120,9 @@ $(document).on("drop", container, event => {
     }
 
     if (mainBanners.length === 2) {
-        if (isToTheLeftOfFirst(corX)) {
+        if (corX < divisions[0]) {
             container.prepend(newMainBanner);
-        } else if (isBetweenFirstAndSecond(corX)){
+        } else if (corX < divisions[1]) {
             putAfter(mainBanners, 0, newMainBanner);
         } else {
             container.append(newMainBanner);
@@ -129,11 +131,11 @@ $(document).on("drop", container, event => {
     }
 
     if (mainBanners.length === 3) {
-        if (isToTheLeftOfFirst(corX)) {
+        if (corX < divisions[0]) {
             container.prepend(newMainBanner);
-        } else if (isBetweenFirstAndSecond(corX)){
+        } else if (corX < divisions[1]) {
             putAfter(mainBanners, 0, newMainBanner);
-        } else if (isBetweenSecondAndThird(corX)) {
+        } else if (corX < divisions[2]) {
             putAfter(mainBanners, 1, newMainBanner);
         } else {
             container.append(newMainBanner);
@@ -142,13 +144,13 @@ $(document).on("drop", container, event => {
     }
 
     if (mainBanners.length === 4) {
-        if (isToTheLeftOfFirst(corX)) {
+        if (corX < divisions[0]) {
             container.prepend(newMainBanner);
-        } else if (isBetweenFirstAndSecond(corX)){
+        } else if (corX < divisions[1]) {
             putAfter(mainBanners, 0, newMainBanner);
-        } else if (isBetweenSecondAndThird(corX)) {
+        } else if (corX < divisions[2]) {
             putAfter(mainBanners, 1, newMainBanner);
-        } else if (isBetweenThirdAndFourth(corX)) {
+        } else if (corX < divisions[3]) {
             putAfter(mainBanners, 2, newMainBanner);
         } else {
             container.append(newMainBanner);
@@ -170,32 +172,12 @@ function putAfter(targets, index, element) {
     targets.eq(index).after(element);
 }
 
-function isToTheLeftOfFirst(corX) {
-    return (corX / window.innerWidth) * 100 < 12;
-}
-
-function isBetweenFirstAndSecond(corX) {
-    return (corX / window.innerWidth) * 100 < 32;
-}
-
-function isBetweenSecondAndThird(corX) {
-    return (corX / window.innerWidth) * 100 < 50;
-}
-
-function isBetweenThirdAndFourth(corX) {
-    return (corX / window.innerWidth) * 100 < 72;
-}
-
 function updateBanners() {
     if (confirm("변경 사항을 저장하시겠습니까?")) {
         const mainBanners = container.children("li");
         $.post(getContextPath() + "/admin/updateBannerEnd.do",
             {
-                data : JSON.stringify(
-                    {
-                        "banners": toArray(mainBanners)
-                    }
-                )
+                data : JSON.stringify({ "banners": toArray(mainBanners) })
             },
             data => {
                 if (data === "success") {
@@ -206,7 +188,7 @@ function updateBanners() {
                 }
             }
         ).fail(() => {
-            alert("배너 변경에 실패했습니다.")
+            alert("에러 발생! 관리자에게 문의하세요.")
         });
     }
 }
@@ -225,8 +207,4 @@ function toArray(banners) {
     });
 
     return bannersArray;
-}
-
-function closePage() {
-    window.close();
 }

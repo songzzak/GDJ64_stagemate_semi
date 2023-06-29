@@ -106,7 +106,7 @@ String searchtext=request.getParameter("searchtext");
 								}
 								}
 								
-								%>
+								%> 
 								<div class="like">
 									<div>
 										<img src="<%=contextPath%>/images/joonho/text.svg" alt="">

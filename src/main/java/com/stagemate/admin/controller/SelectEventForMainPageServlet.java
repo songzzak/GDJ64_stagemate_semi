@@ -27,7 +27,6 @@ public class SelectEventForMainPageServlet extends HttpServlet {
 			throws ServletException, IOException 
 	{
 		String date = request.getParameter("targetDate");
-		System.out.println("프론트에서 받은 날짜: " + date);
 		Map<Event, String> events = new EventService().selectEventAndFileByDate(date);
 		
 		JSONArray jsonArray = new JSONArray();

@@ -13,6 +13,7 @@ import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.service.EventService;
+import com.stagemate.review.model.vo.EventReviewTBJH;
 
 /**
  * Servlet implementation class ArrayMusical
@@ -56,6 +57,8 @@ public class ArrayMusicalServlet extends HttpServlet {
 		}else if(text.equals("제목순")) {
 			musical = new EventService().selectAllEventMusicalTitle(cPage, numPerpage);
 		}
+		List<EventReviewTBJH> er=new EventService().selectAllEventReview();
+		request.setAttribute("er", er);
 		List<EventUpfile> files=new EventService().selectAllFile();
 		int totalData = new EventService().selectEventCountMusical();
 		request.setAttribute("musical", musical);

@@ -155,6 +155,53 @@ public class BoardDao {
 		return result;
 	}
 
+	public int reportBoard(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("reportBoard"));
+			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertLike(Connection conn,int boardNo, String memberId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertLike"));
+			pstmt.setInt(1, boardNo);
+			pstmt.setString(2, memberId);
+			result=pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int updateBoard(Connection conn, String boardWriter, String boardTitle, String boardContent) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("updateBoard"));
+			pstmt.setString(1, boardTitle);
+			pstmt.setString(2, boardWriter);
+			pstmt.setString(3, boardContent);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int insertBoardComment(Connection conn, BoardComment bc) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -177,7 +224,7 @@ public class BoardDao {
 	private Board getBoard(ResultSet rs) throws SQLException {
 		return Board.builder().boardNo(rs.getInt("board_no")).boardTitle(rs.getString("board_title"))
 				.boardWriter(rs.getString("board_writer")).boardContent(rs.getString("board_content"))
-				.boardLikeCNT(rs.getInt("board_Like_CNT")).boardLikeCNT(rs.getInt("board_View_CNT"))
+				.boardLikeCNT(rs.getInt("board_Like_CNT")).boardViewCNT(rs.getInt("board_View_CNT"))
 				.boardDate(rs.getDate("board_insert_dt")).build();
 	}
 
@@ -225,7 +272,7 @@ public class BoardDao {
 	private BoardComment getBoardComment(ResultSet rs) throws SQLException {
 		return BoardComment.builder().cmtNo(rs.getInt("cmt_no")).level(rs.getInt("cmt_level"))
 				.cmtWriter(rs.getString("cmt_writer")).cmtContent(rs.getString("cmt_content"))
-				.boardRef(rs.getInt("board_ref")).cmtRef(rs.getInt("cmt_ref")).build();
+				.boardRef(rs.getInt("board_ref")).cmtRef(rs.getInt("cmt_ref")).cmtDate(rs.getDate("cmt_date")).build();
 	}
 
 	public List<Board> selectBoardByKeyword(Connection conn, String type, String keyword, int cPage, int numPerpage) {
@@ -234,7 +281,6 @@ public class BoardDao {
 		String query = sql.getProperty("selectBoardByKeyword");
 		query = query.replace("#COL", type);
 		List<Board> boards = new ArrayList();
-		System.out.println(keyword);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, type.equals("content") ? keyword : "%" + keyword + "%");
@@ -281,7 +327,7 @@ public class BoardDao {
 		ResultSet rs = null;
 		List<BoardComment> list = new ArrayList();
 		try {
-			pstmt = conn.prepareStatement(sql.getProperty("selectBoardComment"));
+			pstmt = conn.prepareStatement(sql.getProperty("selectBoardCommentById"));
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			while (rs.next())
@@ -308,5 +354,24 @@ public class BoardDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	//윤진작성
+	public List<Board> selectBoardAll(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Board> list = new ArrayList();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectBoardAll"));
+			rs = pstmt.executeQuery();
+			while (rs.next())
+				list.add(getBoard(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
 	}
 }

@@ -27,8 +27,10 @@ public class SelectBoardListOnMyPage extends HttpServlet {
 
 		String id=request.getParameter("id");
 		List<Board> blist=new BoardService().selectBoardById(id);
+		List<Board> allBoards=new BoardService().selectBoardAll();
 		List<BoardComment> comList=new BoardService().selectBoardCommentById(id);
 		request.setAttribute("boards", blist);
+		request.setAttribute("allBoards", allBoards);
 		request.setAttribute("comments", comList);
 		request.getRequestDispatcher("/views/mypage/myPosts.jsp").forward(request, response);
 	}

@@ -83,7 +83,7 @@ DlvAdress d=(DlvAdress)request.getAttribute("d");
 		</div>
 		<div id="btn_order_coplete">
 			<button class="btn-layout btn-brown" id="goto_home_btn" onclick="toMainPage();">홈으로 가기</button>
-			<button class="btn-layout btn-brown">결제내역으로 가기</button>
+			<button class="btn-layout btn-brown" onclick="toOrderList();">결제내역으로 가기</button>
 		</div>
 		<div id="cancle_info_container">
 			<span>결제 취소 및 환불 안내</span>
@@ -93,6 +93,14 @@ DlvAdress d=(DlvAdress)request.getAttribute("d");
 </section>
 <%@ include file="/views/common/footer.jsp" %>
 <script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>
+<script type="text/javascript">
+const toMainPage=()=>{
+	location.assign("<%=contextPath%>/");
+};
+const toOrderList=()=>{
+	location.assign("<%=contextPath%>/Detail/DetailListServlet.do?id=<%=loginMember.getMemberId()%>");
+};
+</script>
 <script src="<%= contextPath %>/js/script_common.js"></script>
 <script src="<%= contextPath %>/js/yoonjin/store_order_complete.js"></script>
 

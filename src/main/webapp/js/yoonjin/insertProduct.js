@@ -12,6 +12,11 @@ $("#productFileInput").change(e => {
     reader.readAsDataURL(file);
 });
 
+$("#resetInsert").click(e=>{
+    if (confirm("상품 등록을 취소하시겠습니까?")) {
+      history.back();
+    }
+});
 
 
 

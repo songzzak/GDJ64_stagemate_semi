@@ -17,6 +17,7 @@ import com.stagemate.event.model.vo.EventSchedule;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.model.vo.Seat;
+import com.stagemate.payment.model.vo.EventOrder;
 import com.stagemate.review.model.vo.EventReviewTBJH;
 
 public class EventService {
@@ -147,6 +148,20 @@ public class EventService {
 		List<EventSchedule> et=dao.selectTimeByEvent(conn,eventNo);
 		close(conn);
 		return et;
+		
+	}
+	public List<EventOrder> selectRsvNo(String eventNo){
+		Connection conn=getConnection();
+		List<EventOrder> rsv=dao.selectRsvNo(conn,eventNo);
+		close(conn);
+		return rsv;
+		
+	}
+	public List<EventReviewTBJH> selectEventReview(String ervNo){
+		Connection conn=getConnection();
+		List<EventReviewTBJH> ertb=dao.selectEventReview(conn,ervNo);
+		close(conn);
+		return ertb;
 		
 	}
 	public List<Event> listAllEvent(int cPage, int numPerPage) {
@@ -394,6 +409,13 @@ public class EventService {
 		Map<String, EventUpfile> banners = dao.selectBanner(conn);
 		JDBCTemplate.close(conn);
 		return banners;
+	}
+	
+	public int deleteEventByNo(String eventNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.deleteEventByNo(conn, eventNo);
+		JDBCTemplate.close(conn);
+		return result;
 	}
 	
 	//윤진작성

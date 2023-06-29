@@ -6,6 +6,7 @@
 <%@ page import="java.util.List,com.stagemate.board.model.vo.Board,com.stagemate.board.model.vo.BoardComment"%>
 <%
 List<Board> boards=(List)request.getAttribute("boards");
+List<Board> allBoards=(List)request.getAttribute("allBoards");
 List<BoardComment> comments=(List)request.getAttribute("comments");
 %>
 <title>My Page | 관심목록</title>
@@ -31,8 +32,8 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 							<li class="li1"><a href="<%=request.getContextPath()%>/store/selectCartList.do?id=<%=loginMember.getMemberId()%>">장바구니</a></li>
 							<li class="li1">구매내역
 								<ul>
-									<li class="li2"><a href="#">구매상세내역</a></li>
-									<li class="li2"><a href="#">리뷰 작성</a></li>
+									<li class="li2"><a href="<%=request.getContextPath()%>/Detail/DetailListServlet.do?id=<%=loginMember.getMemberId()%>">구매상세내역</a></li>
+									<li class="li2"><a href="<%=request.getContextPath()%>/Review/ReviewListServlet.do?id=<%=loginMember.getMemberId()%>">리뷰 작성</a></li>
 								</ul>
 							</li>
 							<li class="li1">내가 쓴 글
@@ -119,7 +120,7 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 	                	<%}else{ 
 	                		Board refBoard=null;
 	                			for(BoardComment c:comments){
-	                				for(Board b:boards){
+	                				for(Board b:allBoards){
 	                					if(b.getBoardNo()==c.getBoardRef()){
 	                						refBoard=b;
 	                					}
@@ -129,9 +130,9 @@ List<BoardComment> comments=(List)request.getAttribute("comments");
 	                			<td><input type="checkbox" class="comment-ckbox" value="<%=c.getCmtNo()%>"></td>
 	                			<td>
 	                				<div class="div_comment_td">
-	                				<a href="<%=contextPath%>/board/boardView.do?no=<%=c.getBoardRef()%>">
+	                				<a href="<%=contextPath%>/board/boardView.do?no=<%=c.getBoardRef()%>" class="div_comment_td">
 	                					<p class=comment_content><%=c.getCmtContent() %></p>
-	                					<p class=comment_date><%=c.getCmtDate() %></p>
+	                					<p class=comment_date><%=c.getCmtDate()%></p>
 	                					<p class=comment_ref_title><%=refBoard.getBoardTitle() %> </p>
 	                				</a>
 	                				</div>

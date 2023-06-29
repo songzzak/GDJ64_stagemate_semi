@@ -25,7 +25,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class PlayListSearchServlet
  */
-@WebServlet("/StoreListSearchServlet")
+@WebServlet("/Detail/StoreListSearchServlet")
 public class StoreListSearchServlet extends HttpServlet {
    private static final long serialVersionUID = 1L;
    private static final String LOGIN_MEMBER = "loginMember";   

@@ -19,7 +19,7 @@
 						<li class="select_nav_admin">
 							<a href="">상품 관리</a>
 							<ul>
-								<li><a href="">예매</a></li>
+								<li><a href="<%=contextPath%>/admin/eventlist">행사</a></li>
 								<li class="select_nav_admin"><a href="<%=contextPath%>/admin/selectAllProduct.do">스토어</a></li>
 							</ul>
 						</li>
@@ -97,12 +97,9 @@
 					</table>
 					<div id="insert_btn">
 						<button type="submit">등록</button>
-						<button type="reset">취소</button>
+						<button id="resetInsert">취소</button>
 					</div>
 				</form>
-			</div>
-			<div class="page-bar">
-				<%-- <%=request.getAttribute("pageBar")%> --%>
 			</div>
 		</div>
 	</div>

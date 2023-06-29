@@ -41,12 +41,25 @@ $(() => {
 $(window).on("load", () => {
     getPosters(new Date());
     getProducts();
-    
-    $.get(getContextPath() + "/upload/jaehun/main_banners.json")
-    .then(data => {
-        slideBanners(data);
-    });
+    getBanners();
+    getBoards();
 });
+
+//------------------------------ boards ------------------------------
+function getBoards() {
+    $.get(getContextPath() + "/boardForMainPage.do",
+        data => {
+            data.forEach((board, index) => {
+                const $tr = $(".board-articles>tbody>tr").eq(index);
+                const $a = $("<a>").text(board.boardTitle)
+                    .attr("href", getContextPath() + "/board/boardView.do?no=" + board.boardNo);
+                $tr.children(".board-title").html("").append($a);
+                $tr.children(".board-view_count").text(board.boardViewCnt);
+                $tr.children(".board-like_count").text(board.boardLikeCnt);
+            });
+        }
+    );
+}
 
 //------------------------------ posters ------------------------------
 function getPosters(date) {
@@ -76,7 +89,7 @@ function getPosters(date) {
             lineup.html("");
             lineup.width($(".reservation-calendar-wrapper").width() * data.length);
             lineup.css('transform', 'translateX(0px)');
-            
+
             data.forEach(event => {
                 lineup.append(generatePoster(event));
             });
@@ -109,11 +122,11 @@ function getPosters(date) {
 }
 
 function formatDate(date) {
-    return date.getFullYear() 
-            + "-" 
-            + ((date.getMonth() + 1) < 9 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1)) 
-            + "-" 
-            + (date.getDate() < 9 ? "0" + date.getDate() : date.getDate());
+    return date.getFullYear()
+        + "-"
+        + ((date.getMonth() + 1) < 9 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1))
+        + "-"
+        + (date.getDate() < 9 ? "0" + date.getDate() : date.getDate());
 }
 
 function formatDateWithoutYear(date) {
@@ -144,17 +157,17 @@ function generatePoster(event) {
     const location = $("<p>").text(event.location);
 
     posterOverlay.append(eventNm)
-                .append(eventStartDt)
-                .append(wave)
-                .append(eventEndDt)
-                .append(location);
+        .append(eventStartDt)
+        .append(wave)
+        .append(eventEndDt)
+        .append(location);
 
     relative.append($img)
-            .append(posterOverlay);
+        .append(posterOverlay);
 
     return poster.append(rsvOpenDt)
-                .append($hidden)
-                .append(relative);
+        .append($hidden)
+        .append(relative);
 }
 
 //------------------------------ products ------------------------------
@@ -166,7 +179,7 @@ function getProducts() {
         success: data => {
             const lineup = $(".goods-lineup");
             lineup.html("");
-            
+
             data.forEach(product => {
                 lineup.append(generateProduct(product));
             });
@@ -195,17 +208,17 @@ function generateProduct(product) {
     const exhibitionTitle = $("<p>").text(product.productTitle);
     const productName = $("<h4>").text(product.productNm).addClass("fw-bold");
     const productPrice = $("<h4>").text(product.productPrice.toLocaleString('ko-KR') + "원")
-                                .addClass("fw-bold");
+        .addClass("fw-bold");
 
     $divUpper.append($img)
-            .append($hidden);
+        .append($hidden);
 
     $divLower.append(exhibitionTitle)
-            .append(productName)
-            .append(productPrice);
+        .append(productName)
+        .append(productPrice);
 
     return unit.append($divUpper)
-                .append($divLower);
+        .append($divLower);
 }
 
 function loadingForPoster() {
@@ -261,116 +274,122 @@ const resizeGoods = () => {
 resizeGoods();
 
 //------------------------------ banners ------------------------------
-function slideBanners(data) {
-    const wrapper = $(".banners-wrapper");
-    const container = $('.banners-container');
-    const numOfbanners = data.banners.length;
-    const indicator = $(".banners-indicator");
-    let currentIdx = 0;
-    let timer = undefined;
+function getBanners() {
+    $.get(getContextPath() + "/upload/jaehun/main_banners.json",
+        data => {
+            const wrapper = $(".banners-wrapper");
+            const container = $('.banners-container');
+            const numOfbanners = data.banners.length;
+            const indicator = $(".banners-indicator");
+            let currentIdx = 0;
+            let timer = undefined;
 
-    container.html("");
+            container.html("");
 
-    data.banners.forEach((banner, index) => {
-        const path = getContextPath() + "/upload/joonho/" + banner.euRename;
-        container.append(`
-        <li class="banner-link">
-            <img src="${path}">
-            <input type="hidden" value="${banner.eventNo}">
-        </li>
-        `);
+            data.banners.forEach((banner, index) => {
+                const path = getContextPath() + "/upload/joonho/" + banner.euRename;
+                container.append(`
+                    <li class="banner-link">
+                        <img src="${path}">
+                        <input type="hidden" value="${banner.eventNo}">
+                    </li>
+                `);
 
-    });
+            });
 
-    container.append(container.children().eq(0)
-                                        .clone()
-                                        .addClass("clone"));
+            container.append(container.children().eq(0)
+                    .clone()
+                    .addClass("clone"));
 
-    initContainer();
-    autoSlide();
+            initContainer();
+            autoSlide();
 
-    function initContainer() {
-        container.width(wrapper.width() * (numOfbanners + 1))
-                .css('transform', `translateX(-${currentIdx * wrapper.width()}px)`);
-        
-        generateIndicator();
+            function initContainer() {
+                container.width(wrapper.width() * (numOfbanners + 1))
+                    .css('transform', `translateX(-${currentIdx * wrapper.width()}px)`);
 
-        setTimeout(function () {
-            container.addClass('animated-smooth');
-        }, 100);
-    };
+                generateIndicator();
 
-    function generateIndicator() {
-        indicator.html("");
+                setTimeout(function () {
+                    container.addClass('animated-smooth');
+                }, 100);
+            };
 
-        for (let index = 0; index < numOfbanners; index++) {
-            const $li = $('<li>').css("width", "13%");
-            const $img = $('<img>').attr("src", getContextPath() + "/images/jaehun/main_page/indicator_empty.svg")
-                                    .css({ display: "block",
-                                            width: "100%"});
+            function generateIndicator() {
+                indicator.html("");
 
-            if ((index == currentIdx) || (index == 0 && currentIdx == numOfbanners)) {
-                $img.attr("src", getContextPath() + "/images/jaehun/main_page/indicator_filled.svg");
+                for (let index = 0; index < numOfbanners; index++) {
+                    const $li = $('<li>').css("width", "13%");
+                    const $img = $('<img>').attr("src", getContextPath() + "/images/jaehun/main_page/indicator_empty.svg")
+                                            .css({
+                                                display: "block",
+                                                width: "100%"
+                                            });
+
+                    if ((index == currentIdx) || (index == 0 && currentIdx == numOfbanners)) {
+                        $img.attr("src", getContextPath() + "/images/jaehun/main_page/indicator_filled.svg");
+                    }
+
+                    $li.append($img);
+                    indicator.append($li);
+                }
             }
 
-            $li.append($img);
-            indicator.append($li);
+            function autoSlide() {
+                if (timer == undefined) {
+                    timer = setInterval(() => {
+                        moveContainer();
+                    }, 2000);
+                }
+            };
+
+            function moveContainer() {
+                container.css('transform', `translateX(-${++currentIdx * container.children("li").eq(0).width()}px)`);
+
+                if (currentIdx == numOfbanners) {
+                    setTimeout(() => {
+                        container.removeClass("animated-smooth")
+                            .css("transform", "translateX(0px)");
+                        currentIdx = 0;
+                    }, 500);
+
+                    setTimeout(() => {
+                        container.addClass("animated-smooth");
+                    }, 600);
+                }
+                generateIndicator();
+            }
+
+            function stopSlide() {
+                clearInterval(timer);
+                timer = undefined;
+            }
+
+            container.on("mouseenter", function () {
+                stopSlide();
+            });
+
+            container.on("mouseleave", function () {
+                autoSlide();
+            });
+
+            $(window).resize(() => {
+                stopSlide();
+                initContainer();
+                autoSlide();
+            });
+
+            indicator.click(event => {
+                if ($(event.target).prop("tagName") === "IMG") {
+                    const targetIndex = $(event.target).parent().index();
+                    container.css('transform', `translateX(-${targetIndex * container.children("li").eq(0).width()}px)`);
+                    currentIdx = targetIndex;
+                    generateIndicator();
+                }
+            });
         }
-    }
-
-    function autoSlide() {
-        if (timer == undefined) {
-            timer = setInterval(() => {
-                moveContainer();
-            }, 2000);
-        }
-    };
-
-    function moveContainer() {
-        container.css('transform', `translateX(-${++currentIdx * container.children("li").eq(0).width()}px)`);
-
-        if (currentIdx == numOfbanners) {
-            setTimeout(() => {
-                container.removeClass("animated-smooth")
-                        .css("transform", "translateX(0px)");
-                currentIdx = 0;
-            }, 500);
-
-            setTimeout(() => {
-                container.addClass("animated-smooth");
-            }, 600);
-        }
-        generateIndicator();
-    }
-
-    function stopSlide() {
-        clearInterval(timer);
-        timer = undefined;
-    }
-
-    container.on("mouseenter", function () {
-        stopSlide();
-    });
-
-    container.on("mouseleave", function () {
-        autoSlide();
-    });
-
-    $(window).resize(() => {
-        stopSlide();
-        initContainer();
-        autoSlide();
-    });
-
-    indicator.click(event => {
-        if ($(event.target).prop("tagName") === "IMG") {
-            const targetIndex = $(event.target).parent().index();
-            container.css('transform', `translateX(-${targetIndex * container.children("li").eq(0).width()}px)`);
-            currentIdx = targetIndex;
-            generateIndicator();
-        }
-    });
-};
+    );
+}
 
 $(document).on("click", ".banner-link", (event) => {
     if ($(event.target).prop("tagName") === "LI") {
@@ -381,4 +400,3 @@ $(document).on("click", ".banner-link", (event) => {
         location.assign(getContextPath() + "/event/eventView.do?no=" + $(event.target).siblings("input[type=hidden]").val());
     }
 });
-

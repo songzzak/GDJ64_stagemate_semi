@@ -1,8 +1,13 @@
+<%@page import="com.stagemate.review.model.vo.StoreReview"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp" %>
-<%@page import="java.util.List,com.stagemate.store.model.vo.Product,com.stagemate.store.model.vo.StoreUpfile"%>
+<%@page import="java.util.List,com.stagemate.store.model.vo.Product,
+com.stagemate.store.model.vo.StoreUpfile,com.stagemate.store.model.vo.Review,
+com.stagemate.review.model.vo.Imoji"%>
 <%
+List<Imoji> imojiList=(List)request.getAttribute("imojiList");
+List<Review> reviews=(List)request.getAttribute("reviews");
 Product p = (Product)request.getAttribute("p");
 List<StoreUpfile> files = (List) request.getAttribute("fileList");
 StoreUpfile main=null;
@@ -93,7 +98,7 @@ for(StoreUpfile f:files){
 			<nav>
 				<ul>
 					<li id="li-detailInfo" class="active">상세정보</li>
-					<li id="li-review" class="">리뷰(2)</li>
+					<li id="li-review" class="">리뷰(<%=reviews.size() %>)</li>
 					<li id="li-cancleInfo" class="">반품/교환정보</li>
 				</ul>
 			</nav>
@@ -112,30 +117,55 @@ for(StoreUpfile f:files){
 				<div id="review-reacted">
 					<p>반응</p>
 					<ul>
-						<li><img src="<%=contextPath %>/images/yoonjin/emoji/smile.png" alt=""><p>1</p></li>
-						<li><img src="<%=contextPath %>/images/yoonjin/emoji/bad.png" alt=""><p>0</p></li>
-						<li><img src="<%=contextPath %>/images/yoonjin/emoji/sad.png" alt=""><p>0</p></li>
-						<li><img src="<%=contextPath %>/images/yoonjin/emoji/wow.png" alt=""><p>1</p></li>
-						<li><img src="<%=contextPath %>/images/yoonjin/emoji/none.png" alt=""><p>0</p></li>
+						<li>
+							<img src="<%=contextPath %>/images/yoonjin/emoji/fun.png" id="fun_img" alt="smile">
+							<p id="fun_count">0</p>
+						</li>
+						<li>
+							<img src="<%=contextPath %>/images/yoonjin/emoji/wow.png" id="wow_img" alt="wow">
+							<p id="wow_count">0</p>
+						</li>
+						<li>
+							<img src="<%=contextPath %>/images/yoonjin/emoji/sad.png" id="sad_img" alt="sad">
+							<p id="sad_count">0</p>
+						</li>
+						<li>
+							<img src="<%=contextPath %>/images/yoonjin/emoji/umm.png" id="umm_img" alt="bad">
+							<p id="umm_count">0</p>
+						</li>
+						<li>
+							<img src="<%=contextPath %>/images/yoonjin/emoji/none.png" id="none_img" alt="none">
+							<p id="none_count">0</p>
+						</li>
 					</ul>
 				</div>
 				<div id="review-box-container">
+				<%
+					if (reviews == null || reviews.isEmpty()) {
+					%>
 					<div>
-						<p id="store-review-writer">good*******</p>
-						<p id="store-review-content">생각보다 크기가 작긴 하지만 자력도 세고 디자인은 마음에 들어요!</p>
-						<div id="reactionAndDate">
-							<img id="store-review-react" src="<%=contextPath %>/images/yoonjin/emoji/smile.png">
-							<p id="store-review-date">작성일 2023.06.09</p>
+						<p>해당 상품의 리뷰가 없습니다.</p>
+					</div>
+				<%}else{
+					for(Review r:reviews){
+						Imoji reacted=null;
+						for(Imoji i:imojiList){
+							if(r.getImojiCd().equals(i.getImojiNo())){
+								reacted=i;
+							}
+						}
+					%>
+					<div>
+						<p class="store-review-writer"><%=r.getReviewWriter() %></p>
+						<p class="store-review-content"><%=r.getReviewContent() %></p>
+						<div class="reactionAndDate">
+							<input type="hidden" class="imojiname" value="<%=reacted.getImojiNm()%>">
+							<img class="store-review-react" src="<%=contextPath %>/images/yoonjin/emoji/smile.png">
+							<p class="store-review-date">작성일 <%=r.getReviewDt() %></p>
 						</div>
 					</div>
-					<div>
-						<p id="store-review-writer">yoo*****</p>
-						<p id="store-review-content">이쁜데 좀 비싼듯?</p>
-						<div id="reactionAndDate">
-							<img id="store-review-react" src="<%=contextPath %>/images/yoonjin/emoji/wow.png">
-							<p id="store-review-date">작성일 2023.05.18</p>
-						</div>
-					</div>
+				<%} 
+				}%>
 				</div>
 			</div>
 			<div id="product-cancleInfo">
@@ -146,6 +176,22 @@ for(StoreUpfile f:files){
 </section>
 <%@ include file="/views/common/footer.jsp" %>
 <script src="<%= contextPath %>/js/jquery-3.7.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(() => {
+	  // 이미지 소스와 카운트를 설정하는 함수
+	function plusCount(imojiNm) {
+		var origincount = parseInt($("#review-reacted").find("#"+imojiNm+"_count").text());
+	 	$("#review-reacted").find("#"+imojiNm+"_count").text(origincount+1);
+	}
+
+	$(".reactionAndDate").each(function() {
+	  var imojiNm = $(this).find("input").val(); 
+	  $(this).find(".store-review-react").attr('src', "<%=request.getContextPath()%>/images/yoonjin/emoji/"+imojiNm+".png"); 
+	  plusCount(imojiNm);
+	});
+	
+});
+</script>
 <script src="<%= contextPath %>/js/script_common.js"></script>
 <script src="<%= contextPath %>/js/jaehun/script_main.js"></script>
 <script src="<%=contextPath%>/js/yoonjin/store_product_view.js"></script>

@@ -55,8 +55,8 @@
 							<label for="saveId">ID 저장</label>
     					</div>
     					<div>
-							<p><a href="">ID 찾기</a></p>
-							<p><a href="">PW 찾기</a></p>
+							<p id="findId">ID 찾기</p>
+							<p id="findPw">PW 찾기</p>
 						</div>
     				</div>
     				<div class="right_content_login">
@@ -98,6 +98,14 @@ $(document).ready(() => {
 		}
 	}
 	checkSaveId();
+});
+
+$("#findId").click(event => {
+	openPage(300, 150, getContextPath() + "/member/findId.do");
+});
+
+$("#findPw").click(event => {
+	openPage(300, 150, getContextPath() + "/member/findPw.do");
 });
 </script>
 </body>

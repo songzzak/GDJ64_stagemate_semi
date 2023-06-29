@@ -34,8 +34,6 @@ public class BoardSearchServlet extends HttpServlet {
 
 				String type=request.getParameter("searchType");
 				String keyword=request.getParameter("searchKeyword");
-				System.out.println(type);
-				System.out.println(keyword);
 				int cPage,numPerpage;
 				try {
 					cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -50,7 +48,6 @@ public class BoardSearchServlet extends HttpServlet {
 				
 				List<Board> boards=new BoardService()
 						.selectBoardByKeyword(type,keyword,cPage,numPerpage);
-				System.out.println(boards);
 				request.setAttribute("board", boards);
 				
 				String pageBar="";

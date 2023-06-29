@@ -1,5 +1,5 @@
-         // 초기 상태에서는 #product-detailInfo만 표시!!
-            $(document).ready(() => {
+  // 초기 상태에서는 #product-detailInfo만 표시!!
+ $(document).ready(() => {
 				
 				$("#shareSvg").click(function() {
 					    var currentUrl = window.location.href;
@@ -141,4 +141,6 @@ $("#product-view-btn_pay").click(e => {
   } else {
     alert("로그인 후 이용 가능합니다.");
   }
+  
+	
 });

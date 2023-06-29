@@ -2,8 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <link rel="stylesheet" href="<%=contextPath%>/css/yelin/style_updateMember.css">
- <%@ page import="java.util.List,com.stagemate.review.model.vo.EventReview" %>  
+ <%@ page import="java.util.List,com.stagemate.review.model.vo.EventReview" %> 
+<%@ page import="java.util.List,com.stagemate.detail.model.vo.EventOrder,com.stagemate.member.model.vo.Member"%>
 <title>STAGEMATE</title>
+<%
+//모든 회원 정보 가져오기
+String type=request.getParameter("searchType");
+String keyword=request.getParameter("searchKeyword");
+%>
+ <%
+   //Member 정보 가져와야 한다. 
+   	Member m = (Member) request.getAttribute("MemberIno");
+   %>
 </head>
 <body>
 <%@ include file="/views/common/header.jsp"%>
@@ -17,16 +27,17 @@
 			</div>
 			<div class="">
 			<table class="updateTable">
+		     <%if(m!=null){ %>
 				<tr>
 					<th>이름</th>
 					<td>	
-						<input type="text" name="userName" value="김뚜껑" readonly>
+						<input type="text" name="userName" value="<%=m.getMemberNm()%>" readonly>
 					</td>
 				</tr>
 				<tr>
 					<th>아이디</th>
 					<td>
-					<input type="text" name="userId" value="qwerty" readonly>
+					<input type="text" name="userId" value="<%=m.getMemberId() %>" readonly>
 					</td>
 				</tr>
 				<tr>
@@ -37,7 +48,7 @@
 				</tr>
 					<th>전화번호</th>
 					<td>
-					<input type="text" name="" value="010-1111-1111">	
+					<input type="text" name="" value="<%=m.getMemberPhone()%>">	
 					</td>
 					<td>
 						<button onclick="UpdatePhone();">수정</button>
@@ -52,7 +63,7 @@
 				<tr>
 					<th>주소</th>
 					<td>	
-					<input type="text" name="address" value="경기도 시흥">	
+					<input type="text" name="address" value="">	
 					</td>
 					<td>
 						<button onclick="openPostCode();">수정</button>
@@ -63,10 +74,11 @@
 					<td>	
 					<input type="text" name="email" value="qwerty@naver.com">	
 					</td>
-					<td>
+				<!-- 	<td>
 						<button onclick="UpdateEmail();">수정</button>
-					</td>
-				</tr>			
+					</td> -->
+				</tr>
+				   <%} %>		
 			</table>
 			<div class="infoUpdate_btn">
 						<button onclick=""  class="cancel_btn">취소</button>

@@ -15,6 +15,8 @@ import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.model.vo.Seat;
 import com.stagemate.event.service.EventService;
+import com.stagemate.payment.model.vo.EventOrder;
+import com.stagemate.review.model.vo.EventReviewTBJH;
 
 /**
  * Servlet implementation class MusicalNum1
@@ -39,6 +41,11 @@ public class EventViewServlet extends HttpServlet {
 		Event event=new EventService().selectEventByEventNo(eventNo);
 		List<EventUpfile> files=new EventService().selectFileByEventNo(eventNo);
 		List<EventSchedule> es=new EventService().selectTimeByEvent(eventNo);
+		List<EventOrder> rsv=new EventService().selectRsvNo(eventNo);
+		List<EventReviewTBJH> ertb=null;
+		for(EventOrder r:rsv) {
+			ertb=new EventService().selectEventReview(r.getRsvNo());
+		}
 		if(event.getEvcNo().equals("EVC1")) {
 			List<Seat> seats=new EventService().selectSeatByEvnNoMusical(eventNo);
 			request.setAttribute("seats", seats);
@@ -51,6 +58,7 @@ public class EventViewServlet extends HttpServlet {
 		}
 		List<EventWish> ew=new EventService().selectAllEventWish();
 		request.setAttribute("ew", ew);
+		request.setAttribute("ertb", ertb);
 		request.setAttribute("event", event);
 		request.setAttribute("files", files);
 		request.setAttribute("es", es);

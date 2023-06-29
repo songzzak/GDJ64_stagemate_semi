@@ -266,19 +266,6 @@ public List<QnaComment> selectQnaComment(Connection conn,int qnaNo){
 	}return list;
 }
 
-private QnaComment getQnaComment(ResultSet rs) throws SQLException{
-	return QnaComment.builder()
-			.qnaCommentNo(rs.getInt("INQUIRY_COMMENT_NO"))
-			.level(rs.getInt("INQUIRY_COMMENT_LEVEL"))
-			.qnaCommentWriter(rs.getString("INQUIRY_COMMENT_WRITER"))
-			.qnaCommentContent(rs.getString("INQUIRY_COMMENT_CONTENT"))
-			.qnaCommentDate(rs.getDate("INQUIRY_COMMENT_DATE"))
-			.qnaCommentRef(rs.getInt("INQUIRY_COMMENT_REF"))
-			.qnaRef(rs.getInt("INQUIRY_REF"))
-			
-			.build();
-}
-
 //윤진작성
 public List<Qna> selectQnaById(Connection conn, String id) {
  PreparedStatement pstmt = null;
@@ -297,8 +284,18 @@ public List<Qna> selectQnaById(Connection conn, String id) {
  }return list;
 }
 
-
-
+private QnaComment getQnaComment(ResultSet rs) throws SQLException{
+	return QnaComment.builder()
+			.qnaCommentNo(rs.getInt("INQUIRY_COMMENT_NO"))
+			.level(rs.getInt("INQUIRY_COMMENT_LEVEL"))
+			.qnaCommentWriter(rs.getString("INQUIRY_COMMENT_WRITER"))
+			.qnaCommentContent(rs.getString("INQUIRY_COMMENT_CONTENT"))
+			.qnaCommentDate(rs.getDate("INQUIRY_COMMENT_DATE"))
+			.qnaCommentRef(rs.getInt("INQUIRY_COMMENT_REF"))
+			.qnaRef(rs.getInt("INQUIRY_REF"))
+			
+			.build();
+}
 }
 
 
