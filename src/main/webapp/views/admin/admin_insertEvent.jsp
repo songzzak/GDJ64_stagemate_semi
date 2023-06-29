@@ -36,17 +36,17 @@ input[type="checkbox"]:checked {
 		<div id="insertEvent">
 			<nav class="insertEvent-sidebar">
 				<ul class="insertEvent-sidebar_big">
-					<li><a href="">회원 관리</a></li>
-					<li class="link_active"><a href="">상품 관리</a>
+					<li><a href="<%=contextPath%>/admin/membermanage">회원 관리</a></li>
+					<li class="link_active"><a href="<%=contextPath%>/admin/eventlist">상품 관리</a>
 						<ul class="insertEvent-sidebar_small">
 							<li><a href="<%=contextPath%>/admin/eventlist">행사</a></li>
 							<li><a
 								href="<%=contextPath%>/admin/selectAllProduct.do">스토어</a></li>
 						</ul>
 					</li>
-					<li><a href="">판매 관리</a>
+					<li><a href="<%=contextPath%>/admin/SalesDetail.do">판매 관리</a>
 						<ul class="insertEvent-sidebar_small">
-							<li><a href="">판매내역관리</a></li>
+							<li><a href="<%=contextPath%>/admin/SalesDetail.do">판매내역관리</a></li>
 							<li><a href="">결제 취소 요청</a></li>
 							<li><a href="">반품/교환 관리</a></li>
 						</ul>

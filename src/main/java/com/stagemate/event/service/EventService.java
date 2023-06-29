@@ -157,9 +157,9 @@ public class EventService {
 		return rsv;
 		
 	}
-	public List<EventReviewTBJH> selectEventReview(String ervNo){
+	public EventReviewTBJH selectEventReview(String ervNo){
 		Connection conn=getConnection();
-		List<EventReviewTBJH> ertb=dao.selectEventReview(conn,ervNo);
+		EventReviewTBJH ertb=dao.selectEventReview(conn,ervNo);
 		close(conn);
 		return ertb;
 		
