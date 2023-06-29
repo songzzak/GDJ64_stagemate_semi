@@ -42,8 +42,10 @@ public class QnaBoardViewServlet extends HttpServlet {
 		
 		request.setAttribute("qna",q);
 		System.out.println(comments);
+		
 		request.getRequestDispatcher("/views/qna/qnaBoardView.jsp")
 		.forward(request, response);
+		System.out.println(comments);
 		
 	
 	}

@@ -90,7 +90,7 @@ a {
 	margin-top: 8%
 }
  div#comment-container button#btn-insert{width:60px;height:50px; color:white;
-    background-color:#3300FF;position:relative;top:-20px;}
+    background-color: black;position:relative;top:-20px;}
         /*댓글테이블*/
     table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse; clear:both; } 
     table#tbl-comment tr td{border-bottom:1px solid; border-top:1px solid; padding:5px; text-align:left; line-height:120%;}
@@ -101,8 +101,8 @@ a {
     table#tbl-comment tr:hover {background:lightgray;}
     table#tbl-comment tr:hover button.btn-reply{display:inline;}
     table#tbl-comment tr:hover button.btn-delete{display:inline;}
-    table#tbl-comment tr.level2 {color:gray; font-size: 14px;}
-    table#tbl-comment sub.comment-writer {color:navy; font-size:14px}
+    table#tbl-comment tr.level2 {color: #B5B5B5; font-size: 14px;}
+    table#tbl-comment sub.comment-writer {color:rgb(128, 128, 128); font-size:14px}
     table#tbl-comment sub.comment-date {color:tomato; font-size:10px}
     table#tbl-comment tr.level2 td:first-of-type{padding-left:100px;}
     table#tbl-comment tr.level2 sub.comment-writer {color:#8e8eff; font-size:14px}

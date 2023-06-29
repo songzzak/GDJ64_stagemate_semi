@@ -18,7 +18,7 @@
 				<div class="qna_insert_wrap">
 					<div class="qna_insert">
 						<form action="<%=request.getContextPath() %>/qna/insertQna.do" method="post" enctype="multipart/form-data">
-							<table id="tbl-notice">
+							<table id="tbl-qna">
 								<tr>
 									<th>제 목</th>
 									<td><input type="text" name="qnaTitle" required></td>

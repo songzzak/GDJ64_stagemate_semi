@@ -60,7 +60,13 @@
 				<%if(loginMember.getMemberId().equals("stageadmin")||
 					loginMember.getMemberId().equals(n.getNoticeWriter())){%>
 					<a href="<%=request.getContextPath()%>/notice/updateNotice.do?no=<%=n.getNoticeNo() %>" class="on">수정</a> 
-					<a href="<%=request.getContextPath()%>/notice/deleteNotice.do?no=<%=n.getNoticeNo() %>" class="on">삭제</a>
+					<a href="javascript:del();" class="on">삭제</a>
+					<script type="text/javascript">
+						function del() {
+	 					 if (confirm("정말 삭제하시겠습니까?"))
+	   						 location.replace('<%=request.getContextPath()%>/notice/deleteNotice.do?no=<%=n.getNoticeNo() %>');
+	 					}
+					</script> 
 					<%} %>
 				</div>
 		

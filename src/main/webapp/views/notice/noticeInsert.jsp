@@ -10,10 +10,10 @@
 <section class="min1280px">
 	<div id="sectionContainer" class="max1280px">
 
-		<body>
+	
 			<div class="notice_wrap">
 				<div class="notice_title">
-					<span> 고객센터 </span>>> <span>공지사항</span>
+					<span> 고객센터 </span>><span>공지사항</span>
 				</div>
 				<div class="notice_insert_wrap">
 					<div class="notice_insert">
@@ -54,7 +54,8 @@
 					</div>
 				</div>
 			</div>
-		</body>
+		</div>
+	</section>
 
 
 		<%@ include file="/views/common/footer.jsp"%>

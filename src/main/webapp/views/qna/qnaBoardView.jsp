@@ -14,7 +14,7 @@
 	<!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 
 	<!---------------------------------------->
-	<title><strong>게시글</strong></title>
+
 	<!-- </head> -->
 	
 		<!-----------   아래에서 HTML 작업  ----------->
@@ -44,7 +44,7 @@
 									</div>
 								<% }else{%>
 									<div id="download-container">
-										<h4>없음</h4>
+										<h4>[없음]</h4>
 									</div>
 								<%} %>
 							</td>
@@ -79,15 +79,15 @@
 					<%if(loginMember!=null&&(loginMember.getMemberId().equals("stageadmin")||
 					loginMember.getMemberId().equals(q.getWriterId()))){%>
 					<a href="<%=request.getContextPath()%>/qna/updateQna.do?no=<%=q.getInquiryNo() %>" class="on">수정</a> 
-					<a href="<%=request.getContextPath()%>/qna/deleteQna.do?no=<%=q.getInquiryNo() %>" class="on">삭제</a> 
-					<!-- <script type="text/javascript">
-					function del() {
- 					 if (confirm("정말 삭제하시겠습니까?"))
-   						 list_ok.submit();
- 						}
-						</script> -->
+					<a href="javascript:del();" class="on">삭제</a> 
+					<script type="text/javascript">
+						function del() {
+	 					 if (confirm("정말 삭제하시겠습니까?"))
+	   						 location.replace('<%=request.getContextPath()%>/qna/deleteQna.do?no=<%=q.getInquiryNo() %>');
+	 					}
+					</script> 
 					<%} %>
-				<%-- 	<a href="<%=request.getContextPath()%>/qna/deleteQna.do?no=<%=q.getInquiryNo() %>" onclick="del();">삭제</a> --%>
+				
 				</div>
 
 
@@ -124,7 +124,7 @@
 				</table>
 
 				<div class="bt_list">
-					<a href="<%=request.getContextPath()%>/qna/qnaList.do"" class="on1">목록</a>
+					<a href="<%=request.getContextPath()%>/qna/qnaList.do" class="on1">목록</a>
 				</div>
 	</body>
 </section>

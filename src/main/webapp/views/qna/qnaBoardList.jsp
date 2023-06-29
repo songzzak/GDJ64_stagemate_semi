@@ -55,11 +55,19 @@
 								</td>
 								<td><%=q.getCtgNm()%></td>
 								<td>
+								
+								<!-- 비밀글이 y이면서, 로그인아이디= 운영자이면서,  -->
+								<%if(loginMember!=null&&(loginMember.getMemberId().equals("stageadmin")||loginMember.getMemberId().equals(q.getWriterId()))
+								||q.getInquiryLockFlg().equals("N")
+									){%>
 									<a href="<%=request.getContextPath()%>/qna/qnaView.do?no=<%=q.getInquiryNo()%>">
 											<%=q.getInquiryTitle() %>
 									</a>
+								<%}else{ %>
+									<%=q.getInquiryTitle() %>
+								<%} %>
 								</td>
-								<td><%=q.getWriterId() %></td>D
+								<td><%=q.getWriterId() %></td>
 		
 								<%-- 첨부파일 <td>
 		                            //<%if(b.getQnaOriginalFilename()){ %>
