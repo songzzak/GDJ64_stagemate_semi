@@ -188,6 +188,7 @@ private Qna getQna(ResultSet rs) throws SQLException{
 			.writerId(rs.getString("writer_id"))
 			.inquiryInsertDt(rs.getDate("inquiry_insert_dt"))
 			.inquiryLockFlg(rs.getString("inquiry_lock_flg"))
+			.ctgNm(rs.getString("ctg_nm"))
 			.build();
 	
 			
@@ -239,6 +240,7 @@ private QnaComment getQnaComment(ResultSet rs) throws SQLException{
 			.qnaCommentDate(rs.getDate("INQUIRY_COMMENT_DATE"))
 			.qnaCommentRef(rs.getInt("INQUIRY_COMMENT_REF"))
 			.qnaRef(rs.getInt("INQUIRY_REF"))
+			
 			.build();
 }
 

@@ -48,8 +48,12 @@
                         for(Qna q:qnas){%>
 							<tr>
 								<td><%=q.getInquiryNo() %></td>
-								<td><%=q.getInquiryLockFlg() %></td>
-								<td><%=q.getCtgNum()%></td>
+								<td>
+									<%if(q.getInquiryLockFlg().equals("Y")){ %>
+										<img src="<%=request.getContextPath() %>/images/nabin/lock.png" width="20">
+									<%} %>
+								</td>
+								<td><%=q.getCtgNm()%></td>
 								<td>
 									<a href="<%=request.getContextPath()%>/qna/qnaView.do?no=<%=q.getInquiryNo()%>">
 											<%=q.getInquiryTitle() %>

@@ -38,14 +38,18 @@
 							<th>첨부파일</th>
 							<td>
 								<%if(q.getFiles()!=null){ %> 
-								<div id="download-container" onclick="fileDownload('<%=q.getFiles()%>');">
-								<img src="<%=request.getContextPath() %>/images/nabin/file.png"
-								width="20"> <span><%=q.getFiles()%></span>
-								</div>
-								<% }%>
+									<div id="download-container" onclick="fileDownload('<%=q.getFiles()%>');">
+									<img src="<%=request.getContextPath() %>/images/nabin/file.png"
+									width="20"> <span><%=q.getFiles()%></span>
+									</div>
+								<% }else{%>
+									<div id="download-container">
+										<h4>없음</h4>
+									</div>
+								<%} %>
 							</td>
 							<th>카테고리 </th>
-							<td><%=q.getCtgNum() %> </td>
+							<td><%=q.getCtgNm() %> </td>
 							
 							<th>작성일</th>
 							<td><%=q.getInquiryInsertDt()%></td>
@@ -75,8 +79,15 @@
 					<%if(loginMember!=null&&(loginMember.getMemberId().equals("stageadmin")||
 					loginMember.getMemberId().equals(q.getWriterId()))){%>
 					<a href="<%=request.getContextPath()%>/qna/updateQna.do?no=<%=q.getInquiryNo() %>" class="on">수정</a> 
-					<a href="<%=request.getContextPath()%>/qna/deleteQna.do?no=<%=q.getInquiryNo() %>" class="on">삭제</a>
+					<a href="<%=request.getContextPath()%>/qna/deleteQna.do?no=<%=q.getInquiryNo() %>" class="on">삭제</a> 
+					<!-- <script type="text/javascript">
+					function del() {
+ 					 if (confirm("정말 삭제하시겠습니까?"))
+   						 list_ok.submit();
+ 						}
+						</script> -->
 					<%} %>
+				<%-- 	<a href="<%=request.getContextPath()%>/qna/deleteQna.do?no=<%=q.getInquiryNo() %>" onclick="del();">삭제</a> --%>
 				</div>
 
 
@@ -84,7 +95,8 @@
 				<!--댓글창 구현 공간 입니다  -->
 				<div id="comment-container">
 					<div class="comment-editor">
-
+						<!-- 관리자만 작성할 수있도록 구현하기 -->
+						<%if(loginMember!=null&&loginMember.getMemberId().equals("stageadmin")){%>
 						<form action="<%=request.getContextPath()%>/qna/insertComment.do"
 							method="post">
 							<textarea name="content" cols="55" rows="3"></textarea>
@@ -94,11 +106,12 @@
 							<input type="hidden" name="inquiryCommentRef" value="0">
 							<button type="submit" id="btn-insert">등록</button>
 						</form>
+						<%} %>
 					</div>
 				</div>
 				<table id="tbl-comment">
-					<%if(comments!=null){
-				for(QnaComment qc:comments) {%>
+				
+					<%if(comments!=null){for(QnaComment qc:comments) {%>
 					<tr class="levlel1">
 						<td>
 							<sub class="comment-writer"><%=qc.getQnaCommentWriter() %></sub> 

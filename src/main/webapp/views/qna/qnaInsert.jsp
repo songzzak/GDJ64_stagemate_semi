@@ -40,8 +40,9 @@
 									<td><textarea cols="42" rows="5" name="qnaContent"></textarea></td>
 								</tr>
 								<tr>
-									<th colspan="2"><input type="submit" value="등록하기"
-										onclick=""></th>
+								<th colspan="2">
+								<input type="submit" value="등록" onclick="if(!confirm('글이 등록됩니다.\ 글을 등록하시겠습니까?')){return false;}"/>
+								</th>
 								</tr>
 							</table>
 						</form>
