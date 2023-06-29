@@ -13,6 +13,7 @@ import com.stagemate.event.model.vo.Event;
 import com.stagemate.event.model.vo.EventUpfile;
 import com.stagemate.event.model.vo.EventWish;
 import com.stagemate.event.service.EventService;
+import com.stagemate.review.model.vo.EventReviewTBJH;
 
 /**
  * Servlet implementation class ArrayConcert
@@ -58,6 +59,8 @@ public class ArrayConcertServlet extends HttpServlet {
 		}
 		List<EventUpfile> files=new EventService().selectAllFile();
 		int totalData = new EventService().selectEventCountConcert();
+		List<EventReviewTBJH> er=new EventService().selectAllEventReview();
+		request.setAttribute("er", er);
 		request.setAttribute("concert", concert);
 		request.setAttribute("files", files);
 		int totalPage = (int) Math.ceil((double) totalData / numPerpage);

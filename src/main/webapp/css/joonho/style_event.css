@@ -45,9 +45,9 @@ div#cancel_info {
 
 .info_table {
 	display: flex;
-	justify-content: center;
 	margin-top: 2%;
-	margin-bottom: 2%
+	margin-bottom: 2%;
+	flex-direction: column;
 }
 
 .info>div:first-child {
