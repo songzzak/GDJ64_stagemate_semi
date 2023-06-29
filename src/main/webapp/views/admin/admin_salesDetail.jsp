@@ -51,7 +51,7 @@ List<PlayInfo> playInfos = (List) request.getAttribute("playinfo");
 
 				<!-- 예매/스토어 검색 창-->
 				<div class="Playmanagement_title_bigchart">
-					<h1 id="Playmanagement_title">판매관리>예매</h1>
+					<h1 id="Playmanagement_title">판매내역관리</h1>
 					<div class="division-line"></div>
 
 					<!-- 예매/스토어 버튼 -->
@@ -137,6 +137,11 @@ List<PlayInfo> playInfos = (List) request.getAttribute("playinfo");
 								<%} %>
 							</tbody>
 						</table>
+						<div id="page">
+							<div class="pageBar">
+								<%=request.getAttribute("pageBar") %>
+							</div>
+						</div>
 					</div>
 
 					<div class="salesDetail_store">
@@ -193,15 +198,15 @@ List<PlayInfo> playInfos = (List) request.getAttribute("playinfo");
 									<td class="book_no">배송중</td>
 									<td><button class="play-mg-detail" onclick="SearchStoreInfo();">정보</button></td>
 								</tr>
-
-
-
-
 							</tbody>
 						</table>
 
 
-
+						<div id="page">
+							<div class="pageBar">
+								<%=request.getAttribute("pageBar") %>
+							</div>
+						</div>
 
 
 					</div>

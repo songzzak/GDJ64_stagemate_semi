@@ -126,8 +126,10 @@
 
 					<div class="BLP-radio" align="right"
 						style="padding: 20px 0px 20px 700px;">
-						<p class="txt">총 <label id="searchCount1"><%=request.getAttribute("TotalCount") %></label>건의 예매내역이 있습니다</p>
-						<div class="stateP-btn" style="float: right">
+						<p class="txt">
+							총 <label id="searchCount1"><%=request.getAttribute("TotalCount") %></label>건의 예매내역이 있습니다
+						</p>
+						<div class="stateP-btn" style="float: right; width:340px;">
 							예매상태별 조회 <input type="radio" name="status1" value="1" checked="checked">전체 
 							<input type="radio" name="status1" value="2">예매 
 							<input type="radio" name="status1" value="3">취소
@@ -210,7 +212,7 @@
 					<div class="BLS-radio" align="right"
 						style="padding: 20px 0px 0px 700px;">
 						<p class="txt">총 <label id="searchCount2"><%=request.getAttribute("TotalCount") %></label>건의 주문내역이 있습니다</p>
-						<div class="stateS-btn" style="float: right">
+						<div class="stateS-btn" style="float: right; width:340px;">
 							배송 조회 <input type="radio" name="status2" value="1" >배송 중 
 							<!-- <input type="radio" name="status2" value="2">배송 전  -->
 							<input type="radio" name="status2" value="3" checked="checked">배송 완료 
@@ -220,7 +222,7 @@
 
 					
 					<div class="Storedb" style="padding: 0px 0px 5px 60px">
-						날짜별 조회 <select class="btnbox btnbox-white" id="order" name="date">
+						날짜별 조회 <select class="btnbox btnbox-white" id="order" name="date" >
 							<option value="lately">최근 순</option>
 							<option value="old">오래된 순</option>
 						</select>

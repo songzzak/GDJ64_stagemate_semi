@@ -81,7 +81,7 @@ String keyword=request.getParameter("searchKeyword");
 				   <%} %>		
 			</table>
 			<div class="infoUpdate_btn">
-						<button onclick="history.back()" class="cancel_btn">취소</button>
+						<button onclick="history.back()" class="cancel_btn">돌아가기</button>
 						<button onclick="updateClearButton();"  class="update_btn">변경하기</button>
 			</div>
 			</div>

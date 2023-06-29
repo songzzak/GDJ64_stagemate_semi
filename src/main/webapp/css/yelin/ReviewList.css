@@ -2,9 +2,9 @@
 
 .ReviewList_bigchart {
 	margin:auto;
- 	width: 900px;
+ 	width: 1200px;
 	height: 650px; 
-/*  	 border: 0.5px solid black; */ 
+/* 	 border: 0.5px solid black;  */
 	flex-direction: row;
 	margin-top: 15px;
 	margin-bottom: 5px;

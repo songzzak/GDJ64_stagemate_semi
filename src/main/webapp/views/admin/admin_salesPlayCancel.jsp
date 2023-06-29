@@ -6,6 +6,7 @@
 <%@ page import="java.util.List,com.stagemate.detail.model.vo.EventOrder,com.stagemate.member.model.vo.Member"%>
 
 <title>STAGEMATE</title>
+<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 </head>
 <body>
  <%
@@ -57,23 +58,19 @@
 		</div>
 		<div class="MDP-list-box">
 			<button type="button" onclick="closeWin();">내역</button>
-			<button type="button" class="btn_Play_update"onclick="<%=request.getContextPath()%>/admin/salesCancelServlet.do">취소</button>
+			<button type="button" class="btn_Play_update" >취소</button>
 		</div>
 	</div>
 
-<!-- onclick="javascript:clickCancel()" -->
 
 <script>
-	function clickCancel(){
-		alert("결제가 취소되었습니다.")
-	}
 
 	const closeWin=()=>{
 		window.close();
 	}
 
 	$(".btn_Play_update").click(e => {
-	    location.assign(getContextPath() + '/admin/salesCancelServlet.do?rno=' + rNo);
+	    location.assign('<%=request.getContextPath()%>/admin/salesCancelServlet.do?rsvNo=<%=request.getParameter("rsvNo")%>');
 	  });
 	
 </script>
@@ -174,5 +171,5 @@
 }
 </style>
 </body>
-<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
+
 </html>

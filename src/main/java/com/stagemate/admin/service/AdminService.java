@@ -35,18 +35,29 @@ public class AdminService {
 		close(conn);
 		return result;
 	}
-	
 	public List<Member> searchMemberByType(String keyword, String type, int cPage, int numPerpage){
 		Connection conn=getConnection();
 		List<Member> list=dao.searchMember(conn,keyword,type,cPage,numPerpage);
 		close(conn);
 		return list;
 	}
+	//판매관리
+	public int selectSalesCount() {
+		Connection conn=getConnection();
+		int result=dao.salesCount(conn);
+		close(conn);
+		return result;
+	}
+	
+	
+	
+	
+	
 	
 	//관리자페이지 예매
-	public List<PlayInfo> listPlayInfo(){
+	public List<PlayInfo> listPlayInfo(int cPage, int numPerpage){
 		Connection conn=getConnection();
-		List<PlayInfo> list=dao.playInfo(conn);
+		List<PlayInfo> list=dao.playInfo(conn,cPage,numPerpage);
 		close(conn);
 		return list;
 	}
@@ -70,13 +81,14 @@ public class AdminService {
 		return result;
 	}
 	
-	//공연 결제 취소창
+	//공연 결제 취소창 정보
 	public List<EventOrder> selectCancelOrder(String rsvNo){
 		Connection conn=getConnection();
 		List<EventOrder> eventOrder=new AdminDao().selectCancelOrder(conn,rsvNo);
 		close(conn);
 		return eventOrder;
 	}
+	
 	
 	//공연 결제 취소 진행
 	public int updateCancelByNo(String rsvNo) {

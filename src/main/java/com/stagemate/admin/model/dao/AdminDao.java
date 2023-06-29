@@ -74,6 +74,30 @@ public class AdminDao {
 		}
 		return result;
 	}
+	
+	//판매관리
+	public int salesCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectSalesCount"));
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	
+	
 	public int selectMemberCountByType(Connection conn,String keyword, String type) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -147,35 +171,33 @@ public class AdminDao {
 	}
 	
 	//관리자페이지 예매내역 조회 playInfo
-	public List<PlayInfo> playInfo(Connection conn){
+	public List<PlayInfo> playInfo(Connection conn, int cPage, int numPerpage){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<PlayInfo> infos = new ArrayList<>();
+		
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, D.* FROM (SELECT EVENT_ORDER_TB.RSV_NO, EVENT_ORDER_TB.ORDER_STATUS, EVENT_ORDER_TB.RSV_DATE, MEMBER_TB.MEMBER_ID, MEMBER_TB.MEMBER_EMAIL, MEMBER_TB.MEMBER_PHONE "
+				+ "FROM EVENT_ORDER_TB "
+				+ "INNER JOIN MEMBER_TB ON MEMBER_TB.MEMBER_ID = EVENT_ORDER_TB.MEMBER_ID)D) WHERE RNUM BETWEEN ? AND ? ";
+		
 		try { 
-			String query = "SELECT EVENT_ORDER_TB.RSV_NO, EVENT_ORDER_TB.ORDER_STATUS, EVENT_ORDER_TB.RSV_DATE, MEMBER_TB.MEMBER_ID, MEMBER_TB.MEMBER_EMAIL, MEMBER_TB.MEMBER_PHONE "
-					+ "FROM EVENT_ORDER_TB "
-					+ "INNER JOIN MEMBER_TB ON MEMBER_TB.MEMBER_ID = EVENT_ORDER_TB.MEMBER_ID ";
-
 			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, (cPage - 1) * numPerpage + 1);
+			pstmt.setInt(2, cPage * numPerpage);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				PlayInfo m = getPlayInfoDTO(rs);
 				infos.add(m);
 			}
-
 		} catch (SQLException e) {
-
 			e.printStackTrace();
-
 		} finally {
-
 			close(rs);
 			close(pstmt);
-
 		}
-
 		return infos;
 	}	
+	
 	public static PlayInfo getPlayInfoDTO(ResultSet rs) throws SQLException {
 		
 		String phone="";
