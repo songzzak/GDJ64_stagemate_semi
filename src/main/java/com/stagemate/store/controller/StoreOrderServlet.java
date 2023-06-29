@@ -60,10 +60,10 @@ public class StoreOrderServlet extends HttpServlet {
         for (DlvAdress d : dlvList) {
         	if (d.getIsDefaultDlv() == 'Y') {
         		defaultAddress = d;
-        		//System.out.println(defaultAddress);
         		break;
         	}
         }
+        System.out.println("기본배송지"+defaultAddress);
 
         // 필요한 정보를 request에 attribute로 설정
         request.setAttribute("productList", productList);

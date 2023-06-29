@@ -40,25 +40,28 @@ public class DlvAddressDao {
 			close(rs);
 			close(pstmt);
 		}
+		System.out.println(dlvList);
 		return dlvList;
 	}
 
 	private DlvAdress getDlv(ResultSet rs) throws SQLException {
-		DlvAdress dlvAdress = null;
+		String phone = rs.getString("dlv_phone");
+		
 		try {
-			dlvAdress = DlvAdress.builder()
+			phone = AESEncryptor.decrypt(rs.getString("dlv_phone"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return  DlvAdress.builder()
 					.dlvId(rs.getString("dlv_id"))
 					.memberId(rs.getString("member_id"))
 					.dlvPerson(rs.getString("dlv_person"))
 					.dlvNm(rs.getString("dlv_nm"))
-					.dlvPhone(AESEncryptor.decrypt(rs.getString("dlv_phone")))
+					.dlvPhone(phone)
 					.dlvAddress(rs.getString("dlv_address"))
 					.isDefaultDlv(rs.getString("is_default_dlv").charAt(0))
 					.build();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return dlvAdress;
 	}
 
 	public int insertDlvAddress(Connection conn, DlvAdress newAddress, int seqNo) {

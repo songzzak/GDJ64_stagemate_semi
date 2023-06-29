@@ -272,8 +272,7 @@ public class BoardDao {
 	private BoardComment getBoardComment(ResultSet rs) throws SQLException {
 		return BoardComment.builder().cmtNo(rs.getInt("cmt_no")).level(rs.getInt("cmt_level"))
 				.cmtWriter(rs.getString("cmt_writer")).cmtContent(rs.getString("cmt_content"))
-				.boardRef(rs.getInt("board_ref")).cmtRef(rs.getInt("cmt_ref")).build();
-	
+				.boardRef(rs.getInt("board_ref")).cmtRef(rs.getInt("cmt_ref")).cmtDate(rs.getDate("cmt_date")).build();
 	}
 
 	public List<Board> selectBoardByKeyword(Connection conn, String type, String keyword, int cPage, int numPerpage) {
@@ -355,5 +354,24 @@ public class BoardDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	//윤진작성
+	public List<Board> selectBoardAll(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Board> list = new ArrayList();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectBoardAll"));
+			rs = pstmt.executeQuery();
+			while (rs.next())
+				list.add(getBoard(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
 	}
 }
