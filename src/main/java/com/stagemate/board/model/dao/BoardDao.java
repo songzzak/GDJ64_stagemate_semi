@@ -327,7 +327,7 @@ public class BoardDao {
 		ResultSet rs = null;
 		List<BoardComment> list = new ArrayList();
 		try {
-			pstmt = conn.prepareStatement(sql.getProperty("selectBoardComment"));
+			pstmt = conn.prepareStatement(sql.getProperty("selectBoardCommentById"));
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			while (rs.next())
