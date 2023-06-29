@@ -14,6 +14,45 @@
 <!-- 본인이 따로 적용할 CSS 파일 및 style 태그 -->
 <link rel="stylesheet"
 	href="<%=contextPath%>/css/joonho/style_event.css">
+<style>
+#review_event>div:first-child {
+	display:flex;
+	color:var(--jh-red);
+}
+#review_event>div:nth-child(2) {
+	display:flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin-right: 2%;
+	height:95px;
+}
+#review_event>div:nth-child(2)> *{
+	margin-left:2%; 
+}
+#review_event>div:nth-child(2)>div{
+	display:flex;
+	align-items: center;
+}
+
+#review_event>div:nth-child(2)>div>p{
+	margin-left: 12%;
+}
+#review_event>div:last-child>div>div:last-child{
+	display:flex;
+    justify-content: flex-end;
+}
+#review_event>div:last-child>div>div:last-child>*{
+	margin-left: 1%;
+}
+#review_event>div:last-child>div>div:first-child {
+	font-weight: bolder;
+	font-size: 25px;
+    margin-bottom: 0.6%;
+}
+#review_event>div:last-child>div>div:nth-child(2) {
+	margin-bottom: 0.6%;
+}
+</style>
 <!---------------------------------------->
 <title>STAGEMATE/<%=event.getEventNm()%></title>
 </head>
@@ -300,12 +339,72 @@
 							<img src="<%=contextPath%>/images/joonho/cancel3.PNG">
 						</div>
 						<div id="review_event" style="display: none">
-						<%if(ertb==null||ertb.isEmpty()){%>
-								<a>비었음!</a>
+							<div>
+								<img src="<%=contextPath%>/images/joonho/safety.png">
+								<div>
+								<p>리뷰는 해당 공연을 관람한 MATE에 한해서만 작성할 수 있습니다.</p>
+								<p>매매,욕설 증 운영 규정에 위반되는 글은 사전 통보없이 삭제될 수 있습니다.</p>
+								</div>
+							</div>
+							<div>
+								<%int fun=0;int wow=0;int sad=0;int umm=0;int none=0;
+								if(ertb==null||ertb.isEmpty()){
+								}else{ for(EventReviewTBJH er:ertb){
+									if(er.getImojiNo()==1){
+										fun++;
+									}else if(er.getImojiNo()==2){
+										wow++;
+									}else if(er.getImojiNo()==3){
+										sad++;
+									}else if(er.getImojiNo()==4){
+										umm++;
+									}else{
+										none++;
+									}
+								}}%>
+								<h4>반응</h4>
+								<div>
+									<img src="<%=contextPath%>/images/yoonjin/emoji/fun.png">
+									<p><%=fun %></p>
+								</div>
+								<div>
+									<img src="<%=contextPath%>/images/yoonjin/emoji/wow.png">
+									<p><%=wow %></p>
+								</div>
+								<div>
+									<img src="<%=contextPath%>/images/yoonjin/emoji/sad.png">
+									<p><%=sad %></p>
+								</div>
+								<div>
+									<img src="<%=contextPath%>/images/yoonjin/emoji/umm.png">
+									<p><%=umm %></p>
+								</div>
+								<div>
+									<img src="<%=contextPath%>/images/yoonjin/emoji/none.png">
+									<p><%=none %></p>
+								</div>
+							</div>
+							<div>
+							<%if(ertb==null||ertb.isEmpty()){%>
+								<a>행사에 대한 리뷰가 없습니다.</a>
 							<% }else{
 							for(EventReviewTBJH er:ertb){ %>
-								<%=er.getErvContent() %>
+								<div>
+									<div>
+									<%=er.getMemberId() %>
+									</div>
+									<div>
+									<%=er.getErvContent() %>
+									</div>
+									<div>
+										<img src="<%=contextPath%>/images/yoonjin/emoji/none.png">
+										<p>작성일 <%=er.getErvDate() %></p>
+										<p>관람일 2023.05.18</p>
+									</div>
+								</div>
 							<%}} %>
+							</div>
+							
 						</div>
 						<div id="gold_details_map" style="display: none">
 							<div>
