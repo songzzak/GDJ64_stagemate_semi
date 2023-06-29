@@ -59,7 +59,7 @@
 											<%=q.getInquiryTitle() %>
 									</a>
 								</td>
-								<td><%=q.getWriterId() %></td>
+								<td><%=q.getWriterId() %></td>D
 		
 								<%-- 첨부파일 <td>
 		                            //<%if(b.getQnaOriginalFilename()){ %>
