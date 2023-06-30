@@ -14,6 +14,7 @@ import com.stagemate.board.model.vo.BoardComment;
 import com.stagemate.board.service.BoardService;
 import com.stagemate.qna.model.service.QnaService;
 import com.stagemate.qna.model.vo.Qna;
+import com.stagemate.qna.model.vo.QnaListCtg;
 
 /**
  * Servlet implementation class SelectQnaOnMyPage
@@ -36,9 +37,9 @@ public class SelectQnaOnMyPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id=request.getParameter("id");
 		List<Qna> list=new QnaService().selectQnaById(id);
-
+		List<QnaListCtg> ctglist=new QnaService().selectQnaListCtg();
 		request.setAttribute("list", list);
-
+		request.setAttribute("ctglist", ctglist);
 		request.getRequestDispatcher("/views/mypage/myInquiry.jsp").forward(request, response);
 	}
 

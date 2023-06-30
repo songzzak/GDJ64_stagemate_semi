@@ -281,7 +281,9 @@ public List<Qna> selectQnaById(Connection conn, String id) {
  }finally {
     close(rs);
     close(pstmt);
- }return list;
+ }
+ //System.out.println("리스트"+list);
+ return list;
 }
 
 private QnaComment getQnaComment(ResultSet rs) throws SQLException{
