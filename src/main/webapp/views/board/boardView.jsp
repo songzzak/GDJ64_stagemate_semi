@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page
 	import="com.stagemate.board.model.vo.Board,
-java.util.List,com.stagemate.board.model.vo.BoardComment"%>
+	java.util.List,com.stagemate.board.model.vo.BoardComment"%>
 <%
 Board b = (Board) request.getAttribute("board");
 List<BoardComment> comments = (List) request.getAttribute("comments");
@@ -260,8 +260,10 @@ a {
 			<div>
 				<hr color=#000000>
 				<div class="bt_wrap">
+				<%if(loginMember!=null){ %>
 					<a href="javascript:reportbtn('<%=b.getBoardNo()%>')" class="on">신고</a> 
-					<a href="<%=request.getContextPath()%>/board/boardModify.do?no=<%=b.getBoardNo() %>" class="on">수정</a> 
+					<%} %>
+					<a href="<%=request.getContextPath()%>/board/boardModifyform.do?no=<%=b.getBoardNo() %>" class="on">수정</a> 
 					<a href="javascript:deletebtn('<%=b.getBoardNo()%>')"class="on">삭제</a>
 				</div>
 				<div class="bt_list">
@@ -391,6 +393,19 @@ a {
 		}
 	}
 	
+    <% if (!b.getBoardWriter().equals(loginMember != null ? loginMember.getMemberId() : "")) { %>
+        $(document).ready(function() {
+            $(".bt_wrap a.on:last").hide(); // Hide the delete button
+        });
+    <% } %>
+    
+    <% if (!b.getBoardWriter().equals(loginMember != null ? loginMember.getMemberId() : "")) { %>
+    $(document).ready(function() {
+        $(".bt_wrap a[href*='boardModify.do']").hide();
+    });
+	<% } %>
+
+		
 	 
 </script>
 <!-------------------------------------------->

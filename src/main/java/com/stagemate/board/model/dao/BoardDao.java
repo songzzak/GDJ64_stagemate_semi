@@ -139,6 +139,23 @@ public class BoardDao {
 		}
 		return result;
 	}
+	
+	public int boardModify(Connection conn, Board b) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("boardModify"));
+			pstmt.setString(1, b.getBoardTitle());
+			pstmt.setString(2, b.getBoardContent());
+			pstmt.setInt(3, b.getBoardNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 	public int deleteBoard(Connection conn, int boardNo) {
 		PreparedStatement pstmt = null;

@@ -100,8 +100,9 @@ input#file-upload-button {
 	<!-----------   아래에서 HTML 작업  ----------->
 	<section class="min1280px">
 		<div class="max1280px">
-			<form action="<%=request.getContextPath()%>/board/boardWrite.do" method="post">
-				<div class="board_title">
+			<form action="<%=request.getContextPath()%>/board/boardModify.do" method="post">
+				<input type="hidden" name="no" value="<%=b.getBoardNo()%>">
+				<div class="board_title"> 
 					<strong>STAGEMATE</strong>
 					<hr>
 					<p>게시글 수정</p>
