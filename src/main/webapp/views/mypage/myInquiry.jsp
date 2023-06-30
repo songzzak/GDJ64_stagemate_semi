@@ -1,11 +1,13 @@
+<%@page import="com.stagemate.qna.model.vo.QnaListCtg"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/views/common/top.jsp"%>
 <link rel="stylesheet" href="<%=contextPath%>/css/yelin/store/style_shoppingBasket.css">
 <link rel="stylesheet" href="<%=contextPath%>/css/yoonjin/style_mypage_nav.css">
 <link rel="stylesheet" href="<%=contextPath%>/css/yoonjin/style_myInquiry.css">
-<%@ page import="java.util.List,com.stagemate.qna.model.vo.Qna"%>
+<%@ page import="java.util.List,com.stagemate.qna.model.vo.Qna,com.stagemate.qna.model.vo.QnaListCtg"%>
 <%
 List<Qna> list=(List)request.getAttribute("list");
+List<QnaListCtg> ctglist=(List)request.getAttribute("ctglist");
 %>
 <title>My Page | 관심목록</title>
 </head>
@@ -70,16 +72,20 @@ List<Qna> list=(List)request.getAttribute("list");
 		                	</tr>
 	                	</thead>
 	                	<tbody>
-	                	<%
-	                	if(list.isEmpty()||list==null){
-	                	%>
+	                	
+	                	<%if(list==null){ %>
+
 	                		<tr><td colspan="4">작성된 게시글이 없습니다.</td></tr>
-	                	<%
-	                	}else{ 
-	                		                		                			for(Qna q:list){
-	                	%>
+	                	<%}else{ 
+	                			for(Qna q:list){
+	                			QnaListCtg ctg=null;
+	                			for(QnaListCtg c:ctglist){
+	                				if(q.getCtgNum()==c.getCtgNum()){
+	                					ctg=c;
+	                				}
+	                			}%>
 		                	<tr class="tr-underLine">
-		                		<td style="text-align: center;"><%=q.getCtgNum() %></td>
+		                		<td style="text-align: center;"><%=ctg.getCtgNm() %></td>
 		                		<td style="text-align: center;">
 		                			<a href="<%=contextPath %>/qna/qnaView.do?no=<%=q.getInquiryNo()%>">
 		                				<%=q.getInquiryTitle() %>

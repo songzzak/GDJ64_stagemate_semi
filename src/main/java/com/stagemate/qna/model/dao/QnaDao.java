@@ -222,7 +222,7 @@ private Qna getQna(ResultSet rs) throws SQLException{
 			.writerId(rs.getString("writer_id"))
 			.inquiryInsertDt(rs.getDate("inquiry_insert_dt"))
 			.inquiryLockFlg(rs.getString("inquiry_lock_flg"))
-			
+
 			.build();
 	
 			
@@ -281,7 +281,9 @@ public List<Qna> selectQnaById(Connection conn, String id) {
  }finally {
     close(rs);
     close(pstmt);
- }return list;
+ }
+ //System.out.println("리스트"+list);
+ return list;
 }
 
 private QnaComment getQnaComment(ResultSet rs) throws SQLException{
