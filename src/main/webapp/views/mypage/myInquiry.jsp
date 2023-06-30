@@ -17,8 +17,8 @@ List<Qna> list=(List)request.getAttribute("list");
         	<div id="mypage_nav">
         		<div id="user_profile">
                     <img src="<%=contextPath%>/images/yoonjin/information/default_profile.png" alt="user_profile_img" id="img_profile">
-        			<h5><%=loginMember.getMemberId() %> 님</h5>
-        			<p><%=loginMember.getMemberEmail() %><p>
+        			<h5><%=loginMember.getMemberId()%> 님</h5>
+        			<p><%=loginMember.getMemberEmail()%><p>
         			                <input type="hidden" id="userId" name="userId" value="<%=loginMember.getMemberId()%>">
         		</div>
         		<hr>
@@ -26,7 +26,7 @@ List<Qna> list=(List)request.getAttribute("list");
 					<nav>   
 						<ul id="mypage_nav_ul">
 							<li class="li1"><a href="#">내 정보 관리</a></li>
-							<li class="li1"><a href="<%= request.getContextPath() %>/mypage/wishList.do?userId=<%=loginMember.getMemberId()%>">관심목록</a></li>
+							<li class="li1"><a href="<%=request.getContextPath()%>/mypage/wishList.do?userId=<%=loginMember.getMemberId()%>">관심목록</a></li>
 							<li class="li1"><a href="<%=request.getContextPath()%>/store/selectCartList.do?id=<%=loginMember.getMemberId()%>">장바구니</a></li>
 							<li class="li1">구매내역
 								<ul>
@@ -36,16 +36,16 @@ List<Qna> list=(List)request.getAttribute("list");
 							</li>
 							<li class="li1">내가 쓴 글
 								<ul>
-									<li class="li2"><a href="<%= request.getContextPath() %>/board/selectMyBoard.do?id=<%=loginMember.getMemberId()%>">커뮤니티</a></li>
-									<li class="li2"><a href="<%= request.getContextPath() %>/qna/selectMyInquiry.do?id=<%=loginMember.getMemberId()%>">1:1문의</a></li>
+									<li class="li2"><a href="<%=request.getContextPath()%>/board/selectMyBoard.do?id=<%=loginMember.getMemberId()%>">커뮤니티</a></li>
+									<li class="li2"><a href="<%=request.getContextPath()%>/qna/selectMyInquiry.do?id=<%=loginMember.getMemberId()%>">1:1문의</a></li>
 								</ul>
 							</li>
-							<li class="li1"><a href="<%= request.getContextPath() %>/views/member/member_withdraw.jsp">회원 탈퇴</a></li>
+							<li class="li1"><a href="<%=request.getContextPath()%>/views/member/member_withdraw.jsp">회원 탈퇴</a></li>
 						</ul>
 					</nav>
         		</div>
         		<div id="nav_btn_logout">
-        			<a href="<%= request.getContextPath() %>/member/logout.do" id="logout_btn_mypage">로그아웃</a>
+        			<a href="<%=request.getContextPath()%>/member/logout.do" id="logout_btn_mypage">로그아웃</a>
         		</div>
 			</div>
             <div class="InquirtListContainer">
@@ -70,10 +70,14 @@ List<Qna> list=(List)request.getAttribute("list");
 		                	</tr>
 	                	</thead>
 	                	<tbody>
-	                	<%if(list.isEmpty()||list==null){ %>
+	                	<%
+	                	if(list.isEmpty()||list==null){
+	                	%>
 	                		<tr><td colspan="4">작성된 게시글이 없습니다.</td></tr>
-	                	<%}else{ 
-	                			for(Qna q:list){%>
+	                	<%
+	                	}else{ 
+	                		                		                			for(Qna q:list){
+	                	%>
 		                	<tr class="tr-underLine">
 		                		<td style="text-align: center;"><%=q.getCtgNum() %></td>
 		                		<td style="text-align: center;">

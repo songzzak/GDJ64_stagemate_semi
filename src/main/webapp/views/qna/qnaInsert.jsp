@@ -54,7 +54,7 @@
 								</tr>
 								<tr>
 									<th>내 용</th>
-									<td><textarea cols="42" rows="5" name="qnaContent"></textarea></td>
+									<td><textarea cols="100" rows="40" name="qnaContent"></textarea></td>
 								</tr>
 								<tr>
 								<th colspan="2">

@@ -56,7 +56,7 @@ public class UpdateNoticeEndServlet extends HttpServlet {
 			int result=new NoticeService().updateNotice(n);
 			if(result>0) {
 				request.setAttribute("msg", "정상적으로 등록되었습니다.");
-				request.setAttribute("loc", "/qna/qnaList.do");
+				request.setAttribute("loc", "/notice/noticeList.do");
 				request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 				
 			}else {

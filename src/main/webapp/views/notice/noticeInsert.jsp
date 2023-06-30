@@ -13,7 +13,7 @@
 	
 			<div class="notice_wrap">
 				<div class="notice_title">
-					<span> 고객센터 </span>><span>공지사항</span>
+					<span><strong>스테이지메이트 공지사항</strong></span>
 				</div>
 				<div class="notice_insert_wrap">
 					<div class="notice_insert">
@@ -34,7 +34,7 @@
 								</tr>
 								<tr>
 									<th>내 용</th>
-									<td><textarea cols="42" rows="5" name="noticeContent"></textarea></td>
+									<td><textarea cols="80" rows="20" name="noticeContent"></textarea></td>
 								</tr>
 								<tr>
 								<th colspan="2"><input type="submit" value="등록" onclick="if(!confirm('글이 등록됩니다.\ 글을 등록하시겠습니까?')){return false;}"/>

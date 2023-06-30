@@ -37,7 +37,7 @@ public class UpdateQnaEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		if(!ServletFileUpload.isMultipartContent(request)) {
-			request.setAttribute("msg", "시스템 에러 혹은 잘못된 접근입낟. XD");
+			request.setAttribute("msg", "시스템 에러 혹은 잘못된 접근입니다. XD");
 			request.setAttribute("loc", "/qna/qnaList.do");
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}else {
