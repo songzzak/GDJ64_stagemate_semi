@@ -29,12 +29,12 @@ $(document).ready(function() {
 <body>
 	<%@ include file="/views/common/header.jsp"%>
 	<section class="BookDetail_min1280px">
-		<div class="BookingDetailPlay_bigchart">
+		<div class="BookingDetailStore_bigchart">
 
 			<h1 id="BookingDetailPlay_title">구매내역</h1>
 			<div class="division-line"></div>
 
-			<div class="bigchart">
+			<div class="bigchart_store">
 				<!-- 제목 -->
 				<p class="play_title">[<%=storeDetailInfo.getProductTitle() %>]<%=storeDetailInfo.getProductNm() %></p>
 

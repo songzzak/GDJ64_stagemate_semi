@@ -87,7 +87,7 @@
         	<%if(eventOrders.size()>0){ 
 	        	 for(EventOrder eo:eventOrders){ %>
 		            <tr>
-		                <td class="book_no"><a href=""  style="text-decoration-line: none;"><%=eo.getRsvNo() %></a></td>
+		                <td class="book_no"><a href=""  style="text-decoration-line: none; color:black;"><%=eo.getRsvNo() %></a></td>
 		                <td class="book_no"><%=eo.getEvent().getEventNm() %></td>
 		                <td class="book_no"><%=eo.getEsDate() %></td>
 		                <td class="book_no"><%=eo.getTcnt() %></td>
