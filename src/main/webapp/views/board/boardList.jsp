@@ -324,8 +324,8 @@ span {
 								<div class="top"></div>
 								<div class="num a">글번호</div>
 								<div class="title a">제목</div>
-								<div class="rec_num a">조회수</div>
 								<div class="count a">추천수</div>
+								<div class="rec_num a">조회수</div>
 								<div class="writer a">작성자</div>
 								<div class="date a">작성일자</div>
 							</div>
@@ -351,8 +351,8 @@ span {
 									<%=b.getBoardTitle()%>
 								</a>
 							</div>
-							<div class="count"><%=b.getBoardViewCNT()%></div>
 							<div class="rec_num"><%=b.getBoardLikeCNT()%></div>
+							<div class="count"><%=b.getBoardViewCNT()%></div>
 							<div class="writer"><%=b.getBoardWriter()%></div>
 							<div class="date"><%=b.getBoardDate()%></div>
 						</div>

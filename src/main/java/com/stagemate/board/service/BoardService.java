@@ -54,6 +54,15 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+	
+	public int boardModify(Board b) {
+		Connection conn=getConnection();
+		int result=dao.boardModify(conn, b);
+		if(result>0)
+			commit(conn);
+		close(conn);
+		return result;
+	}
 
 	public int boardWrite(String boardWriter, String boardTitle, String boardContent) {
 		Connection conn = getConnection();

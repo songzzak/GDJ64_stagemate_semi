@@ -1,7 +1,6 @@
 package com.stagemate.board.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +11,16 @@ import com.stagemate.board.model.vo.Board;
 import com.stagemate.board.service.BoardService;
 
 /**
- * Servlet implementation class BoardModifyServlet
+ * Servlet implementation class BoardModifyEndServlet
  */
-@WebServlet(name="boardModify", urlPatterns="/board/boardModifyform.do")
-public class BoardModifyServlet extends HttpServlet {
+@WebServlet(name="boardModifyEnd", urlPatterns="/board/boardModify.do")
+public class BoardModifyEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardModifyServlet() {
+    public BoardModifyEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,13 +29,17 @@ public class BoardModifyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		Board b = Board.builder()
+				.boardWriter(request.getParameter("writer"))
+				.boardTitle(request.getParameter("title"))
+				.boardContent(request.getParameter("content"))
+				.boardNo(Integer.parseInt(request.getParameter("no")))
+				.build();
 		
-		int no=Integer.parseInt(request.getParameter("no"));
-		Board b=new BoardService().selectBoardByNo(no, true);
-		request.setAttribute("board", b);
-		System.out.println(b);
-		request.getRequestDispatcher("/views/board/boardModify.jsp").forward(request, response);
-		
+		int result = new BoardService().boardModify(b);
+
+		response.sendRedirect(request.getContextPath()+"/board/boardList.do");
 	}
 
 	/**

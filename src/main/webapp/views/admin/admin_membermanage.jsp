@@ -41,8 +41,8 @@ String keyword=request.getParameter("searchKeyword");
 						<li>
 							<a href="">커뮤니티 관리</a>
 							<ul>
-								<li><a href="">게시판 관리</a></li>
-								<li><a href="">신고 관리</a></li>
+								<li><a href="<%=contextPath%>/views/admin/admin_Board.jsp">게시판 관리</a></li>
+								<li><a href="<%=contextPath%>/views/admin/admin_Comment.jsp">신고 관리</a></li>
 							</ul>
 						</li>
 						<li>
