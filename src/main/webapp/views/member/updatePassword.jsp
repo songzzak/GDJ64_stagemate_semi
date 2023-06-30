@@ -3,8 +3,6 @@
 <%@ include file="/views/common/top.jsp"%>
  <%@ page import="java.util.List,com.stagemate.review.model.vo.EventReview" %>  
   <%@ page import="java.util.List,com.stagemate.member.model.vo.Member" %> 
-=======
->>>>>>> refs/heads/yelin
 <title>패스워드 변경</title>
 <script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 <script src="<%= contextPath %>/js/script_common.js"></script>
@@ -103,11 +101,13 @@
 		font-weight: bold;
 		margin-top: 30px;
 	}
-	.notice{
+	#notice{
 		font-size: 15px;
 		margin-top: 5px;
 		text-align: left;
 		margin-left: 25px;
+		margin-bottom: 30px;
+	
 		
 	}
 
@@ -138,7 +138,7 @@
 	}
 
 	#password_new{
-		margin-top: 30px;
+		margin-top: 50px;
 		}
 	#password_chk{
 	margin-top: 15px;

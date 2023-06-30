@@ -36,6 +36,7 @@
 					alert("전화번호가 변경되지 않습니다.");
 				}
 				window.close();
+				reload();
 			},
 			error:(response, status, error) => {
 				if (response.status === 500) {

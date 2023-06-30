@@ -17,28 +17,7 @@
 <%
 	List<DetailTicketList> ticketList = (List) request.getAttribute("TicketList");
 %>
-<script>
-let rsvNo = '<%= detailInfo.getRsvNo()%>';
-let esNo = '<%= detailInfo.getEsNo()%>';
-$(document).ready(function() {
-  $('input[name="choice"]').on('click', function() {
-    var isChecked = $(this).prop('checked');
-    $('tbody input[name="choice"]').prop('checked', isChecked);
-  });
-  
-  $('tbody input[name="choice"]').on('click', function() {
-    var isAllChecked = $('tbody input[name="choice"]').length === $('tbody input[name="choice"]:checked').length;
-    $('input[name="choice"]').prop('checked', isAllChecked);
-  });
-  
-  let orderStatus = '<%= detailInfo.getOrderStatus()%>';
-  if (orderStatus == '취소') {
-		$('.re-btn').removeClass('re-btn').addClass('disable-btn');
-		$('.disable-btn').attr('onclick', "alert('이미 취소한 내역입니다')");
-  }
-});
 
-</script>
 <style>
 	.disable-btn{
 		border: none;
@@ -143,7 +122,7 @@ $(document).ready(function() {
 								<td class="bk_no"><%=d.getSeatRow() %>열 <%=d.getSeatCol() %>번</td>
 								<td class="bk_no">재관람할인(1인1매)</td>
 								<td class="bk_no"><%=d.getSlvPrice() %>원</td>
-								<td class="bk_no">취소가능</td>
+								<td class="bk_no"><%=detailInfo.getOrderStatus() %></td>
 								<td class="bk_no">취소<input type="checkbox" name="choice" value="c"></td>
 							</tr>
 							<%
@@ -208,6 +187,28 @@ $(document).ready(function() {
 		</div>
 		</div>
 		</div>
+		<script>
+let rsvNo = '<%= detailInfo.getRsvNo()%>';
+let esNo = '<%= detailInfo.getEsNo()%>';
+$(document).ready(function() {
+  $('input[name="choice"]').on('click', function() {
+    var isChecked = $(this).prop('checked');
+    $('tbody input[name="choice"]').prop('checked', isChecked);
+  });
+  
+  $('tbody input[name="choice"]').on('click', function() {
+    var isAllChecked = $('tbody input[name="choice"]').length === $('tbody input[name="choice"]:checked').length;
+    $('input[name="choice"]').prop('checked', isAllChecked);
+  });
+  
+  let orderStatus = '<%= detailInfo.getOrderStatus()%>';
+  if (orderStatus == '취소') {
+		$('.re-btn').removeClass('re-btn').addClass('disable-btn');
+		$('.disable-btn').attr('onclick', "alert('이미 취소한 내역입니다')");
+  }
+});
+
+</script>
 	</section>
 	
 	

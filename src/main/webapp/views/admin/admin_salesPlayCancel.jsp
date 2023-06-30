@@ -1,10 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@page import = "java.util.Date" %>
+		<%@page import = "java.text.SimpleDateFormat" %>
 <%@ include file="/views/common/top.jsp"%>
+<%@ page import="java.util.List,com.stagemate.detail.model.vo.EventOrder,com.stagemate.member.model.vo.Member"%>
+
 <title>STAGEMATE</title>
+<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
 </head>
 <body>
-
+ <%
+   //EventOrder 정보 가져와야 한다. 
+   	List<EventOrder> eventOrders = (List) request.getAttribute("eventOrders");
+ 
+	Date date = new Date();
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+	String strDate = simpleDate.format(date);
+	
+   %>
+   
 	<div class="MDPlayCancel_bigchart">
 		<button type="button" class="btn_close"></button>
 
@@ -16,22 +30,24 @@
 		<p class="MCPC_txt">예매 취소, 취소 사유 입력</p>
 
 		<table class="MDPinfo-table">
+		 <%if(eventOrders!=null){ %>
 			<tr>
 				<td>예매자명</td>
-				<td>김뚜껑</td>
+				<td><%=eventOrders.get(0).getMember().getMemberNm() %></td>
 			</tr>
 			<tr>
 				<td>예매번호</td>
-				<td>S126557753</td>
+				<td><%=eventOrders.get(0).getRsvNo() %></td>
 			</tr>
 			<tr>
 				<td>취소일자</td>
-				<td>2023.05.16</td>
+				<td><%=strDate%></td>
 			</tr>
 			<tr>
 				<td>환불금액</td>
-				<td>47,200원</td>
+				<td><%=eventOrders.get(0).getRsv_price() %></td>
 			</tr>
+			   <%} %>
 		</table>
 		
 		<textarea class="MDP-textarea" cols="80" rows="9" maxlength="300"
@@ -42,17 +58,21 @@
 		</div>
 		<div class="MDP-list-box">
 			<button type="button" onclick="closeWin();">내역</button>
-			<button type="button" onclick="">취소</button>
+			<button type="button" class="btn_Play_update" >취소</button>
 		</div>
 	</div>
 
 
-
 <script>
+
 	const closeWin=()=>{
 		window.close();
 	}
 
+	$(".btn_Play_update").click(e => {
+	    location.assign('<%=request.getContextPath()%>/admin/salesCancelServlet.do?rsvNo=<%=request.getParameter("rsvNo")%>');
+	  });
+	
 </script>
 
 <style>
@@ -151,5 +171,5 @@
 }
 </style>
 </body>
-<script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
+
 </html>

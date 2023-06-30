@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.stagemate.common.AESEncryptor;
 import com.stagemate.detail.model.vo.Detail;
 import com.stagemate.detail.model.vo.StoreDetail;
 import com.stagemate.detail.model.vo.StoreDetailInfo;
@@ -81,15 +82,25 @@ public class StoreListDao {
 				.imgFileRename(rs.getString("IMG_FILE_RENAME"))
 				.build();
 	}
-	
+	//복호화
 	public static StoreDetailOrderDlv getStoreDetailOrderDlv(ResultSet rs) throws SQLException{
+		String email = rs.getString("MEMBER_EMAIL");
+		String phone = rs.getString("MEMBER_PHONE");
+		
+		try {
+			email = AESEncryptor.decrypt(email);
+			phone = AESEncryptor.decrypt(phone);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return StoreDetailOrderDlv.builder()
 				.orderNo(rs.getString("ORDER_NO"))
 				.shipMsg(rs.getString("SHIP_MSG"))
 				.memberId(rs.getString("MEMBER_ID"))
 				.memberNm(rs.getString("MEMBER_NM"))
-				.memberEmail(rs.getString("MEMBER_EMAIL"))
-				.memberPhone(rs.getString("MEMBER_PHONE"))
+				.memberEmail(email)
+				.memberPhone(phone)
 				.dlvPerson(rs.getString("DLV_PERSON"))
 				.dlvPhone(rs.getString("DLV_PHONE"))
 				.dlvAddress(rs.getString("DLV_ADDRESS"))

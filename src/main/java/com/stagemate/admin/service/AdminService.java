@@ -35,18 +35,29 @@ public class AdminService {
 		close(conn);
 		return result;
 	}
-	
 	public List<Member> searchMemberByType(String keyword, String type, int cPage, int numPerpage){
 		Connection conn=getConnection();
 		List<Member> list=dao.searchMember(conn,keyword,type,cPage,numPerpage);
 		close(conn);
 		return list;
 	}
+	//판매관리
+	public int selectSalesCount() {
+		Connection conn=getConnection();
+		int result=dao.salesCount(conn);
+		close(conn);
+		return result;
+	}
+	
+	
+	
+	
+	
 	
 	//관리자페이지 예매
-	public List<PlayInfo> listPlayInfo(){
+	public List<PlayInfo> listPlayInfo(int cPage, int numPerpage){
 		Connection conn=getConnection();
-		List<PlayInfo> list=dao.playInfo(conn);
+		List<PlayInfo> list=dao.playInfo(conn,cPage,numPerpage);
 		close(conn);
 		return list;
 	}
@@ -68,8 +79,30 @@ public class AdminService {
 		else rollback(conn);
 		close(conn);
 		return result;
-		
 	}
+	
+	//공연 결제 취소창 정보
+	public List<EventOrder> selectCancelOrder(String rsvNo){
+		Connection conn=getConnection();
+		List<EventOrder> eventOrder=new AdminDao().selectCancelOrder(conn,rsvNo);
+		close(conn);
+		return eventOrder;
+	}
+	
+	
+	//공연 결제 취소 진행
+	public int updateCancelByNo(String rsvNo) {
+		Connection conn=getConnection();
+		int result=dao.updateCancelByNo(conn, rsvNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	
+	
+	
 	//사용자 멤버 정보
 	public List<Member> MemberInfo(String userId){
 		Connection conn=getConnection();
@@ -79,4 +112,28 @@ public class AdminService {
 		close(conn);
 		return memberInfo;
 	}
+	//관리자페이지 스토어 리스트
+	/*
+	 * public List<StoreInfo> listStoreInfo(){ Connection conn=getConnection();
+	 * List<StoreInfo> list=dao.storeInfo(conn); close(conn); return list; }
+	 */
+		//사용자 구매정보
+		/*
+		 * public List<StoreOrder> selectStoresInfo(String userId){ Connection
+		 * conn=getConnection();
+		 * 
+		 * List<StoreOrder> storeOrder=new AdminDao().selectStoreOrder(conn,userId);
+		 * 
+		 * close(conn); return storeOrder; }
+		 */
+			
+			/*
+			 * //스토어 결제 취소창 public List<StoreOrder> selectStoreCancel(String orderNo){
+			 * Connection conn=getConnection();
+			 * 
+			 * List<StoreOrder> storeOrder=new AdminDao().selectStoreCancel(conn,orderNo);
+			 * 
+			 * close(conn); return storeOrder; }
+			 */
+	
 }

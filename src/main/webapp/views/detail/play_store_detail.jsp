@@ -29,12 +29,12 @@ $(document).ready(function() {
 <body>
 	<%@ include file="/views/common/header.jsp"%>
 	<section class="BookDetail_min1280px">
-		<div class="BookingDetailPlay_bigchart">
+		<div class="BookingDetailStore_bigchart">
 
-			<h1 id="BookingDetailPlay_title">예매내역</h1>
+			<h1 id="BookingDetailPlay_title">구매내역</h1>
 			<div class="division-line"></div>
 
-			<div class="bigchart">
+			<div class="bigchart_store">
 				<!-- 제목 -->
 				<p class="play_title">[<%=storeDetailInfo.getProductTitle() %>]<%=storeDetailInfo.getProductNm() %></p>
 
@@ -113,17 +113,18 @@ $(document).ready(function() {
 						<th>받으신분</th>
 						<td><%=storeDetailOrderDlv.getDlvPerson() %></td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<th>전화번호</th>
 						<td><%=storeDetailOrderDlv.getDlvPhone() %></td>
-					</tr>
+					</tr> --%>
 					<tr>
 						<th>주소</th>
 						<td><%=storeDetailOrderDlv.getDlvAddress() %></td>
 					</tr>
 					<tr>
 						<th>배송요청사항</th>
-						<td><%=storeDetailOrderDlv.getShipMsg() %></td>
+						<td>문앞에 두고 가주세요</td>
+					<%-- 	<%=storeDetailOrderDlv.getShipMsg() %> --%>
 					</tr>
 				</table>
 			</div>

@@ -16,7 +16,9 @@ import com.stagemate.common.JDBCTemplate;
 import com.stagemate.common.MemberGenerator;
 import com.stagemate.admin.model.vo.PlayInfo;
 import com.stagemate.common.AESEncryptor;
+import com.stagemate.detail.model.vo.Detail;
 import com.stagemate.detail.model.vo.EventOrder;
+import com.stagemate.detail.model.vo.StoreOrder;
 import com.stagemate.event.model.vo.Event;
 import com.stagemate.member.model.vo.Member;
 
@@ -72,6 +74,30 @@ public class AdminDao {
 		}
 		return result;
 	}
+	
+	//판매관리
+	public int salesCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectSalesCount"));
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	
+	
 	public int selectMemberCountByType(Connection conn,String keyword, String type) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -145,35 +171,33 @@ public class AdminDao {
 	}
 	
 	//관리자페이지 예매내역 조회 playInfo
-	public List<PlayInfo> playInfo(Connection conn){
+	public List<PlayInfo> playInfo(Connection conn, int cPage, int numPerpage){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<PlayInfo> infos = new ArrayList<>();
+		
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, D.* FROM (SELECT EVENT_ORDER_TB.RSV_NO, EVENT_ORDER_TB.ORDER_STATUS, EVENT_ORDER_TB.RSV_DATE, MEMBER_TB.MEMBER_ID, MEMBER_TB.MEMBER_EMAIL, MEMBER_TB.MEMBER_PHONE "
+				+ "FROM EVENT_ORDER_TB "
+				+ "INNER JOIN MEMBER_TB ON MEMBER_TB.MEMBER_ID = EVENT_ORDER_TB.MEMBER_ID)D) WHERE RNUM BETWEEN ? AND ? ";
+		
 		try { 
-			String query = "SELECT EVENT_ORDER_TB.RSV_NO, EVENT_ORDER_TB.ORDER_STATUS, EVENT_ORDER_TB.RSV_DATE, MEMBER_TB.MEMBER_ID, MEMBER_TB.MEMBER_EMAIL, MEMBER_TB.MEMBER_PHONE "
-					+ "FROM EVENT_ORDER_TB "
-					+ "INNER JOIN MEMBER_TB ON MEMBER_TB.MEMBER_ID = EVENT_ORDER_TB.MEMBER_ID ";
-
 			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, (cPage - 1) * numPerpage + 1);
+			pstmt.setInt(2, cPage * numPerpage);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				PlayInfo m = getPlayInfoDTO(rs);
 				infos.add(m);
 			}
-
 		} catch (SQLException e) {
-
 			e.printStackTrace();
-
 		} finally {
-
 			close(rs);
 			close(pstmt);
-
 		}
-
 		return infos;
 	}	
+	
 	public static PlayInfo getPlayInfoDTO(ResultSet rs) throws SQLException {
 		
 		String phone="";
@@ -200,7 +224,7 @@ public class AdminDao {
 	}
 	
 
-	
+	//예매 상세정보
 	public List<EventOrder> selectEventOrder(Connection conn,String userId){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -255,7 +279,131 @@ public class AdminDao {
 				.build();
 		}
 	
-	//멤버 정보
+			
+		
+			//예매 결제 취소 요청
+			public List<EventOrder> selectCancelOrder(Connection conn,String rsvNo){
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				List<EventOrder> eventOrder = new ArrayList<>();
+				try {
+					String query=sql.getProperty("selectCancelOrder");
+					pstmt = conn.prepareStatement(sql.getProperty("selectCancelOrder"));
+					pstmt.setString(1, rsvNo);
+					rs = pstmt.executeQuery();
+					while (rs.next()) {
+						eventOrder.add(getEventOrder(rs));
+					}
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}finally {
+					close(rs);
+					close(pstmt);
+				}return eventOrder;
+			}
+			
+			private EventOrder getCancelOrder(ResultSet rs) throws SQLException{
+				return EventOrder.builder()
+						
+						.paymentNo(rs.getString("payment_no"))
+						.rsv_price(rs.getInt("rsv_price"))
+						.rsvNo(rs.getString("rsv_no"))
+						.member(Member.builder()
+								.memberNm(rs.getString("member_nm"))
+								.build()
+								)
+						.build();
+				}
+			
+			
+			//결제 취소 진행
+			public int updateCancelByNo(Connection conn, String rsvNo) {
+				PreparedStatement pstmt = null;
+		        int result = 0;
+		        try {
+		            pstmt = conn.prepareStatement(sql.getProperty("updateCancelByNo"));
+		            pstmt.setString(1,rsvNo);
+		            result = pstmt.executeUpdate();
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        } finally {
+		        	close(pstmt);
+		        }
+		        return result;
+			
+			}
+			
+			
+			
+			
+			
+			
+			//스토어 회원 상세 정보
+			/*
+			 * public List<StoreOrder> selectStoreOrder(Connection conn,String userId){
+			 * PreparedStatement pstmt = null; ResultSet rs = null; List<StoreOrder>
+			 * storeOrder = new ArrayList<>(); try { pstmt =
+			 * conn.prepareStatement(sql.getProperty("selectStoreOrder"));
+			 * pstmt.setString(1, userId); rs = pstmt.executeQuery(); while (rs.next()) {
+			 * storeOrder.add(getStoreOrder(rs)); } }catch(SQLException e) {
+			 * e.printStackTrace(); }finally { close(rs); close(pstmt); }return storeOrder;
+			 * }
+			 */
+			
+			/*
+			 * private StoreOrder getStoreOrder(ResultSet rs) throws SQLException{ String
+			 * phone="",email=""; try {
+			 * phone=AESEncryptor.decrypt(rs.getString("member_phone")); }catch(Exception e)
+			 * { phone=rs.getString("member_phone"); } try {
+			 * email=AESEncryptor.decrypt(rs.getString("member_email")); }catch(Exception e)
+			 * { email=rs.getString("member_email"); } return StoreOrder.builder()
+			 * .orderStatus(rs.getString("order_status"))
+			 * .paymentNo(rs.getString("payment_no")) .totalPrice(rs.getInt("total_price"))
+			 * .orderDate(rs.getDate("order_date")) .orderNo(rs.getString("order_no"))
+			 * .member(Member.builder() .memberId(rs.getString("member_id"))
+			 * .memberNm(rs.getString("member_nm")) .memberBdate(rs.getDate("member_bdate"))
+			 * .memberEmail(email) .memberPhone(phone)
+			 * .memberAddress(rs.getString("member_address")) .build() )
+			 * .product(Product.builder() .productNm(rs.getString("product_nm")) .build())
+			 * .build(); }
+			 */
+			//스토어 결제 취소 요청 진행
+			/*
+			 * public List<StoreOrder> selectStoreCancel(Connection conn,String orderNo){
+			 * PreparedStatement pstmt = null; ResultSet rs = null; List<StoreOrder>
+			 * storeOrder = new ArrayList<>(); try { String
+			 * query=sql.getProperty("selectStoreCancel"); pstmt =
+			 * conn.prepareStatement(sql.getProperty("selectStoreCancel"));
+			 * pstmt.setString(1, orderNo); rs = pstmt.executeQuery(); while (rs.next()) {
+			 * storeOrder.add(getStoreOrder(rs)); } }catch(SQLException e) {
+			 * e.printStackTrace(); }finally { close(rs); close(pstmt); }return storeOrder;
+			 * }
+			 * 
+			 * private StoreOrder getStoreCancel(ResultSet rs) throws SQLException{
+			 * 
+			 * return StoreOrder.builder() .paymentNo(rs.getString("payment_no"))
+			 * .totalPrice(rs.getInt("total_price")) .orderNo(rs.getString("order_no"))
+			 * .member(Member.builder() .memberNm(rs.getString("member_nm")) .build() )
+			 * .build(); }
+			 * 
+			 */
+			
+			//예매 결제 취소 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//회원수정 멤버 정보
 	public List<Member> MemberInfoma(Connection conn, String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

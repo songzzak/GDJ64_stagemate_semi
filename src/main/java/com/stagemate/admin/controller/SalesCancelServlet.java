@@ -1,7 +1,6 @@
 package com.stagemate.admin.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,38 +9,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stagemate.admin.service.AdminService;
-import com.stagemate.detail.model.vo.EventOrder;
 
-/**
- * Servlet implementation class SalesPlayCancelServlet
- */
-@WebServlet("/admin/SalesPlayCancel.do")
-public class SalesPlayCancelServlet extends HttpServlet {
+@WebServlet("/admin/salesCancelServlet.do")
+public class SalesCancelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SalesPlayCancelServlet() {
+    public SalesCancelServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//아이디 정보 가져오기 
 		String rsvNo=request.getParameter("rsvNo");
-		
-		List<EventOrder> eventOrders=new AdminService().selectCancelOrder(rsvNo);
-		eventOrders.stream().forEach(System.out::println);
-		request.setAttribute("eventOrders", eventOrders);
-		
-		
-		
-		
-		request.getRequestDispatcher("/views/admin/admin_salesPlayCancel.jsp").forward(request, response);
+		//담긴 정보 찾아와서 취소 진행
+		int result=new AdminService().updateCancelByNo(rsvNo);
+		if(result>0) {
+		String msg = "성공적으로 취소 완료되었습니다.";
+		String loc = "/";
+		String lod ="/";
+            request.setAttribute("msg", msg);
+            request.setAttribute("loc", loc);
+            request.setAttribute("script", "window.close();opener.document.location.reload();");
+            request.setAttribute("rsvNo", result);
+            request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+            
+    	  
+           
+		}
+	
 	}
+	
+	
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

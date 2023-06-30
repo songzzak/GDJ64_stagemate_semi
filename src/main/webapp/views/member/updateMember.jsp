@@ -48,7 +48,7 @@ String keyword=request.getParameter("searchKeyword");
 				</tr>
 					<th>전화번호</th>
 					<td>
-					<input type="text" name="" value="<%=m.getMemberPhone()%>">	
+					<input type="text" name="phone" value="<%=m.getMemberPhone()%>">	
 					</td>
 					<td>
 						<button onclick="UpdatePhone();">수정</button>
@@ -63,16 +63,16 @@ String keyword=request.getParameter("searchKeyword");
 				<tr>
 					<th>주소</th>
 					<td>	
-					<input type="text" name="address" value="">	
+					<input type="text" name="address" id="inputAddress" value="<%=m.getMemberAddress()%>">	
 					</td>
 					<td>
-						<button onclick="openPostCode();">수정</button>
+						<!-- <button onclick="openPostCode();">수정</button> -->
 					</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
 					<td>	
-					<input type="text" name="email" value="qwerty@naver.com">	
+					<input type="text" name="email" value="<%=m.getMemberEmail()%>">	
 					</td>
 				<!-- 	<td>
 						<button onclick="UpdateEmail();">수정</button>
@@ -81,7 +81,7 @@ String keyword=request.getParameter("searchKeyword");
 				   <%} %>		
 			</table>
 			<div class="infoUpdate_btn">
-						<button onclick=""  class="cancel_btn">취소</button>
+						<button onclick="history.back()" class="cancel_btn">돌아가기</button>
 						<button onclick="updateClearButton();"  class="update_btn">변경하기</button>
 			</div>
 			</div>
@@ -94,15 +94,17 @@ String keyword=request.getParameter("searchKeyword");
 
 <script>
 	const UpdatePwd=()=>{
-		const childWindow=open("<%=request.getContextPath()%>/member/UpdatePassword.do","_blank","width=600,height=450");
+		const childWindow=open("<%=request.getContextPath()%>/member/UpdatePassword.do","_blank","width=500,height=450");
 		
 	}
 	const UpdatePhone=()=>{
-		const childWindow=open("<%=request.getContextPath()%>/member/updatePhone.do","_blank","width=600,height=260");
+		const childWindow=open("<%=request.getContextPath()%>/member/updatePhone.do","_blank","width=450,height=260");
 	}
-	const UpdateEmail=()=>{
+	
+	
+	<%-- const UpdateEmail=()=>{
 		const chilWindow=open("<%=request.getContextPath()%>/member/updateEmail.do","_blank","width=600,height=260");
-	}
+	} --%>
 	const updateClearButton=()=>{
 		alert('변경 완료되었습니다.');
 	}
@@ -111,6 +113,6 @@ String keyword=request.getParameter("searchKeyword");
 <%@ include file="/views/common/footer.jsp"%>
 </body>
 <script src="<%=contextPath%>/js/jquery-3.7.0.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> -->
 <script src="<%=contextPath%>/js/script_common.js"></script>
 </html>

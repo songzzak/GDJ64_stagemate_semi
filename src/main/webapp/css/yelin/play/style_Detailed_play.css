@@ -8,6 +8,14 @@
 	flex-direction: row;
 }
 
+
+.BookingDetailStore_bigchart {
+	margin: auto;
+	width: 1100px;
+	height: 1030px;
+	border: 0.5px solid  #e9ecef;
+	flex-direction: row;
+}
 /* 선 조절 */
 .division-line {
 	border-top: 0.5px solid gray;
@@ -23,6 +31,7 @@
 	margin-left: 100px;
 	padding-top: 100px;
 }
+
 
 .play_title {
 	font-size: 22px;
@@ -41,6 +50,15 @@
 	margin-bottom: 5px;
 }
 
+.bigchart_store{
+margin: auto;
+	width: 900px;
+	height: 720px;
+	border: 0.5px solid  #e9ecef;;
+	flex-direction: row;
+	margin-top: 15px;
+	margin-bottom: 5px;
+}
 .bigchart2 {
 	margin: auto;
 	width: 900px;

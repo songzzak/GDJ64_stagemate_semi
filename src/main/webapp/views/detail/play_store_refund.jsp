@@ -25,7 +25,7 @@ let orderNo = '';
 <section class="min1280px">
     <div id="sectionContainer" class="max1280px">
             
-        <h1 id="BookingDetailPlay_title">예매취소</h1>
+        <h1 id="BookingDetailPlay_title">구매취소</h1>
         <div class="division-line"></div>
         <div class="Refund1_bigchart">
              <!-- 제목 -->
@@ -95,8 +95,8 @@ let orderNo = '';
         </table>
         <div class="warning-msg" >
             <img class="w_m_img" src="<%= contextPath %>/images/yelin/warning.png" style="" >
-            <p id="warning-txt">선택하신 예매내역을 취소하시겠습니까?<br>
-                예매내역 및 결제내역을 확인하신 후 아래의 <취소하기> 버튼을 누르시면 취소가 완료됩니다.
+            <p id="warning-txt">선택하신 구매내역을 환불하시겠습니까?<br>
+                구매내역 및 구매내역을 확인하신 후 아래의 <환불하기> 버튼을 누르시면 환불 완료됩니다.
             </p>
         </div>
 
@@ -108,9 +108,9 @@ let orderNo = '';
 
 
         <div class="refund-btn-group">
-        <input type="button" class="re-btn3" value="예매내역목록" onclick="location.assign('<%=request.getContextPath()%>/Detail/DetailListServlet.do')"
+        <input type="button" class="re-btn3" value="구매내역목록" onclick="location.assign('<%=request.getContextPath()%>/Detail/DetailListServlet.do')"
 			value="예매내역목록">
-        <input type="button" class="refund-btn" value="취소하기" onclick="cacelDetail('2')">
+        <input type="button" class="refund-btn" value="환불하기" onclick="cacelDetail('2')">
         </div>
     </div>
         

@@ -18,6 +18,7 @@
 %>
 	<%@ include file="/views/common/header.jsp"%>
 	<section class="min1280px">
+			<div class="ReviewList_bigchart">
 	<div class="maincontainer">
 	        	<div id="mypage_nav">
         		<div id="user_profile">
@@ -29,7 +30,7 @@
         		<div id="user_nav">
 					<nav>   
 						<ul id="mypage_nav_ul">
-							<li class="li1"><a href="#">내 정보 관리</a></li>
+							<li class="li1"><a href="<%= request.getContextPath() %>/member/UpdateMember.do?userId=<%=loginMember.getMemberId()%>">내 정보 관리</a></li>
 							<li class="li1"><a href="<%= request.getContextPath() %>/mypage/wishList.do?userId=<%=loginMember.getMemberId()%>">관심목록</a></li>
 							<li class="li1"><a href="<%=request.getContextPath()%>/store/selectCartList.do?id=<%=loginMember.getMemberId()%>">장바구니</a></li>
 							<li class="li1">구매내역
@@ -52,7 +53,7 @@
         			<a href="<%= request.getContextPath() %>/member/logout.do" id="logout_btn_mypage">로그아웃</a>
         		</div>
 			</div>
-		<div class="ReviewList_bigchart">
+			<div class="flex"> 
 			<h1 id="ReviewList_title">나의 리뷰</h1>
 			<div class="division-line"></div>
 			<p class="review-txt">
@@ -60,8 +61,8 @@
 				있습니다.
 			</p>
 				<ul class="btnsBox" style="padding: 30px 0pc 0px 0px;">
-					<li><button class="BLbtn" id="ps_play_btn">예매</button></li>
-					<li><button class="BLbtn" id="ps_store_btn">스토어</button></li>
+					<li><button class="BLbtn active" id="ps_play_btn" onclick="change_btn(event)">예매</button></li>
+					<li><button class="BLbtn" id="ps_store_btn" onclick="change_btn(event)">스토어</button></li>
 				</ul>
 
 				<script>
@@ -139,16 +140,15 @@
 					</table>
 			
 					<button class="write_Storereview" onclick="reviewWritePage('2');">리뷰작성</button>
-				</div>
-			</div>
-
-		<!-- 페이징바 -->
-		<div id="page">
+					</div>
+	</div>
+	<!-- 페이징바 -->
+<%-- 	<div id="page">
 			<div class="pageBar">
 				<%=request.getAttribute("pageBar") %>
 			</div>
-		</div>
-	</div>
+		</div> --%>
+
 	</section>
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
