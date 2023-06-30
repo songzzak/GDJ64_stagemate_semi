@@ -222,6 +222,7 @@ private Qna getQna(ResultSet rs) throws SQLException{
 			.writerId(rs.getString("writer_id"))
 			.inquiryInsertDt(rs.getDate("inquiry_insert_dt"))
 			.inquiryLockFlg(rs.getString("inquiry_lock_flg"))
+
 			.build();
 	
 			
