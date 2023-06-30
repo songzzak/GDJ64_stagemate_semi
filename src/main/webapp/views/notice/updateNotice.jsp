@@ -46,7 +46,7 @@ Notice n = (Notice) request.getAttribute("notice");
 					<table>
 					<tr>
 						<th>내 용</th>
-						<td><textarea cols="42" rows="5" name="noticeContent"><%=n.getNoticeContent()%></textarea></td>
+						<td><textarea cols="100" rows="40" name="noticeContent"><%=n.getNoticeContent()%></textarea></td>
 					</tr>
 					</table>
 					</div>

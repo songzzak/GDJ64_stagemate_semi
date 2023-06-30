@@ -149,8 +149,8 @@ public class NoticeDao {
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("updateNotice"));
-			pstmt.setString(1, n.getNoticeContent());
-			pstmt.setString(2, n.getNoticeTitle());
+			pstmt.setString(1, n.getNoticeTitle());
+			pstmt.setString(2, n.getNoticeContent());
 			pstmt.setInt(3, n.getNoticeNo());
 			result=pstmt.executeUpdate();
 		}

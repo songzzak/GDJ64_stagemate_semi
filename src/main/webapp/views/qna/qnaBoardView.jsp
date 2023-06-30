@@ -50,12 +50,12 @@
 								<%} %>
 							</td>
 							
-							<th>카테고리 </th>
+						<%-- 	<th>카테고리 </th>
 							<% for(QnaListCtg qlc:qc){%>
 								<% if(qlc.getCtgNum()==q.getCtgNum()) {%>
 							<td><%=q.getCtgNm() %> </td>
 							<%} 
-								}%>
+								}%> --%>
 							
 							<th>작성일</th>
 							<td><%=q.getInquiryInsertDt()%></td>

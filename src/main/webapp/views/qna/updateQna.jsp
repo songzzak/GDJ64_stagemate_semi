@@ -48,7 +48,7 @@ Qna q= (Qna)request.getAttribute("qna");
 					<table>
 						<tr>
 							<th>내용</th>
-							<td><textarea cols="42" rows="5" name="qnaContent"><%=q.getInquiryContent()%></textarea></td>
+							<td><textarea cols="100" rows="40" name="qnaContent"><%=q.getInquiryContent()%></textarea></td>
 						</tr>
 					</table>
 				</div>
