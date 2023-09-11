@@ -135,6 +135,8 @@
 ### 회의
 주제 구상, UI 설계, 논리 DB 설계와 개인 피드백을 위해 매주 수요일 회의를 진행.
 노션을 이용해 서비스 기능 분석, 기능정의서, 공유 템플릿, 일정 등을 기록.
-![노션메인](https://github.com/leebib1/FilnalProject_workit/assets/128957257/a9569060-ba68-47e3-9eb2-fd3d42403120)
+![노션메인](https://github.com/areyouhun/GDJ64_stagemate_semi/assets/131333331/91e7c2f5-5944-4218-9588-d6b1269b54f5)
 노션 회의록을 이용하여 회의 내용 기록
-![노션일정](https://github.com/leebib1/FilnalProject_workit/assets/128957257/c4358985-079a-4d5a-bed1-3da45db0b53d)
+![노션회의록](https://github.com/areyouhun/GDJ64_stagemate_semi/assets/131333331/acc0e8f0-691b-4e89-960e-9c009f209d03)
+![image](https://github.com/areyouhun/GDJ64_stagemate_semi/assets/131333331/0d201f8d-54ad-4791-a670-88b7c25d6953)
+![image](https://github.com/areyouhun/GDJ64_stagemate_semi/assets/131333331/e942a621-93f4-4568-a1dc-4ca811230162)
