@@ -30,7 +30,7 @@
 #### DB 설계 담당 : 관계형 데이터베이스 설계 및 구축, 관리
 #### 서기 : 회의록, 기능정의서 등을 작성, 관리
 * 스토어
-  * [member](https://github.com/songzzak/GDJ64_stagemate_semi/tree/dev/src/main/java/com/stagemate/store)
+  * [store](https://github.com/songzzak/GDJ64_stagemate_semi/tree/dev/src/main/java/com/stagemate/store)
   * [payment](https://github.com/songzzak/GDJ64_stagemate_semi/tree/dev/src/main/java/com/stagemate/payment)
   * [deliveryAddress](https://github.com/songzzak/GDJ64_stagemate_semi/tree/dev/src/main/java/com/stagemate/deliveryAddress)
 * 마이페이지
